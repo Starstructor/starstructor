@@ -86,13 +86,13 @@ namespace DungeonEditor.GUI
                 // If found
                 if (path != null)
                 {
-                    path += @"\assets\";
+                    path = Path.Combine(path, "assets");
                     Editor.Settings.AssetDirPath = path;
                 }
                 // Otherwise prompt the user
                 else
                 {
-                    MessageBox.Show("Could not find Starbound folder. Please navigate to the ASSETS directory on the next screen.");
+                    MessageBox.Show("Could not find Starbound folder. Please navigate to Starbound's assets directory on the next screen.");
 
                     DirPopup guiPopup = new DirPopup(m_parent);
                     guiPopup.ShowDialog();
