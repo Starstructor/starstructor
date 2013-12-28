@@ -1,12 +1,25 @@
-﻿using DungeonEditor.EditorObjects;
-using Newtonsoft.Json;
-using System;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DungeonEditor.EditorObjects;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -14,7 +27,7 @@ namespace DungeonEditor.StarboundObjects.Ships
     {
         public override void UpdateLayerImage()
         {
-            this.UpdateLayerImage(m_partLayers);
+            UpdateLayerImage(m_partLayers);
         }
 
         public override void UpdateLayerImage(List<EditorMapLayer> layers)
@@ -29,9 +42,11 @@ namespace DungeonEditor.StarboundObjects.Ships
                 // Draw background overlays
                 foreach (ShipOverlay overlay in parentShip.BackgroundOverlays)
                 {
-                    float originX = overlay.Position[0] * Editor.DEFAULT_GRID_FACTOR;
-                    // Translate to the bottom-left, then offset by provided value
-                    float originY = (GraphicsMap.Height - overlay.Image.Height) - (overlay.Position[1] * Editor.DEFAULT_GRID_FACTOR);
+                    float originX = overlay.Position[0]*Editor.DEFAULT_GRID_FACTOR;
+
+                    // Translate to the bottom, then offset by provided value
+                    float originY = (GraphicsMap.Height - overlay.Image.Height) -
+                                    (overlay.Position[1]*Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image,
                         originX,
@@ -48,9 +63,10 @@ namespace DungeonEditor.StarboundObjects.Ships
                 // Draw foreground overlays
                 foreach (ShipOverlay overlay in parentShip.ForegroundOverlays)
                 {
-                    float originX = overlay.Position[0] * Editor.DEFAULT_GRID_FACTOR;
+                    float originX = overlay.Position[0]*Editor.DEFAULT_GRID_FACTOR;
                     // Translate to the bottom-left, then offset by provided value
-                    float originY = (GraphicsMap.Height - overlay.Image.Height) - (overlay.Position[1] * Editor.DEFAULT_GRID_FACTOR);
+                    float originY = (GraphicsMap.Height - overlay.Image.Height) -
+                                    (overlay.Position[1]*Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image, originX, originY, overlay.Image.Width, overlay.Image.Height);
                 }
@@ -61,22 +77,18 @@ namespace DungeonEditor.StarboundObjects.Ships
 
         public override void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax)
         {
-            this.UpdateLayerImageBetween(xmin, ymin, xmax, ymax, false, false, false, false);
+            UpdateLayerImageBetween(xmin, ymin, xmax, ymax, false, false, false, false);
         }
 
-        public override void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax, bool noFront, bool noBack, bool noSpecial, bool noClear)
+        public override void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax, bool noFront, bool noBack,
+            bool noSpecial, bool noClear)
         {
-            this.UpdateLayerImageBetween(m_partLayers, xmin, ymin, xmax, ymax, noFront, noBack, noSpecial, noClear);
+            UpdateLayerImageBetween(m_partLayers, xmin, ymin, xmax, ymax, noFront, noBack, noSpecial, noClear);
         }
 
         public override void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax)
         {
-            this.UpdateLayerImageBetween(layers, xmin, ymin, xmax, ymax, false, false, false, false);
-        }
-
-        public override void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax, bool noFront, bool noBack, bool noSpecial, bool noClear)
-        {            
-            base.UpdateLayerImageBetween(layers, xmin, ymin, xmax, ymax, noFront, noBack, noSpecial, noClear);
+            UpdateLayerImageBetween(layers, xmin, ymin, xmax, ymax, false, false, false, false);
         }
     }
 }

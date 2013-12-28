@@ -1,50 +1,51 @@
-﻿using DungeonEditor.StarboundObjects;
-using DungeonEditor.StarboundObjects.Dungeons;
-using DungeonEditor.StarboundObjects.Tiles;
-using DungeonEditor;
-using DungeonEditor.EditorObjects;
-using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DungeonEditor.StarboundObjects.Ships;
+using DungeonEditor.EditorObjects;
+using DungeonEditor.StarboundObjects.Dungeons;
 using DungeonEditor.StarboundObjects.Objects;
-using System.Drawing.Imaging;
-using System.Timers;
+using DungeonEditor.StarboundObjects.Ships;
+using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 
 namespace DungeonEditor.GUI
 {
     public partial class MainWindow : Form
     {
-        public Editor m_parent;
-
-        private Dictionary<TreeNode, EditorBrush> m_brushNodeMap
+        private readonly Dictionary<TreeNode, EditorBrush> m_brushNodeMap
             = new Dictionary<TreeNode, EditorBrush>();
-        private Dictionary<TreeNode, EditorMap> m_mapNodeMap
+
+        private readonly Dictionary<TreeNode, EditorMap> m_mapNodeMap
             = new Dictionary<TreeNode, EditorMap>();
 
-        private EditorMap m_selectedMap;
-        private EditorBrush m_selectedBrush;
-
         private int m_gridFactor;
-
-        public EditorMap SelectedMap
-        {
-            get
-            {
-                return m_selectedMap;
-            }
-        }
+        public Editor m_parent;
+        private EditorBrush m_selectedBrush;
+        private EditorMap m_selectedMap;
 
         public MainWindow(Editor parent)
         {
@@ -53,35 +54,34 @@ namespace DungeonEditor.GUI
             InitializeComponent();
         }
 
+        public EditorMap SelectedMap
+        {
+            get { return m_selectedMap; }
+        }
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            this.WindowState = Editor.Settings.WindowState;
-            this.Left = Editor.Settings.WindowX;
-            this.Top = Editor.Settings.WindowY;
-            this.Width = Editor.Settings.WindowWidth;
-            this.Height = Editor.Settings.WindowHeight;
-            this.MainPictureBox.m_parent = this;
+            WindowState = Editor.Settings.WindowState;
+            Left = Editor.Settings.WindowX;
+            Top = Editor.Settings.WindowY;
+            Width = Editor.Settings.WindowWidth;
+            Height = Editor.Settings.WindowHeight;
+            MainPictureBox.m_parent = this;
 
-            this.viewCollisionsToolStripMenuItem.Checked = Editor.Settings.ViewCollisionGrid;
-
-            if (Editor.Settings.GraphicalDisplay)
-            {
-                this.BottomBarGfxCombo.SelectedIndex = 0;
-            }
-            else
-            {
-                this.BottomBarGfxCombo.SelectedIndex = 1;
-            }
+            viewCollisionsToolStripMenuItem.Checked = Editor.Settings.ViewCollisionGrid;
+            BottomBarGfxCombo.SelectedIndex = Editor.Settings.GraphicalDisplay ? 0 : 1;
         }
 
         private void MainWindow_Shown(object sender, EventArgs e)
         {
-            this.Text = m_parent.Name + " v" + m_parent.Version;
+            Text = m_parent.Name + " v" + m_parent.Version;
 
             if (Editor.Settings.AssetDirPath == null)
             {
                 // Try to auto-find directory
-                string path = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 211820", "InstallLocation", null);
+                string path = (string)Registry.GetValue(
+                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 211820",
+                    "InstallLocation", null);
 
                 // If found
                 if (path != null)
@@ -92,7 +92,8 @@ namespace DungeonEditor.GUI
                 // Otherwise prompt the user
                 else
                 {
-                    MessageBox.Show("Could not find Starbound folder. Please navigate to Starbound's assets directory on the next screen.");
+                    MessageBox.Show(
+                        "Could not find Starbound folder. Please navigate to Starbound's assets directory on the next screen.");
 
                     DirPopup guiPopup = new DirPopup(m_parent);
                     guiPopup.ShowDialog();
@@ -100,8 +101,8 @@ namespace DungeonEditor.GUI
             }
 
             m_parent.SaveSettings();
-            this.OpenFile.InitialDirectory = Editor.Settings.AssetDirPath;
-            this.MainPictureBox.Focus();
+            OpenFile.InitialDirectory = Editor.Settings.AssetDirPath;
+            MainPictureBox.Focus();
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -112,36 +113,28 @@ namespace DungeonEditor.GUI
                 return;
             }
 
-            Editor.Settings.WindowState = this.WindowState;
-            Editor.Settings.WindowX = this.Left;
-            Editor.Settings.WindowY = this.Top;
-            Editor.Settings.WindowWidth = this.Width;
-            Editor.Settings.WindowHeight = this.Height;
-
-            if (this.BottomBarGfxCombo.SelectedIndex == 0)
-            {
-                Editor.Settings.GraphicalDisplay = true;
-            }
-            else
-            {
-                Editor.Settings.GraphicalDisplay = false;
-            }
+            Editor.Settings.WindowState = WindowState;
+            Editor.Settings.WindowX = Left;
+            Editor.Settings.WindowY = Top;
+            Editor.Settings.WindowWidth = Width;
+            Editor.Settings.WindowHeight = Height;
+            Editor.Settings.GraphicalDisplay = BottomBarGfxCombo.SelectedIndex == 0;
 
             m_parent.SaveSettings();
         }
 
         private void CleanUp()
         {
-            this.MainPictureBox.SetImage(null, m_gridFactor);
-            this.MainPictureBox.SetSelectedBrush(null);
-            this.VisualGraphicBrushImageBox.Image = null;
-            this.VisualRgbaBrushImageBox.Image = null;
-            this.PartTreeView.Nodes.Clear();
-            this.BrushesTreeView.Nodes.Clear();
-            this.BottomBarBrushLabel.Text = "Selected Brush: ";
-            this.BottomBarXLabel.Text = "Grid X: ";
-            this.BottomBarYLabel.Text = "Grid Y: ";
-            this.BottomBarZoomLabel.Text = "Zoom: ";
+            MainPictureBox.SetImage(null, m_gridFactor);
+            MainPictureBox.SetSelectedBrush(null);
+            VisualGraphicBrushImageBox.Image = null;
+            VisualRgbaBrushImageBox.Image = null;
+            PartTreeView.Nodes.Clear();
+            BrushesTreeView.Nodes.Clear();
+            BottomBarBrushLabel.Text = "Selected Brush: ";
+            BottomBarXLabel.Text = "Grid X: ";
+            BottomBarYLabel.Text = "Grid Y: ";
+            BottomBarZoomLabel.Text = "Zoom: ";
             m_brushNodeMap.Clear();
             m_mapNodeMap.Clear();
             m_parent.CleanUpResource();
@@ -153,48 +146,51 @@ namespace DungeonEditor.GUI
             GC.Collect();
         }
 
-        private DialogResult PromptClosingProject()
+        private static DialogResult PromptClosingProject()
         {
-            return MessageBox.Show("Are you sure you wish to close your current opened dungeon?",
+            return MessageBox.Show(
+                "Are you sure you wish to close your current opened dungeon?",
                 "Exit", MessageBoxButtons.OKCancel);
         }
 
-        private DialogResult PromptSaveWork()
+        private static DialogResult PromptSaveWork()
         {
-            return MessageBox.Show("Are you sure you would like to save all modified assets in this project?",
+            return MessageBox.Show(
+                "Are you sure you would like to save all modified assets in this project?",
                 "Save", MessageBoxButtons.OKCancel);
         }
 
-        private DialogResult PromptSaveWorkWhenQuitting()
+        private static DialogResult PromptSaveWorkWhenQuitting()
         {
-            return MessageBox.Show("Your project has unsaved work. Are you sure you want to exit without saving? (you can save from the file menu.)",
+            return MessageBox.Show(
+                "Your project has unsaved work. Are you sure you want to exit without saving? (you can save from the file menu.)",
                 "Unsaved work", MessageBoxButtons.OKCancel);
         }
 
         public void UpdateBottomBar(float zoom)
         {
-            this.BottomBarZoomLabel.Text = "Zoom: " + Math.Round(zoom, 1).ToString() + "x";
-            this.BottomBarZoomLabel.Refresh();
+            BottomBarZoomLabel.Text = "Zoom: " + Math.Round(zoom, 1) + "x";
+            BottomBarZoomLabel.Refresh();
         }
 
         public void UpdateBottomBar(int gridX, int gridY)
         {
-            this.BottomBarXLabel.Text = "Grid X: ";
-            this.BottomBarYLabel.Text = "Grid Y: ";
+            BottomBarXLabel.Text = "Grid X: ";
+            BottomBarYLabel.Text = "Grid Y: ";
 
             if (gridX == -1 || gridY == -1)
             {
-                this.BottomBarXLabel.Text += "N/A";
-                this.BottomBarYLabel.Text += "N/A";
+                BottomBarXLabel.Text += "N/A";
+                BottomBarYLabel.Text += "N/A";
             }
             else
             {
-                this.BottomBarXLabel.Text += gridX;
-                this.BottomBarYLabel.Text += gridY;
+                BottomBarXLabel.Text += gridX;
+                BottomBarYLabel.Text += gridY;
             }
 
-            this.BottomBarXLabel.Refresh();
-            this.BottomBarYLabel.Refresh();
+            BottomBarXLabel.Refresh();
+            BottomBarYLabel.Refresh();
         }
 
 
@@ -208,27 +204,27 @@ namespace DungeonEditor.GUI
                 " b: " + m_selectedBrush.Colour[2];
 
             // Tidy this display up at some point
-            this.BottomBarBrushLabel.Text = "Selected Brush: " + m_selectedBrush.Comment;
+            BottomBarBrushLabel.Text = "Selected Brush: " + m_selectedBrush.Comment;
 
             if (m_selectedBrush.FrontAsset != null)
             {
-                this.BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.AssetName;
+                BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.AssetName;
             }
 
             if (m_selectedBrush.BackAsset != null)
             {
-                this.BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.AssetName;
+                BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.AssetName;
             }
 
-            this.BottomBarBrushLabel.Text += "        " + colour;
+            BottomBarBrushLabel.Text += "        " + colour;
 
-            this.VisualRgbaBrushDescLabel.Text =
+            VisualRgbaBrushDescLabel.Text =
                 "r: " + m_selectedBrush.Colour[0] +
                 " g: " + m_selectedBrush.Colour[1] +
                 " b: " + m_selectedBrush.Colour[2];
 
             // Populate the colour box
-            this.VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
+            VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
                 m_selectedBrush.Colour[0], m_selectedBrush.Colour[1],
                 m_selectedBrush.Colour[2], m_selectedBrush.Colour[3]);
 
@@ -238,21 +234,21 @@ namespace DungeonEditor.GUI
             if (m_selectedBrush.FrontAsset != null)
             {
                 assetImg = m_selectedBrush.FrontAsset.Image;
-                this.VisualGraphicBrushDescLabel.Text = m_selectedBrush.FrontAsset.AssetName;
+                VisualGraphicBrushDescLabel.Text = m_selectedBrush.FrontAsset.AssetName;
             }
             else if (m_selectedBrush.BackAsset != null)
             {
                 assetImg = m_selectedBrush.BackAsset.Image;
-                this.VisualGraphicBrushDescLabel.Text = m_selectedBrush.BackAsset.AssetName;
+                VisualGraphicBrushDescLabel.Text = m_selectedBrush.BackAsset.AssetName;
             }
 
             // Populate the tile preview box
             if (assetImg != null)
             {
-                this.VisualGraphicBrushImageBox.Image = assetImg;
+                VisualGraphicBrushImageBox.Image = assetImg;
             }
 
-            this.MainPictureBox.SetSelectedBrush(m_selectedBrush);
+            MainPictureBox.SetSelectedBrush(m_selectedBrush);
         }
 
         public EditorMapLayer GetSelectedLayer()
@@ -264,11 +260,11 @@ namespace DungeonEditor.GUI
 
             if (m_selectedMap is EditorMapPart)
             {
-                activeLayer = ((EditorMapPart)m_selectedMap).Layers.FirstOrDefault();
+                activeLayer = ((EditorMapPart) m_selectedMap).Layers.FirstOrDefault();
             }
             else if (m_selectedMap is EditorMapLayer)
             {
-                activeLayer = (EditorMapLayer)m_selectedMap;
+                activeLayer = (EditorMapLayer) m_selectedMap;
             }
 
             return activeLayer;
@@ -293,7 +289,8 @@ namespace DungeonEditor.GUI
 
             if (oldBrush != null && oldBrush.FrontAsset != null && oldBrush.FrontAsset is StarboundObject)
             {
-                oldBrushOrientation = ((StarboundObject)oldBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX, gridY);
+                oldBrushOrientation = ((StarboundObject) oldBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX,
+                    gridY);
             }
 
             // If there's nothing to change, just leave
@@ -306,7 +303,7 @@ namespace DungeonEditor.GUI
             // We need to selectively redraw here
             if (m_gridFactor != 1)
             {
-                HashSet<List<int>> additionalRedrawList = new HashSet<List<int>>();
+                var additionalRedrawList = new HashSet<List<int>>();
 
                 int xmin = gridX;
                 int xmax = gridX;
@@ -329,7 +326,7 @@ namespace DungeonEditor.GUI
                     ymin += originY;
                     ymax += sizeY + originY;
                 }
-                // If the old brush isn't an object, just redraw a tile
+                    // If the old brush isn't an object, just redraw a tile
                 else
                 {
                     xmax += 1;
@@ -338,9 +335,10 @@ namespace DungeonEditor.GUI
 
                 // If the current brush is an object
                 // Extend the range of our bounds, so we encompass the old object, AND the new object
-                if (m_selectedBrush.FrontAsset != null && m_selectedBrush.FrontAsset is StarboundObject)
+                if (m_selectedBrush.FrontAsset is StarboundObject)
                 {
-                    ObjectOrientation orientation = ((StarboundObject)m_selectedBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX, gridY);
+                    ObjectOrientation orientation =
+                        ((StarboundObject) m_selectedBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX, gridY);
 
                     int sizeX = orientation.GetWidth(m_selectedBrush.Direction, 1);
                     int sizeY = orientation.GetHeight(m_selectedBrush.Direction, 1);
@@ -371,7 +369,7 @@ namespace DungeonEditor.GUI
                     for (int y = ymin; y < ymax; ++y)
                     {
                         HashSet<List<int>> collisions = null;
-                        
+
                         if (m_selectedMap is EditorMapPart)
                         {
                             collisions = activeLayer.Parent.GetCollisionsAt(x, y);
@@ -381,16 +379,14 @@ namespace DungeonEditor.GUI
                             collisions = activeLayer.GetCollisionsAt(x, y);
                         }
 
-                        if (collisions != null)
+                        if (collisions == null) 
+                            continue;
+
+                        foreach (List<int> coords in collisions.Where(coords => 
+                            (coords[0] != x || coords[1] != y) &&
+                            (coords[0] != gridX || coords[1] != gridY)))
                         {
-                            foreach (List<int> coords in collisions)
-                            {
-                                if ((coords[0] != x || coords[1] != y) &&
-                                    (coords[0] != gridX || coords[1] != gridY))
-                                {
-                                    additionalRedrawList.Add(coords);
-                                }
-                            }
+                            additionalRedrawList.Add(coords);
                         }
                     }
                 }
@@ -399,46 +395,46 @@ namespace DungeonEditor.GUI
                 if (m_selectedMap is EditorMapPart)
                 {
                     activeLayer.Parent.UpdateLayerImageBetween(
-                        xmin, 
-                        ymin, 
-                        xmax, 
-                        ymax);
-
-                    foreach (List<int> coords in additionalRedrawList)
-                    {
-                        activeLayer.Parent.UpdateLayerImageBetween(
-                            coords[0], 
-                            coords[1], 
-                            coords[0] + 1, 
-                            coords[1] + 1);
-                    }
-                }
-
-                // Only selectively redraw the active layer
-                else if (m_selectedMap is EditorMapLayer)
-                {
-                    activeLayer.Parent.UpdateLayerImageBetween(
-                        new List<EditorMapLayer>() { activeLayer },
                         xmin,
                         ymin,
                         xmax,
                         ymax);
 
-                    foreach (List<int> coords in additionalRedrawList)
+                    foreach (var coords in additionalRedrawList)
                     {
                         activeLayer.Parent.UpdateLayerImageBetween(
-                            new List<EditorMapLayer>() { activeLayer }, 
-                            coords[0], 
-                            coords[1], 
-                            coords[0] + 1, 
+                            coords[0],
+                            coords[1],
+                            coords[0] + 1,
+                            coords[1] + 1);
+                    }
+                }
+
+                    // Only selectively redraw the active layer
+                else if (m_selectedMap is EditorMapLayer)
+                {
+                    activeLayer.Parent.UpdateLayerImageBetween(
+                        new List<EditorMapLayer> {activeLayer},
+                        xmin,
+                        ymin,
+                        xmax,
+                        ymax);
+
+                    foreach (var coords in additionalRedrawList)
+                    {
+                        activeLayer.Parent.UpdateLayerImageBetween(
+                            new List<EditorMapLayer> {activeLayer},
+                            coords[0],
+                            coords[1],
+                            coords[0] + 1,
                             coords[1] + 1);
                     }
                 }
             }
-                
+
             // There MUST be an immediate refresh here
             // Otherwise the system will delay the refresh on large images
-            this.MainPictureBox.Refresh();
+            MainPictureBox.Refresh();
         }
 
         public void OnCanvasRightClick(int gridX, int gridY, int lastGridX, int lastGridY)
@@ -468,24 +464,24 @@ namespace DungeonEditor.GUI
                 foreach (EditorMapLayer layer in part.Layers)
                 {
                     TreeNode newNode = new TreeNode(layer.Name);
-                    m_mapNodeMap[newNode] = (EditorMap)layer;
+                    m_mapNodeMap[newNode] = layer;
                     childNodes.Add(newNode);
                 }
 
                 TreeNode parentNode = new TreeNode(part.Name, childNodes.ToArray<TreeNode>());
-                m_mapNodeMap[parentNode] = (EditorMap)part;
-                this.PartTreeView.Nodes.Add(parentNode);
+                m_mapNodeMap[parentNode] = part;
+                PartTreeView.Nodes.Add(parentNode);
             }
         }
 
         private void PartTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (m_mapNodeMap.ContainsKey(e.Node))
-            {
-                m_selectedMap = m_mapNodeMap[e.Node];
-                this.PartDescLabel.Text = "Parts List: " + m_selectedMap.Name;
-                UpdateImageBox(true, true);
-            }
+            if (!m_mapNodeMap.ContainsKey(e.Node)) 
+                return;
+
+            m_selectedMap = m_mapNodeMap[e.Node];
+            PartDescLabel.Text = "Parts List: " + m_selectedMap.Name;
+            UpdateImageBox(true, true);
         }
 
         // Populate the brush list
@@ -493,7 +489,7 @@ namespace DungeonEditor.GUI
         {
             foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
             {
-                List<TreeNode> children = new List<TreeNode>();
+                var children = new List<TreeNode>();
                 string comment = brush.Comment;
 
                 if (String.IsNullOrWhiteSpace(comment))
@@ -503,75 +499,64 @@ namespace DungeonEditor.GUI
 
                 if (brush is DungeonBrush)
                 {
-                    DungeonBrush dungeonBrush = (DungeonBrush)brush;
+                    var dungeonBrush = (DungeonBrush) brush;
 
                     if (dungeonBrush.Brushes != null)
                     {
                         // Populate the brushes in the asset viewer
-                        foreach (List<object> brushArray in dungeonBrush.Brushes)
-                        {
-                            foreach (var brushElement in brushArray)
-                            {
-                                foreach (TreeNode child in AddNodes_r(brushElement))
-                                {
-                                    children.Add(child);
-                                }
-                            }
-                        }
+                        children.AddRange(from brushArray in dungeonBrush.Brushes 
+                                          from brushElement in brushArray 
+                                          from child in AddNodes_r(brushElement) 
+                                          select child);
                     }
                 }
 
                 else if (brush is ShipBrush)
                 {
-                    ShipBrush shipBrush = (ShipBrush)brush;
+                    var shipBrush = (ShipBrush) brush;
 
-                    foreach (string element in shipBrush.BrushTypes)
+                    foreach (TreeNode child in shipBrush.BrushTypes.SelectMany(AddNodes_r))
                     {
-                        foreach (TreeNode child in AddNodes_r(element))
+                        if (child.Text == "back")
                         {
-                            if (child.Text == "back")
-                            {
-                                children.Add(new TreeNode("back: " + shipBrush.BackgroundMat));
-                            }
-                            else if (child.Text == "front")
-                            {
-                                children.Add(new TreeNode("front: " + shipBrush.ForegroundMat));
-                            }
-                            else if (child.Text == "object")
-                            {
-                                List<TreeNode> objChildren = new List<TreeNode>();
+                            children.Add(new TreeNode("back: " + shipBrush.BackgroundMat));
+                        }
+                        else if (child.Text == "front")
+                        {
+                            children.Add(new TreeNode("front: " + shipBrush.ForegroundMat));
+                        }
+                        else if (child.Text == "object")
+                        {
+                            List<TreeNode> objChildren = new List<TreeNode>();
 
-                                if (shipBrush.ObjectDirection != null)
-                                {
-                                    objChildren.Add(new TreeNode("direction", AddNodes_r(shipBrush.ObjectDirection).ToArray()));
-
-                                }
-
-                                children.Add(new TreeNode("obj: " + shipBrush.Object, objChildren.ToArray()));
+                            if (shipBrush.ObjectDirection != null)
+                            {
+                                objChildren.Add(new TreeNode("direction",
+                                    AddNodes_r(shipBrush.ObjectDirection).ToArray()));
                             }
+
+                            children.Add(new TreeNode("obj: " + shipBrush.Object, objChildren.ToArray()));
                         }
                     }
 
-                    List<TreeNode> blockingType = new List<TreeNode>();
+                    var blockingType = new List<TreeNode>();
 
                     if (shipBrush.BackgroundBlock)
                         blockingType.Add(new TreeNode("background"));
 
-                    if (shipBrush.ForegroundBlock)                   
+                    if (shipBrush.ForegroundBlock)
                         blockingType.Add(new TreeNode("foreground"));
 
                     if (blockingType.Count > 0)
                         children.Add(new TreeNode("blocks", blockingType.ToArray()));
                 }
 
-                TreeNode parentNode = new TreeNode(comment, children.ToArray<TreeNode>());
-                this.BrushesTreeView.Nodes.Add(parentNode);
+                var parentNode = new TreeNode(comment, children.ToArray<TreeNode>());
+                BrushesTreeView.Nodes.Add(parentNode);
 
                 // Add this node to the brush -> node map
                 m_brushNodeMap[parentNode] = brush;
             }
-
-            return;
         }
 
         private void BrushesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -592,7 +577,7 @@ namespace DungeonEditor.GUI
             EditorMapPart part = GetSelectedPart();
 
             // If we're displaying the graphic map
-            if (this.BottomBarGfxCombo.SelectedIndex == 0)
+            if (BottomBarGfxCombo.SelectedIndex == 0)
             {
                 m_gridFactor = 8;
 
@@ -602,28 +587,28 @@ namespace DungeonEditor.GUI
                 }
                 else if (m_selectedMap is EditorMapLayer)
                 {
-                    part.UpdateLayerImage(new List<EditorMapLayer>() { (EditorMapLayer)m_selectedMap });
+                    part.UpdateLayerImage(new List<EditorMapLayer> {(EditorMapLayer) m_selectedMap});
                 }
 
-                this.MainPictureBox.SetImage(part.GraphicsMap, resetZoom, resetCamera, m_gridFactor);
+                MainPictureBox.SetImage(part.GraphicsMap, resetZoom, resetCamera, m_gridFactor);
             }
 
             // If we're displaying the colour map
-            else if (this.BottomBarGfxCombo.SelectedIndex == 1)
+            else if (BottomBarGfxCombo.SelectedIndex == 1)
             {
                 m_gridFactor = 1;
 
                 if (m_selectedMap is EditorMapPart)
                 {
-                    this.MainPictureBox.SetImage(part.ColourMap, resetZoom, resetCamera, m_gridFactor);
+                    MainPictureBox.SetImage(part.ColourMap, resetZoom, resetCamera, m_gridFactor);
                 }
                 else if (m_selectedMap is EditorMapLayer)
                 {
-                    this.MainPictureBox.SetImage(GetSelectedLayer().ColourMap, resetZoom, resetCamera, m_gridFactor);
+                    MainPictureBox.SetImage(GetSelectedLayer().ColourMap, resetZoom, resetCamera, m_gridFactor);
                 }
             }
 
-            this.MainPictureBox.Invalidate();
+            MainPictureBox.Invalidate();
         }
 
 
@@ -635,29 +620,20 @@ namespace DungeonEditor.GUI
 
             if (element is JObject)
             {
-                foreach (object deepElem in (JObject)element)
+                foreach (KeyValuePair<string, JToken> deepElem in (JObject) element)
                 {
-                    foreach (TreeNode node in AddNodes_r(deepElem))
-                    {
-                        nodes.Add(node);
-                    }
+                    nodes.AddRange(AddNodes_r(deepElem));
                 }
             }
 
             else if (element is JArray)
             {
-                foreach (object deepElem in (JArray)element)
-                {
-                    foreach (TreeNode node in AddNodes_r(deepElem))
-                    {
-                        nodes.Add(node);
-                    }
-                }
+                nodes.AddRange(((JArray)element).Cast<object>().SelectMany(AddNodes_r));
             }
 
             else if (element is JValue)
             {
-                nodes.Add(new TreeNode(((JValue)element).ToString()));
+                nodes.Add(new TreeNode(element.ToString()));
             }
 
             else if (element is KeyValuePair<string, JToken>)
@@ -692,7 +668,7 @@ namespace DungeonEditor.GUI
             if (!Directory.Exists(Editor.Settings.AssetDirPath))
             {
                 MessageBox.Show("Invalid asset directory set. Please choose a valid asset directory " +
-                    "from the Starbound menu in the toolset.", "Error", MessageBoxButtons.OK);
+                                "from the Starbound menu in the toolset.", "Error", MessageBoxButtons.OK);
                 return;
             }
 
@@ -709,13 +685,13 @@ namespace DungeonEditor.GUI
             {
                 MessageBox.Show("Unable to load!");
 
-                this.Close();
+                Close();
                 return;
             }
 
             m_parent.ActiveFile.FilePath = OpenFile.FileName;
 
-            this.Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
+            Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
 
             m_parent.ScanAssetDirectory();
             m_parent.ActiveFile.GenerateBrushAndAssetMaps(m_parent);
@@ -724,14 +700,14 @@ namespace DungeonEditor.GUI
             PopulatePartTreeView();
             PopulateBrushList();
 
-            if (this.PartTreeView.Nodes.Count > 0)
+            if (PartTreeView.Nodes.Count > 0)
             {
-                this.PartTreeView.SelectedNode = this.PartTreeView.Nodes[0];
+                PartTreeView.SelectedNode = PartTreeView.Nodes[0];
             }
 
-            this.closeToolStripMenuItem.Enabled = true;
-            this.saveToolStripMenuItem.Enabled = true;
-            this.MainPictureBox.Focus();
+            closeToolStripMenuItem.Enabled = true;
+            saveToolStripMenuItem.Enabled = true;
+            MainPictureBox.Focus();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -741,27 +717,27 @@ namespace DungeonEditor.GUI
                 CleanUp();
             }
 
-            this.closeToolStripMenuItem.Enabled = false;
-            this.saveToolStripMenuItem.Enabled = false;
+            closeToolStripMenuItem.Enabled = false;
+            saveToolStripMenuItem.Enabled = false;
         }
 
         private bool ConfirmExit()
         {
-            if (m_parent.ActiveFile != null)
+            if (m_parent.ActiveFile == null) 
+                return true;
+
+            if (CheckForUnsavedWork())
             {
-                if (CheckForUnsavedWork())
-                {
-                    // If they change their mind at the prompt, leave
-                    if (PromptSaveWorkWhenQuitting() == System.Windows.Forms.DialogResult.Cancel)
-                    {
-                        return false;
-                    }
-                }
                 // If they change their mind at the prompt, leave
-                else if (PromptClosingProject() == DialogResult.Cancel)
+                if (PromptSaveWorkWhenQuitting() == DialogResult.Cancel)
                 {
                     return false;
                 }
+            }
+                // If they change their mind at the prompt, leave
+            else if (PromptClosingProject() == DialogResult.Cancel)
+            {
+                return false;
             }
 
             return true;
@@ -769,25 +745,25 @@ namespace DungeonEditor.GUI
 
         private void setDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DirPopup guiPopup = new DirPopup(m_parent);
+            var guiPopup = new DirPopup(m_parent);
             guiPopup.ShowDialog();
-            this.OpenFile.InitialDirectory = Editor.Settings.AssetDirPath;
+            OpenFile.InitialDirectory = Editor.Settings.AssetDirPath;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void RightPanelTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            var borderColor = SystemColors.ControlDarkDark;
-            var borderWidth = 1;
+            Color borderColor = SystemColors.ControlDarkDark;
+            const int borderWidth = 1;
 
-            var leftBorderStyle = ButtonBorderStyle.None;
-            var topBorderStyle = ButtonBorderStyle.Dotted;
-            var rightBorderStyle = ButtonBorderStyle.None;
-            var bottomBorderStyle = ButtonBorderStyle.Dotted;
+            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.Dotted;
+            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.Dotted;
 
             if (e.Row == 0)
             {
@@ -814,13 +790,13 @@ namespace DungeonEditor.GUI
 
         private void BottomBarTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            var borderColor = SystemColors.ControlDarkDark;
-            var borderWidth = 1;
+            Color borderColor = SystemColors.ControlDarkDark;
+            const int borderWidth = 1;
 
-            var leftBorderStyle = ButtonBorderStyle.None;
-            var topBorderStyle = ButtonBorderStyle.None;
-            var rightBorderStyle = ButtonBorderStyle.Dotted;
-            var bottomBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.Dotted;
+            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
 
             if (e.Column == 4)
                 rightBorderStyle = ButtonBorderStyle.Solid;
@@ -844,13 +820,13 @@ namespace DungeonEditor.GUI
 
         private void TreeViewVisualBrushTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            var borderColor = SystemColors.ControlDarkDark;
-            var borderWidth = 1;
+            Color borderColor = SystemColors.ControlDarkDark;
+            const int borderWidth = 1;
 
-            var leftBorderStyle = ButtonBorderStyle.None;
-            var topBorderStyle = ButtonBorderStyle.None;
-            var rightBorderStyle = ButtonBorderStyle.None;
-            var bottomBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
 
             if (e.Column == 0)
                 rightBorderStyle = ButtonBorderStyle.Dotted;
@@ -877,13 +853,13 @@ namespace DungeonEditor.GUI
 
         private void MainTableLayout_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            var borderColor = SystemColors.ControlDarkDark;
-            var borderWidth = 1;
+            Color borderColor = SystemColors.ControlDarkDark;
+            const int borderWidth = 1;
 
-            var leftBorderStyle = ButtonBorderStyle.None;
-            var topBorderStyle = ButtonBorderStyle.None;
-            var rightBorderStyle = ButtonBorderStyle.None;
-            var bottomBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
 
             if (e.Column == 0)
             {
@@ -920,12 +896,9 @@ namespace DungeonEditor.GUI
 
             foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
             {
-                foreach (EditorMapLayer layer in part.Layers)
+                foreach (EditorMapLayer layer in part.Layers.Where(layer => layer.Changed))
                 {
-                    if (layer.Changed)
-                    {
-                        workUnsaved = true;
-                    }
+                    workUnsaved = true;
                 }
             }
 
@@ -952,20 +925,20 @@ namespace DungeonEditor.GUI
             {
                 foreach (EditorMapLayer layer in part.Layers)
                 {
-                    if (layer.Changed)
-                    {
-                        string path = Path.Combine(Path.GetDirectoryName(m_parent.ActiveFile.FilePath), layer.Name);
-                        Image newColourMap = layer.ColourMap;
+                    if (!layer.Changed) 
+                        continue;
 
-                        try
-                        {
-                            newColourMap.Save(path, ImageFormat.Png);
-                            layer.Changed = false;
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("REPORT THIS ON THE FORUMS\n\n" + ex.ToString());
-                        }
+                    string path = Path.Combine(Path.GetDirectoryName(m_parent.ActiveFile.FilePath), layer.Name);
+                    Image newColourMap = layer.ColourMap;
+
+                    try
+                    {
+                        newColourMap.Save(path, ImageFormat.Png);
+                        layer.Changed = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("REPORT THIS ON THE FORUMS\n\n" + ex);
                     }
                 }
             }
@@ -974,7 +947,7 @@ namespace DungeonEditor.GUI
         // Time to save
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (PromptSaveWork() == System.Windows.Forms.DialogResult.OK)
+            if (PromptSaveWork() == DialogResult.OK)
             {
                 SaveWork();
             }
@@ -987,11 +960,11 @@ namespace DungeonEditor.GUI
                 UpdateImageBox(false, false);
             }
 
-            if (e.KeyCode == Keys.F10 && m_selectedMap != null)
-            {
-                Image screenGrab = GetSelectedPart().GraphicsMap;
-                screenGrab.Save("screengrab.png", ImageFormat.Png);
-            }
+            if (e.KeyCode != Keys.F10 || m_selectedMap == null) 
+                return;
+
+            Image screenGrab = GetSelectedPart().GraphicsMap;
+            screenGrab.Save("screengrab.png", ImageFormat.Png);
         }
 
         private void viewCollisionsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -1,14 +1,28 @@
-﻿using DungeonEditor.StarboundObjects;
-using DungeonEditor.EditorObjects;
-using Newtonsoft.Json;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Drawing;
-using DungeonEditor.StarboundObjects.Objects;
+using System.IO;
+using DungeonEditor.EditorObjects;
+using Newtonsoft.Json;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -33,7 +47,7 @@ namespace DungeonEditor.StarboundObjects.Ships
         {
             parent.ActiveFile = new JsonParser(path).ParseJson<StarboundShip>();
 
-            foreach (ShipBrush brush in ((StarboundShip)parent.ActiveFile).Brushes)
+            foreach (ShipBrush brush in ((StarboundShip) parent.ActiveFile).Brushes)
             {
                 parent.ActiveFile.BlockMap.Add(brush);
             }
@@ -43,24 +57,25 @@ namespace DungeonEditor.StarboundObjects.Ships
         {
             string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), PartImage);
 
-            if (File.Exists(path))
-            {
-                Image layerImg = EditorHelpers.LoadImageFromFile(path);
+            if (!File.Exists(path)) 
+                return;
 
-                // Ships don't have parts. Make a dummy one.
-                ShipPart part = new ShipPart();
-                part.Name = PartImage;
-                part.Parent = this;
-                part.Width = layerImg.Width;
-                part.Height = layerImg.Height;
+            Image layerImg = EditorHelpers.LoadImageFromFile(path);
 
-                part.Layers.Add(new EditorMapLayer(PartImage, (Bitmap)layerImg, parent.BrushMap, part));
-                part.GraphicsMap = new Bitmap(part.Width * Editor.DEFAULT_GRID_FACTOR, part.Height * Editor.DEFAULT_GRID_FACTOR);
-                part.UpdateCompositeCollisionMap();
+            // Ships don't have parts. Make a dummy one.
+            ShipPart part = new ShipPart();
+            part.Name = PartImage;
+            part.Parent = this;
+            part.Width = layerImg.Width;
+            part.Height = layerImg.Height;
 
-                ReadableParts.Add(part);
-                LoadOverlays();
-            }
+            part.Layers.Add(new EditorMapLayer(PartImage, (Bitmap) layerImg, parent.BrushMap, part));
+            part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
+                part.Height*Editor.DEFAULT_GRID_FACTOR);
+            part.UpdateCompositeCollisionMap();
+
+            ReadableParts.Add(part);
+            LoadOverlays();
         }
 
         public override void GenerateBrushAndAssetMaps(Editor parent)
@@ -74,13 +89,13 @@ namespace DungeonEditor.StarboundObjects.Ships
 
                 brush.Comment = "";
 
-                if(brush.Colour.Count != 4)
+                if (brush.Colour.Count != 4)
                 {
                     brush.Colour.Add(255);
                 }
 
                 // The thing occupying the background layer
-                if(brush.BackgroundMat != null)
+                if (brush.BackgroundMat != null)
                 {
                     brush.Comment += brush.BackgroundMat + "  ";
                     backgroundType = "back";

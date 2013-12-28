@@ -1,20 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+using System;
 using System.Windows.Forms;
-using DungeonEditor;
 
 namespace DungeonEditor.GUI
 {
     public partial class DirPopup : Form
     {
-        private bool m_pathSet;
         private Editor m_parent;
+        private bool m_pathSet;
 
         public DirPopup(Editor parent)
         {
@@ -27,7 +38,7 @@ namespace DungeonEditor.GUI
             Editor.Settings.AssetDirPath = FolderTextbox.Text;
             m_pathSet = true;
 
-            this.Close();
+            Close();
         }
 
         private void ButtonBrowse_Click(object sender, EventArgs e)
@@ -46,7 +57,7 @@ namespace DungeonEditor.GUI
                 return;
 
             DialogResult confirmation = MessageBox.Show("Are you sure you want to exit this dialog without selecting" +
-                " a valid path? Dungeon Editor will be unable to load assets.",
+                                                        " a valid path? Dungeon Editor will be unable to load assets.",
                 "Exit", MessageBoxButtons.YesNo);
 
             if (confirmation == DialogResult.No)
