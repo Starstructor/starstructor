@@ -202,7 +202,6 @@ namespace DungeonEditor.GUI
         public void SetSelectedBrush(EditorBrush brush)
         {
             m_selectedBrush = brush;
-
             string colour =
                 "r: " + m_selectedBrush.Colour[0] +
                 " g: " + m_selectedBrush.Colour[1] +
@@ -238,12 +237,38 @@ namespace DungeonEditor.GUI
             // Get the correct preview box asset
             if (m_selectedBrush.FrontAsset != null)
             {
-                assetImg = m_selectedBrush.FrontAsset.Image;
+                if (m_selectedBrush.FrontAsset is StarboundObject)
+                {
+                    StarboundObject sbObject = (StarboundObject)m_selectedBrush.FrontAsset;
+                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+
+                    if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_LEFT)
+                        assetImg = orientation.LeftImage;
+                    else if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_RIGHT)
+                        assetImg = orientation.RightImage;
+                }
+
+                if (assetImg == null)
+                    assetImg = m_selectedBrush.FrontAsset.Image;
+
                 VisualGraphicBrushDescLabel.Text = m_selectedBrush.FrontAsset.AssetName;
             }
             else if (m_selectedBrush.BackAsset != null)
             {
-                assetImg = m_selectedBrush.BackAsset.Image;
+                if (m_selectedBrush.BackAsset is StarboundObject)
+                {
+                    StarboundObject sbObject = (StarboundObject)m_selectedBrush.BackAsset;
+                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+
+                    if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_LEFT)
+                        assetImg = orientation.LeftImage;
+                    else if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_RIGHT)
+                        assetImg = orientation.RightImage;
+                }
+
+                if ( assetImg == null )
+                    assetImg = m_selectedBrush.BackAsset.Image;
+
                 VisualGraphicBrushDescLabel.Text = m_selectedBrush.BackAsset.AssetName;
             }
 
@@ -891,6 +916,6 @@ namespace DungeonEditor.GUI
         {
             UpdateImageBox(false, false);
         }
-
+        
     }
 }

@@ -19,6 +19,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Drawing;
 using Newtonsoft.Json;
+using DungeonEditor.StarboundObjects.Objects;
+using DungeonEditor.EditorObjects;
 
 namespace DungeonEditor.StarboundObjects
 {
@@ -34,5 +36,6 @@ namespace DungeonEditor.StarboundObjects
         {
             return (StarboundAsset) MemberwiseClone();
         }
+
     }
 }

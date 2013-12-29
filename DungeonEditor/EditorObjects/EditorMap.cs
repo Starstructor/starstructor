@@ -106,8 +106,8 @@ namespace DungeonEditor.EditorObjects
             // If the old brush was an object, we must redraw around it
             if (oldBrush != null && oldBrush.FrontAsset is StarboundObject)
             {
-                ObjectOrientation orientation =
-                    ((StarboundObject)oldBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
+                StarboundObject sbObject = (StarboundObject)oldBrush.FrontAsset;
+                ObjectOrientation orientation = sbObject.GetCorrectOrientation(this, gridX, gridY);
 
                 int sizeX = orientation.GetWidth(1, oldBrush.Direction);
                 int sizeY = orientation.GetHeight(1, oldBrush.Direction);
@@ -124,8 +124,8 @@ namespace DungeonEditor.EditorObjects
             // Extend the range of our bounds, so we encompass the old object, AND the new object
             if (newBrush != null && newBrush.FrontAsset is StarboundObject)
             {
-                ObjectOrientation orientation =
-                    ((StarboundObject)newBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
+                StarboundObject sbObject = (StarboundObject)newBrush.FrontAsset;
+                ObjectOrientation orientation = sbObject.GetCorrectOrientation(this, gridX, gridY);
 
                 int sizeX = orientation.GetWidth(1, newBrush.Direction);
                 int sizeY = orientation.GetHeight(1, newBrush.Direction);
