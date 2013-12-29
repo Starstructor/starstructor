@@ -134,7 +134,6 @@ namespace DungeonEditor.EditorObjects
             EditorBrush oldBrush = GetBrushAt(x, y);
             m_undoManager.RegisterAction(oldBrush, brush, x, y);
             SetBrushAt(brush, x, y, updateComposite);
-            RedrawCanvasFromBrush(oldBrush, brush, x, y);
         }
 
         // Sets the brush at the located area and updates the affected colour map pixel
@@ -166,10 +165,10 @@ namespace DungeonEditor.EditorObjects
                 StarboundObject sbObject = (StarboundObject)oldBrush.FrontAsset;
                 ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
 
-                int sizeX = orientation.GetWidth(brush.Direction, 1);
-                int sizeY = orientation.GetHeight(brush.Direction, 1);
-                int originX = orientation.GetOriginX(brush.Direction, 1);
-                int originY = orientation.GetOriginY(brush.Direction, 1);
+                int sizeX = orientation.GetWidth(1, brush.Direction);
+                int sizeY = orientation.GetHeight(1, brush.Direction);
+                int originX = orientation.GetOriginX(1, brush.Direction);
+                int originY = orientation.GetOriginY(1, brush.Direction);
 
                 for (int j = originX + x; j < sizeX + originX + x; ++j)
                 {
@@ -206,10 +205,10 @@ namespace DungeonEditor.EditorObjects
                     var sbObject = (StarboundObject) brush.FrontAsset;
                     ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
 
-                    int sizeX = orientation.GetWidth(brush.Direction, 1);
-                    int sizeY = orientation.GetHeight(brush.Direction, 1);
-                    int originX = orientation.GetOriginX(brush.Direction, 1);
-                    int originY = orientation.GetOriginY(brush.Direction, 1);
+                    int sizeX = orientation.GetWidth(1, brush.Direction);
+                    int sizeY = orientation.GetHeight(1, brush.Direction);
+                    int originX = orientation.GetOriginX(1, brush.Direction);
+                    int originY = orientation.GetOriginY(1, brush.Direction);
 
                     // Set the elements at j, k to point to the anchor at x, y
                     for (int j = originX + x; j < sizeX + originX + x; ++j)

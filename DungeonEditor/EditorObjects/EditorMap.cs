@@ -94,55 +94,25 @@ namespace DungeonEditor.EditorObjects
         {
             EditorMapLayer activeLayer = GetActiveLayer();
 
-            // Get old brush orientation
-            ObjectOrientation oldBrushOrientation = null;
-            if (oldBrush != null && oldBrush.FrontAsset != null && oldBrush.FrontAsset is StarboundObject)
-            {
-                oldBrushOrientation = ((StarboundObject)oldBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
-            }
-
             // We need to selectively redraw here
             var additionalRedrawList = new HashSet<List<int>>();
 
             int xmin = gridX;
-            int xmax = gridX;
+            int xmax = gridX+1;
 
             int ymin = gridY;
-            int ymax = gridY;
+            int ymax = gridY+1;
 
             // If the old brush was an object, we must redraw around it
-            if (oldBrushOrientation != null)
-            {
-                int sizeX = oldBrushOrientation.GetWidth(newBrush.Direction, 1) + 1;
-                int sizeY = oldBrushOrientation.GetHeight(newBrush.Direction, 1) + 1;
-                int originX = oldBrushOrientation.GetOriginX(newBrush.Direction, 1);
-                int originY = oldBrushOrientation.GetOriginY(newBrush.Direction, 1);
-
-                // Update the minimum and maximum bounds
-                xmin += originX;
-                xmax += sizeX + originX;
-
-                ymin += originY;
-                ymax += sizeY + originY;
-            }
-            // If the old brush isn't an object, just redraw a tile
-            else
-            {
-                xmax += 1;
-                ymax += 1;
-            }
-
-            // If the current brush is an object
-            // Extend the range of our bounds, so we encompass the old object, AND the new object
-            if (newBrush.FrontAsset is StarboundObject)
+            if (oldBrush != null && oldBrush.FrontAsset is StarboundObject)
             {
                 ObjectOrientation orientation =
-                    ((StarboundObject)newBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
+                    ((StarboundObject)oldBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
 
-                int sizeX = orientation.GetWidth(newBrush.Direction, 1);
-                int sizeY = orientation.GetHeight(newBrush.Direction, 1);
-                int originX = orientation.GetOriginX(newBrush.Direction, 1);
-                int originY = orientation.GetOriginY(newBrush.Direction, 1);
+                int sizeX = orientation.GetWidth(1, oldBrush.Direction);
+                int sizeY = orientation.GetHeight(1, oldBrush.Direction);
+                int originX = orientation.GetOriginX(1, oldBrush.Direction);
+                int originY = orientation.GetOriginY(1, oldBrush.Direction);
 
                 xmin = Math.Min(xmin, xmin + originX);
                 xmax = Math.Max(xmax, xmax + sizeX + originX);
@@ -151,6 +121,25 @@ namespace DungeonEditor.EditorObjects
                 ymax = Math.Max(ymax, ymax + sizeY + originY);
             }
 
+            // Extend the range of our bounds, so we encompass the old object, AND the new object
+            if (newBrush != null && newBrush.FrontAsset is StarboundObject)
+            {
+                ObjectOrientation orientation =
+                    ((StarboundObject)newBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
+
+                int sizeX = orientation.GetWidth(1, newBrush.Direction);
+                int sizeY = orientation.GetHeight(1, newBrush.Direction);
+                int originX = orientation.GetOriginX(1, newBrush.Direction);
+                int originY = orientation.GetOriginY(1, newBrush.Direction);
+
+                xmin = Math.Min(xmin, xmin + originX);
+                xmax = Math.Max(xmax, xmax + sizeX + originX);
+
+                ymin = Math.Min(ymin, ymin + originY);
+                ymax = Math.Max(ymax, ymax + sizeY + originY);
+            }
+
+            //
             for (int x = xmin; x < xmax; ++x)
             {
                 for (int y = ymin; y < ymax; ++y)
