@@ -1,12 +1,26 @@
-﻿using DungeonEditor.StarboundObjects;
-using DungeonEditor.StarboundObjects.Objects;
-using DungeonEditor.StarboundObjects.Ships;
-using System;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DungeonEditor.StarboundObjects.Objects;
+using DungeonEditor.StarboundObjects.Ships;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -19,52 +33,20 @@ namespace DungeonEditor.EditorObjects
 
     public class EditorMapLayer : EditorMap
     {
-        private Image m_colourMap;
-        private EditorBrush[,] m_brushMap;
-        private EditorMapPart m_parent;
+        private readonly EditorBrush[,] m_brushMap;
+        private readonly EditorMapPart m_parent;
         private bool m_changed;
-
-        public EditorMapPart Parent
-        {
-            get
-            {
-                return m_parent;
-            }
-        }
-
-        public Image ColourMap
-        {
-            get
-            {
-                return m_colourMap;
-            }
-            set
-            {
-                m_colourMap = value;
-            }
-        }
-
-        public bool Changed
-        {
-            get
-            {
-                return m_changed;
-            }
-            set
-            {
-                m_changed = value;
-            }
-        }
 
         // This constructor populates a two dimensional list of brushes.
         // It does this by translating between the provided colour map and the collection of StarboundBrushes.
         // This layer contains the *raw* brush information as drawn on the colour map, 
         // and is not responsible for any validity checking.
         // Also sets up the collision map
-        public EditorMapLayer(string layerName, Bitmap colourMap, Dictionary<List<byte>, EditorBrush> brushMap, EditorMapPart parent)
+        public EditorMapLayer(string layerName, Bitmap colourMap, Dictionary<List<byte>, EditorBrush> brushMap,
+            EditorMapPart parent)
         {
             m_parent = parent;
-            m_colourMap = (Image)colourMap;
+            ColourMap = colourMap;
             m_name = layerName;
             m_width = colourMap.Width;
             m_height = colourMap.Height;
@@ -80,8 +62,8 @@ namespace DungeonEditor.EditorObjects
                     Color pixel = colourMap.GetPixel(x, y);
                     EditorBrush brush = null;
 
-                    List<byte> rawPixelData 
-                        = new List<byte>() { pixel.R, pixel.G, pixel.B, pixel.A };
+                    List<byte> rawPixelData
+                        = new List<byte> {pixel.R, pixel.G, pixel.B, pixel.A};
 
                     if (brushMap.ContainsKey(rawPixelData))
                     {
@@ -92,7 +74,7 @@ namespace DungeonEditor.EditorObjects
                     if (brush != null && brush.FrontAsset != null && brush.FrontAsset is StarboundObject)
                     {
                         // Add the object brush to a list, to process after all other tiles
-                        CollisionObjectBrush objBrush = new CollisionObjectBrush();
+                        var objBrush = new CollisionObjectBrush();
                         objBrush.m_brush = brush;
                         objBrush.m_x = x;
                         objBrush.m_y = y;
@@ -112,6 +94,19 @@ namespace DungeonEditor.EditorObjects
             {
                 SetCollisionAt(objBrush.m_brush, objBrush.m_x, objBrush.m_y);
             }
+        }
+
+        public EditorMapPart Parent
+        {
+            get { return m_parent; }
+        }
+
+        public Image ColourMap { get; set; }
+
+        public bool Changed
+        {
+            get { return m_changed; }
+            set { m_changed = value; }
         }
 
         // Returns the StarboundBrush located at the provided x- and y-coords 
@@ -138,7 +133,7 @@ namespace DungeonEditor.EditorObjects
             SetCollisionAt(brush, x, y, updateComposite);
             m_brushMap[x, y] = brush;
 
-            Bitmap colourMapBmp = (Bitmap)ColourMap;
+            var colourMapBmp = (Bitmap) ColourMap;
             Color newPixel = Color.FromArgb(brush.Colour[3], brush.Colour[0], brush.Colour[1], brush.Colour[2]);
 
             colourMapBmp.SetPixel(x, y, newPixel);
@@ -183,10 +178,10 @@ namespace DungeonEditor.EditorObjects
                     }
                 }
             }
-            // Else just remove the tile we're at
+                // Else just remove the tile we're at
             else
             {
-                HashSet<List<int>> tileAnchorSet = GetCollisionsAt(x, y); ;
+                HashSet<List<int>> tileAnchorSet = GetCollisionsAt(x, y);
 
                 if (tileAnchorSet != null)
                 {
@@ -201,7 +196,7 @@ namespace DungeonEditor.EditorObjects
                 // Collisions for objects based on size
                 if (brush.FrontAsset is StarboundObject)
                 {
-                    StarboundObject sbObject = (StarboundObject)brush.FrontAsset;
+                    var sbObject = (StarboundObject) brush.FrontAsset;
                     ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
 
                     int sizeX = orientation.GetWidth(brush.Direction, 1);
@@ -214,33 +209,24 @@ namespace DungeonEditor.EditorObjects
                     {
                         for (int k = originY + y; k < sizeY + originY + y; ++k)
                         {
-                            List<int> list = new List<int>();
-                            list.Add(x);
-                            list.Add(y);
-
+                            List<int> list = new List<int> {x, y};
                             AddCollisionAt(list, j, k);
                         }
                     }
                 }
-                // Collisions for non-special front tiles
+                    // Collisions for non-special front tiles
                 else if (!brush.IsSpecial)
                 {
-                    List<int> list = new List<int>();
-                    list.Add(x);
-                    list.Add(y);
-
+                    List<int> list = new List<int> {x, y};
                     AddCollisionAt(list, x, y);
                 }
             }
 
             // Ship brushes have a special flag for things that block
             // foreground collisions
-            if (brush is ShipBrush && ((ShipBrush)brush).ForegroundBlock)
+            if (brush is ShipBrush && ((ShipBrush) brush).ForegroundBlock)
             {
-                List<int> list = new List<int>();
-                list.Add(x);
-                list.Add(y);
-
+                List<int> list = new List<int> {x, y};
                 AddCollisionAt(list, x, y);
             }
 

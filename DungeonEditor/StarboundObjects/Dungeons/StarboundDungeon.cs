@@ -1,40 +1,51 @@
-﻿// Format .dungeon
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
 
-using System;
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+// Format .dungeon
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using DungeonEditor.EditorObjects;
 using System.Drawing;
-using Newtonsoft.Json.Linq;
 using System.IO;
-using DungeonEditor.StarboundObjects.Objects;
+using System.Linq;
+using DungeonEditor.EditorObjects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class StarboundDungeon : EditorFile
     {
-        [JsonProperty("metadata")]
-        public DungeonMetadata Metadata;
+        [JsonProperty("metadata")] public DungeonMetadata Metadata;
 
-        [JsonProperty("tiles")]
-        public List<DungeonBrush> Tiles;
-
-        [JsonProperty("parts")]
-        public List<DungeonPart> Parts;
+        [JsonProperty("parts")] public List<DungeonPart> Parts;
+        [JsonProperty("tiles")] public List<DungeonBrush> Tiles;
 
         public static void LoadFile(string path, Editor parent)
         {
             parent.ActiveFile = new JsonParser(path).ParseJson<StarboundDungeon>();
 
-            foreach (DungeonPart part in ((StarboundDungeon)parent.ActiveFile).Parts)
+            foreach (DungeonPart part in ((StarboundDungeon) parent.ActiveFile).Parts)
             {
                 parent.ActiveFile.ReadableParts.Add(part);
             }
 
-            foreach (DungeonBrush brush in ((StarboundDungeon)parent.ActiveFile).Tiles)
+            foreach (DungeonBrush brush in ((StarboundDungeon) parent.ActiveFile).Tiles)
             {
                 parent.ActiveFile.BlockMap.Add(brush);
             }
@@ -51,30 +62,30 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 // is only one layer to their part.
                 if (imageList is string)
                 {
-                    JArray tempArray = new JArray();
-                    tempArray.Add(imageList);
+                    JArray tempArray = new JArray {imageList};
                     imageList = tempArray;
                 }
 
                 // For each defined image
-                foreach (string fileName in (JArray)imageList)
+                foreach (string fileName in (JArray) imageList)
                 {
-                    string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), (string)fileName);
+                    string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), fileName);
 
-                    if (File.Exists(path))
-                    {
-                        Image layerImg = EditorHelpers.LoadImageFromFile(path);
+                    if (!File.Exists(path)) 
+                        continue;
 
-                        // Set the width and height of the part to match the blockmap
-                        part.Width = layerImg.Width;
-                        part.Height = layerImg.Height;
+                    Image layerImg = EditorHelpers.LoadImageFromFile(path);
 
-                        part.Layers.Add(new EditorMapLayer((string)fileName, (Bitmap)layerImg, parent.BrushMap, part));
-                    }
+                    // Set the width and height of the part to match the blockmap
+                    part.Width = layerImg.Width;
+                    part.Height = layerImg.Height;
+
+                    part.Layers.Add(new EditorMapLayer(fileName, (Bitmap) layerImg, parent.BrushMap, part));
                 }
 
                 // Create the graphics image
-                part.GraphicsMap = new Bitmap(part.Width * Editor.DEFAULT_GRID_FACTOR, part.Height * Editor.DEFAULT_GRID_FACTOR);
+                part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
+                    part.Height*Editor.DEFAULT_GRID_FACTOR);
 
                 // Update the composite collision map, now that all layers have been loaded
                 part.UpdateCompositeCollisionMap();
@@ -99,47 +110,44 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 {
                     brush.Connector = false;
                 }
-                
+
                 // Populate the rules
                 if (brush.Rules != null)
                 {
-                    foreach (List<string> rulesArray in brush.Rules)
+                    foreach (string rule in brush.Rules.SelectMany(rulesArray => rulesArray))
                     {
-                        foreach (string rule in rulesArray)
-                        {
-                            brush.BrushRules.Add(rule);
-                        }
+                        brush.BrushRules.Add(rule);
                     }
                 }
 
                 // Populate the brushes
                 if (brush.Brushes != null)
                 {
-                    foreach (List<object> brushArray in brush.Brushes)
+                    foreach (var brushArray in brush.Brushes)
                     {
                         for (int i = 0; i < brushArray.Count; ++i)
                         {
                             if (!(brushArray[i] is string))
                                 continue;
 
-                            string type = (string)brushArray[i];
+                            var type = (string) brushArray[i];
                             string name = null;
 
                             if (type == "back")
                             {
                                 brush.NeedsBackAsset = true;
-                                name = (string)brushArray[i + 1];
+                                name = (string) brushArray[i + 1];
                             }
 
                             else if (type == "front" || type == "object")
                             {
                                 brush.NeedsFrontAsset = true;
-                                name = (string)brushArray[i + 1];
+                                name = (string) brushArray[i + 1];
 
                                 if (type == "object" && brushArray.Count > i + 2 && brushArray[i + 2] is JObject)
                                 {
-                                    JObject objectParams = (JObject)brushArray[i + 2];
-                                    string rawDirection = objectParams.Value<string>("direction");
+                                    var objectParams = (JObject) brushArray[i + 2];
+                                    var rawDirection = objectParams.Value<string>("direction");
 
                                     if (rawDirection == "left")
                                     {
@@ -150,12 +158,11 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                                         brush.Direction = ObjectDirection.DIRECTION_RIGHT;
                                     }
                                 }
-
                             }
 
                             // if it is a liquid
                             else if (type == "lava" || type == "water" || type == "acid" ||
-                                type == "liquidtar" || type == "tentaclejuice")
+                                     type == "liquidtar" || type == "tentaclejuice")
                             {
                                 brush.BrushTypes.Add("back");
                                 brush.NeedsBackAsset = true;
@@ -175,7 +182,6 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
                             base.LoadBrushWithBackAsset(brush, parent, name, type);
                             base.LoadBrushWithFrontAsset(brush, parent, name, type);
-
                         }
                     }
                 }
@@ -194,7 +200,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
             foreach (DungeonBrush brush in BlockMap)
             {
                 // If this brush is a connector
-                if ((bool)brush.Connector)
+                if (brush.Connector != null && (bool) brush.Connector)
                 {
                     string assetName = brush.Comment + ".INTERNAL";
                     StarboundAsset asset = null;
@@ -207,10 +213,10 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                     {
                         asset = new StarboundAsset();
                         asset.AssetName = assetName;
-                        asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 
-                            brush.Colour[0], 
-                            brush.Colour[1], 
-                            brush.Colour[2], 
+                        asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
+                            brush.Colour[0],
+                            brush.Colour[1],
+                            brush.Colour[2],
                             brush.Colour[3]);
 
                         parent.AssetMap[asset.AssetName] = asset;
@@ -220,6 +226,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                     brush.FrontAsset = asset;
                     brush.IsSpecial = true;
                 }
+
                 // If this brush is surface foreground
                 else if (brush.BrushTypes.Contains("surface"))
                 {
@@ -237,7 +244,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                             asset = new StarboundAsset();
                             asset.AssetName = assetName;
                             asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                                 87, 59, 12, 255);
+                                87, 59, 12, 255);
                         }
                         else
                         {
@@ -251,6 +258,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                     brush.BrushTypes.Add("front");
                     brush.NeedsFrontAsset = true;
                 }
+
                 // If this brush is surface background
                 else if (brush.BrushTypes.Contains("surfacebackground"))
                 {
@@ -268,7 +276,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                             asset = new StarboundAsset();
                             asset.AssetName = assetName;
                             asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                               87, 59, 12, 255);
+                                87, 59, 12, 255);
                         }
                         else
                         {

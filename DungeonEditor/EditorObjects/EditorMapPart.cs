@@ -1,66 +1,67 @@
-﻿using DungeonEditor.StarboundObjects.Objects;
-using Newtonsoft.Json;
-using System;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DungeonEditor.EditorObjects
 {
     public class EditorMapPart : EditorMap
     {
-        [JsonIgnore]
-        protected EditorFile m_parent;
+        [JsonIgnore] protected Graphics m_graphicsContext;
+        [JsonIgnore] protected Image m_graphicsMap;
+        [JsonIgnore] protected EditorFile m_parent;
 
-        [JsonIgnore]
-        protected List<EditorMapLayer> m_partLayers = new List<EditorMapLayer>();
-
-        [JsonIgnore]
-        protected Image m_graphicsMap;
-
-        [JsonIgnore]
-        protected Graphics m_graphicsContext;
+        [JsonIgnore] protected List<EditorMapLayer> m_partLayers = new List<EditorMapLayer>();
 
         [JsonIgnore]
         public EditorFile Parent
         {
-            get
-            {
-                return m_parent;
-            }
-            set
-            {
-                m_parent = value;
-            }
+            get { return m_parent; }
+            set { m_parent = value; }
         }
 
         [JsonIgnore]
         public List<EditorMapLayer> Layers
         {
-            get
-            {
-                return m_partLayers;
-            }
+            get { return m_partLayers; }
         }
 
         [JsonIgnore]
         public virtual Image GraphicsMap
         {
-            get
-            {
-                return m_graphicsMap;
-            }
+            get { return m_graphicsMap; }
             set
             {
                 if (m_graphicsContext != null)
+                {
                     m_graphicsContext.Dispose();
+                }
 
                 m_graphicsMap = value;
 
                 if (m_graphicsMap != null)
+                {
                     m_graphicsContext = Graphics.FromImage(m_graphicsMap);
+                }
             }
         }
 
@@ -75,10 +76,8 @@ namespace DungeonEditor.EditorObjects
                 {
                     return firstLayer.ColourMap;
                 }
-                else
-                {
-                    return null;
-                }
+
+                return null;
             }
         }
 
@@ -103,10 +102,8 @@ namespace DungeonEditor.EditorObjects
             }
 
             // Composite all layers collisions
-            foreach (EditorMapLayer layer in m_partLayers)
+            foreach (HashSet<List<int>>[,] layerCollisions in m_partLayers.Select(layer => layer.GetRawCollisionMap()))
             {
-                HashSet<List<int>>[,] layerCollisions = layer.GetRawCollisionMap();
-
                 for (int x = 0; x < m_width; ++x)
                 {
                     for (int y = 0; y < m_height; ++y)
@@ -119,7 +116,7 @@ namespace DungeonEditor.EditorObjects
                                 m_collisionMap[x, y] = new HashSet<List<int>>();
                             }
 
-                            foreach (List<int> element in layerCollisions[x, y])
+                            foreach (var element in layerCollisions[x, y])
                             {
                                 m_collisionMap[x, y].Add(element);
                             }
@@ -145,11 +142,11 @@ namespace DungeonEditor.EditorObjects
             UpdateLayerImage(layers, false, false, false, false);
         }
 
-        public virtual void UpdateLayerImage(List<EditorMapLayer> layers, bool noFront, bool noBack, bool noSpecial, bool noClear)
+        public virtual void UpdateLayerImage(List<EditorMapLayer> layers, bool noFront, bool noBack, bool noSpecial,
+            bool noClear)
         {
             UpdateLayerImageBetween(layers, 0, 0, Width, Height, noFront, noBack, noSpecial, noClear);
         }
-
 
 
         public virtual void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax)
@@ -157,7 +154,8 @@ namespace DungeonEditor.EditorObjects
             UpdateLayerImageBetween(xmin, ymin, xmax, ymax, false, false, false, false);
         }
 
-        public virtual void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax, bool noFront, bool noBack, bool noSpecial, bool noClear)
+        public virtual void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax, bool noFront, bool noBack,
+            bool noSpecial, bool noClear)
         {
             UpdateLayerImageBetween(m_partLayers, xmin, ymin, xmax, ymax, noFront, noBack, noSpecial, noClear);
         }
@@ -167,14 +165,15 @@ namespace DungeonEditor.EditorObjects
             UpdateLayerImageBetween(layers, xmin, ymin, xmax, ymax, false, false, false, false);
         }
 
-        public virtual void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax, bool noFront, bool noBack, bool noSpecial, bool noClear)
+        public virtual void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+            bool noFront, bool noBack, bool noSpecial, bool noClear)
         {
             if (!noClear)
                 m_graphicsContext.FillRectangle(SystemBrushes.ControlDark,
-                    xmin * Editor.DEFAULT_GRID_FACTOR,
-                    ymin * Editor.DEFAULT_GRID_FACTOR,
-                    (xmax - xmin) * Editor.DEFAULT_GRID_FACTOR,
-                    (ymax - ymin) * Editor.DEFAULT_GRID_FACTOR);
+                    xmin*Editor.DEFAULT_GRID_FACTOR,
+                    ymin*Editor.DEFAULT_GRID_FACTOR,
+                    (xmax - xmin)*Editor.DEFAULT_GRID_FACTOR,
+                    (ymax - ymin)*Editor.DEFAULT_GRID_FACTOR);
 
             if (!noBack)
                 DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
@@ -190,17 +189,16 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-
         protected virtual void DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
         {
             DrawBackgroundBetween(layers, 0, 0, Width, Height, gfx);
         }
 
-        protected virtual void DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax, Graphics gfx)
+        protected virtual void DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+            Graphics gfx)
         {
             Renderer.DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
         }
-
 
 
         protected virtual void DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
@@ -208,11 +206,11 @@ namespace DungeonEditor.EditorObjects
             DrawForegroundBetween(layers, 0, 0, Width, Height, gfx);
         }
 
-        protected virtual void DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax, Graphics gfx)
+        protected virtual void DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+            Graphics gfx)
         {
             Renderer.DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
         }
-
 
 
         protected virtual void DrawSpecialBrushes(List<EditorMapLayer> layers, Graphics gfx)
@@ -220,7 +218,8 @@ namespace DungeonEditor.EditorObjects
             DrawSpecialBrushesBetween(layers, 0, 0, Width, Height, gfx);
         }
 
-        protected virtual void DrawSpecialBrushesBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax, Graphics gfx)
+        protected virtual void DrawSpecialBrushesBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax,
+            int ymax, Graphics gfx)
         {
             Renderer.DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, gfx);
         }

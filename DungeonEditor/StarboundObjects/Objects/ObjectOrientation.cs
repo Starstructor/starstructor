@@ -1,16 +1,37 @@
-﻿using DungeonEditor.EditorObjects;
-using Newtonsoft.Json;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DungeonEditor.EditorObjects;
+using Newtonsoft.Json;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
     public class ObjectOrientation
     {
+        [JsonIgnore] public ObjectFrames LeftFrames;
+        [JsonIgnore] public Image LeftImage;
+        [JsonIgnore] public ObjectFrames RightFrames;
+        [JsonIgnore] public Image RightImage;
+
         [JsonProperty("image")]
         public string ImageName { get; set; }
 
@@ -47,18 +68,6 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("lightPosition")]
         public List<int> LightPosition { get; set; }
 
-        [JsonIgnore]
-        public ObjectFrames LeftFrames;
-
-        [JsonIgnore]
-        public ObjectFrames RightFrames;
-
-        [JsonIgnore]
-        public Image LeftImage;
-
-        [JsonIgnore]
-        public Image RightImage;
-
 
         public int GetWidth()
         {
@@ -72,7 +81,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public int GetWidth(ObjectDirection direction, int gridFactor)
         {
-            float sizeScaleFactor = (float)Editor.DEFAULT_GRID_FACTOR / (float)gridFactor;
+            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             ObjectFrames frames;
 
@@ -85,7 +94,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 frames = RightFrames;
             }
 
-            return (int)Math.Ceiling(frames.FrameGrid.Size[0] / sizeScaleFactor);
+            return (int) Math.Ceiling(frames.FrameGrid.Size[0]/sizeScaleFactor);
         }
 
 
@@ -101,7 +110,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public int GetHeight(ObjectDirection direction, int gridFactor)
         {
-            float sizeScaleFactor = (float)Editor.DEFAULT_GRID_FACTOR / (float)gridFactor;
+            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             ObjectFrames frames;
 
@@ -114,7 +123,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 frames = RightFrames;
             }
 
-            return (int)Math.Ceiling(frames.FrameGrid.Size[1] / sizeScaleFactor);
+            return (int) Math.Ceiling(frames.FrameGrid.Size[1]/sizeScaleFactor);
         }
 
 
@@ -130,10 +139,10 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public int GetOriginX(ObjectDirection direction, int gridFactor)
         {
-            float sizeScaleFactor = (float)Editor.DEFAULT_GRID_FACTOR / (float)gridFactor;
+            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             int originX = 0;
-            originX += (int)Math.Floor(ImagePosition[0] / sizeScaleFactor);
+            originX += (int) Math.Floor(ImagePosition[0]/sizeScaleFactor);
 
             return originX;
         }
@@ -151,10 +160,10 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public int GetOriginY(ObjectDirection direction, int gridFactor)
         {
-            float sizeScaleFactor = (float)Editor.DEFAULT_GRID_FACTOR / (float)gridFactor;
+            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             int originY = -GetHeight(direction, gridFactor) + gridFactor;
-            originY -= (int)Math.Floor(ImagePosition[1] / sizeScaleFactor);
+            originY -= (int) Math.Floor(ImagePosition[1]/sizeScaleFactor);
 
             return originY;
         }

@@ -1,11 +1,26 @@
-﻿using DungeonEditor.EditorObjects;
-using Newtonsoft.Json;
-using System;
+/*Starstructor, the Starbound Toolet
+Copyright (C) 2013-2014  Chris Stamford
+Contact: cstamford@gmail.com
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DungeonEditor.EditorObjects;
+using Newtonsoft.Json;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
@@ -73,89 +88,91 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         [JsonProperty("soundEffect")]
         public string SoundEffect { get; set; }
- 
+
         public ObjectOrientation GetCorrectOrientation(EditorMap map, int x, int y)
         {
             EditorMapPart part = null;
 
             if (map is EditorMapPart)
             {
-                part = (EditorMapPart)map;
+                part = (EditorMapPart) map;
             }
             else if (map is EditorMapLayer)
             {
-                part = ((EditorMapLayer)map).Parent;
+                part = ((EditorMapLayer) map).Parent;
             }
 
+            // This is inherently flawed as it does not take into account the
+            // anchor position of objects. TODO Fix this at some point
             foreach (ObjectOrientation orientation in Orientations)
             {
                 List<string> anchors = orientation.Anchors;
 
                 // TODO implement fgAnchor
-                if (anchors != null)
+                if (anchors == null)
+                    continue;
+
+                if (anchors.Contains("top") && anchors.Contains("left"))
                 {
-                    if (anchors.Contains("top") && anchors.Contains("left"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)) &&
-                            CheckCollisionMapAtOffset(part, x - 1, y))
-                        {
-                            return orientation;
-                        }
-                    }
-
-                    else if (anchors.Contains("top") && anchors.Contains("right"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)) &&
-                            CheckCollisionMapAtOffset(part, x + 1, y))
-                        {
-                            return orientation;
-                        }
-                    }
-
-                    else if (anchors.Contains("bottom") && anchors.Contains("left"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)) &&
-                            CheckCollisionMapAtOffset(part, x - 1, y))
-                        {
-                            return orientation;
-                        }
-                    }
-
-                    else if (anchors.Contains("bottom") && anchors.Contains("right"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)) &&
-                            CheckCollisionMapAtOffset(part, x + 1, y))
-                            return orientation;
-                    }
-
-                    else if (anchors.Contains("top"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)))
-                            return orientation;
-                    }
-
-                    else if (anchors.Contains("bottom"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)))
-                            return orientation;
-                    }
-
-                    else if (anchors.Contains("left"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x - 1, y))
-                            return orientation;
-                    }
-
-                    else if (anchors.Contains("right"))
-                    {
-                        if (CheckCollisionMapAtOffset(part, x + 1, y))
-                            return orientation;
-                    }
-
-                    else if (anchors.Contains("background"))
+                    if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)) &&
+                        CheckCollisionMapAtOffset(part, x - 1, y))
                     {
                         return orientation;
                     }
+                }
+
+                else if (anchors.Contains("top") && anchors.Contains("right"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)) &&
+                        CheckCollisionMapAtOffset(part, x + 1, y))
+                    {
+                        return orientation;
+                    }
+                }
+
+                else if (anchors.Contains("bottom") && anchors.Contains("left"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)) &&
+                        CheckCollisionMapAtOffset(part, x - 1, y))
+                    {
+                        return orientation;
+                    }
+                }
+
+                else if (anchors.Contains("bottom") && anchors.Contains("right"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)) &&
+                        CheckCollisionMapAtOffset(part, x + 1, y))
+                        return orientation;
+                }
+
+                else if (anchors.Contains("top"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)))
+                        return orientation;
+                }
+
+                else if (anchors.Contains("bottom"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)))
+                        return orientation;
+                }
+
+                else if (anchors.Contains("left"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x - 1, y))
+                        return orientation;
+                }
+
+                else if (anchors.Contains("right"))
+                {
+                    if (CheckCollisionMapAtOffset(part, x + 1, y))
+                        return orientation;
+                }
+
+                else if (anchors.Contains("background"))
+                {
+                    return orientation;
                 }
             }
 
@@ -164,43 +181,19 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         private bool CheckCollisionMapAtOffset(EditorMapPart part, int x, int y)
         {
-            return CheckCollisionMapAtOffset(part, x, y, false);
-        }
-
-        private bool CheckCollisionMapAtOffset(EditorMapPart part, int x, int y, bool checkObjects)
-        {
             HashSet<List<int>> collisions = part.GetCollisionsAt(x, y);
 
             if (collisions == null)
                 return false;
 
-            bool notMyCoords = false;
-
             // Check each list of coordinates.
-            foreach (List<int> coords in collisions)
-            {
-                if (!checkObjects)
-                {
-                    foreach (EditorMapLayer layer in part.Layers)
-                    {
-                        EditorBrush brush = layer.GetBrushAt(coords[0], coords[1]);
-
-                        if (brush != null && brush.FrontAsset != null)
-                        {
-                            if (brush.FrontAsset is StarboundObject)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                notMyCoords = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return notMyCoords;
+            // The collision is only valid if the list doesn't point to an object
+            return (from coords in collisions 
+                    from layer in part.Layers 
+                    select layer.GetBrushAt(coords[0], coords[1])).Any(brush => 
+                        brush != null && 
+                        brush.FrontAsset != null && 
+                        !(brush.FrontAsset is StarboundObject));
         }
     }
 }
