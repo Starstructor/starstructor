@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Ships;
+using System;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -130,8 +131,10 @@ namespace DungeonEditor.EditorObjects
         // Sets the brush as per SetBrushAt but triggers an action that can be stored in the Undo/Redo system
         public void SetUserBrushAt(EditorBrush brush, int x, int y, bool updateComposite = true)
         {
-            m_undoManager.RegisterAction(GetBrushAt(x, y), brush, x, y);
+            EditorBrush oldBrush = GetBrushAt(x, y);
+            m_undoManager.RegisterAction(oldBrush, brush, x, y);
             SetBrushAt(brush, x, y, updateComposite);
+            RedrawCanvasFromBrush(oldBrush, brush, x, y);
         }
 
         // Sets the brush at the located area and updates the affected colour map pixel
@@ -254,5 +257,6 @@ namespace DungeonEditor.EditorObjects
 
             m_collisionMap[x, y].Add(anchor);
         }
+
     }
 }

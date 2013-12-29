@@ -19,6 +19,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
+using System;
+using DungeonEditor.StarboundObjects.Objects;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -62,6 +65,149 @@ namespace DungeonEditor.EditorObjects
         public HashSet<List<int>>[,] GetRawCollisionMap()
         {
             return m_collisionMap;
+        }
+
+        public EditorMapLayer GetActiveLayer()
+        {
+            EditorMapLayer activeLayer = null;
+
+            if (this is EditorMapPart)
+            {
+                activeLayer = ((EditorMapPart)this).Layers.FirstOrDefault();
+            }
+            else if (this is EditorMapLayer)
+            {
+                activeLayer = (EditorMapLayer)this;
+            }
+            return activeLayer;
+        }
+        public EditorMapPart GetActivePart()
+        {
+            EditorMapLayer activeLayer = GetActiveLayer();
+            if ( activeLayer == null )
+                return null;
+            return activeLayer.Parent;
+        }
+
+
+        public void RedrawCanvasFromBrush(EditorBrush oldBrush, EditorBrush newBrush, int gridX, int gridY)
+        {
+            EditorMapLayer activeLayer = GetActiveLayer();
+
+            // Get old brush orientation
+            ObjectOrientation oldBrushOrientation = null;
+            if (oldBrush != null && oldBrush.FrontAsset != null && oldBrush.FrontAsset is StarboundObject)
+            {
+                oldBrushOrientation = ((StarboundObject)oldBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
+            }
+
+            // We need to selectively redraw here
+            var additionalRedrawList = new HashSet<List<int>>();
+
+            int xmin = gridX;
+            int xmax = gridX;
+
+            int ymin = gridY;
+            int ymax = gridY;
+
+            // If the old brush was an object, we must redraw around it
+            if (oldBrushOrientation != null)
+            {
+                int sizeX = oldBrushOrientation.GetWidth(newBrush.Direction, 1) + 1;
+                int sizeY = oldBrushOrientation.GetHeight(newBrush.Direction, 1) + 1;
+                int originX = oldBrushOrientation.GetOriginX(newBrush.Direction, 1);
+                int originY = oldBrushOrientation.GetOriginY(newBrush.Direction, 1);
+
+                // Update the minimum and maximum bounds
+                xmin += originX;
+                xmax += sizeX + originX;
+
+                ymin += originY;
+                ymax += sizeY + originY;
+            }
+            // If the old brush isn't an object, just redraw a tile
+            else
+            {
+                xmax += 1;
+                ymax += 1;
+            }
+
+            // If the current brush is an object
+            // Extend the range of our bounds, so we encompass the old object, AND the new object
+            if (newBrush.FrontAsset is StarboundObject)
+            {
+                ObjectOrientation orientation =
+                    ((StarboundObject)newBrush.FrontAsset).GetCorrectOrientation(this, gridX, gridY);
+
+                int sizeX = orientation.GetWidth(newBrush.Direction, 1);
+                int sizeY = orientation.GetHeight(newBrush.Direction, 1);
+                int originX = orientation.GetOriginX(newBrush.Direction, 1);
+                int originY = orientation.GetOriginY(newBrush.Direction, 1);
+
+                xmin = Math.Min(xmin, xmin + originX);
+                xmax = Math.Max(xmax, xmax + sizeX + originX);
+
+                ymin = Math.Min(ymin, ymin + originY);
+                ymax = Math.Max(ymax, ymax + sizeY + originY);
+            }
+
+            for (int x = xmin; x < xmax; ++x)
+            {
+                for (int y = ymin; y < ymax; ++y)
+                {
+                    HashSet<List<int>> collisions = null;
+                    if (this is EditorMapPart)
+                    {
+                        collisions = activeLayer.Parent.GetCollisionsAt(x, y);
+                    }
+                    else if (this is EditorMapLayer)
+                    {
+                        collisions = activeLayer.GetCollisionsAt(x, y);
+                    }
+
+                    if (collisions == null)
+                        continue;
+
+                    foreach (List<int> coords in collisions.Where(coords =>
+                        (coords[0] != x || coords[1] != y) &&
+                        (coords[0] != gridX || coords[1] != gridY)))
+                    {
+                        additionalRedrawList.Add(coords);
+                    }
+                }
+            }
+
+            // Selectively redraw the composite image
+            if (this is EditorMapPart)
+            {
+                activeLayer.Parent.UpdateLayerImageBetween(xmin, ymin, xmax, ymax);
+
+                foreach (var coords in additionalRedrawList)
+                {
+                    activeLayer.Parent.UpdateLayerImageBetween(
+                        coords[0],
+                        coords[1],
+                        coords[0] + 1,
+                        coords[1] + 1);
+                }
+            }
+            // Only selectively redraw the active layer
+            else if (this is EditorMapLayer)
+            {
+                activeLayer.Parent.UpdateLayerImageBetween(
+                    new List<EditorMapLayer> { activeLayer },
+                    xmin, ymin, xmax, ymax);
+
+                foreach (var coords in additionalRedrawList)
+                {
+                    activeLayer.Parent.UpdateLayerImageBetween(
+                        new List<EditorMapLayer> { activeLayer },
+                        coords[0],
+                        coords[1],
+                        coords[0] + 1,
+                        coords[1] + 1);
+                }
+            }
         }
     }
 }

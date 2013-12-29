@@ -43,34 +43,40 @@ namespace DungeonEditor
         }
 
         // Undoes the last command passed to this manager.
-        public void Undo()
+        // Returns the change information that took place, or null if no change took place.
+        public BrushChangeInfo? Undo()
         {
             if ( !CanUndo() )
-                return;
+                return null;
 
             m_undoIndex--;
             BrushChangeInfo brushUndone = m_undoBuffer[m_undoIndex];    // we assume that m_undoIndex is within bounds
 
             m_mapLayer.SetBrushAt(brushUndone.m_brushBefore, brushUndone.m_x, brushUndone.m_y, true);
+            return brushUndone;
         }
 
         // Redoes a command that was undone by this manager
-        public void Redo()
+        // Returns the change information that took place, or null if no change took place.
+        public BrushChangeInfo? Redo()
         {
             if ( !CanRedo() )
-                return;
+                return null;
 
             BrushChangeInfo brushRedone = m_undoBuffer[m_undoIndex];    // we assume that m_undoIndex is within bounds
             m_undoIndex++;
 
             m_mapLayer.SetBrushAt(brushRedone.m_brushAfter, brushRedone.m_x, brushRedone.m_y, true);
+            return brushRedone;
         }
-
+        
+        // Checks if an undo operation is available
         public bool CanUndo()
         {
             return m_undoIndex != 0;
         }
 
+        // Checks if a redo operation is available
         public bool CanRedo()
         {
             return m_undoIndex != m_undoBuffer.Count;
@@ -82,5 +88,6 @@ namespace DungeonEditor
             m_undoBuffer.Clear();
             m_undoIndex = 0;
         }
+
     }
 }
