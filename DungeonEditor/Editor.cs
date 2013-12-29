@@ -128,7 +128,7 @@ namespace DungeonEditor
             m_log.Write("Saving settings.json");
             string path = AppDomain.CurrentDomain.BaseDirectory + "settings.json";
 
-            var sw = new StreamWriter(path);
+            StreamWriter sw = new StreamWriter(path);
             sw.Write(JsonConvert.SerializeObject(m_settings, Formatting.Indented));
             sw.Close();
         }
@@ -233,7 +233,7 @@ namespace DungeonEditor
                 if (File.Exists(imagePath))
                 {
                     Image tempImage = EditorHelpers.LoadImageFromFile(imagePath);
-                    var imageAsBmp = new Bitmap(tempImage);
+                    Bitmap imageAsBmp = new Bitmap(tempImage);
 
                     Bitmap croppedBmp =
                         imageAsBmp.Clone(new Rectangle(originX, originY, DEFAULT_GRID_FACTOR, DEFAULT_GRID_FACTOR),
@@ -320,7 +320,7 @@ namespace DungeonEditor
                             m_assetDirContents.Find(
                                 file =>
                                     Path.GetFileName(file) ==
-                                    Path.GetFileNameWithoutExtension(imageNameLeft) + ".frames");
+                                    Path.GetFileNameWithoutExtension(imageNameRight) + ".frames");
 
                         if (leftFramesPath != null)
                         {
@@ -343,7 +343,7 @@ namespace DungeonEditor
 
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(leftPath);
-                            var imageAsBmp = new Bitmap(tempImage);
+                            Bitmap imageAsBmp = new Bitmap(tempImage);
 
                             // Crop the image (remove any animation frames)
                             Bitmap croppedBmp = imageAsBmp.Clone(new Rectangle(0, 0, leftWidth, leftHeight),
@@ -355,7 +355,8 @@ namespace DungeonEditor
                         }
                         else
                         {
-                            m_log.Write("Left image for asset " + name + " at location " + leftPath + " not found!");
+                            m_log.Write("   Left image for asset " + name + " at location " + leftPath + "" +
+                                        " not found!");
                         }
 
                         // Load the right image
@@ -366,7 +367,7 @@ namespace DungeonEditor
 
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(rightPath);
-                            var imageAsBmp = new Bitmap(tempImage);
+                            Bitmap imageAsBmp = new Bitmap(tempImage);
 
                             // Crop the image (remove any animation frames)
                             Bitmap croppedBmp = imageAsBmp.Clone(new Rectangle(0, 0, rightWidth, rightHeight),
@@ -378,7 +379,7 @@ namespace DungeonEditor
                         }
                         else
                         {
-                            m_log.Write("Right image for asset " + name + " at location " + rightPath +
+                            m_log.Write("   Right image for asset " + name + " at location " + rightPath +
                                         " not found!");
                         }
                     }
@@ -419,7 +420,7 @@ namespace DungeonEditor
                         {
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(imagePath);
-                            var imageAsBmp = new Bitmap(tempImage);
+                            Bitmap imageAsBmp = new Bitmap(tempImage);
 
                             // Crop the image (remove any animation frames)
                             Bitmap croppedBmp = imageAsBmp.Clone(new Rectangle(0, 0, width, height),
