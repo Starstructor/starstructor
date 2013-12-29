@@ -138,6 +138,7 @@
     <Compile Include="StarboundObjects\Tiles\StarboundLiquid.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundPlatform.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundTile.cs" />
+    <Compile Include="UndoManager.cs" />
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </EmbeddedResource>

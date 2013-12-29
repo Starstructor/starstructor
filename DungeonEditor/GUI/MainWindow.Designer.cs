@@ -63,6 +63,7 @@ namespace DungeonEditor.GUI
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dungeonToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDungeonMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +77,7 @@ namespace DungeonEditor.GUI
             this.SaveActive = new System.Windows.Forms.SaveFileDialog();
             this.ScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
             this.BottomBarTable = new System.Windows.Forms.TableLayoutPanel();
             this.BottomBarGfxModePanel = new System.Windows.Forms.Panel();
             this.BottomBarGfxCombo = new System.Windows.Forms.ComboBox();
@@ -90,14 +92,12 @@ namespace DungeonEditor.GUI
             this.VisualRgbaBrushDescLabel = new System.Windows.Forms.Label();
             this.VisualGraphicBrushLabel = new System.Windows.Forms.Label();
             this.VisualGraphicBrushDescLabel = new System.Windows.Forms.Label();
+            this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
+            this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
             this.PartDescLabel = new System.Windows.Forms.Label();
             this.PartTreeView = new System.Windows.Forms.TreeView();
             this.BrushesDescLabel = new System.Windows.Forms.Label();
             this.BrushesTreeView = new System.Windows.Forms.TreeView();
-            this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
-            this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
-            this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
             this.MainMenu.SuspendLayout();
             this.ScreenLayoutPanel.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
@@ -150,7 +150,7 @@ namespace DungeonEditor.GUI
             this.dungeonToolStripMenuItem});
             this.newToolStripMenuItem.Enabled = false;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // dungeonToolStripMenuItem
@@ -163,7 +163,7 @@ namespace DungeonEditor.GUI
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -171,14 +171,14 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -186,14 +186,14 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -201,13 +201,13 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator4.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -224,15 +224,20 @@ namespace DungeonEditor.GUI
             // 
             this.undoToolStripMenuItem.Enabled = false;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Enabled = false;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Z)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -241,6 +246,13 @@ namespace DungeonEditor.GUI
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
+            // 
+            // viewCollisionsToolStripMenuItem
+            // 
+            this.viewCollisionsToolStripMenuItem.Name = "viewCollisionsToolStripMenuItem";
+            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.viewCollisionsToolStripMenuItem.Text = "View Collisions";
+            this.viewCollisionsToolStripMenuItem.Click += new System.EventHandler(this.viewCollisionsToolStripMenuItem_Click);
             // 
             // dungeonToolStripMenuItem1
             // 
@@ -353,6 +365,16 @@ namespace DungeonEditor.GUI
             this.MainTableLayout.Size = new System.Drawing.Size(1064, 738);
             this.MainTableLayout.TabIndex = 2;
             this.MainTableLayout.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.MainTableLayout_CellPaint);
+            // 
+            // MainPictureBox
+            // 
+            this.MainPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.MainPictureBox.Name = "MainPictureBox";
+            this.MainPictureBox.Size = new System.Drawing.Size(1058, 701);
+            this.MainPictureBox.TabIndex = 2;
+            this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
             // 
             // BottomBarTable
             // 
@@ -574,6 +596,30 @@ namespace DungeonEditor.GUI
             this.VisualGraphicBrushDescLabel.Text = "no brush selected";
             this.VisualGraphicBrushDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // VisualRgbaBrushImageBox
+            // 
+            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(5, 45);
+            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
+            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(90, 100);
+            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualRgbaBrushImageBox.TabIndex = 3;
+            this.VisualRgbaBrushImageBox.TabStop = false;
+            // 
+            // VisualGraphicBrushImageBox
+            // 
+            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(105, 45);
+            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
+            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(90, 100);
+            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualGraphicBrushImageBox.TabIndex = 2;
+            this.VisualGraphicBrushImageBox.TabStop = false;
+            // 
             // PartDescLabel
             // 
             this.PartDescLabel.BackColor = System.Drawing.Color.Transparent;
@@ -625,47 +671,6 @@ namespace DungeonEditor.GUI
             this.BrushesTreeView.TabIndex = 4;
             this.BrushesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrushesTreeView_AfterSelect);
             // 
-            // viewCollisionsToolStripMenuItem
-            // 
-            this.viewCollisionsToolStripMenuItem.Name = "viewCollisionsToolStripMenuItem";
-            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.viewCollisionsToolStripMenuItem.Text = "View Collisions";
-            this.viewCollisionsToolStripMenuItem.Click += new System.EventHandler(this.viewCollisionsToolStripMenuItem_Click);
-            // 
-            // MainPictureBox
-            // 
-            this.MainPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPictureBox.Location = new System.Drawing.Point(3, 3);
-            this.MainPictureBox.Name = "MainPictureBox";
-            this.MainPictureBox.Size = new System.Drawing.Size(1058, 701);
-            this.MainPictureBox.TabIndex = 2;
-            this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
-            // 
-            // VisualRgbaBrushImageBox
-            // 
-            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(5, 45);
-            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
-            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(90, 100);
-            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualRgbaBrushImageBox.TabIndex = 3;
-            this.VisualRgbaBrushImageBox.TabStop = false;
-            // 
-            // VisualGraphicBrushImageBox
-            // 
-            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(105, 45);
-            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
-            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(90, 100);
-            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualGraphicBrushImageBox.TabIndex = 2;
-            this.VisualGraphicBrushImageBox.TabStop = false;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -704,7 +709,6 @@ namespace DungeonEditor.GUI
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem authorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -751,6 +755,7 @@ namespace DungeonEditor.GUI
         private ImageBox MainPictureBox;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem viewCollisionsToolStripMenuItem;
+        private ToolStripMenuItem undoToolStripMenuItem;
 
     }
 }

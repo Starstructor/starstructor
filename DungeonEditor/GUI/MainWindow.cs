@@ -141,6 +141,11 @@ namespace DungeonEditor.GUI
             m_selectedBrush = null;
             m_selectedMap = null;
 
+            // Update menu items, regardless of how we ended up here
+            UpdateUndoRedoItems();
+            closeToolStripMenuItem.Enabled = false;
+            saveToolStripMenuItem.Enabled = false;
+
             // Force the garbage collector to clean up
             // But it won't do it until next file load because that would be too easy
             GC.Collect();
@@ -275,30 +280,17 @@ namespace DungeonEditor.GUI
             return GetSelectedLayer().Parent;
         }
 
-        public void OnCanvasLeftClick(int gridX, int gridY, int lastGridX, int lastGridY)
+        public void RedrawCanvasFromBrush(EditorBrush oldBrush, int gridX, int gridY)
         {
-            if (m_selectedBrush == null || m_selectedMap == null)
-                return;
-
-            // Get the current layer
             EditorMapLayer activeLayer = GetSelectedLayer();
 
-            // Get the old brush, for redrawing purposes
-            EditorBrush oldBrush = GetSelectedLayer().GetBrushAt(gridX, gridY);
+            // Get old brush orientation
             ObjectOrientation oldBrushOrientation = null;
-
             if (oldBrush != null && oldBrush.FrontAsset != null && oldBrush.FrontAsset is StarboundObject)
             {
-                oldBrushOrientation = ((StarboundObject) oldBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX,
+                oldBrushOrientation = ((StarboundObject)oldBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX,
                     gridY);
             }
-
-            // If there's nothing to change, just leave
-            if (gridX == lastGridX && gridY == lastGridY)
-                return;
-
-            // Change the layer brush
-            activeLayer.SetBrushAt(m_selectedBrush, gridX, gridY, true);
 
             // We need to selectively redraw here
             if (m_gridFactor != 1)
@@ -326,7 +318,7 @@ namespace DungeonEditor.GUI
                     ymin += originY;
                     ymax += sizeY + originY;
                 }
-                    // If the old brush isn't an object, just redraw a tile
+                // If the old brush isn't an object, just redraw a tile
                 else
                 {
                     xmax += 1;
@@ -338,30 +330,18 @@ namespace DungeonEditor.GUI
                 if (m_selectedBrush.FrontAsset is StarboundObject)
                 {
                     ObjectOrientation orientation =
-                        ((StarboundObject) m_selectedBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX, gridY);
+                        ((StarboundObject)m_selectedBrush.FrontAsset).GetCorrectOrientation(m_selectedMap, gridX, gridY);
 
                     int sizeX = orientation.GetWidth(m_selectedBrush.Direction, 1);
                     int sizeY = orientation.GetHeight(m_selectedBrush.Direction, 1);
                     int originX = orientation.GetOriginX(m_selectedBrush.Direction, 1);
                     int originY = orientation.GetOriginY(m_selectedBrush.Direction, 1);
 
-                    int newxmin = xmin + originX;
-                    int newxmax = xmax + sizeX + originX;
+                    xmin = Math.Min(xmin, xmin + originX);
+                    xmax = Math.Max(xmax, xmax + sizeX + originX);
 
-                    int newymin = ymin + originY;
-                    int newymax = ymax + sizeY + originY;
-
-                    if (newxmin < xmin)
-                        xmin = newxmin;
-
-                    if (newxmax > xmax)
-                        xmax = newxmax;
-
-                    if (newymin < ymin)
-                        ymin = newymin;
-
-                    if (newymax > ymax)
-                        ymax = newymax;
+                    ymin = Math.Min(ymin, ymin + originY);
+                    ymax = Math.Max(ymax, ymax + sizeY + originY);
                 }
 
                 for (int x = xmin; x < xmax; ++x)
@@ -369,7 +349,6 @@ namespace DungeonEditor.GUI
                     for (int y = ymin; y < ymax; ++y)
                     {
                         HashSet<List<int>> collisions = null;
-
                         if (m_selectedMap is EditorMapPart)
                         {
                             collisions = activeLayer.Parent.GetCollisionsAt(x, y);
@@ -379,10 +358,10 @@ namespace DungeonEditor.GUI
                             collisions = activeLayer.GetCollisionsAt(x, y);
                         }
 
-                        if (collisions == null) 
+                        if (collisions == null)
                             continue;
 
-                        foreach (List<int> coords in collisions.Where(coords => 
+                        foreach (List<int> coords in collisions.Where(coords =>
                             (coords[0] != x || coords[1] != y) &&
                             (coords[0] != gridX || coords[1] != gridY)))
                         {
@@ -394,11 +373,7 @@ namespace DungeonEditor.GUI
                 // Selectively redraw the composite image
                 if (m_selectedMap is EditorMapPart)
                 {
-                    activeLayer.Parent.UpdateLayerImageBetween(
-                        xmin,
-                        ymin,
-                        xmax,
-                        ymax);
+                    activeLayer.Parent.UpdateLayerImageBetween(xmin, ymin, xmax, ymax);
 
                     foreach (var coords in additionalRedrawList)
                     {
@@ -409,21 +384,17 @@ namespace DungeonEditor.GUI
                             coords[1] + 1);
                     }
                 }
-
                     // Only selectively redraw the active layer
                 else if (m_selectedMap is EditorMapLayer)
                 {
                     activeLayer.Parent.UpdateLayerImageBetween(
-                        new List<EditorMapLayer> {activeLayer},
-                        xmin,
-                        ymin,
-                        xmax,
-                        ymax);
+                        new List<EditorMapLayer> { activeLayer },
+                        xmin, ymin, xmax, ymax);
 
                     foreach (var coords in additionalRedrawList)
                     {
                         activeLayer.Parent.UpdateLayerImageBetween(
-                            new List<EditorMapLayer> {activeLayer},
+                            new List<EditorMapLayer> { activeLayer },
                             coords[0],
                             coords[1],
                             coords[0] + 1,
@@ -436,6 +407,66 @@ namespace DungeonEditor.GUI
             // Otherwise the system will delay the refresh on large images
             MainPictureBox.Refresh();
         }
+        public void OnCanvasLeftClick(int gridX, int gridY, int lastGridX, int lastGridY)
+        {
+            if (m_selectedBrush == null || m_selectedMap == null)
+                return;
+
+            // If there's nothing to change, just leave
+            if (gridX == lastGridX && gridY == lastGridY)
+                return;
+
+            // Get the current layer
+            EditorMapLayer activeLayer = GetSelectedLayer();
+
+            // Change the layer brush
+            EditorBrush oldBrush = activeLayer.GetBrushAt(gridX, gridY);
+            activeLayer.SetUserBrushAt(m_selectedBrush, gridX, gridY);
+            UpdateUndoRedoItems();
+
+            RedrawCanvasFromBrush(oldBrush, gridX, gridY);
+            MainPictureBox.Refresh();
+        }
+
+        // Updates the undo/redo items by changing their enabled state correctly
+        private void UpdateUndoRedoItems()
+        {
+            EditorMapLayer activeLayer = GetSelectedLayer();
+            if (activeLayer == null)
+            {
+                undoToolStripMenuItem.Enabled = false;
+                redoToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                UndoManager undoManager = GetSelectedLayer().UndoManager();
+
+                undoToolStripMenuItem.Enabled = undoManager.CanUndo();
+                redoToolStripMenuItem.Enabled = undoManager.CanRedo();
+            }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditorMapLayer activeLayer = GetSelectedLayer();
+            if (activeLayer != null)
+            {
+                activeLayer.UndoManager().Undo();
+                MainPictureBox.Refresh();
+            }
+            UpdateUndoRedoItems();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditorMapLayer activeLayer = GetSelectedLayer();
+            if (activeLayer != null)
+            {
+                activeLayer.UndoManager().Redo();
+                MainPictureBox.Refresh();
+            }
+            UpdateUndoRedoItems();
+        }
 
         public void OnCanvasRightClick(int gridX, int gridY, int lastGridX, int lastGridY)
         {
@@ -447,10 +478,10 @@ namespace DungeonEditor.GUI
             // eyedropper tool
 
             EditorBrush brush = activeLayer.GetBrushAt(gridX, gridY);
-
             if (brush != null)
             {
                 SetSelectedBrush(brush);
+                BrushesTreeView.SelectedNode = null;    // needed to reselect the previous brush
             }
         }
 
@@ -716,9 +747,6 @@ namespace DungeonEditor.GUI
             {
                 CleanUp();
             }
-
-            closeToolStripMenuItem.Enabled = false;
-            saveToolStripMenuItem.Enabled = false;
         }
 
         private bool ConfirmExit()
@@ -985,5 +1013,6 @@ namespace DungeonEditor.GUI
                 GetSelectedPart().UpdateLayerImage();
             }
         }
+
     }
 }
