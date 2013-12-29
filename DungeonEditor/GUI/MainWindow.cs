@@ -894,6 +894,11 @@ namespace DungeonEditor.GUI
             screenGrab.Save("screengrab.png", ImageFormat.Png);
         }
 
+        private void MainPictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            MainPictureBox.Focus();
+        }
+
         private void viewCollisionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (viewCollisionsToolStripMenuItem.Checked)

@@ -681,6 +681,7 @@ namespace DungeonEditor.GUI
             this.MainPictureBox.Size = new System.Drawing.Size(1058, 701);
             this.MainPictureBox.TabIndex = 2;
             this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
+            this.MainPictureBox.MouseEnter += new System.EventHandler(this.MainPictureBox_MouseEnter);
             // 
             // VisualRgbaBrushImageBox
             // 
