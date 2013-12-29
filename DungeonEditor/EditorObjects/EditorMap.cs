@@ -139,7 +139,7 @@ namespace DungeonEditor.EditorObjects
                 ymax = Math.Max(ymax, ymax + sizeY + originY);
             }
 
-            //
+            // Accumulate a list of coordinates to redraw?
             for (int x = xmin; x < xmax; ++x)
             {
                 for (int y = ymin; y < ymax; ++y)
@@ -165,7 +165,7 @@ namespace DungeonEditor.EditorObjects
                     }
                 }
             }
-
+            
             // Selectively redraw the composite image
             if (this is EditorMapPart)
             {
@@ -180,6 +180,7 @@ namespace DungeonEditor.EditorObjects
                         coords[1] + 1);
                 }
             }
+
             // Only selectively redraw the active layer
             else if (this is EditorMapLayer)
             {

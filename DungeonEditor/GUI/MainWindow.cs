@@ -52,6 +52,18 @@ namespace DungeonEditor.GUI
             m_parent = parent;
 
             InitializeComponent();
+
+            // Callbacks added here since the designer enjoys making life miserable
+            this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
+            this.MainPictureBox.MouseEnter += new System.EventHandler(this.MainPictureBox_MouseEnter);
+            
+            this.BottomBarGfxCombo.SelectedIndexChanged += new System.EventHandler(this.BottomBarGfxCombo_SelectedIndexChanged);
+
+            this.RightPanelTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.RightPanelTabControl_Selected);
+
+            this.PartTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PartTreeView_AfterSelect);
+            this.BrushesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrushesTreeView_AfterSelect);
+
         }
 
         public EditorMap SelectedMap
@@ -131,15 +143,15 @@ namespace DungeonEditor.GUI
             VisualRgbaBrushImageBox.Image = null;
             PartTreeView.Nodes.Clear();
             BrushesTreeView.Nodes.Clear();
-            BottomBarBrushLabel.Text = "Selected Brush: ";
-            BottomBarXLabel.Text = "Grid X: ";
-            BottomBarYLabel.Text = "Grid Y: ";
+            BottomBarBrushLabel.Text = "";
+            BottomBarPositionLabel.Text = "Grid: ";
             BottomBarZoomLabel.Text = "Zoom: ";
             m_brushNodeMap.Clear();
             m_mapNodeMap.Clear();
             m_parent.CleanUpResource();
             m_selectedBrush = null;
             m_selectedMap = null;
+            RightPanelProperties.SelectedObject = null;
 
             // Update menu items, regardless of how we ended up here
             UpdateUndoRedoItems();
@@ -180,22 +192,18 @@ namespace DungeonEditor.GUI
 
         public void UpdateBottomBar(int gridX, int gridY)
         {
-            BottomBarXLabel.Text = "Grid X: ";
-            BottomBarYLabel.Text = "Grid Y: ";
-
+            BottomBarPositionLabel.Text = "Grid: ";
+            
             if (gridX == -1 || gridY == -1)
             {
-                BottomBarXLabel.Text += "N/A";
-                BottomBarYLabel.Text += "N/A";
+                BottomBarPositionLabel.Text += "N/A";
             }
             else
             {
-                BottomBarXLabel.Text += gridX;
-                BottomBarYLabel.Text += gridY;
+                BottomBarPositionLabel.Text += "(" + gridX + ", " + gridY + ")";
             }
 
-            BottomBarXLabel.Refresh();
-            BottomBarYLabel.Refresh();
+            BottomBarPositionLabel.Refresh();
         }
 
 
@@ -203,12 +211,12 @@ namespace DungeonEditor.GUI
         {
             m_selectedBrush = brush;
             string colour =
-                "r: " + m_selectedBrush.Colour[0] +
-                " g: " + m_selectedBrush.Colour[1] +
-                " b: " + m_selectedBrush.Colour[2];
+                "RGB: " + m_selectedBrush.Colour[0] +
+                ", " + m_selectedBrush.Colour[1] +
+                ", " + m_selectedBrush.Colour[2];
 
             // Tidy this display up at some point
-            BottomBarBrushLabel.Text = "Selected Brush: " + m_selectedBrush.Comment;
+            BottomBarBrushLabel.Text = m_selectedBrush.Comment;
 
             if (m_selectedBrush.FrontAsset != null)
             {
@@ -221,11 +229,6 @@ namespace DungeonEditor.GUI
             }
 
             BottomBarBrushLabel.Text += "        " + colour;
-
-            VisualRgbaBrushDescLabel.Text =
-                "r: " + m_selectedBrush.Colour[0] +
-                " g: " + m_selectedBrush.Colour[1] +
-                " b: " + m_selectedBrush.Colour[2];
 
             // Populate the colour box
             VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
@@ -251,7 +254,6 @@ namespace DungeonEditor.GUI
                 if (assetImg == null)
                     assetImg = m_selectedBrush.FrontAsset.Image;
 
-                VisualGraphicBrushDescLabel.Text = m_selectedBrush.FrontAsset.AssetName;
             }
             else if (m_selectedBrush.BackAsset != null)
             {
@@ -269,7 +271,6 @@ namespace DungeonEditor.GUI
                 if ( assetImg == null )
                     assetImg = m_selectedBrush.BackAsset.Image;
 
-                VisualGraphicBrushDescLabel.Text = m_selectedBrush.BackAsset.AssetName;
             }
 
             // Populate the tile preview box
@@ -279,6 +280,7 @@ namespace DungeonEditor.GUI
             }
 
             MainPictureBox.SetSelectedBrush(m_selectedBrush);
+            UpdatePropertiesPanel();
         }
 
         public EditorMapLayer GetSelectedLayer()
@@ -415,8 +417,34 @@ namespace DungeonEditor.GUI
                 return;
 
             m_selectedMap = m_mapNodeMap[e.Node];
-            PartDescLabel.Text = "Parts List: " + m_selectedMap.Name;
             UpdateImageBox(true, true);
+            UpdatePropertiesPanel();
+        }
+
+        private void UpdatePropertiesPanel()
+        {
+            TabPage tab = RightPanelTabControl.SelectedTab;
+            if ( tab == PartsTab )
+            {
+                RightPanelProperties.SelectedObject = GetSelectedPart();
+            }
+            else if ( tab == BrushesTab )
+            {
+                RightPanelProperties.SelectedObject = m_selectedBrush;
+            }
+            else if ( tab == NPCsTab )
+            {
+                RightPanelProperties.SelectedObject = null;
+            }
+            else
+            {
+                RightPanelProperties.SelectedObject = null;
+            }
+        }
+
+        private void RightPanelTabControl_Selected(object sender, TabControlEventArgs e)
+        {
+            UpdatePropertiesPanel();
         }
 
         // Populate the brush list
@@ -685,136 +713,6 @@ namespace DungeonEditor.GUI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void RightPanelTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {
-            Color borderColor = SystemColors.ControlDarkDark;
-            const int borderWidth = 1;
-
-            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.Dotted;
-            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.Dotted;
-
-            if (e.Row == 0)
-            {
-                topBorderStyle = ButtonBorderStyle.Solid;
-                bottomBorderStyle = ButtonBorderStyle.None;
-            }
-
-            ControlPaint.DrawBorder(
-                e.Graphics,
-                e.CellBounds,
-                borderColor,
-                borderWidth,
-                leftBorderStyle,
-                borderColor,
-                borderWidth,
-                topBorderStyle,
-                borderColor,
-                borderWidth,
-                rightBorderStyle,
-                borderColor,
-                borderWidth,
-                bottomBorderStyle);
-        }
-
-        private void BottomBarTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {
-            Color borderColor = SystemColors.ControlDarkDark;
-            const int borderWidth = 1;
-
-            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.Dotted;
-            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
-
-            if (e.Column == 4)
-                rightBorderStyle = ButtonBorderStyle.Solid;
-
-            ControlPaint.DrawBorder(
-                e.Graphics,
-                e.CellBounds,
-                borderColor,
-                borderWidth,
-                leftBorderStyle,
-                borderColor,
-                borderWidth,
-                topBorderStyle,
-                borderColor,
-                borderWidth,
-                rightBorderStyle,
-                borderColor,
-                borderWidth,
-                bottomBorderStyle);
-        }
-
-        private void TreeViewVisualBrushTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {
-            Color borderColor = SystemColors.ControlDarkDark;
-            const int borderWidth = 1;
-
-            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
-
-            if (e.Column == 0)
-                rightBorderStyle = ButtonBorderStyle.Dotted;
-
-            if (e.Row == 0 || e.Row == 1)
-                bottomBorderStyle = ButtonBorderStyle.Dotted;
-
-            ControlPaint.DrawBorder(
-                e.Graphics,
-                e.CellBounds,
-                borderColor,
-                borderWidth,
-                leftBorderStyle,
-                borderColor,
-                borderWidth,
-                topBorderStyle,
-                borderColor,
-                borderWidth,
-                rightBorderStyle,
-                borderColor,
-                borderWidth,
-                bottomBorderStyle);
-        }
-
-        private void MainTableLayout_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
-        {
-            Color borderColor = SystemColors.ControlDarkDark;
-            const int borderWidth = 1;
-
-            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
-
-            if (e.Column == 0)
-            {
-                topBorderStyle = ButtonBorderStyle.Solid;
-                rightBorderStyle = ButtonBorderStyle.Solid;
-                bottomBorderStyle = ButtonBorderStyle.Solid;
-            }
-
-            ControlPaint.DrawBorder(
-                e.Graphics,
-                e.CellBounds,
-                borderColor,
-                borderWidth,
-                leftBorderStyle,
-                borderColor,
-                borderWidth,
-                topBorderStyle,
-                borderColor,
-                borderWidth,
-                rightBorderStyle,
-                borderColor,
-                borderWidth,
-                bottomBorderStyle);
         }
 
         private void BottomBarGfxCombo_SelectedIndexChanged(object sender, EventArgs e)

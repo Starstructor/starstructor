@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
@@ -36,7 +37,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("rules")]
         public List<List<string>> Rules { get; set; }
 
-        [JsonProperty("brush")]
+        [JsonProperty("brush"), ReadOnly(true)]
         public List<List<object>> Brushes { get; set; }
 
         [JsonProperty("connector")]

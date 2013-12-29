@@ -37,6 +37,8 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("foregroundOverlays")]
         public List<ShipOverlay> ForegroundOverlays { get; set; }
 
+        // Missing blocksPosition? [x,y]
+
         [JsonProperty("blockKey")]
         public List<ShipBrush> Brushes { get; set; }
 

@@ -36,6 +36,9 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("anchor")]
         public List<string> Anchor { get; set; }
 
+        [JsonProperty("gravity")]
+        public int Gravity { get; set; }
+
         [JsonProperty("maxRadius")]
         public int MaxRadius { get; set; }
 

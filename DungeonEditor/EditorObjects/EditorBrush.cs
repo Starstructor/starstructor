@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.StarboundObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -46,35 +47,35 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] protected bool m_needsBackAsset;
         [JsonIgnore] protected bool m_needsFrontAsset;
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public StarboundAsset FrontAsset
         {
             get { return m_frontAsset; }
             set { m_frontAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public StarboundAsset BackAsset
         {
             get { return m_backAsset; }
             set { m_backAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public bool NeedsFrontAsset
         {
             get { return m_needsFrontAsset; }
             set { m_needsFrontAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public bool NeedsBackAsset
         {
             get { return m_needsBackAsset; }
             set { m_needsBackAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public bool IsSpecial
         {
             get { return m_isSpecial; }
@@ -82,7 +83,7 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public ObjectDirection Direction
         {
             get { return m_direction; }
@@ -90,14 +91,14 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public List<string> BrushTypes
         {
             get { return m_brushTypes; }
             set { m_brushTypes = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public List<string> BrushRules
         {
             get { return m_brushRules; }
