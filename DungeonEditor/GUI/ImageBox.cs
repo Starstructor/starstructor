@@ -195,9 +195,8 @@ namespace DungeonEditor.GUI
             {
                 if (m_selectedAsset is StarboundObject)
                 {
-                    ObjectOrientation orientation =
-                        ((StarboundObject) m_selectedAsset).GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX,
-                            m_mouseGridY);
+                    StarboundObject sbObject = (StarboundObject)m_selectedAsset;
+                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX, m_mouseGridY);
 
                     Renderer.DrawObject(
                         (StarboundObject) m_selectedAsset,

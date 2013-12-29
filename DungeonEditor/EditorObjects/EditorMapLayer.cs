@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Ships;
+using System;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -36,6 +37,7 @@ namespace DungeonEditor.EditorObjects
         private readonly EditorBrush[,] m_brushMap;
         private readonly EditorMapPart m_parent;
         private bool m_changed;
+        private UndoManager m_undoManager;
 
         // This constructor populates a two dimensional list of brushes.
         // It does this by translating between the provided colour map and the collection of StarboundBrushes.
@@ -52,6 +54,7 @@ namespace DungeonEditor.EditorObjects
             m_height = colourMap.Height;
             m_brushMap = new EditorBrush[m_width, m_height];
             m_collisionMap = new HashSet<List<int>>[m_width, m_height];
+            m_undoManager = new UndoManager(this);
 
             List<CollisionObjectBrush> brushObjList = new List<CollisionObjectBrush>();
 
@@ -108,6 +111,12 @@ namespace DungeonEditor.EditorObjects
             get { return m_changed; }
             set { m_changed = value; }
         }
+        
+        // Retrieves the undo manager for this map layer
+        public UndoManager UndoManager()
+        {
+            return m_undoManager;
+        }
 
         // Returns the StarboundBrush located at the provided x- and y-coords 
         // as dictated by the colour map.
@@ -119,13 +128,16 @@ namespace DungeonEditor.EditorObjects
             return m_brushMap[x, y];
         }
 
-        public void SetBrushAt(EditorBrush brush, int x, int y)
+        // Sets the brush as per SetBrushAt but triggers an action that can be stored in the Undo/Redo system
+        public void SetUserBrushAt(EditorBrush brush, int x, int y, bool updateComposite = true)
         {
-            SetBrushAt(brush, x, y, false);
+            EditorBrush oldBrush = GetBrushAt(x, y);
+            m_undoManager.RegisterAction(oldBrush, brush, x, y);
+            SetBrushAt(brush, x, y, updateComposite);
         }
 
         // Sets the brush at the located area and updates the affected colour map pixel
-        public void SetBrushAt(EditorBrush brush, int x, int y, bool updateComposite)
+        public void SetBrushAt(EditorBrush brush, int x, int y, bool updateComposite = false)
         {
             if (x >= m_width || x < 0 || y >= m_height || y < 0)
                 return;
@@ -140,15 +152,9 @@ namespace DungeonEditor.EditorObjects
             m_changed = true;
         }
 
-
-        public void SetCollisionAt(EditorBrush brush, int x, int y)
-        {
-            SetCollisionAt(brush, x, y, false);
-        }
-
         // Sets the collision at the provided x- and y- coordinates to match the provided brush
         // Also handles removing old collisions if the brush is being replaced
-        public void SetCollisionAt(EditorBrush brush, int x, int y, bool updateComposite)
+        public void SetCollisionAt(EditorBrush brush, int x, int y, bool updateComposite = false)
         {
             // First, remove the old collision
             EditorBrush oldBrush = GetBrushAt(x, y);
@@ -159,10 +165,10 @@ namespace DungeonEditor.EditorObjects
                 StarboundObject sbObject = (StarboundObject)oldBrush.FrontAsset;
                 ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
 
-                int sizeX = orientation.GetWidth(brush.Direction, 1);
-                int sizeY = orientation.GetHeight(brush.Direction, 1);
-                int originX = orientation.GetOriginX(brush.Direction, 1);
-                int originY = orientation.GetOriginY(brush.Direction, 1);
+                int sizeX = orientation.GetWidth(1, brush.Direction);
+                int sizeY = orientation.GetHeight(1, brush.Direction);
+                int originX = orientation.GetOriginX(1, brush.Direction);
+                int originY = orientation.GetOriginY(1, brush.Direction);
 
                 for (int j = originX + x; j < sizeX + originX + x; ++j)
                 {
@@ -199,10 +205,10 @@ namespace DungeonEditor.EditorObjects
                     var sbObject = (StarboundObject) brush.FrontAsset;
                     ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
 
-                    int sizeX = orientation.GetWidth(brush.Direction, 1);
-                    int sizeY = orientation.GetHeight(brush.Direction, 1);
-                    int originX = orientation.GetOriginX(brush.Direction, 1);
-                    int originY = orientation.GetOriginY(brush.Direction, 1);
+                    int sizeX = orientation.GetWidth(1, brush.Direction);
+                    int sizeY = orientation.GetHeight(1, brush.Direction);
+                    int originX = orientation.GetOriginX(1, brush.Direction);
+                    int originY = orientation.GetOriginY(1, brush.Direction);
 
                     // Set the elements at j, k to point to the anchor at x, y
                     for (int j = originX + x; j < sizeX + originX + x; ++j)
@@ -250,5 +256,6 @@ namespace DungeonEditor.EditorObjects
 
             m_collisionMap[x, y].Add(anchor);
         }
+
     }
 }

@@ -89,6 +89,11 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("soundEffect")]
         public string SoundEffect { get; set; }
 
+        public ObjectOrientation GetDefaultOrientation()
+        {
+            return Orientations.FirstOrDefault();
+        }
+
         public ObjectOrientation GetCorrectOrientation(EditorMap map, int x, int y)
         {
             EditorMapPart part = null;

@@ -58,10 +58,10 @@ namespace DungeonEditor
                 objImage = orientation.LeftImage;
             }
 
-            int sizeX = orientation.GetWidth(direction, gridFactor);
-            int sizeY = orientation.GetHeight(direction, gridFactor);
-            int originX = orientation.GetOriginX(direction, gridFactor);
-            int originY = orientation.GetOriginY(direction, gridFactor);
+            int sizeX = orientation.GetWidth(gridFactor, direction);
+            int sizeY = orientation.GetHeight(gridFactor, direction);
+            int originX = orientation.GetOriginX(gridFactor, direction);
+            int originY = orientation.GetOriginY(gridFactor, direction);
 
             var colourMatrix = new ColorMatrix();
             colourMatrix.Matrix33 = opacity;

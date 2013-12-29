@@ -52,6 +52,7 @@ namespace DungeonEditor.GUI
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dungeonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +64,9 @@ namespace DungeonEditor.GUI
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dungeonToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDungeonMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +98,6 @@ namespace DungeonEditor.GUI
             this.PartTreeView = new System.Windows.Forms.TreeView();
             this.BrushesDescLabel = new System.Windows.Forms.Label();
             this.BrushesTreeView = new System.Windows.Forms.TreeView();
-            this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
             this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
             this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
@@ -141,74 +144,83 @@ namespace DungeonEditor.GUI
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Text = "&File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dungeonToolStripMenuItem});
-            this.newToolStripMenuItem.Enabled = false;
+            this.dungeonToolStripMenuItem,
+            this.shipToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.newToolStripMenuItem.Text = "&New";
             // 
             // dungeonToolStripMenuItem
             // 
+            this.dungeonToolStripMenuItem.Enabled = false;
             this.dungeonToolStripMenuItem.Name = "dungeonToolStripMenuItem";
             this.dungeonToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.dungeonToolStripMenuItem.Text = "Dungeon";
+            // 
+            // shipToolStripMenuItem
+            // 
+            this.shipToolStripMenuItem.Enabled = false;
+            this.shipToolStripMenuItem.Name = "shipToolStripMenuItem";
+            this.shipToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.shipToolStripMenuItem.Text = "Ship";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(135, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(135, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
@@ -218,29 +230,56 @@ namespace DungeonEditor.GUI
             this.redoToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Text = "&Edit";
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Enabled = false;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.undoToolStripMenuItem.Text = "&Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Enabled = false;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Z)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.redoToolStripMenuItem.Text = "&Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.toolStripSeparator1,
             this.viewCollisionsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.refreshToolStripMenuItem.Text = "&Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            // 
+            // viewCollisionsToolStripMenuItem
+            // 
+            this.viewCollisionsToolStripMenuItem.Name = "viewCollisionsToolStripMenuItem";
+            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.viewCollisionsToolStripMenuItem.Text = "View &Collisions";
+            this.viewCollisionsToolStripMenuItem.Click += new System.EventHandler(this.viewCollisionsToolStripMenuItem_Click);
             // 
             // dungeonToolStripMenuItem1
             // 
@@ -250,28 +289,28 @@ namespace DungeonEditor.GUI
             this.addBrushToolStripMenuItem});
             this.dungeonToolStripMenuItem1.Name = "dungeonToolStripMenuItem1";
             this.dungeonToolStripMenuItem1.Size = new System.Drawing.Size(68, 20);
-            this.dungeonToolStripMenuItem1.Text = "Dungeon";
+            this.dungeonToolStripMenuItem1.Text = "&Dungeon";
             // 
             // addObjectToolStripMenuItem
             // 
             this.addObjectToolStripMenuItem.Enabled = false;
             this.addObjectToolStripMenuItem.Name = "addObjectToolStripMenuItem";
             this.addObjectToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.addObjectToolStripMenuItem.Text = "Add Object";
+            this.addObjectToolStripMenuItem.Text = "Add &Object";
             // 
             // addDungeonMapToolStripMenuItem
             // 
             this.addDungeonMapToolStripMenuItem.Enabled = false;
             this.addDungeonMapToolStripMenuItem.Name = "addDungeonMapToolStripMenuItem";
             this.addDungeonMapToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.addDungeonMapToolStripMenuItem.Text = "Add Part";
+            this.addDungeonMapToolStripMenuItem.Text = "Add &Part";
             // 
             // addBrushToolStripMenuItem
             // 
             this.addBrushToolStripMenuItem.Enabled = false;
             this.addBrushToolStripMenuItem.Name = "addBrushToolStripMenuItem";
             this.addBrushToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.addBrushToolStripMenuItem.Text = "Add Brush";
+            this.addBrushToolStripMenuItem.Text = "Add &Brush";
             // 
             // starboundToolStripMenuItem
             // 
@@ -279,13 +318,13 @@ namespace DungeonEditor.GUI
             this.setDirectoryToolStripMenuItem});
             this.starboundToolStripMenuItem.Name = "starboundToolStripMenuItem";
             this.starboundToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
-            this.starboundToolStripMenuItem.Text = "Starbound";
+            this.starboundToolStripMenuItem.Text = "&Starbound";
             // 
             // setDirectoryToolStripMenuItem
             // 
             this.setDirectoryToolStripMenuItem.Name = "setDirectoryToolStripMenuItem";
             this.setDirectoryToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.setDirectoryToolStripMenuItem.Text = "Set Directory";
+            this.setDirectoryToolStripMenuItem.Text = "Set &Directory";
             this.setDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setDirectoryToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
@@ -294,22 +333,23 @@ namespace DungeonEditor.GUI
             this.authorToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.aboutToolStripMenuItem.Text = "&Help";
             // 
             // authorToolStripMenuItem
             // 
             this.authorToolStripMenuItem.Enabled = false;
             this.authorToolStripMenuItem.Name = "authorToolStripMenuItem";
-            this.authorToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.authorToolStripMenuItem.Text = "Author";
+            this.authorToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.authorToolStripMenuItem.Text = "&Author";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Enabled = false;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.helpToolStripMenuItem.Text = "Help &Topics";
             // 
             // OpenFile
             // 
@@ -402,7 +442,7 @@ namespace DungeonEditor.GUI
             this.BottomBarGfxCombo.Margin = new System.Windows.Forms.Padding(0);
             this.BottomBarGfxCombo.Name = "BottomBarGfxCombo";
             this.BottomBarGfxCombo.Size = new System.Drawing.Size(125, 21);
-            this.BottomBarGfxCombo.TabIndex = 2;
+            this.BottomBarGfxCombo.TabIndex = 5;
             this.BottomBarGfxCombo.SelectedIndexChanged += new System.EventHandler(this.BottomBarGfxCombo_SelectedIndexChanged);
             // 
             // BottomBarModeLabel
@@ -591,12 +631,15 @@ namespace DungeonEditor.GUI
             // 
             this.PartTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PartTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PartTreeView.FullRowSelect = true;
+            this.PartTreeView.HideSelection = false;
             this.PartTreeView.Indent = 12;
             this.PartTreeView.Location = new System.Drawing.Point(0, 175);
             this.PartTreeView.Margin = new System.Windows.Forms.Padding(0);
             this.PartTreeView.Name = "PartTreeView";
+            this.PartTreeView.ShowLines = false;
             this.PartTreeView.Size = new System.Drawing.Size(200, 134);
-            this.PartTreeView.TabIndex = 2;
+            this.PartTreeView.TabIndex = 3;
             this.PartTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PartTreeView_AfterSelect);
             // 
             // BrushesDescLabel
@@ -616,21 +659,18 @@ namespace DungeonEditor.GUI
             // 
             this.BrushesTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BrushesTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BrushesTreeView.FullRowSelect = true;
+            this.BrushesTreeView.HideSelection = false;
             this.BrushesTreeView.Indent = 12;
             this.BrushesTreeView.Location = new System.Drawing.Point(0, 334);
             this.BrushesTreeView.Margin = new System.Windows.Forms.Padding(0);
             this.BrushesTreeView.Name = "BrushesTreeView";
+            this.BrushesTreeView.PathSeparator = "/";
+            this.BrushesTreeView.ShowLines = false;
             this.BrushesTreeView.ShowNodeToolTips = true;
             this.BrushesTreeView.Size = new System.Drawing.Size(200, 404);
             this.BrushesTreeView.TabIndex = 4;
             this.BrushesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrushesTreeView_AfterSelect);
-            // 
-            // viewCollisionsToolStripMenuItem
-            // 
-            this.viewCollisionsToolStripMenuItem.Name = "viewCollisionsToolStripMenuItem";
-            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.viewCollisionsToolStripMenuItem.Text = "View Collisions";
-            this.viewCollisionsToolStripMenuItem.Click += new System.EventHandler(this.viewCollisionsToolStripMenuItem_Click);
             // 
             // MainPictureBox
             // 
@@ -641,6 +681,7 @@ namespace DungeonEditor.GUI
             this.MainPictureBox.Size = new System.Drawing.Size(1058, 701);
             this.MainPictureBox.TabIndex = 2;
             this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
+            this.MainPictureBox.MouseEnter += new System.EventHandler(this.MainPictureBox_MouseEnter);
             // 
             // VisualRgbaBrushImageBox
             // 
@@ -704,7 +745,6 @@ namespace DungeonEditor.GUI
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem authorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -751,6 +791,10 @@ namespace DungeonEditor.GUI
         private ImageBox MainPictureBox;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem viewCollisionsToolStripMenuItem;
+        private ToolStripMenuItem undoToolStripMenuItem;
+        private ToolStripMenuItem refreshToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem shipToolStripMenuItem;
 
     }
 }
