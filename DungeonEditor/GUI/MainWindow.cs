@@ -290,7 +290,6 @@ namespace DungeonEditor.GUI
             UpdateUndoRedoItems();
 
             m_selectedMap.RedrawCanvasFromBrush(oldBrush, m_selectedBrush, gridX, gridY);
-            UpdateImageBox(false, false); // TODO: currently workaround for bug with larger objects not being redrawn
             MainPictureBox.Refresh();
         }
 
@@ -324,7 +323,6 @@ namespace DungeonEditor.GUI
                                                         lastChange.Value.m_brushBefore,
                                                         lastChange.Value.m_x,
                                                         lastChange.Value.m_y);
-                    UpdateImageBox(false, false); // TODO: currently workaround for bug with larger objects not being redrawn
                     MainPictureBox.Refresh();
                 }
             }
@@ -343,7 +341,6 @@ namespace DungeonEditor.GUI
                                                         lastChange.Value.m_brushBefore,
                                                         lastChange.Value.m_x,
                                                         lastChange.Value.m_y);
-                    UpdateImageBox(false, false); // TODO: currently workaround for bug with larger objects not being redrawn
                     MainPictureBox.Refresh();
                 }
             }
@@ -865,11 +862,6 @@ namespace DungeonEditor.GUI
 
         private void MainPictureBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F5)
-            {
-                UpdateImageBox(false, false);
-            }
-
             if (e.KeyCode != Keys.F10 || m_selectedMap == null) 
                 return;
 
@@ -894,6 +886,10 @@ namespace DungeonEditor.GUI
             {
                 GetSelectedPart().UpdateLayerImage();
             }
+        }
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateImageBox(false, false);
         }
 
     }
