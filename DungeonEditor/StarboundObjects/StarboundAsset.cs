@@ -19,18 +19,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Drawing;
 using Newtonsoft.Json;
-using DungeonEditor.StarboundObjects.Objects;
-using DungeonEditor.EditorObjects;
 using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects
 {
+    [ReadOnly(true)]
     public class StarboundAsset
     {
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore]
         public Image Image { get; set; }
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore]
         public string AssetName { get; set; }
 
         public StarboundAsset GetShallowCopy()
