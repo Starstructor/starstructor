@@ -19,15 +19,18 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonMetadata
     {
         [JsonProperty("name")]
+        [Description("The name of the dungeon.")]
         public string Name { get; set; }
 
         [JsonProperty("species")]
+        [Description("The race that the dungeon belongs to.")]
         public string Species { get; set; }
 
         [JsonProperty("rules")]
@@ -40,9 +43,11 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         public int Gravity { get; set; }
 
         [JsonProperty("maxRadius")]
+        [DefaultValue(100)]
         public int MaxRadius { get; set; }
 
         [JsonProperty("maxParts")]
+        [DefaultValue(100)]
         public int MaxParts { get; set; }
     }
 }

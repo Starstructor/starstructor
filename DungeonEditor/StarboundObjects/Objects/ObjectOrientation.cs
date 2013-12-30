@@ -49,26 +49,66 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("imageLayers")]
         public List<ObjectImageLayer> ImageLayers { get; set; }
 
+        [JsonProperty("unlit")]             // only if imageLayers is not found
+        [DefaultValue(false)]
+        public bool Unlit { get; set; }
+
+        [JsonProperty("flipImages")]
+        [DefaultValue(false)]
+        public bool FlipImages { get; set; }
+
         [JsonProperty("imagePosition")]
-        public List<int> ImagePosition { get; set; }
+        public List<int> ImagePosition { get; set; }        // possibly double instead of int
 
         [JsonProperty("frames")]
+        [DefaultValue(1)]
         public int AnimFramesCount { get; set; }
 
         [JsonProperty("animationCycle")]
+        [DefaultValue(1.0)]
         public double AnimationCycle { get; set; }
+
+        // spaces
 
         [JsonProperty("spaceScan")]
         public double SpaceScan { get; set; }
 
+        [JsonProperty("requireTilledAnchors")]
+        [DefaultValue(false)]
+        public bool RequireTilledAnchors { get; set; }
+
+        [JsonProperty("requireSoilAnchors")]
+        [DefaultValue(false)]
+        public bool RequireSoilAnchors { get; set; }
+
+        // Contains "left", "bottom", "right", "top", "background"
         [JsonProperty("anchors")]
         public List<string> Anchors { get; set; }
 
+        //bgAnchors : List<List<int>> (is a List of Vec2I)
+        //fgAnchors : List<List<int>> (is a List of Vec2I)
+
+        // either "left" or "right"
         [JsonProperty("direction")]
+        [DefaultValue("left")]
         public string Direction { get; set; }
 
+        // either "none", "solid", or "platform"
+        [JsonProperty("collision")]
+        [DefaultValue("none")]
+        public string Collision { get; set; }
+
+        // Vec2F, should be double
         [JsonProperty("lightPosition")]
         public List<int> LightPosition { get; set; }
+
+        [JsonProperty("pointAngle")]
+        [DefaultValue(0.0)]
+        public double PointAngle { get; set; }
+
+        //particleEmitter       object with more properties
+        //particleEmitters      list of particleEmitter
+
 
         public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {

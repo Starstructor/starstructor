@@ -27,26 +27,33 @@ namespace DungeonEditor.StarboundObjects.Ships
 {
     public class ShipBrush : EditorBrush
     {
-        [JsonProperty("value"), JsonConverter(typeof(ColorSerializer))]
-        public override Color Colour { get; set; }
-
         [JsonIgnore]
         public override string Comment { get; set; }
 
         [JsonProperty("foregroundBlock"), Category("Graphic")]
+        [DefaultValue(false)]
         public bool ForegroundBlock { get; set; }
 
         [JsonProperty("backgroundBlock"), Category("Graphic")]
+        [DefaultValue(false)]
         public bool BackgroundBlock { get; set; }
 
         [JsonProperty("foregroundMat"), Category("Graphic")]
+        [DefaultValue("")]
         public string ForegroundMat { get; set; }
 
         [JsonProperty("backgroundMat"), Category("Graphic")]
+        [DefaultValue("")]
         public string BackgroundMat { get; set; }
 
         [JsonProperty("object")]
+        [DefaultValue("")]
         public string Object { get; set; }
+
+        // either left or right
+        [JsonProperty("objectDirection"), Category("Orientation")]
+        [DefaultValue("left")]
+        public string ObjectDirection { get; set; }
 
         [JsonProperty("objectParameters")]
         public ShipObjectParams ObjectParameters { get; set; }
@@ -54,7 +61,8 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("flags")]
         public List<string> Flags { get; set; }
 
-        [JsonProperty("objectDirection"), Category("Orientation")]
-        public string ObjectDirection { get; set; }
+        [JsonProperty("value"), JsonConverter(typeof(ColorSerializer))]
+        public override Color Colour { get; set; }
+
     }
 }

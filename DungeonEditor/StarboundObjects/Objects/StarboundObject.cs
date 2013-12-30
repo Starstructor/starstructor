@@ -23,37 +23,126 @@ using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.ComponentModel;
+using System;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
+    [ReadOnly(true)]
     public class StarboundObject : StarboundAsset
     {
         [JsonProperty("objectName")]
+        [Description("The name of the object.")]
         public string ObjectName { get; set; }
 
-        [JsonProperty("rarity")]
-        public string Rarity { get; set; }
+        [JsonProperty("objectType")]
+        [DefaultValue("object")]
+        public string ObjectType { get; set; }
 
+        // Can also be list of string containing categories
         [JsonProperty("category")]
         public string Category { get; set; }
 
+        private uint m_Price;
+
+        [JsonProperty("price")]
+        [DefaultValue(1)]
+        [Description("Price of the object. Should never be 0.")]
+        public uint Price { get { return m_Price; } set { m_Price = Math.Max(1, value); } }
+
+        // objectItem
+        // printable
+        
+        [JsonProperty("race")]
+        [DefaultValue("")]
+        public string Race { get; set; }
+
+        [JsonProperty("retainObjectParametersInItem")]
+        [DefaultValue(false)]
+        public bool RetainObjectParametersInItem { get; set; }
+
+        //breakDropOptions
+        //smashDropOptions
+        //smashSounds
+
+        [JsonProperty("unbreakable")]
+        [DefaultValue(false)]
+        [Description("Indicates that the object is indestructible.")]
+        public bool Unbreakable { get; set; }
+
+        // damageTable (stuff)
+
+        [JsonProperty("damageShakeMagnitude")]
+        [DefaultValue(0.2)]
+        public double DamageShakeMagnitude { get; set; }
+
+        [JsonProperty("damageMaterialKind")]
+        [DefaultValue("solid")]
+        public string DamageMaterialKind { get; set; }
+
+        //damageTeam
+        
+        [JsonProperty("rarity")]
+        public string Rarity { get; set; }
+
+        // NOTE! If this value isn't present, then it checks for lightColors (with an s)
         [JsonProperty("lightColor"), JsonConverter(typeof(ColorSerializer)), Category("Lighting")]
         public Color LightColour { get; set; }
 
         [JsonProperty("flickerDistance"), Category("Lighting")]
+        [DefaultValue(0.0)]
         public double FlickerDistance { get; set; }
 
         [JsonProperty("flickerStrength"), Category("Lighting")]
+        [DefaultValue(0.0)]
         public double FlickerStrength { get; set; }
 
         [JsonProperty("flickerTiming"), Category("Lighting")]
+        [DefaultValue(10.0)]
         public double FlickerTiming { get; set; }
 
-        [JsonProperty("unlit"), Category("Lighting")]
-        public bool Unlit { get; set; }
+        [JsonProperty("pointLight"), Category("Lighting")]
+        [DefaultValue(false)]
+        public bool PointLight { get; set; }
 
-        [JsonProperty("price")]
-        public string Price { get; set; }
+        [JsonProperty("pointBeam"), Category("Lighting")]
+        [DefaultValue(0.0)]
+        public double PointBeam { get; set; }
+
+        [JsonProperty("soundEffect"), Category("Sound")]
+        [DefaultValue("")]
+        public string SoundEffect { get; set; }
+
+        [JsonProperty("soundEffectRadius"), Category("Sound")]
+        [DefaultValue(100.0)]
+        public double SoundEffectRadius { get; set; }
+
+        [JsonProperty("autoBrokenCheck")]
+        [DefaultValue(5)]
+        public uint AutoBrokenCheck { get; set; }
+
+        //statusEffects
+        //touchDamage
+
+        [JsonProperty("hydrophobic")]
+        [DefaultValue(false)]
+        public bool Hydrophobic { get; set; }
+
+        [JsonProperty("hydrophilic")]
+        [DefaultValue(false)]
+        public bool Hydrophilic { get; set; }
+
+        [JsonProperty("health")]
+        [DefaultValue(1.0)]
+        public double Health { get; set; }
+
+        [JsonProperty("orientations")]
+        public List<ObjectOrientation> Orientations { get; set; }
+
+        //particleEmitter
+        //particleEmitters
+        /*
+        [JsonProperty("unlit"), Category("Lighting")]
+        public bool Unlit { get; set; }*/
 
         [JsonProperty("apexDescription"), Category("Description")]
         public string ApexDescription { get; set; }
@@ -79,18 +168,11 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("shortdescription"), Category("Description")]
         public string Shortdescription { get; set; }
 
-        [JsonProperty("race")]
-        public string Race { get; set; }
-
         [JsonProperty("inventoryIcon")]
+        [DefaultValue("/interface/inventory/x.png")]
         public string InventoryIcon { get; set; }
 
-        [JsonProperty("orientations")]
-        public List<ObjectOrientation> Orientations { get; set; }
-
-        [JsonProperty("soundEffect")]
-        public string SoundEffect { get; set; }
-
+        
         public ObjectOrientation GetDefaultOrientation()
         {
             return Orientations.FirstOrDefault();
