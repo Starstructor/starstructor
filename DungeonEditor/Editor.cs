@@ -46,7 +46,7 @@ namespace DungeonEditor
         private readonly Dictionary<List<byte>, EditorBrush> m_brushMap
             = new Dictionary<List<byte>, EditorBrush>(new ByteListEqualityComparer());
 
-        private readonly Logger m_log
+        private static readonly Logger m_log
             = new Logger(Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 "log.txt"));
@@ -72,7 +72,7 @@ namespace DungeonEditor
             get { return m_assetDirContents; }
         }
 
-        public Logger Log
+        public static Logger Log
         {
             get { return m_log; }
         }
@@ -133,19 +133,21 @@ namespace DungeonEditor
             sw.Close();
         }
 
-        public void LoadFile(string path)
+        public bool LoadFile(string path)
         {
-            m_log.Write("Loading " + path);
+            m_log.Write("Parsing " + path);
 
             if (Path.GetExtension(path) == ".dungeon")
             {
                 m_activeFile = new JsonParser(path).ParseJson<StarboundDungeon>();
 
+                m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Parts.Count + " parts");
                 foreach (DungeonPart part in ((StarboundDungeon) m_activeFile).Parts)
                 {
                     m_activeFile.ReadableParts.Add(part);
                 }
 
+                m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Tiles.Count + " brushes");
                 foreach (DungeonBrush brush in ((StarboundDungeon) m_activeFile).Tiles)
                 {
                     m_activeFile.BlockMap.Add(brush);
@@ -155,11 +157,21 @@ namespace DungeonEditor
             {
                 m_activeFile = new JsonParser(path).ParseJson<StarboundShip>();
 
+                m_log.Write("  Parsing " + ((StarboundShip)m_activeFile).Brushes.Count + " brushes");
                 foreach (ShipBrush brush in ((StarboundShip) m_activeFile).Brushes)
                 {
                     m_activeFile.BlockMap.Add(brush);
                 }
             }
+
+            if (m_activeFile == null)
+            {
+                m_log.Write("Failed to parse " + path);
+                return false;
+            }
+
+            m_log.Write("Completed parsing " + path);
+            return true;
         }
 
         // clean up all resources
@@ -178,24 +190,24 @@ namespace DungeonEditor
             if (Settings.AssetDirPath == null) 
                 return;
 
-            m_log.Write("Populating asset list with assets from assets folder at " + Settings.AssetDirPath);
+            string baseDir = Settings.AssetDirPath;
+            string modDir = Path.Combine(Directory.GetParent(baseDir).ToString(), "mods");
 
-            m_assetDirContents = Directory.EnumerateFiles(Settings.AssetDirPath, "*.*", SearchOption.AllDirectories)
-                .Where(s => s.EndsWith(".material") || s.EndsWith(".object") ||
-                            s.EndsWith(".frames") || s.EndsWith(".npctype")).ToList();
+            List<string> directories = new List<String>() {baseDir, modDir};
 
-            string modDir = Path.Combine(Directory.GetParent(Settings.AssetDirPath).ToString(), "mods");
-
-            if (!Directory.Exists(modDir)) 
-                return;
-
-            m_log.Write("Populating asset list with assets from mod folder at " + modDir);
-
-            foreach (string path in (Directory.EnumerateFiles(modDir, "*.*", SearchOption.AllDirectories)
-                .Where(s => s.EndsWith(".material") || s.EndsWith(".object") ||
-                            s.EndsWith(".frames") || s.EndsWith(".npctype"))))
+            foreach (string path in directories)
             {
-                m_assetDirContents.Add(path);
+                if (!Directory.Exists(path))
+                {
+                    m_log.Write("Directory doesn't exist at " + path + ", unable to search for assets");
+                    return;
+                }
+
+                m_log.Write("Populating asset list with assets from " + path);
+
+                m_assetDirContents.AddRange((Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
+                    .Where(s => s.EndsWith(".material") || s.EndsWith(".object") ||
+                                s.EndsWith(".frames") || s.EndsWith(".npctype"))));
             }
         }
 
@@ -355,7 +367,7 @@ namespace DungeonEditor
                         }
                         else
                         {
-                            m_log.Write("   Left image for asset " + name + " at location " + leftPath + "" +
+                            m_log.Write("  Left image for asset " + name + " at location " + leftPath + "" +
                                         " not found!");
                         }
 
@@ -379,7 +391,7 @@ namespace DungeonEditor
                         }
                         else
                         {
-                            m_log.Write("   Right image for asset " + name + " at location " + rightPath +
+                            m_log.Write("  Right image for asset " + name + " at location " + rightPath +
                                         " not found!");
                         }
                     }

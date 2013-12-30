@@ -36,25 +36,12 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("parts")] public List<DungeonPart> Parts;
         [JsonProperty("tiles")] public List<DungeonBrush> Tiles;
 
-        public static void LoadFile(string path, Editor parent)
-        {
-            parent.ActiveFile = new JsonParser(path).ParseJson<StarboundDungeon>();
-
-            foreach (DungeonPart part in ((StarboundDungeon) parent.ActiveFile).Parts)
-            {
-                parent.ActiveFile.ReadableParts.Add(part);
-            }
-
-            foreach (DungeonBrush brush in ((StarboundDungeon) parent.ActiveFile).Tiles)
-            {
-                parent.ActiveFile.BlockMap.Add(brush);
-            }
-        }
-
         public override void LoadParts(Editor parent)
         {
             foreach (DungeonPart part in Parts)
             {
+                Editor.Log.Write("Loading part " + part.Name);
+
                 object imageList = part.Definition[1];
 
                 // If the format isn't strictly correct, assume there's only one layer in this part
@@ -71,8 +58,11 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 {
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), fileName);
 
-                    if (!File.Exists(path)) 
+                    if (!File.Exists(path))
+                    {
+                        Editor.Log.Write("  Layer image " + fileName + "does not exist");
                         continue;
+                    }
 
                     Image layerImg = EditorHelpers.LoadImageFromFile(path);
 
@@ -81,6 +71,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                     part.Height = layerImg.Height;
 
                     part.Layers.Add(new EditorMapLayer(fileName, (Bitmap) layerImg, parent.BrushMap, part));
+                    Editor.Log.Write("  Layer image " + fileName + " loaded");
                 }
 
                 // Create the graphics image
@@ -91,6 +82,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 part.UpdateCompositeCollisionMap();
 
                 part.Parent = this;
+                Editor.Log.Write("Completed loading part " + part.Name);
             }
         }
 
@@ -130,7 +122,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                             if (!(brushArray[i] is string))
                                 continue;
 
-                            var type = (string) brushArray[i];
+                            string type = (string) brushArray[i];
                             string name = null;
 
                             if (type == "back")
@@ -146,8 +138,8 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
                                 if (type == "object" && brushArray.Count > i + 2 && brushArray[i + 2] is JObject)
                                 {
-                                    var objectParams = (JObject) brushArray[i + 2];
-                                    var rawDirection = objectParams.Value<string>("direction");
+                                    JObject objectParams = (JObject)brushArray[i + 2];
+                                    string rawDirection = objectParams.Value<string>("direction");
 
                                     if (rawDirection == "left")
                                     {

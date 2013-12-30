@@ -283,18 +283,12 @@ namespace DungeonEditor.GUI
 
         public EditorMapLayer GetSelectedLayer()
         {
-            if (m_selectedMap == null)
-                return null;
-
-            return m_selectedMap.GetActiveLayer();
+            return m_selectedMap == null ? null : m_selectedMap.GetActiveLayer();
         }
 
         public EditorMapPart GetSelectedPart()
         {
-            if (m_selectedMap == null)
-                return null;
-
-            return m_selectedMap.GetActivePart();
+            return m_selectedMap == null ? null : m_selectedMap.GetActivePart();
         }
 
         public void OnCanvasLeftClick(int gridX, int gridY, int lastGridX, int lastGridY)
@@ -382,6 +376,7 @@ namespace DungeonEditor.GUI
             // eyedropper tool
 
             EditorBrush brush = activeLayer.GetBrushAt(gridX, gridY);
+
             if (brush != null)
             {
                 SetSelectedBrush(brush);
@@ -592,7 +587,7 @@ namespace DungeonEditor.GUI
             OpenFile.ShowDialog();
         }
 
-        // Open a new dungeon
+        // Open a new file
         private void OpenDungeonOrImageMap_FileOk(object sender, CancelEventArgs e)
         {
             if (!ConfirmExit())
@@ -607,16 +602,7 @@ namespace DungeonEditor.GUI
                 return;
             }
 
-            if (Path.GetExtension(OpenFile.FileName) == ".dungeon")
-            {
-                StarboundDungeon.LoadFile(OpenFile.FileName, m_parent);
-            }
-            else if (Path.GetExtension(OpenFile.FileName) == ".structure")
-            {
-                StarboundShip.LoadFile(OpenFile.FileName, m_parent);
-            }
-
-            if (m_parent.ActiveFile == null)
+            if (!m_parent.LoadFile(OpenFile.FileName))
             {
                 MessageBox.Show("Unable to load!");
 
@@ -625,9 +611,6 @@ namespace DungeonEditor.GUI
             }
 
             m_parent.ActiveFile.FilePath = OpenFile.FileName;
-
-            Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
-
             m_parent.ScanAssetDirectory();
             m_parent.ActiveFile.GenerateBrushAndAssetMaps(m_parent);
             m_parent.ActiveFile.LoadParts(m_parent);
@@ -639,6 +622,8 @@ namespace DungeonEditor.GUI
             {
                 PartTreeView.SelectedNode = PartTreeView.Nodes[0];
             }
+
+            Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
 
             closeToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
