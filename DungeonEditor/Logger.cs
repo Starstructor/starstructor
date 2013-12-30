@@ -38,10 +38,10 @@ namespace DungeonEditor
 
         public void Write(string text)
         {
-            if (m_file == null)
+            if (m_file == null || text == null)
                 return;
 
-            m_file.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss tt") + "] " + text);
+            m_file.WriteLine("[" + DateTime.Now.ToString("HH:mm:ss fff") + "] " + text);
         }
     }
 }

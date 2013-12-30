@@ -46,22 +46,17 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
 
-        public static void LoadFile(string path, Editor parent)
-        {
-            parent.ActiveFile = new JsonParser(path).ParseJson<StarboundShip>();
-
-            foreach (ShipBrush brush in ((StarboundShip) parent.ActiveFile).Brushes)
-            {
-                parent.ActiveFile.BlockMap.Add(brush);
-            }
-        }
-
         public override void LoadParts(Editor parent)
         {
+            Editor.Log.Write("Loading part " + PartImage);
+
             string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), PartImage);
 
-            if (!File.Exists(path)) 
+            if (!File.Exists(path))
+            {
+                Editor.Log.Write("  Part image " + PartImage + "does not exist");
                 return;
+            }
 
             Image layerImg = EditorHelpers.LoadImageFromFile(path);
 
@@ -79,6 +74,8 @@ namespace DungeonEditor.StarboundObjects.Ships
 
             ReadableParts.Add(part);
             LoadOverlays();
+
+            Editor.Log.Write("Completed loading part " + PartImage);
         }
 
         public override void GenerateBrushAndAssetMaps(Editor parent)
@@ -164,11 +161,13 @@ namespace DungeonEditor.StarboundObjects.Ships
             {
                 foreach (ShipOverlay overlay in BackgroundOverlays)
                 {
+                    Editor.Log.Write("  Loading background overlay " + overlay.ImageName);
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
 
                     if (File.Exists(path))
                     {
                         overlay.Image = EditorHelpers.LoadImageFromFile(path);
+                        Editor.Log.Write("  Completed loading background overlay " + overlay.ImageName);
                     }
                 }
             }
@@ -177,11 +176,13 @@ namespace DungeonEditor.StarboundObjects.Ships
             {
                 foreach (ShipOverlay overlay in ForegroundOverlays)
                 {
+                    Editor.Log.Write("  Loading foreground overlay " + overlay.ImageName);
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
 
                     if (File.Exists(path))
                     {
                         overlay.Image = EditorHelpers.LoadImageFromFile(path);
+                        Editor.Log.Write("  Completed loading foreground overlay " + overlay.ImageName);
                     }
                 }
             }
