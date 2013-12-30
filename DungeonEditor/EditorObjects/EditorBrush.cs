@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using DungeonEditor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -36,10 +37,12 @@ namespace DungeonEditor.EditorObjects
     {
         [JsonIgnore] protected StarboundAsset m_backAsset;
 
-        [JsonIgnore] protected List<string> m_brushRules = new List<string>();
-        [JsonIgnore] protected List<string> m_brushTypes = new List<string>();
+        [JsonIgnore]
+        protected BindingList<string> m_brushRules = new BindingList<string>();
+        [JsonIgnore]
+        protected BindingList<string> m_brushTypes = new BindingList<string>();
 
-        [JsonIgnore] protected List<byte> m_colourKey = new List<byte>();
+        [JsonIgnore] protected Color m_colourKey;
         [JsonIgnore] protected string m_comment;
         [JsonIgnore] protected ObjectDirection m_direction;
         [JsonIgnore] protected StarboundAsset m_frontAsset;
@@ -47,28 +50,28 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] protected bool m_needsBackAsset;
         [JsonIgnore] protected bool m_needsFrontAsset;
 
-        [JsonIgnore, Browsable(false)]
+        [JsonIgnore, ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
         public StarboundAsset FrontAsset
         {
             get { return m_frontAsset; }
             set { m_frontAsset = value; }
         }
 
-        [JsonIgnore, Browsable(false)]
+        [JsonIgnore, ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
         public StarboundAsset BackAsset
         {
             get { return m_backAsset; }
             set { m_backAsset = value; }
         }
 
-        [JsonIgnore, Browsable(false)]
+        [JsonIgnore, ReadOnly(true)]
         public bool NeedsFrontAsset
         {
             get { return m_needsFrontAsset; }
             set { m_needsFrontAsset = value; }
         }
 
-        [JsonIgnore, Browsable(false)]
+        [JsonIgnore, ReadOnly(true)]
         public bool NeedsBackAsset
         {
             get { return m_needsBackAsset; }
@@ -83,7 +86,7 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore, Category("Orientation")]
         public ObjectDirection Direction
         {
             get { return m_direction; }
@@ -92,14 +95,14 @@ namespace DungeonEditor.EditorObjects
 
 
         [JsonIgnore, ReadOnly(true)]
-        public List<string> BrushTypes
+        public BindingList<string> BrushTypes
         {
             get { return m_brushTypes; }
             set { m_brushTypes = value; }
         }
 
         [JsonIgnore, ReadOnly(true)]
-        public List<string> BrushRules
+        public BindingList<string> BrushRules
         {
             get { return m_brushRules; }
             set { m_brushRules = value; }
@@ -111,7 +114,8 @@ namespace DungeonEditor.EditorObjects
             set { m_comment = value; }
         }
 
-        public virtual List<byte> Colour
+        [JsonConverter(typeof(ColorSerializer))]
+        public virtual Color Colour
         {
             get { return m_colourKey; }
             set { m_colourKey = value; }

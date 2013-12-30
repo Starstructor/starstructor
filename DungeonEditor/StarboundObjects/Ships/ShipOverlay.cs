@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.Drawing;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -30,7 +31,7 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("image")]
         public string ImageName { get; set; }
 
-        [JsonProperty("position")]
+        [JsonProperty("position"), Category("Orientation")]
         public List<float> Position { get; set; }
     }
 }

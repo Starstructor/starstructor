@@ -21,14 +21,15 @@ using System.Collections.Generic;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonBrush : EditorBrush
     {
         // Override base colour list
-        [JsonProperty("value")]
-        public override List<byte> Colour { get; set; }
+        [JsonProperty("value"), JsonConverter(typeof(ColorSerializer))]
+        public override Color Colour { get; set; }
 
         // Override base comment field
         [JsonProperty("comment")]
@@ -40,13 +41,13 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("brush"), ReadOnly(true)]
         public List<List<object>> Brushes { get; set; }
 
-        [JsonProperty("connector")]
+        [JsonProperty("connector"), Category("Connector")]
         public bool? Connector { get; set; }
 
-        [JsonProperty("connector-value")]
-        public List<byte> ConnnectorColour { get; set; }
+        [JsonProperty("connector-value"), JsonConverter(typeof(ColorSerializer)), Category("Connector")]
+        public Color ConnnectorColour { get; set; }
 
-        [JsonProperty("direction")]
+        [JsonProperty("direction"), Category("Connector")]
         public string ConnectorDirection { get; set; }
     }
 }

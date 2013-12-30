@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.EditorObjects;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -30,7 +31,7 @@ namespace DungeonEditor.StarboundObjects.Ships
             UpdateLayerImage(m_partLayers);
         }
 
-        public override void UpdateLayerImage(List<EditorMapLayer> layers)
+        public override void UpdateLayerImage(BindingList<EditorMapLayer> layers)
         {
             Graphics gfx = Graphics.FromImage(GraphicsMap);
             StarboundShip parentShip = (StarboundShip)m_parent;
@@ -86,7 +87,7 @@ namespace DungeonEditor.StarboundObjects.Ships
             UpdateLayerImageBetween(m_partLayers, xmin, ymin, xmax, ymax, noFront, noBack, noSpecial, noClear);
         }
 
-        public override void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax)
+        public override void UpdateLayerImageBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax)
         {
             UpdateLayerImageBetween(layers, xmin, ymin, xmax, ymax, false, false, false, false);
         }

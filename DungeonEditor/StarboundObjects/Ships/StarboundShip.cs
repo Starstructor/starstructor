@@ -23,6 +23,7 @@ using System.Drawing;
 using System.IO;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -32,15 +33,15 @@ namespace DungeonEditor.StarboundObjects.Ships
         public ShipConfig Config { get; set; }
 
         [JsonProperty("backgroundOverlays")]
-        public List<ShipOverlay> BackgroundOverlays { get; set; }
+        public BindingList<ShipOverlay> BackgroundOverlays { get; set; }
 
         [JsonProperty("foregroundOverlays")]
-        public List<ShipOverlay> ForegroundOverlays { get; set; }
+        public BindingList<ShipOverlay> ForegroundOverlays { get; set; }
 
         // Missing blocksPosition? [x,y]
 
         [JsonProperty("blockKey")]
-        public List<ShipBrush> Brushes { get; set; }
+        public BindingList<ShipBrush> Brushes { get; set; }
 
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
@@ -90,11 +91,6 @@ namespace DungeonEditor.StarboundObjects.Ships
                 string backgroundName = null;
 
                 brush.Comment = "";
-
-                if (brush.Colour.Count != 4)
-                {
-                    brush.Colour.Add(255);
-                }
 
                 // The thing occupying the background layer
                 if (brush.BackgroundMat != null)

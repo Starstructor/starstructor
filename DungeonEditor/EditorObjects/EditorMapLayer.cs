@@ -44,7 +44,7 @@ namespace DungeonEditor.EditorObjects
         // This layer contains the *raw* brush information as drawn on the colour map, 
         // and is not responsible for any validity checking.
         // Also sets up the collision map
-        public EditorMapLayer(string layerName, Bitmap colourMap, Dictionary<List<byte>, EditorBrush> brushMap,
+        public EditorMapLayer(string layerName, Bitmap colourMap, Dictionary<Color, EditorBrush> brushMap,
             EditorMapPart parent)
         {
             m_parent = parent;
@@ -65,12 +65,12 @@ namespace DungeonEditor.EditorObjects
                     Color pixel = colourMap.GetPixel(x, y);
                     EditorBrush brush = null;
 
-                    List<byte> rawPixelData
-                        = new List<byte> {pixel.R, pixel.G, pixel.B, pixel.A};
+                    //List<byte> rawPixelData
+                      //  = new List<byte> {pixel.R, pixel.G, pixel.B, pixel.A};
 
-                    if (brushMap.ContainsKey(rawPixelData))
+                    if (brushMap.ContainsKey(pixel))
                     {
-                        brush = brushMap[rawPixelData];
+                        brush = brushMap[pixel];
                         m_brushMap[x, y] = brush;
                     }
 
@@ -146,9 +146,9 @@ namespace DungeonEditor.EditorObjects
             m_brushMap[x, y] = brush;
 
             var colourMapBmp = (Bitmap) ColourMap;
-            Color newPixel = Color.FromArgb(brush.Colour[3], brush.Colour[0], brush.Colour[1], brush.Colour[2]);
+            //Color newPixel = Color.FromArgb(brush.Colour[3], brush.Colour[0], brush.Colour[1], brush.Colour[2]);
 
-            colourMapBmp.SetPixel(x, y, newPixel);
+            colourMapBmp.SetPixel(x, y, brush.Colour);
             m_changed = true;
         }
 

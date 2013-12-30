@@ -80,7 +80,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                     part.Width = layerImg.Width;
                     part.Height = layerImg.Height;
 
-                    part.Layers.Add(new EditorMapLayer(fileName, (Bitmap) layerImg, parent.BrushMap, part));
+                    part.Layers.Add(new EditorMapLayer(fileName, (Bitmap)layerImg, parent.BrushMap, part));
                 }
 
                 // Create the graphics image
@@ -96,7 +96,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
         public override void GenerateBrushAndAssetMaps(Editor parent)
         {
-            Dictionary<List<byte>, EditorBrush> map = parent.BrushMap;
+            Dictionary<Color, EditorBrush> map = parent.BrushMap;
 
             foreach (DungeonBrush brush in BlockMap)
             {
@@ -214,10 +214,10 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                         asset = new StarboundAsset();
                         asset.AssetName = assetName;
                         asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                            brush.Colour[0],
-                            brush.Colour[1],
-                            brush.Colour[2],
-                            brush.Colour[3]);
+                            brush.Colour.R,
+                            brush.Colour.G,
+                            brush.Colour.B,
+                            brush.Colour.A);
 
                         parent.AssetMap[asset.AssetName] = asset;
                     }

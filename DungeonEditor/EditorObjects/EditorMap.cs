@@ -22,6 +22,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System;
 using DungeonEditor.StarboundObjects.Objects;
+using System.ComponentModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -33,14 +34,14 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] protected string m_name;
         [JsonIgnore] protected int m_width;
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true), Category("Size")]
         public int Width
         {
             get { return m_width; }
             set { m_width = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true), Category("Size")]
         public int Height
         {
             get { return m_height; }
@@ -185,13 +186,13 @@ namespace DungeonEditor.EditorObjects
             else if (this is EditorMapLayer)
             {
                 activeLayer.Parent.UpdateLayerImageBetween(
-                    new List<EditorMapLayer> { activeLayer },
+                    new BindingList<EditorMapLayer> { activeLayer },
                     xmin, ymin, xmax, ymax);
 
                 foreach (var coords in additionalRedrawList)
                 {
                     activeLayer.Parent.UpdateLayerImageBetween(
-                        new List<EditorMapLayer> { activeLayer },
+                        new BindingList<EditorMapLayer> { activeLayer },
                         coords[0],
                         coords[1],
                         coords[0] + 1,

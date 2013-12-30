@@ -22,9 +22,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
+    [ReadOnly(true)]
     public class ObjectOrientation
     {
         [JsonIgnore] public ObjectFrames LeftFrames;

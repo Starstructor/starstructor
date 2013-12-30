@@ -210,10 +210,7 @@ namespace DungeonEditor.GUI
         public void SetSelectedBrush(EditorBrush brush)
         {
             m_selectedBrush = brush;
-            string colour =
-                "RGB: " + m_selectedBrush.Colour[0] +
-                ", " + m_selectedBrush.Colour[1] +
-                ", " + m_selectedBrush.Colour[2];
+            string colour = m_selectedBrush.Colour.ToString();
 
             // Tidy this display up at some point
             BottomBarBrushLabel.Text = m_selectedBrush.Comment;
@@ -232,8 +229,8 @@ namespace DungeonEditor.GUI
 
             // Populate the colour box
             VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
-                m_selectedBrush.Colour[0], m_selectedBrush.Colour[1],
-                m_selectedBrush.Colour[2], m_selectedBrush.Colour[3]);
+                m_selectedBrush.Colour.R, m_selectedBrush.Colour.G,
+                m_selectedBrush.Colour.B, m_selectedBrush.Colour.A);
 
             Image assetImg = null;
 
@@ -550,7 +547,7 @@ namespace DungeonEditor.GUI
                 }
                 else if (m_selectedMap is EditorMapLayer)
                 {
-                    part.UpdateLayerImage(new List<EditorMapLayer> {(EditorMapLayer) m_selectedMap});
+                    part.UpdateLayerImage(new BindingList<EditorMapLayer> { (EditorMapLayer)m_selectedMap });
                 }
 
                 MainPictureBox.SetImage(part.GraphicsMap, resetZoom, resetCamera, m_gridFactor);

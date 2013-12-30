@@ -18,12 +18,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
     public class ObjectFrames
     {
-        [JsonProperty("frameGrid")]
+        [JsonProperty("frameGrid"), ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
         public ObjectFrameGrid FrameGrid { get; set; }
     }
 }

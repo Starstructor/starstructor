@@ -20,15 +20,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Tiles
 {
+    [ReadOnly(true)]
     public class StarboundTile : StarboundAsset
     {
-        [JsonProperty("description")]
+        [JsonProperty("description"), Category("Description")]
         public string Description { get; set; }
 
-        [JsonProperty("florandescription")]
+        [JsonProperty("florandescription"), Category("Description")]
         public string FloranDescription { get; set; }
 
         [JsonProperty("footstepSound")]
@@ -37,7 +39,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
         [JsonProperty("frames")]
         public string Frames { get; set; }
 
-        [JsonProperty("glitchdescription")]
+        [JsonProperty("glitchdescription"), Category("Description")]
         public string GlitchDescription { get; set; }
 
         [JsonProperty("health")]
@@ -58,22 +60,22 @@ namespace DungeonEditor.StarboundObjects.Tiles
         [JsonProperty("particleColor")]
         public List<int> ParticleColor { get; set; }
 
-        [JsonProperty("platform")]
+        [JsonProperty("platform"), Category("Platform")]
         public bool Platform { get; set; }
 
-        [JsonProperty("platformImage")]
+        [JsonProperty("platformImage"), Category("Platform")]
         public string PlatformImage { get; set; }
 
-        [JsonProperty("platformVariants")]
+        [JsonProperty("platformVariants"), Category("Platform")]
         public int PlatformVariants { get; set; }
 
-        [JsonProperty("shortdescription")]
+        [JsonProperty("shortdescription"), Category("Description")]
         public string ShortDescription { get; set; }
 
-        [JsonProperty("stairImage")]
+        [JsonProperty("stairImage"), Category("Platform")]
         public string StairImage { get; set; }
 
-        [JsonProperty("stairVariants")]
+        [JsonProperty("stairVariants"), Category("Platform")]
         public int StairVariants { get; set; }
 
         [JsonProperty("transparent")]

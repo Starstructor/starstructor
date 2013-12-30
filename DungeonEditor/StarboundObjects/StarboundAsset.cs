@@ -21,15 +21,16 @@ using System.Drawing;
 using Newtonsoft.Json;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.EditorObjects;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects
 {
     public class StarboundAsset
     {
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public Image Image { get; set; }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public string AssetName { get; set; }
 
         public StarboundAsset GetShallowCopy()

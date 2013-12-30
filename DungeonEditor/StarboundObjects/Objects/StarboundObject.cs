@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Linq;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
@@ -35,46 +37,46 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("category")]
         public string Category { get; set; }
 
-        [JsonProperty("lightColor")]
-        public List<int> LightColour { get; set; }
+        [JsonProperty("lightColor"), JsonConverter(typeof(ColorSerializer)), Category("Lighting")]
+        public Color LightColour { get; set; }
 
-        [JsonProperty("flickerDistance")]
+        [JsonProperty("flickerDistance"), Category("Lighting")]
         public double FlickerDistance { get; set; }
 
-        [JsonProperty("flickerStrength")]
+        [JsonProperty("flickerStrength"), Category("Lighting")]
         public double FlickerStrength { get; set; }
 
-        [JsonProperty("flickerTiming")]
+        [JsonProperty("flickerTiming"), Category("Lighting")]
         public double FlickerTiming { get; set; }
 
-        [JsonProperty("unlit")]
+        [JsonProperty("unlit"), Category("Lighting")]
         public bool Unlit { get; set; }
 
         [JsonProperty("price")]
         public string Price { get; set; }
 
-        [JsonProperty("apexDescription")]
+        [JsonProperty("apexDescription"), Category("Description")]
         public string ApexDescription { get; set; }
 
-        [JsonProperty("avianDescription")]
+        [JsonProperty("avianDescription"), Category("Description")]
         public string AvianDescription { get; set; }
 
-        [JsonProperty("floranDescription")]
+        [JsonProperty("floranDescription"), Category("Description")]
         public string FloranDescription { get; set; }
 
-        [JsonProperty("glitchDescription")]
+        [JsonProperty("glitchDescription"), Category("Description")]
         public string GlitchDescription { get; set; }
 
-        [JsonProperty("humanDescription")]
+        [JsonProperty("humanDescription"), Category("Description")]
         public string HumanDescription { get; set; }
 
-        [JsonProperty("hylotlDescription")]
+        [JsonProperty("hylotlDescription"), Category("Description")]
         public string HylotlDescription { get; set; }
 
-        [JsonProperty("description")]
+        [JsonProperty("description"), Category("Description")]
         public string Description { get; set; }
 
-        [JsonProperty("shortdescription")]
+        [JsonProperty("shortdescription"), Category("Description")]
         public string Shortdescription { get; set; }
 
         [JsonProperty("race")]

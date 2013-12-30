@@ -20,27 +20,29 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
     public class ShipBrush : EditorBrush
     {
-        [JsonProperty("value")]
-        public override List<byte> Colour { get; set; }
+        [JsonProperty("value"), JsonConverter(typeof(ColorSerializer))]
+        public override Color Colour { get; set; }
 
         [JsonIgnore]
         public override string Comment { get; set; }
 
-        [JsonProperty("foregroundBlock")]
+        [JsonProperty("foregroundBlock"), Category("Graphic")]
         public bool ForegroundBlock { get; set; }
 
-        [JsonProperty("backgroundBlock")]
+        [JsonProperty("backgroundBlock"), Category("Graphic")]
         public bool BackgroundBlock { get; set; }
 
-        [JsonProperty("foregroundMat")]
+        [JsonProperty("foregroundMat"), Category("Graphic")]
         public string ForegroundMat { get; set; }
 
-        [JsonProperty("backgroundMat")]
+        [JsonProperty("backgroundMat"), Category("Graphic")]
         public string BackgroundMat { get; set; }
 
         [JsonProperty("object")]
@@ -52,7 +54,7 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("flags")]
         public List<string> Flags { get; set; }
 
-        [JsonProperty("objectDirection")]
+        [JsonProperty("objectDirection"), Category("Orientation")]
         public string ObjectDirection { get; set; }
     }
 }

@@ -43,8 +43,8 @@ namespace DungeonEditor
         private readonly Dictionary<string, StarboundAsset> m_assetMap
             = new Dictionary<string, StarboundAsset>();
 
-        private readonly Dictionary<List<byte>, EditorBrush> m_brushMap
-            = new Dictionary<List<byte>, EditorBrush>(new ByteListEqualityComparer());
+        private readonly Dictionary<Color, EditorBrush> m_brushMap
+            = new Dictionary<Color, EditorBrush>();
 
         private readonly Logger m_log
             = new Logger(Path.Combine(
@@ -78,7 +78,7 @@ namespace DungeonEditor
         }
 
         // Maps from RGBA to a specific Tile
-        public Dictionary<List<byte>, EditorBrush> BrushMap
+        public Dictionary<Color, EditorBrush> BrushMap
         {
             get { return m_brushMap; }
         }

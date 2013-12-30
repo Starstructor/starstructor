@@ -18,15 +18,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
     public class ObjectImageLayer
     {
-        [JsonProperty("image")]
+        [JsonProperty("image"), ReadOnly(true)]
         public string ImageName { get; set; }
 
-        [JsonProperty("unlit")]
+        [JsonProperty("unlit"), ReadOnly(true)]
         public bool Unlit { get; set; }
     }
 }
