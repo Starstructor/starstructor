@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace DungeonEditor.StarboundObjects.Tiles
 {
@@ -28,60 +29,112 @@ namespace DungeonEditor.StarboundObjects.Tiles
     public class StarboundTile : StarboundAsset
     {
         [JsonProperty("description"), Category("Description")]
+        [DefaultValue("")]
+        [Description("A general description of the current tile.")]
         public string Description { get; set; }
 
-        [JsonProperty("florandescription"), Category("Description")]
+        [JsonProperty("shortdescription"), Category("Description")]
+        [Description("A short and meaningful description of the tile.")]
+        public string ShortDescription { get; set; }
+
+        [JsonProperty("apexDescription"), Category("Description")]
+        public string ApexDescription { get; set; }
+
+        [JsonProperty("avianDescription"), Category("Description")]
+        public string AvianDescription { get; set; }
+
+        [JsonProperty("floranDescription"), Category("Description")]
         public string FloranDescription { get; set; }
 
-        [JsonProperty("footstepSound")]
-        public string FootstepSound { get; set; }
-
-        [JsonProperty("frames")]
-        public string Frames { get; set; }
-
-        [JsonProperty("glitchdescription"), Category("Description")]
+        [JsonProperty("glitchDescription"), Category("Description")]
         public string GlitchDescription { get; set; }
 
-        [JsonProperty("health")]
-        public float Health { get; set; }
+        [JsonProperty("humanDescription"), Category("Description")]
+        public string HumanDescription { get; set; }
 
-        [JsonProperty("itemDrop")]
-        public string ItemDrop { get; set; }
+        [JsonProperty("hylotlDescription"), Category("Description")]
+        public string HylotlDescription { get; set; }
+
+        [JsonProperty("materialName")]
+        [Description("The name of the material used for rendering the tile.")]
+        public string MaterialName { get; set; }
 
         [JsonProperty("materialId")]
         public int MaterialId { get; set; }
 
-        [JsonProperty("materialName")]
-        public string MaterialName { get; set; }
+        [JsonProperty("itemDrop")]
+        [DefaultValue("")]
+        public string ItemDrop { get; set; }
+
+        // Either "breathable", "notBreathable", or "default"
+        [JsonProperty("breathable")]
+        [DefaultValue("")]
+        public string Breathable { get; set; }
+
+        [JsonProperty("particleColor"), JsonConverter(typeof(ColorSerializer))]
+        public Color ParticleColor { get; set; }
+        
+        [JsonProperty("footstepSound")]
+        public string FootstepSound { get; set; }
+
+        [JsonProperty("tillableMod")]
+        [DefaultValue(65535)]
+        public uint TillableMod { get; set; }
+
+        [JsonProperty("soil")]
+        [DefaultValue(false)]
+        public bool Soil { get; set; }
+
+        [JsonProperty("falling")]
+        [DefaultValue(false)]
+        public bool Falling { get; set; }
+
+        [JsonProperty("cascading")]
+        [DefaultValue(false)]
+        public bool Cascading { get; set; }
+
+        [JsonProperty("platform"), Category("Platform")]
+        [DefaultValue(false)]
+        public bool Platform { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("platformImage"), Category("Platform")]
+        public string PlatformImage { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("platformVariants"), Category("Platform")]
+        public int PlatformVariants { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("stairImage"), Category("Platform")]
+        public string StairImage { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("stairVariants"), Category("Platform")]
+        public int StairVariants { get; set; }
 
         [JsonProperty("multicolored")]
         public bool Multicolored { get; set; }
 
-        [JsonProperty("particleColor")]
-        public List<int> ParticleColor { get; set; }
-
-        [JsonProperty("platform"), Category("Platform")]
-        public bool Platform { get; set; }
-
-        [JsonProperty("platformImage"), Category("Platform")]
-        public string PlatformImage { get; set; }
-
-        [JsonProperty("platformVariants"), Category("Platform")]
-        public int PlatformVariants { get; set; }
-
-        [JsonProperty("shortdescription"), Category("Description")]
-        public string ShortDescription { get; set; }
-
-        [JsonProperty("stairImage"), Category("Platform")]
-        public string StairImage { get; set; }
-
-        [JsonProperty("stairVariants"), Category("Platform")]
-        public int StairVariants { get; set; }
-
+        // Condition: Platform=false
         [JsonProperty("transparent")]
         public bool Transparent { get; set; }
 
+        // Condition: Platform=false
+        [JsonProperty("frames")]
+        public string Frames { get; set; }
+
+        // Condition: Platform=false
         [JsonProperty("variants")]
-        public float Variants { get; set; }
+        public int Variants { get; set; }
+
+        [JsonProperty("health")]
+        [DefaultValue(1.0)]
+        public double Health { get; set; }
+
+        //has a damageTable attribute
+        // damageTable can either link to an external file or have embedded attributes
+        // default: "/tiles/defaultDamage.config"
+
     }
 }
