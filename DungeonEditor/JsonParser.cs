@@ -26,7 +26,13 @@ namespace DungeonEditor
     public class JsonParser
     {
         private readonly string m_path;
-
+        private JsonSerializerSettings settings = new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            Formatting = Formatting.Indented
+        };
+            
         public JsonParser(string path)
         {
             m_path = path;
@@ -34,13 +40,13 @@ namespace DungeonEditor
 
         public T ParseJson<T>()
         {
-            return JsonConvert.DeserializeObject<T>(GetFormattedJson());
+            return JsonConvert.DeserializeObject<T>(GetFormattedJson(), settings);
         }
 
         // todo
         public bool SerializeJson<T>(T obj)
         {
-            File.AppendAllText(m_path, JsonConvert.SerializeObject(obj, Formatting.Indented));
+            File.AppendAllText(m_path, JsonConvert.SerializeObject(obj, settings));
             return false;
         }
 

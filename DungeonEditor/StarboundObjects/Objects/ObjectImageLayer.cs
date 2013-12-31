@@ -26,11 +26,11 @@ namespace DungeonEditor.StarboundObjects.Objects
     [ReadOnly(true)]
     public class ObjectImageLayer
     {
-        [JsonProperty("image")]
+        [JsonProperty("image", Required = Required.Always)]
         public string ImageName { get; set; }
 
         [JsonProperty("unlit")]
         [DefaultValue(false)]
-        public bool Unlit { get; set; }
+        public bool? Unlit { get; set; }
     }
 }

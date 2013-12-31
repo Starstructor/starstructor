@@ -25,29 +25,29 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonMetadata
     {
-        [JsonProperty("name")]
+        [JsonProperty("name",Required=Required.Always)]
         [Description("The name of the dungeon.")]
         public string Name { get; set; }
 
-        [JsonProperty("species")]
+        [JsonProperty("species",Required=Required.Always)]
         [Description("The race that the dungeon belongs to.")]
         public string Species { get; set; }
 
         [JsonProperty("rules")]
         public List<object> Rules { get; set; }
 
-        [JsonProperty("anchor")]
-        public List<string> Anchor { get; set; }
-
-        [JsonProperty("gravity")]
-        public int Gravity { get; set; }
-
         [JsonProperty("maxRadius")]
         [DefaultValue(100)]
-        public int MaxRadius { get; set; }
+        public int? MaxRadius { get; set; }
 
         [JsonProperty("maxParts")]
         [DefaultValue(100)]
-        public int MaxParts { get; set; }
+        public int? MaxParts { get; set; }
+
+        [JsonProperty("anchor",Required=Required.Always)]
+        public List<string> Anchor { get; set; }
+
+        [JsonProperty("gravity")]
+        public int? Gravity { get; set; }
     }
 }

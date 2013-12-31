@@ -23,7 +23,7 @@ namespace DungeonEditor.StarboundObjects.Ships
 {
     public class ShipConfig
     {
-        [JsonProperty("fuelMax")]
+        [JsonProperty("fuelMax",Required=Required.Always)]
         public int FuelMax { get; set; }
     }
 }

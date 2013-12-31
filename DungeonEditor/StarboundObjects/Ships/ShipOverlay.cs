@@ -28,10 +28,11 @@ namespace DungeonEditor.StarboundObjects.Ships
     {
         [JsonIgnore] public Image Image;
 
-        [JsonProperty("image")]
+        [JsonProperty("image", Required=Required.Always)]
         public string ImageName { get; set; }
 
-        [JsonProperty("position"), Category("Orientation")]
+        // Vec2F
+        [JsonProperty("position", Required = Required.Always)]
         public List<float> Position { get; set; }
     }
 }

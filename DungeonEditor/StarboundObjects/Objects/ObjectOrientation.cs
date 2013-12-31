@@ -40,55 +40,67 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("dualImage")]
         public string DualImageName { get; set; }
 
+        // Only available if dualImage is true
         [JsonProperty("leftImage")]
         public string LeftImageName { get; set; }
 
+        // Only available if dualImage is true
         [JsonProperty("rightImage")]
         public string RightImageName { get; set; }
 
         [JsonProperty("imageLayers")]
         public List<ObjectImageLayer> ImageLayers { get; set; }
 
-        [JsonProperty("unlit")]             // only if imageLayers is not found
+        // only if imageLayers is not found
+        [JsonProperty("unlit")]
         [DefaultValue(false)]
-        public bool Unlit { get; set; }
+        public bool? Unlit { get; set; }
 
         [JsonProperty("flipImages")]
         [DefaultValue(false)]
-        public bool FlipImages { get; set; }
+        public bool? FlipImages { get; set; }
 
+        // Default: 0,0
+        // Vec2F, so should be double
         [JsonProperty("imagePosition")]
-        public List<int> ImagePosition { get; set; }        // possibly double instead of int
+        public List<double> ImagePosition { get; set; }
 
         [JsonProperty("frames")]
         [DefaultValue(1)]
-        public int AnimFramesCount { get; set; }
+        public int? AnimFramesCount { get; set; }
 
         [JsonProperty("animationCycle")]
         [DefaultValue(1.0)]
-        public double AnimationCycle { get; set; }
+        public double? AnimationCycle { get; set; }
 
-        // spaces
+        // List<Vec2I>
+        [JsonProperty("spaces")]
+        public List<List<int>> Spaces { get; set; }
 
         [JsonProperty("spaceScan")]
-        public double SpaceScan { get; set; }
+        public double? SpaceScan { get; set; }
 
         [JsonProperty("requireTilledAnchors")]
         [DefaultValue(false)]
-        public bool RequireTilledAnchors { get; set; }
+        public bool? RequireTilledAnchors { get; set; }
 
         [JsonProperty("requireSoilAnchors")]
         [DefaultValue(false)]
-        public bool RequireSoilAnchors { get; set; }
+        public bool? RequireSoilAnchors { get; set; }
 
         // Contains "left", "bottom", "right", "top", "background"
         [JsonProperty("anchors")]
         public List<string> Anchors { get; set; }
 
-        //bgAnchors : List<List<int>> (is a List of Vec2I)
-        //fgAnchors : List<List<int>> (is a List of Vec2I)
+        // List<Vec2I>
+        [JsonProperty("bgAnchors")]
+        public List<List<int>> BackgroundAnchors { get; set; }
 
-        // either "left" or "right"
+        // List<Vec2I>
+        [JsonProperty("fgAnchors")]
+        public List<List<int>> ForegroundAnchors { get; set; }
+
+        // either "left" or "right", defaults to right if rightImage
         [JsonProperty("direction")]
         [DefaultValue("left")]
         public string Direction { get; set; }
@@ -98,16 +110,16 @@ namespace DungeonEditor.StarboundObjects.Objects
         [DefaultValue("none")]
         public string Collision { get; set; }
 
-        // Vec2F, should be double
+        // Vec2F
         [JsonProperty("lightPosition")]
-        public List<int> LightPosition { get; set; }
+        public List<double> LightPosition { get; set; }
 
         [JsonProperty("pointAngle")]
         [DefaultValue(0.0)]
         public double PointAngle { get; set; }
 
-        //particleEmitter       object with more properties
-        //particleEmitters      list of particleEmitter
+        //particleEmitter       optional, object with more properties
+        //particleEmitters      optional, list of particleEmitter
 
 
         public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)

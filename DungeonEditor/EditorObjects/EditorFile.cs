@@ -25,6 +25,7 @@ using System.ComponentModel;
 
 namespace DungeonEditor.EditorObjects
 {
+    [ReadOnly(true)]
     public class EditorFile
     {
         [JsonIgnore] protected List<EditorBrush> m_blockMap = new List<EditorBrush>();
@@ -32,21 +33,21 @@ namespace DungeonEditor.EditorObjects
 
         [JsonIgnore] protected List<EditorMapPart> m_readableParts = new List<EditorMapPart>();
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore]
         public virtual string FilePath
         {
             get { return m_filePath; }
             set { m_filePath = value; }
         }
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore]
         public List<EditorMapPart> ReadableParts
         {
             get { return m_readableParts; }
             set { m_readableParts = value; }
         }
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore]
         public List<EditorBrush> BlockMap
         {
             get { return m_blockMap; }

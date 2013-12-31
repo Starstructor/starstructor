@@ -30,7 +30,7 @@ namespace DungeonEditor.StarboundObjects.Objects
     [ReadOnly(true)]
     public class StarboundObject : StarboundAsset
     {
-        [JsonProperty("objectName")]
+        [JsonProperty("objectName", Required = Required.Always)]
         [Description("The name of the object.")]
         public string ObjectName { get; set; }
 
@@ -39,6 +39,7 @@ namespace DungeonEditor.StarboundObjects.Objects
         public string ObjectType { get; set; }
 
         // Can also be list of string containing categories
+        // Must contain at least one category
         [JsonProperty("category")]
         public string Category { get; set; }
 
@@ -46,45 +47,56 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         [JsonProperty("price")]
         [DefaultValue(1)]
-        [Description("Price of the object. Should never be 0.")]
+        [Description("Price of the object. Should always be greater than 0.")]
         public uint Price { get { return m_Price; } set { m_Price = Math.Max(1, value); } }
 
-        // objectItem
-        // printable
+        // objectItem: optional, contains item descriptor
+
+        // requires objectItem to be undefined
+        // 'all' and '3dprinter' are defined somewhere if this is true
+        [JsonProperty("printable")]
+        [DefaultValue(true)]
+        public bool? Printable { get; set; }
         
+        // requires objectItem to be undefined
         [JsonProperty("race")]
         [DefaultValue("")]
         public string Race { get; set; }
 
         [JsonProperty("retainObjectParametersInItem")]
         [DefaultValue(false)]
-        public bool RetainObjectParametersInItem { get; set; }
+        public bool? RetainObjectParametersInItem { get; set; }
 
-        //breakDropOptions
-        //smashDropOptions
-        //smashSounds
+        //breakDropOptions, a list of item descriptors, optional
+        //smashDropOptions, a list of item descriptors, optional
+        
+        [JsonProperty("smashSounds")]
+        [Description("The sound bank used when the object is smashed or broken. A random sound is selected.")]
+        public List<string> SmashSounds { get; set; }
 
         [JsonProperty("unbreakable")]
         [DefaultValue(false)]
         [Description("Indicates that the object is indestructible.")]
-        public bool Unbreakable { get; set; }
+        public bool? Unbreakable { get; set; }
 
         // damageTable (stuff)
 
         [JsonProperty("damageShakeMagnitude")]
         [DefaultValue(0.2)]
-        public double DamageShakeMagnitude { get; set; }
+        public double? DamageShakeMagnitude { get; set; }
 
         [JsonProperty("damageMaterialKind")]
         [DefaultValue("solid")]
         public string DamageMaterialKind { get; set; }
 
-        //damageTeam
+        //damageTeam, an object, optional, with the following members:
+        //  type: string, optional, possible values: [null,friendly,enemy,pvp,passive,ghostly,emitter,indiscriminate], default: emitter
+        //  team: unsigned integer, optional, default: 0
         
         [JsonProperty("rarity")]
         public string Rarity { get; set; }
 
-        // NOTE! If this value isn't present, then it checks for lightColors (with an s)
+        // NOTE! If this value isn't present, then it checks for lightColors (with an s), which is a list of colours
         [JsonProperty("lightColor"), JsonConverter(typeof(ColorSerializer)), Category("Lighting")]
         public Color LightColour { get; set; }
 
@@ -102,11 +114,11 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         [JsonProperty("pointLight"), Category("Lighting")]
         [DefaultValue(false)]
-        public bool PointLight { get; set; }
+        public bool? PointLight { get; set; }
 
         [JsonProperty("pointBeam"), Category("Lighting")]
         [DefaultValue(0.0)]
-        public double PointBeam { get; set; }
+        public double? PointBeam { get; set; }
 
         [JsonProperty("soundEffect"), Category("Sound")]
         [DefaultValue("")]
@@ -114,26 +126,26 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         [JsonProperty("soundEffectRadius"), Category("Sound")]
         [DefaultValue(100.0)]
-        public double SoundEffectRadius { get; set; }
+        public double? SoundEffectRadius { get; set; }
 
         [JsonProperty("autoBrokenCheck")]
         [DefaultValue(5)]
-        public uint AutoBrokenCheck { get; set; }
+        public uint? AutoBrokenCheck { get; set; }
 
-        //statusEffects
-        //touchDamage
+        //statusEffects, optional, list of object
+        //touchDamage, optional, object containing information about touching the object (not to be confused with using the object)
 
         [JsonProperty("hydrophobic")]
         [DefaultValue(false)]
-        public bool Hydrophobic { get; set; }
+        public bool? Hydrophobic { get; set; }
 
         [JsonProperty("hydrophilic")]
         [DefaultValue(false)]
-        public bool Hydrophilic { get; set; }
+        public bool? Hydrophilic { get; set; }
 
         [JsonProperty("health")]
         [DefaultValue(1.0)]
-        public double Health { get; set; }
+        public double? Health { get; set; }
 
         [JsonProperty("orientations")]
         public List<ObjectOrientation> Orientations { get; set; }

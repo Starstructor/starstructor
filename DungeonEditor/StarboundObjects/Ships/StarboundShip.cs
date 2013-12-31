@@ -29,7 +29,7 @@ namespace DungeonEditor.StarboundObjects.Ships
 {
     public class StarboundShip : EditorFile
     {
-        [JsonProperty("config")]
+        [JsonProperty("config",Required=Required.Always)]
         public ShipConfig Config { get; set; }
 
         [JsonProperty("backgroundOverlays")]
@@ -38,7 +38,9 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("foregroundOverlays")]
         public BindingList<ShipOverlay> ForegroundOverlays { get; set; }
 
-        // Missing blocksPosition? [x,y]
+        // type: Vec2I, default: [0,0]
+        [JsonProperty("blocksPosition")]
+        public List<int> BlocksPosition { get; set; }
 
         [JsonProperty("blockKey")]
         public BindingList<ShipBrush> Brushes { get; set; }

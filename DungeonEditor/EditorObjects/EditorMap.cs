@@ -48,7 +48,7 @@ namespace DungeonEditor.EditorObjects
             set { m_height = value; }
         }
 
-        [JsonProperty("name")]
+        [JsonProperty("name", Required = Required.Always)]
         public string Name
         {
             get { return m_name; }

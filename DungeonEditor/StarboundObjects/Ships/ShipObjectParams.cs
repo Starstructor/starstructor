@@ -28,13 +28,12 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("treasurePools")]
         public List<string> TreasurePools { get; set; }
 
-        // should be double
         [JsonProperty("level")]
-        public int Level { get; set; }
+        public double? Level { get; set; }
 
         [JsonProperty("levelAdjustment")]
         [DefaultValue(0.0)]
-        public double LevelAdjustment { get; set; }
+        public double? LevelAdjustment { get; set; }
 
         //initialItems
         //treasurePools
@@ -42,6 +41,6 @@ namespace DungeonEditor.StarboundObjects.Ships
         // color ??? (not sure)
 
         [JsonProperty("unbreakable")]
-        public bool Unbreakable { get; set; }
+        public bool? Unbreakable { get; set; }
     }
 }

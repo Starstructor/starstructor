@@ -157,6 +157,7 @@ namespace DungeonEditor.GUI
             UpdateUndoRedoItems();
             closeToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Enabled = false;
+            saveAsToolStripMenuItem.Enabled = false;
 
             // Force the garbage collector to clean up
             // But it won't do it until next file load because that would be too easy
@@ -635,11 +636,6 @@ namespace DungeonEditor.GUI
                 return;
             }
 
-            m_parent.ActiveFile.FilePath = OpenFile.FileName;
-            m_parent.ScanAssetDirectory();
-            m_parent.ActiveFile.GenerateBrushAndAssetMaps(m_parent);
-            m_parent.ActiveFile.LoadParts(m_parent);
-
             PopulatePartTreeView();
             PopulateBrushList();
 
@@ -652,6 +648,7 @@ namespace DungeonEditor.GUI
 
             closeToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
+            saveAsToolStripMenuItem.Enabled = true;
             MainPictureBox.Focus();
         }
 
@@ -717,40 +714,46 @@ namespace DungeonEditor.GUI
             return workUnsaved;
         }
 
-        private void SaveWork()
+        private void SaveWork(string path = null, bool overwrite = false)
         {
-            // test serializeation
-            /*
-            if (m_parent.ActiveFile is StarboundDungeon)
-            {
-                JsonParser parser = new JsonParser(AppDomain.CurrentDomain.BaseDirectory + Path.GetFileName(m_parent.ActiveFile.FilePath));
-                parser.SerializeJson<StarboundDungeon>((StarboundDungeon)m_parent.ActiveFile);
-            }
-            else if (m_parent.ActiveFile is StarboundShip)
-            {
-                JsonParser parser = new JsonParser(AppDomain.CurrentDomain.BaseDirectory + Path.GetFileName(m_parent.ActiveFile.FilePath));
-                parser.SerializeJson<StarboundShip>((StarboundShip)m_parent.ActiveFile);
-            }
-             * */
+            if (path == null)
+                path = m_parent.ActiveFile.FilePath;
 
+            m_parent.ActiveFile.FilePath = path;
+            m_parent.SaveFile(path);
             foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
             {
                 foreach (EditorMapLayer layer in part.Layers)
                 {
-                    if (!layer.Changed) 
+                    if (!overwrite && !layer.Changed) 
                         continue;
 
-                    string path = Path.Combine(Path.GetDirectoryName(m_parent.ActiveFile.FilePath), layer.Name);
+                    string layerPath = Path.Combine(Path.GetDirectoryName(m_parent.ActiveFile.FilePath), layer.Name);
                     Image newColourMap = layer.ColourMap;
 
                     try
                     {
-                        newColourMap.Save(path, ImageFormat.Png);
+                        newColourMap.Save(layerPath, ImageFormat.Png);
                         layer.Changed = false;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("REPORT THIS ON THE FORUMS\n\n" + ex);
+                    }
+                }
+            }
+            if ( m_parent.ActiveFile is StarboundShip )
+            {
+                foreach ( ShipOverlay overlay in ((StarboundShip)m_parent.ActiveFile).BackgroundOverlays )
+                {
+                    string overlayPath = Path.Combine(Path.GetDirectoryName(m_parent.ActiveFile.FilePath), overlay.ImageName);
+                    try
+                    {
+                        overlay.Image.Save(overlayPath, ImageFormat.Png);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("REPORT THIS ON THE FORUMS (#2)\n\n" + ex);
                     }
                 }
             }
@@ -800,6 +803,33 @@ namespace DungeonEditor.GUI
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateImageBox(false, false);
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFile.InitialDirectory   = Path.GetDirectoryName(m_parent.ActiveFile.FilePath);
+            SaveFile.FileName           = Path.GetFileNameWithoutExtension(m_parent.ActiveFile.FilePath);
+            
+            if ( m_parent.ActiveFile is StarboundDungeon )
+            {
+                SaveFile.DefaultExt = ".dungeon";
+            }
+            else if ( m_parent.ActiveFile is StarboundShip )
+            {
+                SaveFile.DefaultExt = ".structure";
+            }
+            else
+            {
+                SaveFile.DefaultExt = "";
+            }
+
+            SaveFile.ShowDialog();
+        }
+
+        private void SaveFile_FileOk(object sender, CancelEventArgs e)
+        {
+            SaveWork(SaveFile.FileName, true);
+            Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
         }
         
     }

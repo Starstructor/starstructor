@@ -31,10 +31,15 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class StarboundDungeon : EditorFile
     {
-        [JsonProperty("metadata")] public DungeonMetadata Metadata;
+        [JsonProperty("metadata", Required = Required.Always)]
+        public DungeonMetadata Metadata;
 
-        [JsonProperty("parts")] public List<DungeonPart> Parts;
-        [JsonProperty("tiles")] public List<DungeonBrush> Tiles;
+        [JsonProperty("tiles", Required = Required.Always)]
+        public List<DungeonBrush> Tiles;
+
+        [JsonProperty("parts", Required = Required.Always)]
+        public List<DungeonPart> Parts;
+        
 
         public override void LoadParts(Editor parent)
         {

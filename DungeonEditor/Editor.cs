@@ -142,26 +142,17 @@ namespace DungeonEditor
                 m_activeFile = new JsonParser(path).ParseJson<StarboundDungeon>();
 
                 m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Parts.Count + " parts");
-                foreach (DungeonPart part in ((StarboundDungeon) m_activeFile).Parts)
-                {
-                    m_activeFile.ReadableParts.Add(part);
-                }
-
+                m_activeFile.ReadableParts.AddRange(((StarboundDungeon)m_activeFile).Parts);
+                
                 m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Tiles.Count + " brushes");
-                foreach (DungeonBrush brush in ((StarboundDungeon) m_activeFile).Tiles)
-                {
-                    m_activeFile.BlockMap.Add(brush);
-                }
+                m_activeFile.BlockMap.AddRange(((StarboundDungeon)m_activeFile).Tiles);
             }
             else if (Path.GetExtension(path) == ".structure")
             {
                 m_activeFile = new JsonParser(path).ParseJson<StarboundShip>();
 
                 m_log.Write("  Parsing " + ((StarboundShip)m_activeFile).Brushes.Count + " brushes");
-                foreach (ShipBrush brush in ((StarboundShip) m_activeFile).Brushes)
-                {
-                    m_activeFile.BlockMap.Add(brush);
-                }
+                m_activeFile.BlockMap.AddRange(((StarboundShip) m_activeFile).Brushes);
             }
 
             if (m_activeFile == null)
@@ -170,8 +161,38 @@ namespace DungeonEditor
                 return false;
             }
 
+
+            ActiveFile.FilePath = path;
+            ScanAssetDirectory();
+            ActiveFile.GenerateBrushAndAssetMaps(this);
+            ActiveFile.LoadParts(this);
+
+
             m_log.Write("Completed parsing " + path);
             return true;
+        }
+
+        public void SaveFile()
+        {
+            SaveFile(ActiveFile.FilePath);
+        }
+
+        public void SaveFile(string path)
+        {
+            m_log.Write("Saving " + path);
+
+            ActiveFile.FilePath = path;
+            File.Delete(path);
+            if (ActiveFile is StarboundDungeon)
+            {
+                JsonParser parser = new JsonParser(path);
+                parser.SerializeJson<StarboundDungeon>((StarboundDungeon)ActiveFile);
+            }
+            else if (ActiveFile is StarboundShip)
+            {
+                JsonParser parser = new JsonParser(path);
+                parser.SerializeJson<StarboundShip>((StarboundShip)ActiveFile);
+            }
         }
 
         // clean up all resources

@@ -28,7 +28,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
     public class DungeonBrush : EditorBrush
     {
         // Override base colour list
-        [JsonProperty("value"), JsonConverter(typeof(ColorSerializer))]
+        [JsonProperty("value", Required = Required.Always), JsonConverter(typeof(ColorSerializer))]
         [Description("The colour mapped to this brush.")]
         public override Color Colour { get; set; }
 
@@ -38,11 +38,11 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [Description("A user-defined comment. This is only used for the editor.")]
         public override string Comment { get; set; }
 
-        [JsonProperty("rules")]
-        public List<List<string>> Rules { get; set; }
-
         [JsonProperty("brush"), ReadOnly(true)]
         public List<List<object>> Brushes { get; set; }
+        
+        [JsonProperty("rules")]
+        public List<List<string>> Rules { get; set; }
 
         // Note this property can also be a string with values [t, true, y, yes, f, false, n, no]
         // It may be possible to convert from integer or float to bool as well
@@ -50,12 +50,13 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [DefaultValue(false)]
         [Description("Indicates that the current brush is a connector used for connecting two different dungeon parts together.")]
         public bool? Connector { get; set; }
-
+        
         [JsonProperty("connector-value"), JsonConverter(typeof(ColorSerializer)), Category("Connector")]
-        public Color ConnnectorColour { get; set; }
-
+        public Color? ConnnectorColour { get; set; }
+        
         // left, right, up, down, and unknown
         [JsonProperty("direction"), Category("Connector")]
+        [DefaultValue("unknown")]
         public string ConnectorDirection { get; set; }
     }
 }

@@ -55,11 +55,11 @@ namespace DungeonEditor.StarboundObjects.Tiles
         [JsonProperty("hylotlDescription"), Category("Description")]
         public string HylotlDescription { get; set; }
 
-        [JsonProperty("materialName")]
+        [JsonProperty("materialName", Required = Required.Always)]
         [Description("The name of the material used for rendering the tile.")]
         public string MaterialName { get; set; }
 
-        [JsonProperty("materialId")]
+        [JsonProperty("materialId", Required = Required.Always)]
         public int MaterialId { get; set; }
 
         [JsonProperty("itemDrop")]
@@ -72,26 +72,26 @@ namespace DungeonEditor.StarboundObjects.Tiles
         public string Breathable { get; set; }
 
         [JsonProperty("particleColor"), JsonConverter(typeof(ColorSerializer))]
-        public Color ParticleColor { get; set; }
+        public Color? ParticleColor { get; set; }
         
         [JsonProperty("footstepSound")]
         public string FootstepSound { get; set; }
 
         [JsonProperty("tillableMod")]
         [DefaultValue(65535)]
-        public uint TillableMod { get; set; }
+        public uint? TillableMod { get; set; }
 
         [JsonProperty("soil")]
         [DefaultValue(false)]
-        public bool Soil { get; set; }
+        public bool? Soil { get; set; }
 
         [JsonProperty("falling")]
         [DefaultValue(false)]
-        public bool Falling { get; set; }
+        public bool? Falling { get; set; }
 
         [JsonProperty("cascading")]
         [DefaultValue(false)]
-        public bool Cascading { get; set; }
+        public bool? Cascading { get; set; }
 
         [JsonProperty("platform"), Category("Platform")]
         [DefaultValue(false)]
@@ -103,7 +103,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         // Condition: Platform=true
         [JsonProperty("platformVariants"), Category("Platform")]
-        public int PlatformVariants { get; set; }
+        public int? PlatformVariants { get; set; }
 
         // Condition: Platform=true
         [JsonProperty("stairImage"), Category("Platform")]
@@ -111,14 +111,14 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         // Condition: Platform=true
         [JsonProperty("stairVariants"), Category("Platform")]
-        public int StairVariants { get; set; }
+        public int? StairVariants { get; set; }
 
         [JsonProperty("multicolored")]
-        public bool Multicolored { get; set; }
+        public bool? Multicolored { get; set; }
 
         // Condition: Platform=false
         [JsonProperty("transparent")]
-        public bool Transparent { get; set; }
+        public bool? Transparent { get; set; }
 
         // Condition: Platform=false
         [JsonProperty("frames")]
@@ -126,11 +126,11 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         // Condition: Platform=false
         [JsonProperty("variants")]
-        public int Variants { get; set; }
+        public int? Variants { get; set; }
 
         [JsonProperty("health")]
         [DefaultValue(1.0)]
-        public double Health { get; set; }
+        public double? Health { get; set; }
 
         //has a damageTable attribute
         // damageTable can either link to an external file or have embedded attributes
