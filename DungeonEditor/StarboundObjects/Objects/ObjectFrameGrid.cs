@@ -23,12 +23,13 @@ using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
+    [ReadOnly(true)]
     public class ObjectFrameGrid
     {
-        [JsonProperty("size"), Category("Orientation"), ReadOnly(true)]
+        [JsonProperty("size"), Category("Orientation")]
         public List<int> Size { get; set; }
 
-        [JsonProperty("dimensions"), Category("Orientation"), ReadOnly(true)]
+        [JsonProperty("dimensions"), Category("Orientation")]
         public List<int> Dimensions { get; set; }
     }
 }

@@ -138,7 +138,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         public override string ToString()
         {
-            return MaterialName != null ? MaterialName : "[Material]";
+            return base.ToString();
         }
     }
 }

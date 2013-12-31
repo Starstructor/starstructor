@@ -34,20 +34,23 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] protected string m_name;
         [JsonIgnore] protected int m_width;
 
-        [JsonIgnore, ReadOnly(true), Category("Size")]
+        [ReadOnly(true)]
+        [JsonIgnore, Category("Size")]
         public int Width
         {
             get { return m_width; }
             set { m_width = value; }
         }
 
-        [JsonIgnore, ReadOnly(true), Category("Size")]
+        [ReadOnly(true)]
+        [JsonIgnore, Category("Size")]
         public int Height
         {
             get { return m_height; }
             set { m_height = value; }
         }
 
+        [ReadOnly(true)]
         [JsonProperty("name", Required = Required.Always)]
         public string Name
         {

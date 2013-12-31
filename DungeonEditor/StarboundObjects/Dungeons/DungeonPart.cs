@@ -29,16 +29,20 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         // name is inherited from EditorMap
 
         // Index 0 must contain the string "image"?
+        [ReadOnly(true)]
         [JsonProperty("def", Required = Required.Always)]
         public List<object> Definition { get; set; }
 
+        [ReadOnly(true)]
         [JsonProperty("rules", Required = Required.Always)]
         public List<List<object>> Rules { get; set; }
 
+        [ReadOnly(true)]
         [JsonProperty("chance")]
         [DefaultValue(1.0)]
         public double? Chance { get; set; }
 
+        [ReadOnly(true)]
         [JsonProperty("overrideAllowAlways")]
         [DefaultValue(false)]
         public bool? OverrideAllowAlways { get; set; }

@@ -22,9 +22,10 @@ using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
+    [ReadOnly(true)]
     public class ObjectFrames
     {
-        [JsonProperty("frameGrid"), ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
+        [JsonProperty("frameGrid"), TypeConverter(typeof(ExpandableObjectConverter))]
         public ObjectFrameGrid FrameGrid { get; set; }
     }
 }

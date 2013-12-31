@@ -40,6 +40,7 @@ namespace DungeonEditor.EditorObjects
             set { m_parent = value; }
         }
 
+        [ReadOnly(true)]
         [JsonIgnore]
         public BindingList<EditorMapLayer> Layers
         {
@@ -66,6 +67,7 @@ namespace DungeonEditor.EditorObjects
             }
         }
 
+        [ReadOnly(true)]
         [JsonIgnore]
         public Image ColourMap
         {

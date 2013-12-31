@@ -418,7 +418,10 @@ namespace DungeonEditor.GUI
             TabPage tab = RightPanelTabControl.SelectedTab;
             if ( tab == MainTab )
             {
-                RightPanelProperties.SelectedObject = m_parent.ActiveFile;
+                if (m_parent.ActiveFile is StarboundDungeon)
+                    RightPanelProperties.SelectedObject = ((StarboundDungeon)m_parent.ActiveFile).Metadata;
+                else
+                    RightPanelProperties.SelectedObject = m_parent.ActiveFile;
             }
             else if ( tab == PartsTab )
             {

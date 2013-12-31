@@ -18,6 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -25,5 +26,10 @@ namespace DungeonEditor.StarboundObjects.Ships
     {
         [JsonProperty("fuelMax",Required=Required.Always)]
         public int FuelMax { get; set; }
+
+        public override string ToString()
+        {
+            return "[Config]";
+        }
     }
 }
