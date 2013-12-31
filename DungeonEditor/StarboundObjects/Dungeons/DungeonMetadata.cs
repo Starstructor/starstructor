@@ -44,10 +44,15 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [DefaultValue(100)]
         public int? MaxParts { get; set; }
 
-        [JsonProperty("anchor",Required=Required.Always)]
-        public List<string> Anchor { get; set; }
+        [JsonProperty("anchor", Required = Required.Always)]
+        public BindingList<string> Anchor { get; set; }
 
         [JsonProperty("gravity")]
         public int? Gravity { get; set; }
+
+        public override string ToString()
+        {
+            return "[Options]";
+        }
     }
 }

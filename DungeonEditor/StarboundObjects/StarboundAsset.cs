@@ -37,5 +37,9 @@ namespace DungeonEditor.StarboundObjects
             return (StarboundAsset) MemberwiseClone();
         }
 
+        public override string ToString()
+        {
+            return AssetName != null ? AssetName : "[Asset]";
+        }
     }
 }

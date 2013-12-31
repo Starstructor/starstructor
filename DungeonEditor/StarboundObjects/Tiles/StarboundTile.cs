@@ -136,5 +136,9 @@ namespace DungeonEditor.StarboundObjects.Tiles
         // damageTable can either link to an external file or have embedded attributes
         // default: "/tiles/defaultDamage.config"
 
+        public override string ToString()
+        {
+            return MaterialName != null ? MaterialName : "[Material]";
+        }
     }
 }

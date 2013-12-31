@@ -65,6 +65,7 @@ namespace DungeonEditor.GUI
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,7 @@ namespace DungeonEditor.GUI
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.authorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFile = new System.Windows.Forms.OpenFileDialog();
+            this.OpenFileDlg = new System.Windows.Forms.OpenFileDialog();
             this.SaveActive = new System.Windows.Forms.SaveFileDialog();
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.BottomBarTable = new System.Windows.Forms.TableLayoutPanel();
@@ -88,25 +89,24 @@ namespace DungeonEditor.GUI
             this.BottomBarBrushLabel = new System.Windows.Forms.Label();
             this.BottomBarZoomLabel = new System.Windows.Forms.Label();
             this.BottomBarPositionLabel = new System.Windows.Forms.Label();
-            this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
-            this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
             this.RightPanelSplit = new System.Windows.Forms.SplitContainer();
             this.RightPanelTabControl = new System.Windows.Forms.TabControl();
             this.MainTab = new System.Windows.Forms.TabPage();
             this.PartsTab = new System.Windows.Forms.TabPage();
-            this.BrushesTab = new System.Windows.Forms.TabPage();
-            this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
-            this.SaveFile = new System.Windows.Forms.SaveFileDialog();
-            this.BrushesTreeView = new System.Windows.Forms.TreeView();
             this.PartTreeView = new System.Windows.Forms.TreeView();
+            this.BrushesTab = new System.Windows.Forms.TabPage();
+            this.BrushesTreeView = new System.Windows.Forms.TreeView();
+            this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
+            this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
+            this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
+            this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
+            this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
+            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
             this.MainMenu.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
             this.BottomBarGfxModePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -118,6 +118,8 @@ namespace DungeonEditor.GUI
             this.RightPanelTabControl.SuspendLayout();
             this.PartsTab.SuspendLayout();
             this.BrushesTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -271,6 +273,7 @@ namespace DungeonEditor.GUI
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.takeScreenshotToolStripMenuItem,
             this.refreshToolStripMenuItem,
             this.toolStripSeparator1,
             this.viewCollisionsToolStripMenuItem});
@@ -278,23 +281,32 @@ namespace DungeonEditor.GUI
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
+            // takeScreenshotToolStripMenuItem
+            // 
+            this.takeScreenshotToolStripMenuItem.Enabled = false;
+            this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
+            this.takeScreenshotToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.takeScreenshotToolStripMenuItem.Text = "Take &Screenshot";
+            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
+            // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // viewCollisionsToolStripMenuItem
             // 
             this.viewCollisionsToolStripMenuItem.Name = "viewCollisionsToolStripMenuItem";
-            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.viewCollisionsToolStripMenuItem.Text = "View &Collisions";
             this.viewCollisionsToolStripMenuItem.Click += new System.EventHandler(this.viewCollisionsToolStripMenuItem_Click);
             // 
@@ -368,12 +380,12 @@ namespace DungeonEditor.GUI
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.helpToolStripMenuItem.Text = "Help &Topics";
             // 
-            // OpenFile
+            // OpenFileDlg
             // 
-            this.OpenFile.FileName = "open";
-            this.OpenFile.Filter = "All Editor Types|*.dungeon;*.structure|Dungeon Files|*.dungeon|Ship Files|*.struc" +
+            this.OpenFileDlg.FileName = "open";
+            this.OpenFileDlg.Filter = "All Editor Types|*.dungeon;*.structure|Dungeon Files|*.dungeon|Ship Files|*.struc" +
     "ture";
-            this.OpenFile.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenDungeonOrImageMap_FileOk);
+            this.OpenFileDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenDungeonOrImageMap_FileOk);
             // 
             // MainTableLayout
             // 
@@ -512,30 +524,6 @@ namespace DungeonEditor.GUI
             this.BottomBarPositionLabel.Text = "Grid: N/A";
             this.BottomBarPositionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // VisualRgbaBrushImageBox
-            // 
-            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(258, 5);
-            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
-            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(21, 21);
-            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualRgbaBrushImageBox.TabIndex = 6;
-            this.VisualRgbaBrushImageBox.TabStop = false;
-            // 
-            // VisualGraphicBrushImageBox
-            // 
-            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(227, 5);
-            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
-            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(21, 21);
-            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualGraphicBrushImageBox.TabIndex = 7;
-            this.VisualGraphicBrushImageBox.TabStop = false;
-            // 
             // splitContainer1
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
@@ -556,15 +544,6 @@ namespace DungeonEditor.GUI
             this.splitContainer1.SplitterDistance = 1024;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 4;
-            // 
-            // MainPictureBox
-            // 
-            this.MainPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.MainPictureBox.Name = "MainPictureBox";
-            this.MainPictureBox.Size = new System.Drawing.Size(1024, 707);
-            this.MainPictureBox.TabIndex = 3;
             // 
             // RightPanelSplit
             // 
@@ -619,6 +598,20 @@ namespace DungeonEditor.GUI
             this.PartsTab.Text = "Parts";
             this.PartsTab.UseVisualStyleBackColor = true;
             // 
+            // PartTreeView
+            // 
+            this.PartTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PartTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PartTreeView.FullRowSelect = true;
+            this.PartTreeView.HideSelection = false;
+            this.PartTreeView.Indent = 12;
+            this.PartTreeView.Location = new System.Drawing.Point(3, 3);
+            this.PartTreeView.Margin = new System.Windows.Forms.Padding(0);
+            this.PartTreeView.Name = "PartTreeView";
+            this.PartTreeView.ShowLines = false;
+            this.PartTreeView.Size = new System.Drawing.Size(224, 338);
+            this.PartTreeView.TabIndex = 5;
+            // 
             // BrushesTab
             // 
             this.BrushesTab.Controls.Add(this.BrushesTreeView);
@@ -629,19 +622,6 @@ namespace DungeonEditor.GUI
             this.BrushesTab.TabIndex = 2;
             this.BrushesTab.Text = "Brushes";
             this.BrushesTab.UseVisualStyleBackColor = true;
-            // 
-            // RightPanelProperties
-            // 
-            this.RightPanelProperties.BackColor = System.Drawing.SystemColors.Control;
-            this.RightPanelProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RightPanelProperties.Location = new System.Drawing.Point(0, 0);
-            this.RightPanelProperties.Name = "RightPanelProperties";
-            this.RightPanelProperties.Size = new System.Drawing.Size(238, 335);
-            this.RightPanelProperties.TabIndex = 0;
-            // 
-            // SaveFile
-            // 
-            this.SaveFile.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFile_FileOk);
             // 
             // BrushesTreeView
             // 
@@ -659,19 +639,57 @@ namespace DungeonEditor.GUI
             this.BrushesTreeView.Size = new System.Drawing.Size(224, 338);
             this.BrushesTreeView.TabIndex = 6;
             // 
-            // PartTreeView
+            // RightPanelProperties
             // 
-            this.PartTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PartTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartTreeView.FullRowSelect = true;
-            this.PartTreeView.HideSelection = false;
-            this.PartTreeView.Indent = 12;
-            this.PartTreeView.Location = new System.Drawing.Point(3, 3);
-            this.PartTreeView.Margin = new System.Windows.Forms.Padding(0);
-            this.PartTreeView.Name = "PartTreeView";
-            this.PartTreeView.ShowLines = false;
-            this.PartTreeView.Size = new System.Drawing.Size(224, 338);
-            this.PartTreeView.TabIndex = 5;
+            this.RightPanelProperties.BackColor = System.Drawing.SystemColors.Control;
+            this.RightPanelProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RightPanelProperties.Location = new System.Drawing.Point(0, 0);
+            this.RightPanelProperties.Name = "RightPanelProperties";
+            this.RightPanelProperties.Size = new System.Drawing.Size(238, 335);
+            this.RightPanelProperties.TabIndex = 0;
+            // 
+            // SaveFileDlg
+            // 
+            this.SaveFileDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFile_FileOk);
+            // 
+            // SaveScreenshotDlg
+            // 
+            this.SaveScreenshotDlg.DefaultExt = "png";
+            this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
+            this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
+            // 
+            // VisualRgbaBrushImageBox
+            // 
+            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(258, 5);
+            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
+            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(21, 21);
+            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualRgbaBrushImageBox.TabIndex = 6;
+            this.VisualRgbaBrushImageBox.TabStop = false;
+            // 
+            // VisualGraphicBrushImageBox
+            // 
+            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(227, 5);
+            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
+            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(21, 21);
+            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualGraphicBrushImageBox.TabIndex = 7;
+            this.VisualGraphicBrushImageBox.TabStop = false;
+            // 
+            // MainPictureBox
+            // 
+            this.MainPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.MainPictureBox.Name = "MainPictureBox";
+            this.MainPictureBox.Size = new System.Drawing.Size(1024, 707);
+            this.MainPictureBox.TabIndex = 3;
             // 
             // MainWindow
             // 
@@ -695,8 +713,6 @@ namespace DungeonEditor.GUI
             this.BottomBarTable.ResumeLayout(false);
             this.BottomBarTable.PerformLayout();
             this.BottomBarGfxModePanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -708,6 +724,8 @@ namespace DungeonEditor.GUI
             this.RightPanelTabControl.ResumeLayout(false);
             this.PartsTab.ResumeLayout(false);
             this.BrushesTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -723,7 +741,7 @@ namespace DungeonEditor.GUI
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem starboundToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setDirectoryToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog OpenFile;
+        private System.Windows.Forms.OpenFileDialog OpenFileDlg;
         private System.Windows.Forms.SaveFileDialog SaveActive;
         private System.Windows.Forms.ToolStripMenuItem dungeonToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addObjectToolStripMenuItem;
@@ -764,10 +782,12 @@ namespace DungeonEditor.GUI
         private TabPage PartsTab;
         private TabPage BrushesTab;
         private PropertyGrid RightPanelProperties;
-        private SaveFileDialog SaveFile;
+        private SaveFileDialog SaveFileDlg;
         private ToolStripMenuItem saveAsToolStripMenuItem;
         private TreeView PartTreeView;
         private TreeView BrushesTreeView;
+        private ToolStripMenuItem takeScreenshotToolStripMenuItem;
+        private SaveFileDialog SaveScreenshotDlg;
 
     }
 }

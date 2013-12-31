@@ -33,7 +33,7 @@ namespace DungeonEditor.EditorObjects
 
         [JsonIgnore] protected BindingList<EditorMapLayer> m_partLayers = new BindingList<EditorMapLayer>();
 
-        [JsonIgnore, TypeConverter(typeof(ExpandableObjectConverter))]
+        [JsonIgnore, Browsable(false)]
         public EditorFile Parent
         {
             get { return m_parent; }
@@ -46,7 +46,7 @@ namespace DungeonEditor.EditorObjects
             get { return m_partLayers; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public virtual Image GraphicsMap
         {
             get { return m_graphicsMap; }

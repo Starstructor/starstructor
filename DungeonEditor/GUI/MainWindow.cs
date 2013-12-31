@@ -45,7 +45,17 @@ namespace DungeonEditor.GUI
         private int m_gridFactor;
         public Editor m_parent;
         private EditorBrush m_selectedBrush;
-        private EditorMap m_selectedMap;
+        private EditorMap m_pselectedMap;
+
+        public EditorMap SelectedMap
+        {
+            get { return m_pselectedMap; }
+            private set
+            {
+                m_pselectedMap = value;
+                takeScreenshotToolStripMenuItem.Enabled = (value != null);
+            }
+        }
 
         public MainWindow(Editor parent)
         {
@@ -54,7 +64,6 @@ namespace DungeonEditor.GUI
             InitializeComponent();
 
             // Callbacks added here since the designer enjoys making life miserable
-            this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
             this.MainPictureBox.MouseEnter += new System.EventHandler(this.MainPictureBox_MouseEnter);
             
             this.BottomBarGfxCombo.SelectedIndexChanged += new System.EventHandler(this.BottomBarGfxCombo_SelectedIndexChanged);
@@ -64,11 +73,6 @@ namespace DungeonEditor.GUI
             this.PartTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PartTreeView_AfterSelect);
             this.BrushesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrushesTreeView_AfterSelect);
 
-        }
-
-        public EditorMap SelectedMap
-        {
-            get { return m_selectedMap; }
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -113,7 +117,7 @@ namespace DungeonEditor.GUI
             }
 
             m_parent.SaveSettings();
-            OpenFile.InitialDirectory = Editor.Settings.AssetDirPath;
+            OpenFileDlg.InitialDirectory = Editor.Settings.AssetDirPath;
             MainPictureBox.Focus();
         }
 
@@ -150,7 +154,7 @@ namespace DungeonEditor.GUI
             m_mapNodeMap.Clear();
             m_parent.CleanUpResource();
             m_selectedBrush = null;
-            m_selectedMap = null;
+            SelectedMap = null;
             RightPanelProperties.SelectedObject = null;
 
             // Update menu items, regardless of how we ended up here
@@ -283,17 +287,17 @@ namespace DungeonEditor.GUI
 
         public EditorMapLayer GetSelectedLayer()
         {
-            return m_selectedMap == null ? null : m_selectedMap.GetActiveLayer();
+            return SelectedMap == null ? null : SelectedMap.GetActiveLayer();
         }
 
         public EditorMapPart GetSelectedPart()
         {
-            return m_selectedMap == null ? null : m_selectedMap.GetActivePart();
+            return SelectedMap == null ? null : SelectedMap.GetActivePart();
         }
 
         public void OnCanvasLeftClick(int gridX, int gridY, int lastGridX, int lastGridY)
         {
-            if (m_selectedBrush == null || m_selectedMap == null)
+            if (m_selectedBrush == null || SelectedMap == null)
                 return;
 
             // If there's nothing to change, just leave
@@ -308,7 +312,7 @@ namespace DungeonEditor.GUI
             activeLayer.SetUserBrushAt(m_selectedBrush, gridX, gridY);
             UpdateUndoRedoItems();
 
-            m_selectedMap.RedrawCanvasFromBrush(oldBrush, m_selectedBrush, gridX, gridY);
+            SelectedMap.RedrawCanvasFromBrush(oldBrush, m_selectedBrush, gridX, gridY);
             MainPictureBox.Refresh();
         }
 
@@ -338,7 +342,7 @@ namespace DungeonEditor.GUI
                 var lastChange = activeLayer.UndoManager().Undo();
                 if (lastChange != null)
                 {
-                    m_selectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
+                    SelectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
                                                         lastChange.Value.m_brushBefore,
                                                         lastChange.Value.m_x,
                                                         lastChange.Value.m_y);
@@ -356,7 +360,7 @@ namespace DungeonEditor.GUI
                 var lastChange = activeLayer.UndoManager().Redo();
                 if (lastChange != null)
                 {
-                    m_selectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
+                    SelectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
                                                         lastChange.Value.m_brushBefore,
                                                         lastChange.Value.m_x,
                                                         lastChange.Value.m_y);
@@ -467,7 +471,7 @@ namespace DungeonEditor.GUI
         private void UpdateImageBox(bool resetZoom, bool resetCamera)
         {
             // If no file is loaded, leave
-            if (m_parent.ActiveFile == null || m_selectedMap == null)
+            if (m_parent.ActiveFile == null || SelectedMap == null)
                 return;
 
             EditorMapPart part = GetSelectedPart();
@@ -477,13 +481,13 @@ namespace DungeonEditor.GUI
             {
                 m_gridFactor = 8;
 
-                if (m_selectedMap is EditorMapPart)
+                if (SelectedMap is EditorMapPart)
                 {
                     part.UpdateLayerImage();
                 }
-                else if (m_selectedMap is EditorMapLayer)
+                else if (SelectedMap is EditorMapLayer)
                 {
-                    part.UpdateLayerImage(new BindingList<EditorMapLayer> { (EditorMapLayer)m_selectedMap });
+                    part.UpdateLayerImage(new BindingList<EditorMapLayer> { (EditorMapLayer)SelectedMap });
                 }
 
                 MainPictureBox.SetImage(part.GraphicsMap, resetZoom, resetCamera, m_gridFactor);
@@ -494,11 +498,11 @@ namespace DungeonEditor.GUI
             {
                 m_gridFactor = 1;
 
-                if (m_selectedMap is EditorMapPart)
+                if (SelectedMap is EditorMapPart)
                 {
                     MainPictureBox.SetImage(part.ColourMap, resetZoom, resetCamera, m_gridFactor);
                 }
-                else if (m_selectedMap is EditorMapLayer)
+                else if (SelectedMap is EditorMapLayer)
                 {
                     MainPictureBox.SetImage(GetSelectedLayer().ColourMap, resetZoom, resetCamera, m_gridFactor);
                 }
@@ -550,7 +554,7 @@ namespace DungeonEditor.GUI
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFile.ShowDialog();
+            OpenFileDlg.ShowDialog();
         }
 
         // Open a new file
@@ -568,7 +572,7 @@ namespace DungeonEditor.GUI
                 return;
             }
 
-            if (!m_parent.LoadFile(OpenFile.FileName))
+            if (!m_parent.LoadFile(OpenFileDlg.FileName))
             {
                 MessageBox.Show("Unable to load!");
 
@@ -596,13 +600,10 @@ namespace DungeonEditor.GUI
 
         private void SelectPartNode(TreeNode node)
         {
-            if ( !m_mapNodeMap.ContainsKey(node) )
+            if (!m_mapNodeMap.ContainsKey(node) || SelectedMap == m_mapNodeMap[node])
                 return;
 
-            if ( m_selectedMap == m_mapNodeMap[node] )  // unchanged
-                return;
-
-            m_selectedMap = m_mapNodeMap[node];
+            SelectedMap = m_mapNodeMap[node];
             UpdateImageBox(true, true);
             UpdatePropertiesPanel();
         }
@@ -641,7 +642,7 @@ namespace DungeonEditor.GUI
         {
             var guiPopup = new DirPopup(m_parent);
             guiPopup.ShowDialog();
-            OpenFile.InitialDirectory = Editor.Settings.AssetDirPath;
+            OpenFileDlg.InitialDirectory = Editor.Settings.AssetDirPath;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -723,15 +724,6 @@ namespace DungeonEditor.GUI
             }
         }
 
-        private void MainPictureBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.F10 || m_selectedMap == null) 
-                return;
-
-            Image screenGrab = GetSelectedPart().GraphicsMap;
-            screenGrab.Save("screengrab.png", ImageFormat.Png);
-        }
-
         private void MainPictureBox_MouseEnter(object sender, EventArgs e)
         {
             MainPictureBox.Focus();
@@ -750,7 +742,7 @@ namespace DungeonEditor.GUI
                 Editor.Settings.ViewCollisionGrid = true;
             }
 
-            if (m_selectedMap != null)
+            if (SelectedMap != null)
             {
                 GetSelectedPart().UpdateLayerImage();
             }
@@ -762,29 +754,46 @@ namespace DungeonEditor.GUI
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFile.InitialDirectory   = Path.GetDirectoryName(m_parent.ActiveFile.FilePath);
-            SaveFile.FileName           = Path.GetFileNameWithoutExtension(m_parent.ActiveFile.FilePath);
+            SaveFileDlg.InitialDirectory   = Path.GetDirectoryName(m_parent.ActiveFile.FilePath);
+            SaveFileDlg.FileName           = Path.GetFileNameWithoutExtension(m_parent.ActiveFile.FilePath);
             
             if ( m_parent.ActiveFile is StarboundDungeon )
             {
-                SaveFile.DefaultExt = ".dungeon";
+                SaveFileDlg.DefaultExt = ".dungeon";
+                SaveFileDlg.Filter = "Dungeon Files|*.dungeon";
             }
             else if ( m_parent.ActiveFile is StarboundShip )
             {
-                SaveFile.DefaultExt = ".structure";
+                SaveFileDlg.DefaultExt = ".structure";
+                SaveFileDlg.Filter = "Ship Files|*.structure";
             }
             else
             {
-                SaveFile.DefaultExt = "";
+                SaveFileDlg.DefaultExt = "";
+                SaveFileDlg.Filter = "All Files|*.*";
             }
 
-            SaveFile.ShowDialog();
+            SaveFileDlg.ShowDialog();
         }
 
         private void SaveFile_FileOk(object sender, CancelEventArgs e)
         {
-            SaveWork(SaveFile.FileName, true);
+            SaveWork(SaveFileDlg.FileName, true);
             Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
+        }
+
+        private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveScreenshotDlg.ShowDialog();
+        }
+
+        private void SaveScreenshotDlg_FileOk(object sender, CancelEventArgs e)
+        {
+            EditorMapPart part = GetSelectedPart();
+            if (part != null)
+            {
+                part.GraphicsMap.Save(SaveScreenshotDlg.FileName, ImageFormat.Png);
+            }
         }
         
     }
