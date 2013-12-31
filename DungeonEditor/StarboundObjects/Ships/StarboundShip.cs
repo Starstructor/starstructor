@@ -29,20 +29,20 @@ namespace DungeonEditor.StarboundObjects.Ships
 {
     public class StarboundShip : EditorFile
     {
-        [JsonProperty("config",Required=Required.Always)]
+        [JsonProperty("config", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
         public ShipConfig Config { get; set; }
 
-        [JsonProperty("backgroundOverlays")]
+        [JsonProperty("backgroundOverlays"), TypeConverter(typeof(ExpandableObjectConverter))]
         public BindingList<ShipOverlay> BackgroundOverlays { get; set; }
 
-        [JsonProperty("foregroundOverlays")]
+        [JsonProperty("foregroundOverlays"), TypeConverter(typeof(ExpandableObjectConverter))]
         public BindingList<ShipOverlay> ForegroundOverlays { get; set; }
 
         // type: Vec2I, default: [0,0]
-        [JsonProperty("blocksPosition")]
+        [JsonProperty("blocksPosition"), TypeConverter(typeof(ExpandableObjectConverter))]
         public List<int> BlocksPosition { get; set; }
 
-        [JsonProperty("blockKey")]
+        [JsonProperty("blockKey"), TypeConverter(typeof(ExpandableObjectConverter))]
         public BindingList<ShipBrush> Brushes { get; set; }
 
         [JsonProperty("blockImage")]

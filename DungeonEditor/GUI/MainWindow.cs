@@ -406,28 +406,23 @@ namespace DungeonEditor.GUI
 
         private void PartTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (!m_mapNodeMap.ContainsKey(e.Node)) 
-                return;
-
-            m_selectedMap = m_mapNodeMap[e.Node];
-            UpdateImageBox(true, true);
-            UpdatePropertiesPanel();
+            SelectPartNode(e.Node);
         }
 
         private void UpdatePropertiesPanel()
         {
             TabPage tab = RightPanelTabControl.SelectedTab;
-            if ( tab == PartsTab )
+            if ( tab == MainTab )
+            {
+                RightPanelProperties.SelectedObject = m_parent.ActiveFile;
+            }
+            else if ( tab == PartsTab )
             {
                 RightPanelProperties.SelectedObject = GetSelectedPart();
             }
             else if ( tab == BrushesTab )
             {
                 RightPanelProperties.SelectedObject = m_selectedBrush;
-            }
-            else if ( tab == NPCsTab )
-            {
-                RightPanelProperties.SelectedObject = null;
             }
             else
             {
@@ -453,62 +448,7 @@ namespace DungeonEditor.GUI
                     comment = "NO COMMENT DEFINED";
                 }
 
-                if (brush is DungeonBrush)
-                {
-                    var dungeonBrush = (DungeonBrush) brush;
-
-                    if (dungeonBrush.Brushes != null)
-                    {
-                        // Populate the brushes in the asset viewer
-                        children.AddRange(from brushArray in dungeonBrush.Brushes 
-                                          from brushElement in brushArray 
-                                          from child in AddNodes_r(brushElement) 
-                                          select child);
-                    }
-                }
-
-                else if (brush is ShipBrush)
-                {
-                    var shipBrush = (ShipBrush) brush;
-
-                    foreach (TreeNode child in shipBrush.BrushTypes.SelectMany(AddNodes_r))
-                    {
-                        if (child.Text == "back")
-                        {
-                            children.Add(new TreeNode("back: " + shipBrush.BackgroundMat));
-                        }
-                        else if (child.Text == "front")
-                        {
-                            children.Add(new TreeNode("front: " + shipBrush.ForegroundMat));
-                        }
-                        else if (child.Text == "object")
-                        {
-                            List<TreeNode> objChildren = new List<TreeNode>();
-
-                            if (shipBrush.ObjectDirection != null)
-                            {
-                                objChildren.Add(new TreeNode("direction",
-                                    AddNodes_r(shipBrush.ObjectDirection).ToArray()));
-                            }
-
-                            children.Add(new TreeNode("obj: " + shipBrush.Object, objChildren.ToArray()));
-                        }
-                    }
-
-                    var blockingType = new List<TreeNode>();
-
-                    if (shipBrush.BackgroundBlock)
-                        blockingType.Add(new TreeNode("background"));
-
-                    if (shipBrush.ForegroundBlock)
-                        blockingType.Add(new TreeNode("foreground"));
-
-                    if (blockingType.Count > 0)
-                        children.Add(new TreeNode("blocks", blockingType.ToArray()));
-                }
-
-                var parentNode = new TreeNode(comment, children.ToArray<TreeNode>());
-                BrushesTreeView.Nodes.Add(parentNode);
+                TreeNode parentNode = BrushesTreeView.Nodes.Add(comment);
 
                 // Add this node to the brush -> node map
                 m_brushNodeMap[parentNode] = brush;
@@ -641,7 +581,7 @@ namespace DungeonEditor.GUI
 
             if (PartTreeView.Nodes.Count > 0)
             {
-                PartTreeView.SelectedNode = PartTreeView.Nodes[0];
+                SelectPartNode(PartTreeView.Nodes[0]);
             }
 
             Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
@@ -650,6 +590,21 @@ namespace DungeonEditor.GUI
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
             MainPictureBox.Focus();
+            
+            UpdatePropertiesPanel();
+        }
+
+        private void SelectPartNode(TreeNode node)
+        {
+            if ( !m_mapNodeMap.ContainsKey(node) )
+                return;
+
+            if ( m_selectedMap == m_mapNodeMap[node] )  // unchanged
+                return;
+
+            m_selectedMap = m_mapNodeMap[node];
+            UpdateImageBox(true, true);
+            UpdatePropertiesPanel();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

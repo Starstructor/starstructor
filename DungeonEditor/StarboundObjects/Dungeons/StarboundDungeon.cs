@@ -26,6 +26,7 @@ using System.Linq;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
