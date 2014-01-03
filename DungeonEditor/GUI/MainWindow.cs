@@ -109,6 +109,26 @@ namespace DungeonEditor.GUI
 
             viewCollisionsToolStripMenuItem.Checked = Editor.Settings.ViewCollisionGrid;
             BottomBarGfxCombo.SelectedIndex = Editor.Settings.GraphicalDisplay ? 0 : 1;
+            UpdateRecentHistoryList();
+        }
+
+        private void UpdateRecentHistoryList()
+        {
+            recentFilesToolStripMenuItem.DropDownItems.Clear();
+            recentFilesToolStripMenuItem.Enabled = Editor.Settings.RecentFiles.Count > 0;
+            foreach (var file in Editor.Settings.RecentFiles)
+            {
+                var newItem = recentFilesToolStripMenuItem.DropDownItems.Add(file);
+                newItem.Click += new System.EventHandler(recentFileHistory_Click);
+            }
+        }
+        private void recentFileHistory_Click(object sender, EventArgs e)
+        {
+            if ( sender is ToolStripMenuItem )
+            {
+                var item = sender as ToolStripMenuItem;
+                OpenFile(item.Text);
+            }
         }
 
         private void MainWindow_Shown(object sender, EventArgs e)
@@ -588,8 +608,8 @@ namespace DungeonEditor.GUI
             OpenFileDlg.ShowDialog();
         }
 
-        // Open a new file
-        private void OpenDungeonOrImageMap_FileOk(object sender, CancelEventArgs e)
+        // Open an existing file
+        private void OpenFile(string fileName)
         {
             if (!ConfirmExit())
                 return;
@@ -603,11 +623,12 @@ namespace DungeonEditor.GUI
                 return;
             }
 
-            if (!m_parent.LoadFile(OpenFileDlg.FileName))
+            if (!m_parent.LoadFile(fileName))
             {
                 MessageBox.Show("Unable to load!");
+                UpdateRecentHistoryList();
 
-                Close();
+                //Close();
                 return;
             }
 
@@ -636,8 +657,15 @@ namespace DungeonEditor.GUI
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
             MainPictureBox.Focus();
-            
+
             UpdatePropertiesPanel();
+            UpdateRecentHistoryList();
+        }
+
+        // When the open file dialog presses OK
+        private void OpenDungeonOrImageMap_FileOk(object sender, CancelEventArgs e)
+        {
+            OpenFile(OpenFileDlg.FileName);
         }
 
         private void SelectPartNode(string name)

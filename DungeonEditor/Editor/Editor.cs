@@ -136,6 +136,12 @@ namespace DungeonEditor
         public bool LoadFile(string path)
         {
             m_log.Write("Parsing " + path);
+            if ( !File.Exists(path) )
+            {
+                m_log.Write("File " + path + " does not exist!");
+                Editor.Settings.RecentFiles.Remove(path);
+                return false;
+            }
 
             if (Path.GetExtension(path) == ".dungeon")
             {
@@ -161,14 +167,16 @@ namespace DungeonEditor
                 return false;
             }
 
-
             ActiveFile.FilePath = path;
             ScanAssetDirectory();
             ActiveFile.GenerateBrushAndAssetMaps(this);
             ActiveFile.LoadParts(this);
 
-
             m_log.Write("Completed parsing " + path);
+            Editor.Settings.RecentFiles.Remove(path);
+            Editor.Settings.RecentFiles.Insert(0, path);    // Insert the newest element at the beginning
+            while (Editor.Settings.RecentFiles.Count > 10)  // Remove last elements over the max number of recent files
+                Editor.Settings.RecentFiles.RemoveAt(Editor.Settings.RecentFiles.Count - 1);
             return true;
         }
 
