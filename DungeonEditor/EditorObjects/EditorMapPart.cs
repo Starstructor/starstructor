@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,9 +33,14 @@ namespace DungeonEditor.EditorObjects
 {
     public class EditorMapPart : EditorMap
     {
-        [JsonIgnore] protected Graphics m_graphicsContext;
-        [JsonIgnore] protected Image m_graphicsMap;
-        [JsonIgnore] protected EditorFile m_parent;
+        [JsonIgnore] 
+        protected Graphics m_graphicsContext;
+
+        [JsonIgnore] 
+        protected Image m_graphicsMap;
+
+        [JsonIgnore] 
+        protected EditorFile m_parent;
 
         [JsonIgnore] protected List<EditorMapLayer> m_partLayers = new List<EditorMapLayer>();
 
@@ -181,10 +190,10 @@ namespace DungeonEditor.EditorObjects
         {
             if (!noClear)
                 m_graphicsContext.FillRectangle(SystemBrushes.ControlDark,
-                    xmin*Editor.DEFAULT_GRID_FACTOR,
-                    ymin*Editor.DEFAULT_GRID_FACTOR,
-                    (xmax - xmin)*Editor.DEFAULT_GRID_FACTOR,
-                    (ymax - ymin)*Editor.DEFAULT_GRID_FACTOR);
+                    xmin*Editor.Editor.DEFAULT_GRID_FACTOR,
+                    ymin*Editor.Editor.DEFAULT_GRID_FACTOR,
+                    (xmax - xmin)*Editor.Editor.DEFAULT_GRID_FACTOR,
+                    (ymax - ymin)*Editor.Editor.DEFAULT_GRID_FACTOR);
 
             if (!noBack)
                 DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
@@ -195,7 +204,7 @@ namespace DungeonEditor.EditorObjects
             if (!noSpecial)
                 DrawSpecialBrushesBetween(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
 
-            if (Editor.Settings.ViewCollisionGrid)
+            if (Editor.Editor.Settings.ViewCollisionGrid)
                 Renderer.DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
         }
 

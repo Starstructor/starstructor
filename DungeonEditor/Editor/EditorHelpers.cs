@@ -1,6 +1,9 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Drawing;
 using System.IO;
 
-namespace DungeonEditor
+namespace DungeonEditor.Editor
 {
     public static class EditorHelpers
     {
@@ -32,7 +35,7 @@ namespace DungeonEditor
                 return Path.Combine(activeDirectory, path);
             }
 
-            return Editor.Settings.AssetDirPath + path;
+            return DungeonEditor.Editor.Editor.Settings.AssetDirPath + path;
         }
 
         public static string GetExtensionFromBrushType(string type)

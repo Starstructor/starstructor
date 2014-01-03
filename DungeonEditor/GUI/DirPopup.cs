@@ -1,6 +1,9 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,10 +27,10 @@ namespace DungeonEditor.GUI
 {
     public partial class DirPopup : Form
     {
-        private Editor m_parent;
+        private Editor.Editor m_parent;
         private bool m_pathSet;
 
-        public DirPopup(Editor parent)
+        public DirPopup(Editor.Editor parent)
         {
             m_parent = parent;
             InitializeComponent();
@@ -35,7 +38,7 @@ namespace DungeonEditor.GUI
 
         private void ButtonAccept_Click(object sender, EventArgs e)
         {
-            Editor.Settings.AssetDirPath = FolderTextbox.Text;
+            Editor.Editor.Settings.AssetDirPath = FolderTextbox.Text;
             m_pathSet = true;
 
             Close();
@@ -53,11 +56,12 @@ namespace DungeonEditor.GUI
 
         private void DirPopup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (m_pathSet || Editor.Settings.AssetDirPath != null)
+            if (m_pathSet || Editor.Editor.Settings.AssetDirPath != null)
                 return;
 
-            DialogResult confirmation = MessageBox.Show("Are you sure you want to exit this dialog without selecting" +
-                                                        " a valid path? Dungeon Editor will be unable to load assets.",
+            DialogResult confirmation = 
+                MessageBox.Show("Are you sure you want to exit this dialog without selecting" +
+                " a valid path? Dungeon Editor will be unable to load assets.",
                 "Exit", MessageBoxButtons.YesNo);
 
             if (confirmation == DialogResult.No)

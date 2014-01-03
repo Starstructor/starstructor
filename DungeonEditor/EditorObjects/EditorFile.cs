@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
+using DungeonEditor.Editor;
 using DungeonEditor.StarboundObjects;
 using DungeonEditor.StarboundObjects.Tiles;
 using Newtonsoft.Json;
@@ -27,10 +32,14 @@ namespace DungeonEditor.EditorObjects
 {
     public class EditorFile
     {
-        [JsonIgnore] protected List<EditorBrush> m_blockMap = new List<EditorBrush>();
-        [JsonIgnore] protected string m_filePath;
+        [JsonIgnore] 
+        protected List<EditorBrush> m_blockMap = new List<EditorBrush>();
 
-        [JsonIgnore] protected List<EditorMapPart> m_readableParts = new List<EditorMapPart>();
+        [JsonIgnore] 
+        protected string m_filePath;
+
+        [JsonIgnore] 
+        protected List<EditorMapPart> m_readableParts = new List<EditorMapPart>();
 
         [JsonIgnore, Browsable(false)]
         public virtual string FilePath
@@ -58,15 +67,15 @@ namespace DungeonEditor.EditorObjects
             return m_readableParts.Find(x => x.Name == name);
         }
 
-        public virtual void LoadParts(Editor parent)
+        public virtual void LoadParts(Editor.Editor parent)
         {
         }
 
-        public virtual void GenerateBrushAndAssetMaps(Editor parent)
+        public virtual void GenerateBrushAndAssetMaps(Editor.Editor parent)
         {
         }
 
-        public virtual void LoadBrushWithBackAsset(EditorBrush brush, Editor parent, string name, string type)
+        public virtual void LoadBrushWithBackAsset(EditorBrush brush, Editor.Editor parent, string name, string type)
         {
             string extension = EditorHelpers.GetExtensionFromBrushType(type);
 
@@ -125,7 +134,7 @@ namespace DungeonEditor.EditorObjects
             }
         }
 
-        public virtual void LoadBrushWithFrontAsset(EditorBrush brush, Editor parent, string name, string type)
+        public virtual void LoadBrushWithFrontAsset(EditorBrush brush, Editor.Editor parent, string name, string type)
         {
             string extension = EditorHelpers.GetExtensionFromBrushType(type);
 

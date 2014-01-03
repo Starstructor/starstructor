@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,14 +22,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using DungeonEditor.Editor;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using DungeonEditor.EditorTypes;
-using System.Collections.ObjectModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -57,15 +60,15 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
 
-        public override void LoadParts(Editor parent)
+        public override void LoadParts(Editor.Editor parent)
         {
-            Editor.Log.Write("Loading part " + PartImage);
+            Editor.Editor.Log.Write("Loading part " + PartImage);
 
             string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), PartImage);
 
             if (!File.Exists(path))
             {
-                Editor.Log.Write("  Part image " + PartImage + "does not exist");
+                Editor.Editor.Log.Write("  Part image " + PartImage + "does not exist");
                 return;
             }
 
@@ -79,17 +82,17 @@ namespace DungeonEditor.StarboundObjects.Ships
             part.Height = layerImg.Height;
 
             part.Layers.Add(new EditorMapLayer(PartImage, (Bitmap) layerImg, parent.BrushMap, part));
-            part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
-                part.Height*Editor.DEFAULT_GRID_FACTOR);
+            part.GraphicsMap = new Bitmap(part.Width*Editor.Editor.DEFAULT_GRID_FACTOR,
+                part.Height*Editor.Editor.DEFAULT_GRID_FACTOR);
             part.UpdateCompositeCollisionMap();
 
             ReadableParts.Add(part);
             LoadOverlays();
 
-            Editor.Log.Write("Completed loading part " + PartImage);
+            Editor.Editor.Log.Write("Completed loading part " + PartImage);
         }
 
-        public override void GenerateBrushAndAssetMaps(Editor parent)
+        public override void GenerateBrushAndAssetMaps(Editor.Editor parent)
         {
             foreach (ShipBrush brush in BlockMap)
             {
@@ -172,13 +175,13 @@ namespace DungeonEditor.StarboundObjects.Ships
             {
                 foreach (ShipOverlay overlay in BackgroundOverlays)
                 {
-                    Editor.Log.Write("  Loading background overlay " + overlay.ImageName);
+                    Editor.Editor.Log.Write("  Loading background overlay " + overlay.ImageName);
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
 
                     if (File.Exists(path))
                     {
                         overlay.Image = EditorHelpers.LoadImageFromFile(path);
-                        Editor.Log.Write("  Completed loading background overlay " + overlay.ImageName);
+                        Editor.Editor.Log.Write("  Completed loading background overlay " + overlay.ImageName);
                     }
                 }
             }
@@ -187,19 +190,19 @@ namespace DungeonEditor.StarboundObjects.Ships
             {
                 foreach (ShipOverlay overlay in ForegroundOverlays)
                 {
-                    Editor.Log.Write("  Loading foreground overlay " + overlay.ImageName);
+                    Editor.Editor.Log.Write("  Loading foreground overlay " + overlay.ImageName);
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
 
                     if (File.Exists(path))
                     {
                         overlay.Image = EditorHelpers.LoadImageFromFile(path);
-                        Editor.Log.Write("  Completed loading foreground overlay " + overlay.ImageName);
+                        Editor.Editor.Log.Write("  Completed loading foreground overlay " + overlay.ImageName);
                     }
                 }
             }
         }
 
-        private void LoadSpecialBrushes(Editor parent)
+        private void LoadSpecialBrushes(Editor.Editor parent)
         {
         }
     }

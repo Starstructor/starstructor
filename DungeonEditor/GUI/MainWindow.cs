@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,9 +29,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DungeonEditor.Editor;
 using DungeonEditor.EditorObjects;
 using DungeonEditor.StarboundObjects.Dungeons;
-using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Ships;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
@@ -43,7 +47,7 @@ namespace DungeonEditor.GUI
             = new Dictionary<TreeNode, EditorMap>();
 
         private int m_gridFactor;
-        public Editor m_parent;
+        public Editor.Editor m_parent;
         private EditorBrush m_selectedBrush;
         private EditorMap m_pselectedMap;
 
@@ -80,7 +84,7 @@ namespace DungeonEditor.GUI
             }
         }
 
-        public MainWindow(Editor parent)
+        public MainWindow(Editor.Editor parent)
         {
             m_parent = parent;
 
@@ -100,23 +104,23 @@ namespace DungeonEditor.GUI
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            WindowState = Editor.Settings.WindowState;
-            Left = Editor.Settings.WindowX;
-            Top = Editor.Settings.WindowY;
-            Width = Editor.Settings.WindowWidth;
-            Height = Editor.Settings.WindowHeight;
+            WindowState = Editor.Editor.Settings.WindowState;
+            Left = Editor.Editor.Settings.WindowX;
+            Top = Editor.Editor.Settings.WindowY;
+            Width = Editor.Editor.Settings.WindowWidth;
+            Height = Editor.Editor.Settings.WindowHeight;
             MainPictureBox.m_parent = this;
 
-            viewCollisionsToolStripMenuItem.Checked = Editor.Settings.ViewCollisionGrid;
-            BottomBarGfxCombo.SelectedIndex = Editor.Settings.GraphicalDisplay ? 0 : 1;
+            viewCollisionsToolStripMenuItem.Checked = Editor.Editor.Settings.ViewCollisionGrid;
+            BottomBarGfxCombo.SelectedIndex = Editor.Editor.Settings.GraphicalDisplay ? 0 : 1;
             UpdateRecentHistoryList();
         }
 
         private void UpdateRecentHistoryList()
         {
             recentFilesToolStripMenuItem.DropDownItems.Clear();
-            recentFilesToolStripMenuItem.Enabled = Editor.Settings.RecentFiles.Count > 0;
-            foreach (var file in Editor.Settings.RecentFiles)
+            recentFilesToolStripMenuItem.Enabled = Editor.Editor.Settings.RecentFiles.Count > 0;
+            foreach (var file in Editor.Editor.Settings.RecentFiles)
             {
                 var newItem = recentFilesToolStripMenuItem.DropDownItems.Add(file);
                 newItem.Click += new System.EventHandler(recentFileHistory_Click);
@@ -135,7 +139,7 @@ namespace DungeonEditor.GUI
         {
             Text = m_parent.Name + " v" + m_parent.Version;
 
-            if (Editor.Settings.AssetDirPath == null)
+            if (Editor.Editor.Settings.AssetDirPath == null)
             {
                 // Try to auto-find directory
                 string path = (string)Registry.GetValue(
@@ -146,7 +150,7 @@ namespace DungeonEditor.GUI
                 if (path != null)
                 {
                     path = Path.Combine(path, "assets");
-                    Editor.Settings.AssetDirPath = path;
+                    Editor.Editor.Settings.AssetDirPath = path;
                 }
                 // Otherwise prompt the user
                 else
@@ -160,7 +164,7 @@ namespace DungeonEditor.GUI
             }
 
             m_parent.SaveSettings();
-            OpenFileDlg.InitialDirectory = Editor.Settings.AssetDirPath;
+            OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
             MainPictureBox.Focus();
         }
 
@@ -172,12 +176,12 @@ namespace DungeonEditor.GUI
                 return;
             }
 
-            Editor.Settings.WindowState = WindowState;
-            Editor.Settings.WindowX = Left;
-            Editor.Settings.WindowY = Top;
-            Editor.Settings.WindowWidth = Width;
-            Editor.Settings.WindowHeight = Height;
-            Editor.Settings.GraphicalDisplay = BottomBarGfxCombo.SelectedIndex == 0;
+            Editor.Editor.Settings.WindowState = WindowState;
+            Editor.Editor.Settings.WindowX = Left;
+            Editor.Editor.Settings.WindowY = Top;
+            Editor.Editor.Settings.WindowWidth = Width;
+            Editor.Editor.Settings.WindowHeight = Height;
+            Editor.Editor.Settings.GraphicalDisplay = BottomBarGfxCombo.SelectedIndex == 0;
 
             m_parent.SaveSettings();
         }
@@ -616,7 +620,7 @@ namespace DungeonEditor.GUI
 
             CleanUp();
 
-            if (!Directory.Exists(Editor.Settings.AssetDirPath))
+            if (!Directory.Exists(Editor.Editor.Settings.AssetDirPath))
             {
                 MessageBox.Show("Invalid asset directory set. Please choose a valid asset directory " +
                                 "from the Starbound menu in the toolset.", "Error", MessageBoxButtons.OK);
@@ -714,7 +718,7 @@ namespace DungeonEditor.GUI
         {
             var guiPopup = new DirPopup(m_parent);
             guiPopup.ShowDialog();
-            OpenFileDlg.InitialDirectory = Editor.Settings.AssetDirPath;
+            OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -804,7 +808,7 @@ namespace DungeonEditor.GUI
         private void viewCollisionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             viewCollisionsToolStripMenuItem.Checked = !viewCollisionsToolStripMenuItem.Checked;
-            Editor.Settings.ViewCollisionGrid = viewCollisionsToolStripMenuItem.Checked;
+            Editor.Editor.Settings.ViewCollisionGrid = viewCollisionsToolStripMenuItem.Checked;
             
             if (SelectedMap != null)
                 GetSelectedPart().UpdateLayerImage();

@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,11 +33,16 @@ namespace DungeonEditor.EditorObjects
 {
     public class EditorMap
     {
-        [JsonIgnore] protected HashSet<Vec2I>[,] m_collisionMap;
-        [JsonIgnore] protected int m_height;
+        [JsonIgnore] 
+        protected HashSet<Vec2I>[,] m_collisionMap;
+        [JsonIgnore] 
+        protected int m_height;
 
-        [JsonIgnore] protected string m_name;
-        [JsonIgnore] protected int m_width;
+        [JsonIgnore] 
+        protected string m_name;
+
+        [JsonIgnore] 
+        protected int m_width;
 
         [ReadOnly(true)]
         [JsonIgnore, Category("Size")]

@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +24,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.EditorObjects;
-using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -43,11 +46,11 @@ namespace DungeonEditor.StarboundObjects.Ships
                 // Draw background overlays
                 foreach (ShipOverlay overlay in parentShip.BackgroundOverlays)
                 {
-                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
+                    double originX = overlay.Position.x*Editor.Editor.DEFAULT_GRID_FACTOR;
 
                     // Translate to the bottom, then offset by provided value
                     double originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
+                                    (overlay.Position.y*Editor.Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image,
                         (float)originX,
@@ -64,10 +67,10 @@ namespace DungeonEditor.StarboundObjects.Ships
                 // Draw foreground overlays
                 foreach (ShipOverlay overlay in parentShip.ForegroundOverlays)
                 {
-                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
+                    double originX = overlay.Position.x*Editor.Editor.DEFAULT_GRID_FACTOR;
                     // Translate to the bottom-left, then offset by provided value
                     double originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
+                                    (overlay.Position.y*Editor.Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image, 
                         (float)originX, (float)originY, 
