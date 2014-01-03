@@ -22,6 +22,7 @@ using DungeonEditor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
+using DungeonEditor.StarboundObjects.Objects;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -119,6 +120,46 @@ namespace DungeonEditor.EditorObjects
         {
             get { return m_colourKey; }
             set { m_colourKey = value; }
+        }
+
+        public Image GetAssetPreview()
+        {
+            Image assetImg = null;
+
+            // Get the correct preview box asset
+            if (FrontAsset != null)
+            {
+                if (FrontAsset is StarboundObject)
+                {
+                    StarboundObject sbObject = (StarboundObject)FrontAsset;
+                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+
+                    if (Direction == ObjectDirection.DIRECTION_LEFT)
+                        assetImg = orientation.LeftImage;
+                    else if (Direction == ObjectDirection.DIRECTION_RIGHT)
+                        assetImg = orientation.RightImage;
+                }
+
+                if (assetImg == null)
+                    assetImg = FrontAsset.Image;
+            }
+            else if (BackAsset != null)
+            {
+                if (BackAsset is StarboundObject)
+                {
+                    StarboundObject sbObject = (StarboundObject)BackAsset;
+                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+
+                    if (Direction == ObjectDirection.DIRECTION_LEFT)
+                        assetImg = orientation.LeftImage;
+                    else if (Direction == ObjectDirection.DIRECTION_RIGHT)
+                        assetImg = orientation.RightImage;
+                }
+
+                if (assetImg == null)
+                    assetImg = BackAsset.Image;
+            }
+            return assetImg;
         }
     }
 }

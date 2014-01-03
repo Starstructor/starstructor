@@ -49,7 +49,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [DefaultValue(100)]
         public int? MaxParts { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonProperty("anchor", Required = Required.Always)]
         public BindingList<string> Anchor { get; set; }
 

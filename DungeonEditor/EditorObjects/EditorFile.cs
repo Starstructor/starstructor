@@ -53,6 +53,11 @@ namespace DungeonEditor.EditorObjects
             set { m_blockMap = value; }
         }
 
+        public EditorMapPart FindPart(string name)
+        {
+            return m_readableParts.Find(x => x.Name == name);
+        }
+
         public virtual void LoadParts(Editor parent)
         {
         }

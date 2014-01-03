@@ -54,6 +54,8 @@ namespace DungeonEditor.GUI
             {
                 m_pselectedMap = value;
                 takeScreenshotToolStripMenuItem.Enabled = (value != null);
+                UpdateImageBox(false, false);
+                UpdatePropertiesPanel();
             }
         }
 
@@ -237,49 +239,7 @@ namespace DungeonEditor.GUI
                 m_selectedBrush.Colour.R, m_selectedBrush.Colour.G,
                 m_selectedBrush.Colour.B, m_selectedBrush.Colour.A);
 
-            Image assetImg = null;
-
-            // Get the correct preview box asset
-            if (m_selectedBrush.FrontAsset != null)
-            {
-                if (m_selectedBrush.FrontAsset is StarboundObject)
-                {
-                    StarboundObject sbObject = (StarboundObject)m_selectedBrush.FrontAsset;
-                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
-
-                    if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_LEFT)
-                        assetImg = orientation.LeftImage;
-                    else if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_RIGHT)
-                        assetImg = orientation.RightImage;
-                }
-
-                if (assetImg == null)
-                    assetImg = m_selectedBrush.FrontAsset.Image;
-
-            }
-            else if (m_selectedBrush.BackAsset != null)
-            {
-                if (m_selectedBrush.BackAsset is StarboundObject)
-                {
-                    StarboundObject sbObject = (StarboundObject)m_selectedBrush.BackAsset;
-                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
-
-                    if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_LEFT)
-                        assetImg = orientation.LeftImage;
-                    else if (m_selectedBrush.Direction == ObjectDirection.DIRECTION_RIGHT)
-                        assetImg = orientation.RightImage;
-                }
-
-                if ( assetImg == null )
-                    assetImg = m_selectedBrush.BackAsset.Image;
-
-            }
-
-            // Populate the tile preview box
-            if (assetImg != null)
-            {
-                VisualGraphicBrushImageBox.Image = assetImg;
-            }
+            VisualGraphicBrushImageBox.Image = m_selectedBrush.GetAssetPreview();
 
             MainPictureBox.SetSelectedBrush(m_selectedBrush);
             UpdatePropertiesPanel();
@@ -384,17 +344,33 @@ namespace DungeonEditor.GUI
             if (brush != null)
             {
                 SetSelectedBrush(brush);
-                BrushesTreeView.SelectedNode = null;    // needed to reselect the previous brush
+
+                // Select the brush in the treeview
+                TreeNode brushNode = null;
+                foreach ( var m in m_brushNodeMap )
+                {
+                    if ( m.Value == brush )
+                    {
+                        brushNode = m.Key;
+                        break;
+                    }
+                    
+                }
+                BrushesTreeView.SelectedNode = brushNode;
             }
         }
 
         // Populate the part list
         private void PopulatePartTreeView()
         {
+            List<TreeNode> anchorNodes = new List<TreeNode>();
+            List<TreeNode> extensionNodes = new List<TreeNode>();
+
             foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
             {
                 List<TreeNode> childNodes = new List<TreeNode>();
 
+                // Add layers as children
                 foreach (EditorMapLayer layer in part.Layers)
                 {
                     TreeNode newNode = new TreeNode(layer.Name);
@@ -402,9 +378,34 @@ namespace DungeonEditor.GUI
                     childNodes.Add(newNode);
                 }
 
-                TreeNode parentNode = new TreeNode(part.Name, childNodes.ToArray<TreeNode>());
+                // Create the part node
+                TreeNode parentNode = new TreeNode(part.Name, childNodes.ToArray());
                 m_mapNodeMap[parentNode] = part;
-                PartTreeView.Nodes.Add(parentNode);
+
+                // Dungeon-specific, split parts into Anchors and Extensions
+                if (m_parent != null && m_parent.ActiveFile is StarboundDungeon)
+                {
+                    var dungeon = m_parent.ActiveFile as StarboundDungeon;
+                    if ( dungeon.Metadata.Anchor.Contains(part.Name) )
+                        anchorNodes.Add(parentNode);
+                    else
+                        extensionNodes.Add(parentNode);
+                }
+                else
+                {
+                    PartTreeView.Nodes.Add(parentNode);
+                }
+            }
+
+            // If this is a dungeon, create the anchors and extensions
+            if (m_parent != null && m_parent.ActiveFile is StarboundDungeon)
+            {
+                var anchorsNode = new TreeNode("Anchors", anchorNodes.ToArray());
+                var extensionsNode = new TreeNode("Extensions", extensionNodes.ToArray());
+                anchorsNode.Expand();
+                extensionsNode.Expand();
+                PartTreeView.Nodes.Add(anchorsNode);
+                PartTreeView.Nodes.Add(extensionsNode);
             }
         }
 
@@ -454,7 +455,7 @@ namespace DungeonEditor.GUI
                 {
                     comment = "NO COMMENT DEFINED";
                 }
-
+                
                 TreeNode parentNode = BrushesTreeView.Nodes.Add(comment);
 
                 // Add this node to the brush -> node map
@@ -588,7 +589,16 @@ namespace DungeonEditor.GUI
 
             if (PartTreeView.Nodes.Count > 0)
             {
-                SelectPartNode(PartTreeView.Nodes[0]);
+                if (m_parent != null && m_parent.ActiveFile is StarboundDungeon)
+                {
+                    var dungeon = m_parent.ActiveFile as StarboundDungeon;
+                    string desired = dungeon.Metadata.Anchor.First();
+                    SelectPartNode(desired);
+                }
+                else
+                {
+                    SelectPartNode(m_mapNodeMap.First().Key);
+                }
             }
 
             Text = m_parent.Name + " v" + m_parent.Version + " - " + m_parent.ActiveFile.FilePath;
@@ -601,14 +611,17 @@ namespace DungeonEditor.GUI
             UpdatePropertiesPanel();
         }
 
+        private void SelectPartNode(string name)
+        {
+            EditorMapPart part = m_parent.ActiveFile.FindPart(name);
+            SelectedMap = part;
+        }
         private void SelectPartNode(TreeNode node)
         {
             if (!m_mapNodeMap.ContainsKey(node) || SelectedMap == m_mapNodeMap[node])
                 return;
 
             SelectedMap = m_mapNodeMap[node];
-            UpdateImageBox(true, true);
-            UpdatePropertiesPanel();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

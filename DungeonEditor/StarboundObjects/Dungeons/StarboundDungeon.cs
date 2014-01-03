@@ -40,7 +40,6 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
         [JsonProperty("parts", Required = Required.Always), Browsable(false)]
         public List<DungeonPart> Parts { get; set; }
-        
 
         public override void LoadParts(Editor parent)
         {

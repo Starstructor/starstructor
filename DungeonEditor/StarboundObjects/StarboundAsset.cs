@@ -41,5 +41,7 @@ namespace DungeonEditor.StarboundObjects
         {
             return AssetName != null ? AssetName : "[Asset]";
         }
+
+
     }
 }

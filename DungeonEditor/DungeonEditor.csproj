@@ -127,7 +127,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Renderer.cs" />
-    <Compile Include="StarboundObjects\Dungeons\DungeonAnchor.cs" />
     <Compile Include="StarboundObjects\Dungeons\DungeonMetadata.cs" />
     <Compile Include="StarboundObjects\Dungeons\DungeonPart.cs" />
     <Compile Include="StarboundObjects\Dungeons\DungeonBrush.cs" />
