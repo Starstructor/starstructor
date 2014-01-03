@@ -52,10 +52,31 @@ namespace DungeonEditor.GUI
             get { return m_pselectedMap; }
             private set
             {
-                m_pselectedMap = value;
-                takeScreenshotToolStripMenuItem.Enabled = (value != null);
-                UpdateImageBox(true, true);
-                UpdatePropertiesPanel();
+                if (m_pselectedMap != value)
+                {
+                    m_pselectedMap = value;
+
+                    // Update the work area
+                    UpdateImageBox(true, true);
+
+                    // Update menus/properties
+                    takeScreenshotToolStripMenuItem.Enabled = (value != null);
+                    UpdatePropertiesPanel();
+
+                    TreeNode desiredNode = null;
+                    if (value != null)
+                    {
+                        try
+                        {
+                            desiredNode = m_mapNodeMap.First(x => x.Value == value).Key;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("OOPS! Something bad happened. Report this.\n\n" + ex);
+                        }
+                    }
+                    PartTreeView.SelectedNode = desiredNode;
+                }
             }
         }
 
@@ -603,7 +624,9 @@ namespace DungeonEditor.GUI
                 }
                 else
                 {
-                    SelectPartNode(m_mapNodeMap.First().Key);
+                    TreeNode node = m_mapNodeMap.First().Key;
+                    SelectPartNode(node);
+                    PartTreeView.SelectedNode = node;
                 }
             }
 
@@ -619,15 +642,11 @@ namespace DungeonEditor.GUI
 
         private void SelectPartNode(string name)
         {
-            EditorMapPart part = m_parent.ActiveFile.FindPart(name);
-            SelectedMap = part;
-
-            var node = m_mapNodeMap.FirstOrDefault(x => x.Value.Name == name);
-            PartTreeView.SelectedNode = node.Key;
+            SelectedMap = m_parent.ActiveFile.FindPart(name);
         }
         private void SelectPartNode(TreeNode node)
         {
-            if (!m_mapNodeMap.ContainsKey(node) || SelectedMap == m_mapNodeMap[node])
+            if ( !m_mapNodeMap.ContainsKey(node) )
                 return;
 
             SelectedMap = m_mapNodeMap[node];
@@ -756,21 +775,11 @@ namespace DungeonEditor.GUI
 
         private void viewCollisionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (viewCollisionsToolStripMenuItem.Checked)
-            {
-                viewCollisionsToolStripMenuItem.Checked = false;
-                Editor.Settings.ViewCollisionGrid = false;
-            }
-            else
-            {
-                viewCollisionsToolStripMenuItem.Checked = true;
-                Editor.Settings.ViewCollisionGrid = true;
-            }
-
+            viewCollisionsToolStripMenuItem.Checked = !viewCollisionsToolStripMenuItem.Checked;
+            Editor.Settings.ViewCollisionGrid = viewCollisionsToolStripMenuItem.Checked;
+            
             if (SelectedMap != null)
-            {
                 GetSelectedPart().UpdateLayerImage();
-            }
         }
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
