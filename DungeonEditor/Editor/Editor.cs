@@ -371,10 +371,18 @@ namespace DungeonEditor.Editor
                         {
                             orientation.LeftFrames = new JsonParser(leftFramesPath).ParseJson<ObjectFrames>();
                         }
+                        else
+                        {
+                            
+                        }
 
                         if (rightFramesPath != null)
                         {
                             orientation.RightFrames = new JsonParser(rightFramesPath).ParseJson<ObjectFrames>();
+                        }
+                        else
+                        {
+
                         }
 
                         string leftPath = Path.Combine(Path.GetDirectoryName(path), imageNameLeft);
@@ -397,6 +405,11 @@ namespace DungeonEditor.Editor
                             orientation.LeftImage = croppedBmp;
 
                             m_log.Write("  Left image loaded at " + leftPath);
+                        }
+                        else if (orientation.LeftFrames == null)
+                        {
+                            m_log.Write("  Left frames for asset " + name + " at location " + leftFramesPath + "" +
+                                        " not found!");
                         }
                         else
                         {
@@ -421,6 +434,11 @@ namespace DungeonEditor.Editor
                             orientation.RightImage = croppedBmp;
 
                             m_log.Write("  Right image loaded at " + rightPath);
+                        }
+                        else if (orientation.RightFrames == null)
+                        {
+                            m_log.Write("  Right frames for asset " + name + " at location " + rightFramesPath + "" +
+                                        " not found!");
                         }
                         else
                         {
@@ -480,9 +498,13 @@ namespace DungeonEditor.Editor
 
                             m_log.Write("  Image loaded at " + imagePath);
                         }
+                        else if (orientation.RightFrames == null)
+                        {
+                            m_log.Write("   Frames for asset " + name + " at location " + framesPath + " not found!");
+                        }
                         else
                         {
-                            m_log.Write("Image for asset " + name + " at location " + imagePath + " not found!");
+                            m_log.Write("   Image for asset " + name + " at location " + imagePath + " not found!");
                         }
                     }
                     // No image has been found, this isn't a valid object, leave
