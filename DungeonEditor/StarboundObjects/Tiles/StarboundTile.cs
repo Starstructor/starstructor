@@ -34,7 +34,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
         public string Description { get; set; }
 
         [JsonProperty("shortdescription"), Category("Description")]
-        [Description("A short and meaningful description of the tile.")]
+        [Description("A really short and meaningful description of the tile.")]
         public string ShortDescription { get; set; }
 
         [JsonProperty("apexDescription"), Category("Description")]
@@ -71,7 +71,8 @@ namespace DungeonEditor.StarboundObjects.Tiles
         [DefaultValue("")]
         public string Breathable { get; set; }
 
-        [JsonProperty("particleColor"), JsonConverter(typeof(ColorSerializer))]
+        [JsonProperty("particleColor")]
+        [JsonConverter(typeof(ColorSerializer))]
         public Color? ParticleColor { get; set; }
         
         [JsonProperty("footstepSound")]
@@ -138,7 +139,12 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         public override string ToString()
         {
-            return base.ToString();
+            if (ShortDescription != null)
+                return ShortDescription;
+            else if (MaterialName != null)
+                return MaterialName;
+            else
+                return base.ToString();
         }
     }
 }

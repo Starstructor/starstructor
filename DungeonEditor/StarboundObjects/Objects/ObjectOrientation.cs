@@ -23,6 +23,7 @@ using System.Drawing;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
@@ -62,8 +63,9 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         // Default: 0,0
         // Vec2F, so should be double
-        [JsonProperty("imagePosition")]
-        public List<double> ImagePosition { get; set; }
+        [JsonProperty("imagePosition"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F ImagePosition { get; set; }
+        //public List<double> ImagePosition { get; set; }
 
         [JsonProperty("frames")]
         [DefaultValue(1)]
@@ -75,7 +77,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         // List<Vec2I>
         [JsonProperty("spaces")]
-        public List<List<int>> Spaces { get; set; }
+        public BindingList<Vec2I> Spaces { get; set; }
 
         [JsonProperty("spaceScan")]
         public double? SpaceScan { get; set; }
@@ -94,11 +96,11 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         // List<Vec2I>
         [JsonProperty("bgAnchors")]
-        public List<List<int>> BackgroundAnchors { get; set; }
+        public BindingList<Vec2I> BackgroundAnchors { get; set; }
 
         // List<Vec2I>
         [JsonProperty("fgAnchors")]
-        public List<List<int>> ForegroundAnchors { get; set; }
+        public BindingList<Vec2I> ForegroundAnchors { get; set; }
 
         // either "left" or "right", defaults to right if rightImage
         [JsonProperty("direction")]
@@ -111,8 +113,9 @@ namespace DungeonEditor.StarboundObjects.Objects
         public string Collision { get; set; }
 
         // Vec2F
-        [JsonProperty("lightPosition")]
-        public List<double> LightPosition { get; set; }
+        [JsonProperty("lightPosition"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F LightPosition { get; set; }
+        //public List<double> LightPosition { get; set; }
 
         [JsonProperty("pointAngle")]
         [DefaultValue(0.0)]
@@ -137,7 +140,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 frames = RightFrames;
             }
 
-            return (int) Math.Ceiling(frames.FrameGrid.Size[0]/sizeScaleFactor);
+            return (int) Math.Ceiling(frames.FrameGrid.Size.x/sizeScaleFactor);
         }
 
         public int GetHeight(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
@@ -155,7 +158,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 frames = RightFrames;
             }
 
-            return (int) Math.Ceiling(frames.FrameGrid.Size[1]/sizeScaleFactor);
+            return (int) Math.Ceiling(frames.FrameGrid.Size.y/sizeScaleFactor);
         }
 
         public int GetOriginX(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
@@ -163,7 +166,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             int originX = 0;
-            originX += (int) Math.Floor(ImagePosition[0]/sizeScaleFactor);
+            originX += (int) Math.Floor(ImagePosition.x/sizeScaleFactor);
 
             return originX;
         }
@@ -173,7 +176,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             int originY = -GetHeight(gridFactor, direction) + gridFactor;
-            originY -= (int) Math.Floor(ImagePosition[1]/sizeScaleFactor);
+            originY -= (int) Math.Floor(ImagePosition.y/sizeScaleFactor);
 
             return originY;
         }

@@ -24,6 +24,7 @@ using Newtonsoft.Json;
 using System.Drawing;
 using System.ComponentModel;
 using System;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
@@ -97,7 +98,8 @@ namespace DungeonEditor.StarboundObjects.Objects
         public string Rarity { get; set; }
 
         // NOTE! If this value isn't present, then it checks for lightColors (with an s), which is a list of colours
-        [JsonProperty("lightColor"), JsonConverter(typeof(ColorSerializer)), Category("Lighting")]
+        [JsonProperty("lightColor"), Category("Lighting")]
+        [JsonConverter(typeof(ColorSerializer))]
         public Color LightColour { get; set; }
 
         [JsonProperty("flickerDistance"), Category("Lighting")]
@@ -282,7 +284,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         private bool CheckCollisionMapAtOffset(EditorMapPart part, int x, int y)
         {
-            HashSet<List<int>> collisions = part.GetCollisionsAt(x, y);
+            HashSet<Vec2I> collisions = part.GetCollisionsAt(x, y);
 
             if (collisions == null)
                 return false;
@@ -291,7 +293,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             // The collision is only valid if the list doesn't point to an object
             return (from coords in collisions 
                     from layer in part.Layers 
-                    select layer.GetBrushAt(coords[0], coords[1])).Any(brush => 
+                    select layer.GetBrushAt(coords.x, coords.y)).Any(brush => 
                         brush != null && 
                         brush.FrontAsset != null && 
                         !(brush.FrontAsset is StarboundObject));

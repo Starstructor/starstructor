@@ -11,7 +11,7 @@ namespace DungeonEditor
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(Color);    // not sure
+            return objectType == typeof(Color);
         }
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
@@ -32,9 +32,6 @@ namespace DungeonEditor
         }
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (serializer.NullValueHandling == NullValueHandling.Ignore && value == null)
-                return;
-
             List<byte> output = new List<byte>{ 0, 0, 0, 255 };
             if ( value is Color )
             {

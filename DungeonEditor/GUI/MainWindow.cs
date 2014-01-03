@@ -327,7 +327,7 @@ namespace DungeonEditor.GUI
             }
             else
             {
-                UndoManager undoManager = activeLayer.UndoManager();
+                UndoManager undoManager = activeLayer.UndoManager;
 
                 undoToolStripMenuItem.Enabled = undoManager.CanUndo();
                 redoToolStripMenuItem.Enabled = undoManager.CanRedo();
@@ -339,7 +339,7 @@ namespace DungeonEditor.GUI
             EditorMapLayer activeLayer = GetSelectedLayer();
             if (activeLayer != null)
             {
-                var lastChange = activeLayer.UndoManager().Undo();
+                var lastChange = activeLayer.UndoManager.Undo();
                 if (lastChange != null)
                 {
                     SelectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
@@ -357,7 +357,7 @@ namespace DungeonEditor.GUI
             EditorMapLayer activeLayer = GetSelectedLayer();
             if (activeLayer != null)
             {
-                var lastChange = activeLayer.UndoManager().Redo();
+                var lastChange = activeLayer.UndoManager.Redo();
                 if (lastChange != null)
                 {
                     SelectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,

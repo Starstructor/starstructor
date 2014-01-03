@@ -61,7 +61,8 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("flags")]
         public List<string> Flags { get; set; }
 
-        [JsonProperty("value",Required=Required.Always), JsonConverter(typeof(ColorSerializer))]
+        [JsonProperty("value",Required=Required.Always)]
+        [JsonConverter(typeof(ColorSerializer))]
         public override Color Colour { get; set; }
 
     }

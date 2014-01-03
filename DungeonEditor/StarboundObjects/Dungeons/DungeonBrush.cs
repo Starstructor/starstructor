@@ -29,7 +29,8 @@ namespace DungeonEditor.StarboundObjects.Dungeons
     {
         // Override base colour list
         [ReadOnly(true)]
-        [JsonProperty("value", Required = Required.Always), JsonConverter(typeof(ColorSerializer))]
+        [JsonProperty("value", Required = Required.Always)]
+        [JsonConverter(typeof(ColorSerializer))]
         [Description("The colour mapped to this brush.")]
         public override Color Colour { get; set; }
 
@@ -57,7 +58,8 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         public bool? Connector { get; set; }
 
         [ReadOnly(true)]
-        [JsonProperty("connector-value"), JsonConverter(typeof(ColorSerializer)), Category("Connector")]
+        [JsonProperty("connector-value"), Category("Connector")]
+        [JsonConverter(typeof(ColorSerializer))]
         public Color ConnnectorColour { get; set; }
         
         // left, right, up, down, and unknown

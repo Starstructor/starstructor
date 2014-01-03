@@ -22,6 +22,7 @@ using System.Drawing;
 using System.Linq;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -89,7 +90,7 @@ namespace DungeonEditor.EditorObjects
             // If the composite collision map hasn't been made yet
             if (m_collisionMap == null)
             {
-                m_collisionMap = new HashSet<List<int>>[m_width, m_height];
+                m_collisionMap = new HashSet<Vec2I>[m_width, m_height];
             }
 
             // Clear the current list
@@ -105,7 +106,7 @@ namespace DungeonEditor.EditorObjects
             }
 
             // Composite all layers collisions
-            foreach (HashSet<List<int>>[,] layerCollisions in m_partLayers.Select(layer => layer.GetRawCollisionMap()))
+            foreach (HashSet<Vec2I>[,] layerCollisions in m_partLayers.Select(layer => layer.GetRawCollisionMap()))
             {
                 for (int x = 0; x < m_width; ++x)
                 {
@@ -116,7 +117,7 @@ namespace DungeonEditor.EditorObjects
                             // If there are no elements here yet
                             if (m_collisionMap[x, y] == null)
                             {
-                                m_collisionMap[x, y] = new HashSet<List<int>>();
+                                m_collisionMap[x, y] = new HashSet<Vec2I>();
                             }
 
                             foreach (var element in layerCollisions[x, y])

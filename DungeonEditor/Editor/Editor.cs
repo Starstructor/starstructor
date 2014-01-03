@@ -371,8 +371,8 @@ namespace DungeonEditor
                         // Load the left image
                         if (File.Exists(leftPath) && orientation.LeftFrames != null)
                         {
-                            int leftWidth = orientation.LeftFrames.FrameGrid.Size[0];
-                            int leftHeight = orientation.LeftFrames.FrameGrid.Size[1];
+                            int leftWidth = orientation.LeftFrames.FrameGrid.Size.x;
+                            int leftHeight = orientation.LeftFrames.FrameGrid.Size.y;
 
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(leftPath);
@@ -395,8 +395,8 @@ namespace DungeonEditor
                         // Load the right image
                         if (File.Exists(rightPath) && orientation.RightFrames != null)
                         {
-                            int rightWidth = orientation.RightFrames.FrameGrid.Size[0];
-                            int rightHeight = orientation.RightFrames.FrameGrid.Size[1];
+                            int rightWidth = orientation.RightFrames.FrameGrid.Size.x;
+                            int rightHeight = orientation.RightFrames.FrameGrid.Size.y;
 
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(rightPath);
@@ -444,8 +444,8 @@ namespace DungeonEditor
                             return null;
 
                         // Get the size of the asset
-                        int width = orientation.RightFrames.FrameGrid.Size[0];
-                        int height = orientation.RightFrames.FrameGrid.Size[1];
+                        int width = orientation.RightFrames.FrameGrid.Size.x;
+                        int height = orientation.RightFrames.FrameGrid.Size.y;
 
                         string imagePath = Path.Combine(Path.GetDirectoryName(path), imageName);
 

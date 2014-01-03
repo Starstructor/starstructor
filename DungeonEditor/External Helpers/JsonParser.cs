@@ -20,6 +20,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.IO;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor
 {
@@ -30,7 +32,13 @@ namespace DungeonEditor
         {
             NullValueHandling = NullValueHandling.Ignore,
             DefaultValueHandling = DefaultValueHandling.Ignore,
-            Formatting = Formatting.Indented
+            Formatting = Formatting.Indented,
+            
+            Converters = new List<JsonConverter> { 
+                //new ColorSerializer(),     // Color object already handled internally, not sure how to replace
+                new Vec2F.Serializer(),
+                new Vec2I.Serializer()
+            }
         };
             
         public JsonParser(string path)

@@ -22,6 +22,9 @@ using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Ships;
 using System;
+using Newtonsoft.Json;
+using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -39,6 +42,28 @@ namespace DungeonEditor.EditorObjects
         private bool m_changed;
         private UndoManager m_undoManager;
 
+        [JsonIgnore, Browsable(false)]
+        public EditorMapPart Parent
+        {
+            get { return m_parent; }
+        }
+
+        [JsonIgnore]
+        public Image ColourMap { get; set; }
+
+        [JsonIgnore, Browsable(false)]
+        public bool Changed
+        {
+            get { return m_changed; }
+            set { m_changed = value; }
+        }
+
+        [JsonIgnore, Browsable(false)]
+        public UndoManager UndoManager
+        {
+            get { return m_undoManager; }
+        }
+
         // This constructor populates a two dimensional list of brushes.
         // It does this by translating between the provided colour map and the collection of StarboundBrushes.
         // This layer contains the *raw* brush information as drawn on the colour map, 
@@ -53,7 +78,7 @@ namespace DungeonEditor.EditorObjects
             m_width = colourMap.Width;
             m_height = colourMap.Height;
             m_brushMap = new EditorBrush[m_width, m_height];
-            m_collisionMap = new HashSet<List<int>>[m_width, m_height];
+            m_collisionMap = new HashSet<Vec2I>[m_width, m_height];
             m_undoManager = new UndoManager(this);
 
             List<CollisionObjectBrush> brushObjList = new List<CollisionObjectBrush>();
@@ -97,25 +122,6 @@ namespace DungeonEditor.EditorObjects
             {
                 SetCollisionAt(objBrush.m_brush, objBrush.m_x, objBrush.m_y);
             }
-        }
-
-        public EditorMapPart Parent
-        {
-            get { return m_parent; }
-        }
-
-        public Image ColourMap { get; set; }
-
-        public bool Changed
-        {
-            get { return m_changed; }
-            set { m_changed = value; }
-        }
-        
-        // Retrieves the undo manager for this map layer
-        public UndoManager UndoManager()
-        {
-            return m_undoManager;
         }
 
         // Returns the StarboundBrush located at the provided x- and y-coords 
@@ -174,12 +180,12 @@ namespace DungeonEditor.EditorObjects
                 {
                     for (int k = originY + y; k < sizeY + originY + y; ++k)
                     {
-                        HashSet<List<int>> objAnchorSet = GetCollisionsAt(j, k);
+                        var objAnchorSet = GetCollisionsAt(j, k);
 
                         if (objAnchorSet != null)
                         {
                             // Remove from the set if we have a match
-                            objAnchorSet.RemoveWhere(coord => coord[0] == x && coord[1] == y);
+                            objAnchorSet.RemoveWhere(coord => coord.x == x && coord.y == y);
                         }
                     }
                 }
@@ -187,12 +193,12 @@ namespace DungeonEditor.EditorObjects
                 // Else just remove the tile we're at
             else
             {
-                HashSet<List<int>> tileAnchorSet = GetCollisionsAt(x, y);
+                var tileAnchorSet = GetCollisionsAt(x, y);
 
                 if (tileAnchorSet != null)
                 {
                     // Remove from the set if we have a match
-                    tileAnchorSet.RemoveWhere(coord => coord[0] == x && coord[1] == y);
+                    tileAnchorSet.RemoveWhere(coord => coord.x == x && coord.y == y);
                 }
             }
 
@@ -215,16 +221,14 @@ namespace DungeonEditor.EditorObjects
                     {
                         for (int k = originY + y; k < sizeY + originY + y; ++k)
                         {
-                            List<int> list = new List<int> {x, y};
-                            AddCollisionAt(list, j, k);
+                            AddCollisionAt(new Vec2I(x,y), j, k);
                         }
                     }
                 }
                     // Collisions for non-special front tiles
                 else if (!brush.IsSpecial)
                 {
-                    List<int> list = new List<int> {x, y};
-                    AddCollisionAt(list, x, y);
+                    AddCollisionAt(new Vec2I(x,y), x, y);
                 }
             }
 
@@ -232,8 +236,7 @@ namespace DungeonEditor.EditorObjects
             // foreground collisions
             if (brush is ShipBrush && ((ShipBrush) brush).ForegroundBlock)
             {
-                List<int> list = new List<int> {x, y};
-                AddCollisionAt(list, x, y);
+                AddCollisionAt(new Vec2I(x,y), x, y);
             }
 
             // If the update composite flag is set, rebuild
@@ -244,14 +247,14 @@ namespace DungeonEditor.EditorObjects
             }
         }
 
-        private void AddCollisionAt(List<int> anchor, int x, int y)
+        private void AddCollisionAt(Vec2I anchor, int x, int y)
         {
             if (x >= Width || x < 0 || y >= Height || y < 0)
                 return;
 
             if (m_collisionMap[x, y] == null)
             {
-                m_collisionMap[x, y] = new HashSet<List<int>>();
+                m_collisionMap[x, y] = new HashSet<Vec2I>();
             }
 
             m_collisionMap[x, y].Add(anchor);

@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -32,7 +33,7 @@ namespace DungeonEditor.StarboundObjects.Ships
         public string ImageName { get; set; }
 
         // Vec2F
-        [JsonProperty("position", Required = Required.Always)]
-        public List<float> Position { get; set; }
+        [JsonProperty("position", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F Position { get; set; }
     }
 }

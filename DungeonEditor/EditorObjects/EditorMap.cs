@@ -23,12 +23,13 @@ using System.Linq;
 using System;
 using DungeonEditor.StarboundObjects.Objects;
 using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.EditorObjects
 {
     public class EditorMap
     {
-        [JsonIgnore] protected HashSet<List<int>>[,] m_collisionMap;
+        [JsonIgnore] protected HashSet<Vec2I>[,] m_collisionMap;
         [JsonIgnore] protected int m_height;
 
         [JsonIgnore] protected string m_name;
@@ -58,7 +59,7 @@ namespace DungeonEditor.EditorObjects
             set { m_name = value; }
         }
 
-        public HashSet<List<int>> GetCollisionsAt(int x, int y)
+        public HashSet<Vec2I> GetCollisionsAt(int x, int y)
         {
             if (x >= Width || x < 0 || y >= Height || y < 0 || m_collisionMap == null)
                 return null;
@@ -66,7 +67,7 @@ namespace DungeonEditor.EditorObjects
             return m_collisionMap[x, y];
         }
 
-        public HashSet<List<int>>[,] GetRawCollisionMap()
+        public HashSet<Vec2I>[,] GetRawCollisionMap()
         {
             return m_collisionMap;
         }
@@ -99,7 +100,7 @@ namespace DungeonEditor.EditorObjects
             EditorMapLayer activeLayer = GetActiveLayer();
 
             // We need to selectively redraw here
-            var additionalRedrawList = new HashSet<List<int>>();
+            var additionalRedrawList = new HashSet<Vec2I>();
 
             int xmin = gridX;
             int xmax = gridX+1;
@@ -148,7 +149,7 @@ namespace DungeonEditor.EditorObjects
             {
                 for (int y = ymin; y < ymax; ++y)
                 {
-                    HashSet<List<int>> collisions = null;
+                    HashSet<Vec2I> collisions = null;
                     if (this is EditorMapPart)
                     {
                         collisions = activeLayer.Parent.GetCollisionsAt(x, y);
@@ -161,9 +162,9 @@ namespace DungeonEditor.EditorObjects
                     if (collisions == null)
                         continue;
 
-                    foreach (List<int> coords in collisions.Where(coords =>
-                        (coords[0] != x || coords[1] != y) &&
-                        (coords[0] != gridX || coords[1] != gridY)))
+                    foreach (var coords in collisions.Where(coords =>
+                        (coords.x != x || coords.y != y) &&
+                        (coords.x != gridX || coords.y != gridY)))
                     {
                         additionalRedrawList.Add(coords);
                     }
@@ -178,10 +179,8 @@ namespace DungeonEditor.EditorObjects
                 foreach (var coords in additionalRedrawList)
                 {
                     activeLayer.Parent.UpdateLayerImageBetween(
-                        coords[0],
-                        coords[1],
-                        coords[0] + 1,
-                        coords[1] + 1);
+                        coords.x, coords.y,
+                        coords.x + 1, coords.y + 1);
                 }
             }
 
@@ -196,10 +195,8 @@ namespace DungeonEditor.EditorObjects
                 {
                     activeLayer.Parent.UpdateLayerImageBetween(
                         new BindingList<EditorMapLayer> { activeLayer },
-                        coords[0],
-                        coords[1],
-                        coords[0] + 1,
-                        coords[1] + 1);
+                        coords.x, coords.y,
+                        coords.x + 1, coords.y + 1);
                 }
             }
         }
