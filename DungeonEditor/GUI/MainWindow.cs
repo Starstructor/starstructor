@@ -54,7 +54,7 @@ namespace DungeonEditor.GUI
             {
                 m_pselectedMap = value;
                 takeScreenshotToolStripMenuItem.Enabled = (value != null);
-                UpdateImageBox(false, false);
+                UpdateImageBox(true, true);
                 UpdatePropertiesPanel();
             }
         }
@@ -446,21 +446,27 @@ namespace DungeonEditor.GUI
         // Populate the brush list
         private void PopulateBrushList()
         {
+            BrushesTreeView.ImageList = new ImageList();
+            BrushesTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8,8,255,255,255,255));
             foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
             {
-                var children = new List<TreeNode>();
                 string comment = brush.Comment;
 
                 if (String.IsNullOrWhiteSpace(comment))
-                {
                     comment = "NO COMMENT DEFINED";
-                }
-                
-                TreeNode parentNode = BrushesTreeView.Nodes.Add(comment);
 
+                TreeNode parentNode = BrushesTreeView.Nodes.Add(comment);
+                if (brush.GetAssetPreview() != null)
+                {
+                    BrushesTreeView.ImageList.Images.Add(brush.GetKey(), brush.GetAssetPreview().GetThumbnailImage(8, 8, null, IntPtr.Zero));
+                    parentNode.ImageKey = brush.GetKey();
+                    parentNode.SelectedImageKey = brush.GetKey();
+                }
+                                
                 // Add this node to the brush -> node map
                 m_brushNodeMap[parentNode] = brush;
             }
+
         }
 
         private void BrushesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -615,6 +621,9 @@ namespace DungeonEditor.GUI
         {
             EditorMapPart part = m_parent.ActiveFile.FindPart(name);
             SelectedMap = part;
+
+            var node = m_mapNodeMap.FirstOrDefault(x => x.Value.Name == name);
+            PartTreeView.SelectedNode = node.Key;
         }
         private void SelectPartNode(TreeNode node)
         {

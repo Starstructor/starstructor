@@ -23,6 +23,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
+using System;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -50,6 +51,8 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] protected bool m_isSpecial;
         [JsonIgnore] protected bool m_needsBackAsset;
         [JsonIgnore] protected bool m_needsFrontAsset;
+        private string m_brushKey;
+        private static Random g_randKey = new Random();
 
         [JsonIgnore, ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
         public StarboundAsset FrontAsset
@@ -122,6 +125,11 @@ namespace DungeonEditor.EditorObjects
             set { m_colourKey = value; }
         }
 
+        public EditorBrush()
+        {
+            m_brushKey = "b" + g_randKey.Next();
+        }
+
         public Image GetAssetPreview()
         {
             Image assetImg = null;
@@ -160,6 +168,12 @@ namespace DungeonEditor.EditorObjects
                     assetImg = BackAsset.Image;
             }
             return assetImg;
+        }
+
+        // Used as a mapping from brush tree view to editor brush
+        public string GetKey()
+        {
+            return m_brushKey;
         }
     }
 }
