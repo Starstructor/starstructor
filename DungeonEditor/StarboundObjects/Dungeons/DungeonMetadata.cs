@@ -35,7 +35,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [Description("The race that the dungeon belongs to.")]
         public string Species { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]      // can't display in the property grid yet
         [JsonProperty("rules")]
         public List<object> Rules { get; set; }
 

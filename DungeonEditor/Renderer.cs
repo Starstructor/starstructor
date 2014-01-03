@@ -180,12 +180,12 @@ namespace DungeonEditor
         }
 
 
-        public static bool DrawBackground(BindingList<EditorMapLayer> layers, Graphics gfx)
+        public static bool DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
         {
             return DrawBackground(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static bool DrawBackground(BindingList<EditorMapLayer> layers, int gridFactor, Graphics gfx)
+        public static bool DrawBackground(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
                 return false;
@@ -196,13 +196,13 @@ namespace DungeonEditor
             return DrawBackgroundBetween(layers, 0, 0, width, height, gridFactor, gfx);
         }
 
-        public static bool DrawBackgroundBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             return DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static bool DrawBackgroundBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
@@ -235,12 +235,12 @@ namespace DungeonEditor
         }
 
 
-        public static bool DrawForeground(BindingList<EditorMapLayer> layers, Graphics gfx)
+        public static bool DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
         {
             return DrawForeground(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static bool DrawForeground(BindingList<EditorMapLayer> layers, int gridFactor, Graphics gfx)
+        public static bool DrawForeground(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
                 return false;
@@ -251,13 +251,13 @@ namespace DungeonEditor
             return DrawForegroundBetween(layers, 0, 0, width, height, gridFactor, gfx);
         }
 
-        public static bool DrawForegroundBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             return DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static bool DrawForegroundBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
@@ -294,12 +294,12 @@ namespace DungeonEditor
         }
 
 
-        public static bool DrawSpecial(BindingList<EditorMapLayer> layers, Graphics gfx)
+        public static bool DrawSpecial(List<EditorMapLayer> layers, Graphics gfx)
         {
             return DrawSpecial(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static bool DrawSpecial(BindingList<EditorMapLayer> layers, int gridFactor, Graphics gfx)
+        public static bool DrawSpecial(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
                 return false;
@@ -310,13 +310,13 @@ namespace DungeonEditor
             return DrawSpecialBetween(layers, 0, 0, width, height, gridFactor, gfx);
         }
 
-        public static bool DrawSpecialBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static bool DrawSpecialBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             return DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static bool DrawSpecialBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static bool DrawSpecialBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
@@ -348,12 +348,12 @@ namespace DungeonEditor
         }
 
 
-        public static void DrawObjectCollisions(BindingList<EditorMapLayer> layers, Graphics gfx)
+        public static void DrawObjectCollisions(List<EditorMapLayer> layers, Graphics gfx)
         {
             DrawObjectCollisions(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static void DrawObjectCollisions(BindingList<EditorMapLayer> layers, int gridFactor, Graphics gfx)
+        public static void DrawObjectCollisions(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
         {
             if (layers == null || layers.Count == 0)
                 return;
@@ -364,13 +364,13 @@ namespace DungeonEditor
             DrawObjectCollisions(layers, 0, 0, width, height, gridFactor, gfx);
         }
 
-        public static void DrawObjectCollisions(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static void DrawObjectCollisions(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
-        public static void DrawObjectCollisions(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public static void DrawObjectCollisions(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             int gridFactor, Graphics gfx)
         {
             // Draw object collision overlays

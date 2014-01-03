@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
@@ -29,11 +30,17 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         // name is inherited from EditorMap
 
         // Index 0 must contain the string "image"?
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonProperty("def", Required = Required.Always)]
         public List<object> Definition { get; set; }
 
-        [ReadOnly(true)]
+        [JsonIgnore, DisplayName("Definition"), ReadOnly(true)]
+        public ReadOnlyCollection<object> ReadOnlyDefinition
+        {
+            get { return Definition.AsReadOnly(); }
+        }
+
+        [Browsable(false)]      // can't display in the property grid yet
         [JsonProperty("rules", Required = Required.Always)]
         public List<List<object>> Rules { get; set; }
 

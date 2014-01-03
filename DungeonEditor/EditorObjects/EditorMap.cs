@@ -188,13 +188,13 @@ namespace DungeonEditor.EditorObjects
             else if (this is EditorMapLayer)
             {
                 activeLayer.Parent.UpdateLayerImageBetween(
-                    new BindingList<EditorMapLayer> { activeLayer },
+                    new List<EditorMapLayer> { activeLayer },
                     xmin, ymin, xmax, ymax);
 
                 foreach (var coords in additionalRedrawList)
                 {
                     activeLayer.Parent.UpdateLayerImageBetween(
-                        new BindingList<EditorMapLayer> { activeLayer },
+                        new List<EditorMapLayer> { activeLayer },
                         coords.x, coords.y,
                         coords.x + 1, coords.y + 1);
                 }

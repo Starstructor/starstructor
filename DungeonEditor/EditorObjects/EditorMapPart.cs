@@ -23,6 +23,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using DungeonEditor.EditorTypes;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -32,7 +33,7 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] protected Image m_graphicsMap;
         [JsonIgnore] protected EditorFile m_parent;
 
-        [JsonIgnore] protected BindingList<EditorMapLayer> m_partLayers = new BindingList<EditorMapLayer>();
+        [JsonIgnore] protected List<EditorMapLayer> m_partLayers = new List<EditorMapLayer>();
 
         [JsonIgnore, Browsable(false)]
         public EditorFile Parent
@@ -41,11 +42,17 @@ namespace DungeonEditor.EditorObjects
             set { m_parent = value; }
         }
 
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonIgnore]
-        public BindingList<EditorMapLayer> Layers
+        public List<EditorMapLayer> Layers
         {
             get { return m_partLayers; }
+        }
+
+        [JsonIgnore, DisplayName("Layers"), ReadOnly(true)]
+        public ReadOnlyCollection<EditorMapLayer> ReadOnlyLayers
+        {
+            get { return m_partLayers.AsReadOnly(); }
         }
 
         [JsonIgnore, Browsable(false)]
@@ -141,12 +148,12 @@ namespace DungeonEditor.EditorObjects
             UpdateLayerImageBetween(0, 0, Width, Height, noFront, noBack, noSpecial, noClear);
         }
 
-        public virtual void UpdateLayerImage(BindingList<EditorMapLayer> layers)
+        public virtual void UpdateLayerImage(List<EditorMapLayer> layers)
         {
             UpdateLayerImage(layers, false, false, false, false);
         }
 
-        public virtual void UpdateLayerImage(BindingList<EditorMapLayer> layers, bool noFront, bool noBack, bool noSpecial,
+        public virtual void UpdateLayerImage(List<EditorMapLayer> layers, bool noFront, bool noBack, bool noSpecial,
             bool noClear)
         {
             UpdateLayerImageBetween(layers, 0, 0, Width, Height, noFront, noBack, noSpecial, noClear);
@@ -164,12 +171,12 @@ namespace DungeonEditor.EditorObjects
             UpdateLayerImageBetween(m_partLayers, xmin, ymin, xmax, ymax, noFront, noBack, noSpecial, noClear);
         }
 
-        public virtual void UpdateLayerImageBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax)
+        public virtual void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax)
         {
             UpdateLayerImageBetween(layers, xmin, ymin, xmax, ymax, false, false, false, false);
         }
 
-        public virtual void UpdateLayerImageBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        public virtual void UpdateLayerImageBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             bool noFront, bool noBack, bool noSpecial, bool noClear)
         {
             if (!noClear)
@@ -193,36 +200,36 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        protected virtual void DrawBackground(BindingList<EditorMapLayer> layers, Graphics gfx)
+        protected virtual void DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
         {
             DrawBackgroundBetween(layers, 0, 0, Width, Height, gfx);
         }
 
-        protected virtual void DrawBackgroundBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        protected virtual void DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             Renderer.DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
         }
 
 
-        protected virtual void DrawForeground(BindingList<EditorMapLayer> layers, Graphics gfx)
+        protected virtual void DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
         {
             DrawForegroundBetween(layers, 0, 0, Width, Height, gfx);
         }
 
-        protected virtual void DrawForegroundBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
+        protected virtual void DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             Renderer.DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
         }
 
 
-        protected virtual void DrawSpecialBrushes(BindingList<EditorMapLayer> layers, Graphics gfx)
+        protected virtual void DrawSpecialBrushes(List<EditorMapLayer> layers, Graphics gfx)
         {
             DrawSpecialBrushesBetween(layers, 0, 0, Width, Height, gfx);
         }
 
-        protected virtual void DrawSpecialBrushesBetween(BindingList<EditorMapLayer> layers, int xmin, int ymin, int xmax,
+        protected virtual void DrawSpecialBrushesBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax,
             int ymax, Graphics gfx)
         {
             Renderer.DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, gfx);

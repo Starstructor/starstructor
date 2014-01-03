@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using System;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -98,14 +99,14 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore, Browsable(false)]
         public BindingList<string> BrushTypes
         {
             get { return m_brushTypes; }
             set { m_brushTypes = value; }
         }
-
-        [JsonIgnore, ReadOnly(true)]
+        
+        [JsonIgnore, Browsable(false)]
         public BindingList<string> BrushRules
         {
             get { return m_brushRules; }

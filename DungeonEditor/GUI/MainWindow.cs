@@ -538,7 +538,7 @@ namespace DungeonEditor.GUI
                 }
                 else if (SelectedMap is EditorMapLayer)
                 {
-                    part.UpdateLayerImage(new BindingList<EditorMapLayer> { (EditorMapLayer)SelectedMap });
+                    part.UpdateLayerImage(new List<EditorMapLayer> { (EditorMapLayer)SelectedMap });
                 }
 
                 MainPictureBox.SetImage(part.GraphicsMap, resetZoom, resetCamera, m_gridFactor);

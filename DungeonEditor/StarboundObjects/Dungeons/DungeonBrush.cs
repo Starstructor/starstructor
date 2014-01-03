@@ -41,11 +41,11 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [Description("A user-defined comment. This is only used for the editor.")]
         public override string Comment { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]  // brushes currently not viewable in property grid
         [JsonProperty("brush")]
         public List<List<object>> Brushes { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)] // rules currently not viewable in propertygrid
         [JsonProperty("rules")]
         public List<List<string>> Rules { get; set; }
 

@@ -25,6 +25,7 @@ using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using DungeonEditor.EditorTypes;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -34,11 +35,11 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("config", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
         public ShipConfig Config { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonProperty("backgroundOverlays")]
         public BindingList<ShipOverlay> BackgroundOverlays { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonProperty("foregroundOverlays")]
         public BindingList<ShipOverlay> ForegroundOverlays { get; set; }
 
@@ -48,8 +49,8 @@ namespace DungeonEditor.StarboundObjects.Ships
         public Vec2I BlocksPosition { get; set; }
         //public List<int> BlocksPosition { get; set; }
 
-        [ReadOnly(true)]
-        [JsonProperty("blockKey"), Browsable(false)]
+        [Browsable(false)]
+        [JsonProperty("blockKey")]
         public BindingList<ShipBrush> Brushes { get; set; }
 
         [ReadOnly(true)]
