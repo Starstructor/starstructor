@@ -23,6 +23,7 @@ using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
+    [ReadOnly(true)]
     public class ShipObjectParams
     {
         [JsonProperty("treasurePools")]

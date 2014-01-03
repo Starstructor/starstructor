@@ -90,7 +90,7 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore, Category("Orientation")]
+        [JsonIgnore, Category("Orientation"), ReadOnly(true)]
         public ObjectDirection Direction
         {
             get { return m_direction; }
@@ -112,13 +112,14 @@ namespace DungeonEditor.EditorObjects
             set { m_brushRules = value; }
         }
 
+        [ReadOnly(true)]
         public virtual string Comment
         {
             get { return m_comment; }
             set { m_comment = value; }
         }
 
-        [JsonConverter(typeof(ColorSerializer))]
+        [JsonConverter(typeof(ColorSerializer)), ReadOnly(true)]
         public virtual Color Colour
         {
             get { return m_colourKey; }

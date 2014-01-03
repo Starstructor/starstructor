@@ -48,7 +48,7 @@ namespace DungeonEditor.EditorObjects
             get { return m_parent; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public Image ColourMap { get; set; }
 
         [JsonIgnore, Browsable(false)]

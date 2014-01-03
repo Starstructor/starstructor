@@ -25,6 +25,7 @@ using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
+    [ReadOnly(true)]
     public class ShipBrush : EditorBrush
     {
         [JsonIgnore]

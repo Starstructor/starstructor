@@ -25,6 +25,7 @@ using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
+    [ReadOnly(true)]
     public class ShipOverlay
     {
         [JsonIgnore] public Image Image;
