@@ -19,18 +19,29 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
+    [ReadOnly(true)]
     public class ShipObjectParams
     {
         [JsonProperty("treasurePools")]
         public List<string> TreasurePools { get; set; }
 
         [JsonProperty("level")]
-        public int Level { get; set; }
+        public double? Level { get; set; }
+
+        [JsonProperty("levelAdjustment")]
+        [DefaultValue(0.0)]
+        public double? LevelAdjustment { get; set; }
+
+        //initialItems
+        //treasurePools
+
+        // color ??? (not sure)
 
         [JsonProperty("unbreakable")]
-        public bool Unbreakable { get; set; }
+        public bool? Unbreakable { get; set; }
     }
 }

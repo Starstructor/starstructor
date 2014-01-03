@@ -23,23 +23,37 @@ using System.Drawing;
 using System.IO;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using DungeonEditor.EditorTypes;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
     public class StarboundShip : EditorFile
     {
-        [JsonProperty("config")]
+        [ReadOnly(true)]
+        [JsonProperty("config", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
         public ShipConfig Config { get; set; }
 
+        [Browsable(false)]
         [JsonProperty("backgroundOverlays")]
-        public List<ShipOverlay> BackgroundOverlays { get; set; }
+        public BindingList<ShipOverlay> BackgroundOverlays { get; set; }
 
+        [Browsable(false)]
         [JsonProperty("foregroundOverlays")]
-        public List<ShipOverlay> ForegroundOverlays { get; set; }
+        public BindingList<ShipOverlay> ForegroundOverlays { get; set; }
 
+        // type: Vec2I, default: [0,0]
+        [ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
+        [JsonProperty("blocksPosition")]
+        public Vec2I BlocksPosition { get; set; }
+        //public List<int> BlocksPosition { get; set; }
+
+        [Browsable(false)]
         [JsonProperty("blockKey")]
-        public List<ShipBrush> Brushes { get; set; }
+        public BindingList<ShipBrush> Brushes { get; set; }
 
+        [ReadOnly(true)]
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
 
@@ -85,11 +99,6 @@ namespace DungeonEditor.StarboundObjects.Ships
                 string backgroundName = null;
 
                 brush.Comment = "";
-
-                if (brush.Colour.Count != 4)
-                {
-                    brush.Colour.Add(255);
-                }
 
                 // The thing occupying the background layer
                 if (brush.BackgroundMat != null)

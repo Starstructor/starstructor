@@ -43,8 +43,8 @@ namespace DungeonEditor
         private readonly Dictionary<string, StarboundAsset> m_assetMap
             = new Dictionary<string, StarboundAsset>();
 
-        private readonly Dictionary<List<byte>, EditorBrush> m_brushMap
-            = new Dictionary<List<byte>, EditorBrush>(new ByteListEqualityComparer());
+        private readonly Dictionary<Color, EditorBrush> m_brushMap
+            = new Dictionary<Color, EditorBrush>();
 
         private static readonly Logger m_log
             = new Logger(Path.Combine(
@@ -78,7 +78,7 @@ namespace DungeonEditor
         }
 
         // Maps from RGBA to a specific Tile
-        public Dictionary<List<byte>, EditorBrush> BrushMap
+        public Dictionary<Color, EditorBrush> BrushMap
         {
             get { return m_brushMap; }
         }
@@ -136,32 +136,29 @@ namespace DungeonEditor
         public bool LoadFile(string path)
         {
             m_log.Write("Parsing " + path);
+            if ( !File.Exists(path) )
+            {
+                m_log.Write("File " + path + " does not exist!");
+                Editor.Settings.RecentFiles.Remove(path);
+                return false;
+            }
 
             if (Path.GetExtension(path) == ".dungeon")
             {
                 m_activeFile = new JsonParser(path).ParseJson<StarboundDungeon>();
 
                 m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Parts.Count + " parts");
-                foreach (DungeonPart part in ((StarboundDungeon) m_activeFile).Parts)
-                {
-                    m_activeFile.ReadableParts.Add(part);
-                }
-
+                m_activeFile.ReadableParts.AddRange(((StarboundDungeon)m_activeFile).Parts);
+                
                 m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Tiles.Count + " brushes");
-                foreach (DungeonBrush brush in ((StarboundDungeon) m_activeFile).Tiles)
-                {
-                    m_activeFile.BlockMap.Add(brush);
-                }
+                m_activeFile.BlockMap.AddRange(((StarboundDungeon)m_activeFile).Tiles);
             }
             else if (Path.GetExtension(path) == ".structure")
             {
                 m_activeFile = new JsonParser(path).ParseJson<StarboundShip>();
 
                 m_log.Write("  Parsing " + ((StarboundShip)m_activeFile).Brushes.Count + " brushes");
-                foreach (ShipBrush brush in ((StarboundShip) m_activeFile).Brushes)
-                {
-                    m_activeFile.BlockMap.Add(brush);
-                }
+                m_activeFile.BlockMap.AddRange(((StarboundShip) m_activeFile).Brushes);
             }
 
             if (m_activeFile == null)
@@ -170,8 +167,40 @@ namespace DungeonEditor
                 return false;
             }
 
+            ActiveFile.FilePath = path;
+            ScanAssetDirectory();
+            ActiveFile.GenerateBrushAndAssetMaps(this);
+            ActiveFile.LoadParts(this);
+
             m_log.Write("Completed parsing " + path);
+            Editor.Settings.RecentFiles.Remove(path);
+            Editor.Settings.RecentFiles.Insert(0, path);    // Insert the newest element at the beginning
+            while (Editor.Settings.RecentFiles.Count > 10)  // Remove last elements over the max number of recent files
+                Editor.Settings.RecentFiles.RemoveAt(Editor.Settings.RecentFiles.Count - 1);
             return true;
+        }
+
+        public void SaveFile()
+        {
+            SaveFile(ActiveFile.FilePath);
+        }
+
+        public void SaveFile(string path)
+        {
+            m_log.Write("Saving " + path);
+
+            ActiveFile.FilePath = path;
+            File.Delete(path);
+            if (ActiveFile is StarboundDungeon)
+            {
+                JsonParser parser = new JsonParser(path);
+                parser.SerializeJson<StarboundDungeon>((StarboundDungeon)ActiveFile);
+            }
+            else if (ActiveFile is StarboundShip)
+            {
+                JsonParser parser = new JsonParser(path);
+                parser.SerializeJson<StarboundShip>((StarboundShip)ActiveFile);
+            }
         }
 
         // clean up all resources
@@ -350,8 +379,8 @@ namespace DungeonEditor
                         // Load the left image
                         if (File.Exists(leftPath) && orientation.LeftFrames != null)
                         {
-                            int leftWidth = orientation.LeftFrames.FrameGrid.Size[0];
-                            int leftHeight = orientation.LeftFrames.FrameGrid.Size[1];
+                            int leftWidth = orientation.LeftFrames.FrameGrid.Size.x;
+                            int leftHeight = orientation.LeftFrames.FrameGrid.Size.y;
 
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(leftPath);
@@ -374,8 +403,8 @@ namespace DungeonEditor
                         // Load the right image
                         if (File.Exists(rightPath) && orientation.RightFrames != null)
                         {
-                            int rightWidth = orientation.RightFrames.FrameGrid.Size[0];
-                            int rightHeight = orientation.RightFrames.FrameGrid.Size[1];
+                            int rightWidth = orientation.RightFrames.FrameGrid.Size.x;
+                            int rightHeight = orientation.RightFrames.FrameGrid.Size.y;
 
                             // Load the image
                             Image tempImage = EditorHelpers.LoadImageFromFile(rightPath);
@@ -423,8 +452,8 @@ namespace DungeonEditor
                             return null;
 
                         // Get the size of the asset
-                        int width = orientation.RightFrames.FrameGrid.Size[0];
-                        int height = orientation.RightFrames.FrameGrid.Size[1];
+                        int width = orientation.RightFrames.FrameGrid.Size.x;
+                        int height = orientation.RightFrames.FrameGrid.Size.y;
 
                         string imagePath = Path.Combine(Path.GetDirectoryName(path), imageName);
 

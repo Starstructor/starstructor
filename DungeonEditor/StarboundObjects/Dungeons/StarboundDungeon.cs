@@ -26,15 +26,20 @@ using System.Linq;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class StarboundDungeon : EditorFile
     {
-        [JsonProperty("metadata")] public DungeonMetadata Metadata;
+        [JsonProperty("metadata", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
+        public DungeonMetadata Metadata { get; set; }
 
-        [JsonProperty("parts")] public List<DungeonPart> Parts;
-        [JsonProperty("tiles")] public List<DungeonBrush> Tiles;
+        [JsonProperty("tiles", Required = Required.Always), Browsable(false)]
+        public List<DungeonBrush> Tiles { get; set; }
+
+        [JsonProperty("parts", Required = Required.Always), Browsable(false)]
+        public List<DungeonPart> Parts { get; set; }
 
         public override void LoadParts(Editor parent)
         {
@@ -88,7 +93,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
         public override void GenerateBrushAndAssetMaps(Editor parent)
         {
-            Dictionary<List<byte>, EditorBrush> map = parent.BrushMap;
+            Dictionary<Color, EditorBrush> map = parent.BrushMap;
 
             foreach (DungeonBrush brush in BlockMap)
             {
@@ -206,10 +211,10 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                         asset = new StarboundAsset();
                         asset.AssetName = assetName;
                         asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                            brush.Colour[0],
-                            brush.Colour[1],
-                            brush.Colour[2],
-                            brush.Colour[3]);
+                            brush.Colour.R,
+                            brush.Colour.G,
+                            brush.Colour.B,
+                            brush.Colour.A);
 
                         parent.AssetMap[asset.AssetName] = asset;
                     }

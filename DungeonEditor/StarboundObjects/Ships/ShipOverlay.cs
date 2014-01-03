@@ -20,17 +20,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.Drawing;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
+    [ReadOnly(true)]
     public class ShipOverlay
     {
         [JsonIgnore] public Image Image;
 
-        [JsonProperty("image")]
+        [JsonProperty("image", Required=Required.Always)]
         public string ImageName { get; set; }
 
-        [JsonProperty("position")]
-        public List<float> Position { get; set; }
+        // Vec2F
+        [JsonProperty("position", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F Position { get; set; }
     }
 }

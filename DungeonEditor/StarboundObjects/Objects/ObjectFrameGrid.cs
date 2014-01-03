@@ -19,15 +19,20 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
+    [ReadOnly(true)]
     public class ObjectFrameGrid
     {
-        [JsonProperty("size")]
-        public List<int> Size { get; set; }
+        [JsonProperty("size"), Category("Orientation"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2I Size { get; set; }
+        //public List<int> Size { get; set; }
 
-        [JsonProperty("dimensions")]
-        public List<int> Dimensions { get; set; }
+        [JsonProperty("dimensions"), Category("Orientation"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2I Dimensions { get; set; }
+        //public List<int> Dimensions { get; set; }
     }
 }

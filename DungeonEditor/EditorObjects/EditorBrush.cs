@@ -20,6 +20,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.StarboundObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Drawing;
+using DungeonEditor.StarboundObjects.Objects;
+using System;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -35,46 +40,50 @@ namespace DungeonEditor.EditorObjects
     {
         [JsonIgnore] protected StarboundAsset m_backAsset;
 
-        [JsonIgnore] protected List<string> m_brushRules = new List<string>();
-        [JsonIgnore] protected List<string> m_brushTypes = new List<string>();
+        [JsonIgnore]
+        protected BindingList<string> m_brushRules = new BindingList<string>();
+        [JsonIgnore]
+        protected BindingList<string> m_brushTypes = new BindingList<string>();
 
-        [JsonIgnore] protected List<byte> m_colourKey = new List<byte>();
+        [JsonIgnore] protected Color m_colourKey;
         [JsonIgnore] protected string m_comment;
         [JsonIgnore] protected ObjectDirection m_direction;
         [JsonIgnore] protected StarboundAsset m_frontAsset;
         [JsonIgnore] protected bool m_isSpecial;
         [JsonIgnore] protected bool m_needsBackAsset;
         [JsonIgnore] protected bool m_needsFrontAsset;
+        private string m_brushKey;
+        private static Random g_randKey = new Random();
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
         public StarboundAsset FrontAsset
         {
             get { return m_frontAsset; }
             set { m_frontAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
         public StarboundAsset BackAsset
         {
             get { return m_backAsset; }
             set { m_backAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public bool NeedsFrontAsset
         {
             get { return m_needsFrontAsset; }
             set { m_needsFrontAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public bool NeedsBackAsset
         {
             get { return m_needsBackAsset; }
             set { m_needsBackAsset = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, ReadOnly(true)]
         public bool IsSpecial
         {
             get { return m_isSpecial; }
@@ -82,7 +91,7 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore]
+        [JsonIgnore, Category("Orientation"), ReadOnly(true)]
         public ObjectDirection Direction
         {
             get { return m_direction; }
@@ -90,30 +99,83 @@ namespace DungeonEditor.EditorObjects
         }
 
 
-        [JsonIgnore]
-        public List<string> BrushTypes
+        [JsonIgnore, Browsable(false)]
+        public BindingList<string> BrushTypes
         {
             get { return m_brushTypes; }
             set { m_brushTypes = value; }
         }
-
-        [JsonIgnore]
-        public List<string> BrushRules
+        
+        [JsonIgnore, Browsable(false)]
+        public BindingList<string> BrushRules
         {
             get { return m_brushRules; }
             set { m_brushRules = value; }
         }
 
+        [ReadOnly(true)]
         public virtual string Comment
         {
             get { return m_comment; }
             set { m_comment = value; }
         }
 
-        public virtual List<byte> Colour
+        [JsonConverter(typeof(ColorSerializer)), ReadOnly(true)]
+        public virtual Color Colour
         {
             get { return m_colourKey; }
             set { m_colourKey = value; }
+        }
+
+        public EditorBrush()
+        {
+            m_brushKey = "b" + g_randKey.Next();
+        }
+
+        public Image GetAssetPreview()
+        {
+            Image assetImg = null;
+
+            // Get the correct preview box asset
+            if (FrontAsset != null)
+            {
+                if (FrontAsset is StarboundObject)
+                {
+                    StarboundObject sbObject = (StarboundObject)FrontAsset;
+                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+
+                    if (Direction == ObjectDirection.DIRECTION_LEFT)
+                        assetImg = orientation.LeftImage;
+                    else if (Direction == ObjectDirection.DIRECTION_RIGHT)
+                        assetImg = orientation.RightImage;
+                }
+
+                if (assetImg == null)
+                    assetImg = FrontAsset.Image;
+            }
+            else if (BackAsset != null)
+            {
+                if (BackAsset is StarboundObject)
+                {
+                    StarboundObject sbObject = (StarboundObject)BackAsset;
+                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+
+                    if (Direction == ObjectDirection.DIRECTION_LEFT)
+                        assetImg = orientation.LeftImage;
+                    else if (Direction == ObjectDirection.DIRECTION_RIGHT)
+                        assetImg = orientation.RightImage;
+                }
+
+                if (assetImg == null)
+                    assetImg = BackAsset.Image;
+            }
+            return assetImg;
+        }
+
+        // Used as a mapping from brush tree view to editor brush
+        public string GetKey()
+        {
+            return m_brushKey;
         }
     }
 }

@@ -25,6 +25,8 @@ using System.Drawing.Imaging;
 using DungeonEditor.EditorObjects;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Tiles;
+using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor
 {
@@ -376,7 +378,7 @@ namespace DungeonEditor
             {
                 for (int y = ymin; y < ymax; ++y)
                 {
-                    HashSet<List<int>> collisions = null;
+                    HashSet<Vec2I> collisions = null;
 
                     collisions = layers.Count == 1 ? layers[0].GetCollisionsAt(x, y) : layers[0].Parent.GetCollisionsAt(x, y);
 

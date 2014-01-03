@@ -20,18 +20,38 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonPart : EditorMapPart
     {
-        [JsonProperty("rules")]
-        public List<List<object>> Rules { get; set; }
+        // name is inherited from EditorMap
 
-        [JsonProperty("def")]
+        // Index 0 must contain the string "image"?
+        [Browsable(false)]
+        [JsonProperty("def", Required = Required.Always)]
         public List<object> Definition { get; set; }
 
+        [JsonIgnore, DisplayName("Definition"), ReadOnly(true)]
+        public ReadOnlyCollection<object> ReadOnlyDefinition
+        {
+            get { return Definition.AsReadOnly(); }
+        }
+
+        [Browsable(false)]      // can't display in the property grid yet
+        [JsonProperty("rules", Required = Required.Always)]
+        public List<List<object>> Rules { get; set; }
+
+        [ReadOnly(true)]
         [JsonProperty("chance")]
+        [DefaultValue(1.0)]
         public double? Chance { get; set; }
+
+        [ReadOnly(true)]
+        [JsonProperty("overrideAllowAlways")]
+        [DefaultValue(false)]
+        public bool? OverrideAllowAlways { get; set; }
     }
 }

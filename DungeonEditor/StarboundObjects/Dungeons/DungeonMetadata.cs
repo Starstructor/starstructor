@@ -19,27 +19,47 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonMetadata
     {
-        [JsonProperty("name")]
+        [ReadOnly(true)]
+        [JsonProperty("name",Required=Required.Always)]
+        [Description("The name of the dungeon.")]
         public string Name { get; set; }
 
-        [JsonProperty("species")]
+        [ReadOnly(true)]
+        [JsonProperty("species",Required=Required.Always)]
+        [Description("The race that the dungeon belongs to.")]
         public string Species { get; set; }
 
+        [Browsable(false)]      // can't display in the property grid yet
         [JsonProperty("rules")]
         public List<object> Rules { get; set; }
 
-        [JsonProperty("anchor")]
-        public List<string> Anchor { get; set; }
-
+        [ReadOnly(true)]
         [JsonProperty("maxRadius")]
-        public int MaxRadius { get; set; }
+        [DefaultValue(100)]
+        public int? MaxRadius { get; set; }
 
+        [ReadOnly(true)]
         [JsonProperty("maxParts")]
-        public int MaxParts { get; set; }
+        [DefaultValue(100)]
+        public int? MaxParts { get; set; }
+
+        [Browsable(false)]
+        [JsonProperty("anchor", Required = Required.Always)]
+        public BindingList<string> Anchor { get; set; }
+
+        [ReadOnly(true)]
+        [JsonProperty("gravity")]
+        public int? Gravity { get; set; }
+
+        public override string ToString()
+        {
+            return "[Options]";
+        }
     }
 }

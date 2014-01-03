@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using DungeonEditor.StarboundObjects;
 using DungeonEditor.StarboundObjects.Tiles;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -31,25 +32,30 @@ namespace DungeonEditor.EditorObjects
 
         [JsonIgnore] protected List<EditorMapPart> m_readableParts = new List<EditorMapPart>();
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public virtual string FilePath
         {
             get { return m_filePath; }
             set { m_filePath = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public List<EditorMapPart> ReadableParts
         {
             get { return m_readableParts; }
             set { m_readableParts = value; }
         }
 
-        [JsonIgnore]
+        [JsonIgnore, Browsable(false)]
         public List<EditorBrush> BlockMap
         {
             get { return m_blockMap; }
             set { m_blockMap = value; }
+        }
+
+        public EditorMapPart FindPart(string name)
+        {
+            return m_readableParts.Find(x => x.Name == name);
         }
 
         public virtual void LoadParts(Editor parent)

@@ -20,32 +20,52 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Drawing;
 
 namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonBrush : EditorBrush
     {
         // Override base colour list
-        [JsonProperty("value")]
-        public override List<byte> Colour { get; set; }
+        [ReadOnly(true)]
+        [JsonProperty("value", Required = Required.Always)]
+        [JsonConverter(typeof(ColorSerializer))]
+        [Description("The colour mapped to this brush.")]
+        public override Color Colour { get; set; }
 
         // Override base comment field
+        [ReadOnly(true)]
         [JsonProperty("comment")]
+        [DefaultValue("")]
+        [Description("A user-defined comment. This is only used for the editor.")]
         public override string Comment { get; set; }
 
-        [JsonProperty("rules")]
-        public List<List<string>> Rules { get; set; }
-
+        [Browsable(false)]  // brushes currently not viewable in property grid
         [JsonProperty("brush")]
         public List<List<object>> Brushes { get; set; }
 
-        [JsonProperty("connector")]
+        [Browsable(false)] // rules currently not viewable in propertygrid
+        [JsonProperty("rules")]
+        public List<List<string>> Rules { get; set; }
+
+        // Note this property can also be a string with values [t, true, y, yes, f, false, n, no]
+        // It may be possible to convert from integer or float to bool as well
+        [ReadOnly(true)]
+        [JsonProperty("connector"), Category("Connector")]
+        [DefaultValue(false)]
+        [Description("Indicates that the current brush is a connector used for connecting two different dungeon parts together.")]
         public bool? Connector { get; set; }
 
-        [JsonProperty("connector-value")]
-        public List<byte> ConnnectorColour { get; set; }
-
-        [JsonProperty("direction")]
+        [ReadOnly(true)]
+        [JsonProperty("connector-value"), Category("Connector")]
+        [JsonConverter(typeof(ColorSerializer))]
+        public Color ConnnectorColour { get; set; }
+        
+        // left, right, up, down, and unknown
+        [ReadOnly(true)]
+        [JsonProperty("direction"), Category("Connector")]
+        [DefaultValue("unknown")]
         public string ConnectorDirection { get; set; }
     }
 }

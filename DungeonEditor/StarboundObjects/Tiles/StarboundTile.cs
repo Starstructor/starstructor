@@ -20,66 +20,131 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Drawing;
 
 namespace DungeonEditor.StarboundObjects.Tiles
 {
+    [ReadOnly(true)]
     public class StarboundTile : StarboundAsset
     {
-        [JsonProperty("description")]
+        [JsonProperty("description"), Category("Description")]
+        [DefaultValue("")]
+        [Description("A general description of the current tile.")]
         public string Description { get; set; }
 
-        [JsonProperty("florandescription")]
+        [JsonProperty("shortdescription"), Category("Description")]
+        [Description("A really short and meaningful description of the tile.")]
+        public string ShortDescription { get; set; }
+
+        [JsonProperty("apexDescription"), Category("Description")]
+        public string ApexDescription { get; set; }
+
+        [JsonProperty("avianDescription"), Category("Description")]
+        public string AvianDescription { get; set; }
+
+        [JsonProperty("floranDescription"), Category("Description")]
         public string FloranDescription { get; set; }
 
+        [JsonProperty("glitchDescription"), Category("Description")]
+        public string GlitchDescription { get; set; }
+
+        [JsonProperty("humanDescription"), Category("Description")]
+        public string HumanDescription { get; set; }
+
+        [JsonProperty("hylotlDescription"), Category("Description")]
+        public string HylotlDescription { get; set; }
+
+        [JsonProperty("materialName", Required = Required.Always)]
+        [Description("The name of the material used for rendering the tile.")]
+        public string MaterialName { get; set; }
+
+        [JsonProperty("materialId", Required = Required.Always)]
+        public int MaterialId { get; set; }
+
+        [JsonProperty("itemDrop")]
+        [DefaultValue("")]
+        public string ItemDrop { get; set; }
+
+        // Either "breathable", "notBreathable", or "default"
+        [JsonProperty("breathable")]
+        [DefaultValue("")]
+        public string Breathable { get; set; }
+
+        [JsonProperty("particleColor")]
+        [JsonConverter(typeof(ColorSerializer))]
+        public Color? ParticleColor { get; set; }
+        
         [JsonProperty("footstepSound")]
         public string FootstepSound { get; set; }
 
+        [JsonProperty("tillableMod")]
+        [DefaultValue(65535)]
+        public uint? TillableMod { get; set; }
+
+        [JsonProperty("soil")]
+        [DefaultValue(false)]
+        public bool? Soil { get; set; }
+
+        [JsonProperty("falling")]
+        [DefaultValue(false)]
+        public bool? Falling { get; set; }
+
+        [JsonProperty("cascading")]
+        [DefaultValue(false)]
+        public bool? Cascading { get; set; }
+
+        [JsonProperty("platform"), Category("Platform")]
+        [DefaultValue(false)]
+        public bool Platform { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("platformImage"), Category("Platform")]
+        public string PlatformImage { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("platformVariants"), Category("Platform")]
+        public int? PlatformVariants { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("stairImage"), Category("Platform")]
+        public string StairImage { get; set; }
+
+        // Condition: Platform=true
+        [JsonProperty("stairVariants"), Category("Platform")]
+        public int? StairVariants { get; set; }
+
+        [JsonProperty("multicolored")]
+        public bool? Multicolored { get; set; }
+
+        // Condition: Platform=false
+        [JsonProperty("transparent")]
+        public bool? Transparent { get; set; }
+
+        // Condition: Platform=false
         [JsonProperty("frames")]
         public string Frames { get; set; }
 
-        [JsonProperty("glitchdescription")]
-        public string GlitchDescription { get; set; }
+        // Condition: Platform=false
+        [JsonProperty("variants")]
+        public int? Variants { get; set; }
 
         [JsonProperty("health")]
-        public float Health { get; set; }
+        [DefaultValue(1.0)]
+        public double? Health { get; set; }
 
-        [JsonProperty("itemDrop")]
-        public string ItemDrop { get; set; }
+        //has a damageTable attribute
+        // damageTable can either link to an external file or have embedded attributes
+        // default: "/tiles/defaultDamage.config"
 
-        [JsonProperty("materialId")]
-        public int MaterialId { get; set; }
-
-        [JsonProperty("materialName")]
-        public string MaterialName { get; set; }
-
-        [JsonProperty("multicolored")]
-        public bool Multicolored { get; set; }
-
-        [JsonProperty("particleColor")]
-        public List<int> ParticleColor { get; set; }
-
-        [JsonProperty("platform")]
-        public bool Platform { get; set; }
-
-        [JsonProperty("platformImage")]
-        public string PlatformImage { get; set; }
-
-        [JsonProperty("platformVariants")]
-        public int PlatformVariants { get; set; }
-
-        [JsonProperty("shortdescription")]
-        public string ShortDescription { get; set; }
-
-        [JsonProperty("stairImage")]
-        public string StairImage { get; set; }
-
-        [JsonProperty("stairVariants")]
-        public int StairVariants { get; set; }
-
-        [JsonProperty("transparent")]
-        public bool Transparent { get; set; }
-
-        [JsonProperty("variants")]
-        public float Variants { get; set; }
+        public override string ToString()
+        {
+            if (ShortDescription != null)
+                return ShortDescription;
+            else if (MaterialName != null)
+                return MaterialName;
+            else
+                return base.ToString();
+        }
     }
 }

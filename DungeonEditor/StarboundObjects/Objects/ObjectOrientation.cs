@@ -22,9 +22,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
+    [ReadOnly(true)]
     public class ObjectOrientation
     {
         [JsonIgnore] public ObjectFrames LeftFrames;
@@ -38,35 +41,89 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("dualImage")]
         public string DualImageName { get; set; }
 
+        // Only available if dualImage is true
         [JsonProperty("leftImage")]
         public string LeftImageName { get; set; }
 
+        // Only available if dualImage is true
         [JsonProperty("rightImage")]
         public string RightImageName { get; set; }
 
         [JsonProperty("imageLayers")]
         public List<ObjectImageLayer> ImageLayers { get; set; }
 
-        [JsonProperty("imagePosition")]
-        public List<int> ImagePosition { get; set; }
+        // only if imageLayers is not found
+        [JsonProperty("unlit")]
+        [DefaultValue(false)]
+        public bool? Unlit { get; set; }
+
+        [JsonProperty("flipImages")]
+        [DefaultValue(false)]
+        public bool? FlipImages { get; set; }
+
+        // Default: 0,0
+        // Vec2F, so should be double
+        [JsonProperty("imagePosition"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F ImagePosition { get; set; }
+        //public List<double> ImagePosition { get; set; }
 
         [JsonProperty("frames")]
-        public int AnimFramesCount { get; set; }
+        [DefaultValue(1)]
+        public int? AnimFramesCount { get; set; }
 
         [JsonProperty("animationCycle")]
-        public double AnimationCycle { get; set; }
+        [DefaultValue(1.0)]
+        public double? AnimationCycle { get; set; }
+
+        // List<Vec2I>
+        [JsonProperty("spaces")]
+        public BindingList<Vec2I> Spaces { get; set; }
 
         [JsonProperty("spaceScan")]
-        public double SpaceScan { get; set; }
+        public double? SpaceScan { get; set; }
 
+        [JsonProperty("requireTilledAnchors")]
+        [DefaultValue(false)]
+        public bool? RequireTilledAnchors { get; set; }
+
+        [JsonProperty("requireSoilAnchors")]
+        [DefaultValue(false)]
+        public bool? RequireSoilAnchors { get; set; }
+
+        // Contains "left", "bottom", "right", "top", "background"
         [JsonProperty("anchors")]
         public List<string> Anchors { get; set; }
 
+        // List<Vec2I>
+        [JsonProperty("bgAnchors")]
+        public BindingList<Vec2I> BackgroundAnchors { get; set; }
+
+        // List<Vec2I>
+        [JsonProperty("fgAnchors")]
+        public BindingList<Vec2I> ForegroundAnchors { get; set; }
+
+        // either "left" or "right", defaults to right if rightImage
         [JsonProperty("direction")]
+        [DefaultValue("left")]
         public string Direction { get; set; }
 
-        [JsonProperty("lightPosition")]
-        public List<int> LightPosition { get; set; }
+        // either "none", "solid", or "platform"
+        [JsonProperty("collision")]
+        [DefaultValue("none")]
+        public string Collision { get; set; }
+
+        // Vec2F
+        [JsonProperty("lightPosition"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F LightPosition { get; set; }
+        //public List<double> LightPosition { get; set; }
+
+        [JsonProperty("pointAngle")]
+        [DefaultValue(0.0)]
+        public double PointAngle { get; set; }
+
+        //particleEmitter       optional, object with more properties
+        //particleEmitters      optional, list of particleEmitter
+
 
         public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
@@ -83,7 +140,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 frames = RightFrames;
             }
 
-            return (int) Math.Ceiling(frames.FrameGrid.Size[0]/sizeScaleFactor);
+            return (int) Math.Ceiling(frames.FrameGrid.Size.x/sizeScaleFactor);
         }
 
         public int GetHeight(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
@@ -101,7 +158,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 frames = RightFrames;
             }
 
-            return (int) Math.Ceiling(frames.FrameGrid.Size[1]/sizeScaleFactor);
+            return (int) Math.Ceiling(frames.FrameGrid.Size.y/sizeScaleFactor);
         }
 
         public int GetOriginX(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
@@ -109,7 +166,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             int originX = 0;
-            originX += (int) Math.Floor(ImagePosition[0]/sizeScaleFactor);
+            originX += (int) Math.Floor(ImagePosition.x/sizeScaleFactor);
 
             return originX;
         }
@@ -119,7 +176,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
 
             int originY = -GetHeight(gridFactor, direction) + gridFactor;
-            originY -= (int) Math.Floor(ImagePosition[1]/sizeScaleFactor);
+            originY -= (int) Math.Floor(ImagePosition.y/sizeScaleFactor);
 
             return originY;
         }

@@ -19,6 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DungeonEditor
 {
@@ -39,5 +40,8 @@ namespace DungeonEditor
         [JsonProperty("windowx")] public int WindowX = 25;
 
         [JsonProperty("windowy")] public int WindowY = 25;
+
+        [JsonProperty("recentFiles")]
+        public List<string> RecentFiles = new List<string>();
     }
 }

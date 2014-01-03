@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.Drawing;
 using DungeonEditor.EditorObjects;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
@@ -42,15 +43,15 @@ namespace DungeonEditor.StarboundObjects.Ships
                 // Draw background overlays
                 foreach (ShipOverlay overlay in parentShip.BackgroundOverlays)
                 {
-                    float originX = overlay.Position[0]*Editor.DEFAULT_GRID_FACTOR;
+                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
 
                     // Translate to the bottom, then offset by provided value
-                    float originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position[1]*Editor.DEFAULT_GRID_FACTOR);
+                    double originY = (GraphicsMap.Height - overlay.Image.Height) -
+                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image,
-                        originX,
-                        originY,
+                        (float)originX,
+                        (float)originY,
                         overlay.Image.Width,
                         overlay.Image.Height);
                 }
@@ -63,12 +64,14 @@ namespace DungeonEditor.StarboundObjects.Ships
                 // Draw foreground overlays
                 foreach (ShipOverlay overlay in parentShip.ForegroundOverlays)
                 {
-                    float originX = overlay.Position[0]*Editor.DEFAULT_GRID_FACTOR;
+                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
                     // Translate to the bottom-left, then offset by provided value
-                    float originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position[1]*Editor.DEFAULT_GRID_FACTOR);
+                    double originY = (GraphicsMap.Height - overlay.Image.Height) -
+                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
 
-                    gfx.DrawImage(overlay.Image, originX, originY, overlay.Image.Width, overlay.Image.Height);
+                    gfx.DrawImage(overlay.Image, 
+                        (float)originX, (float)originY, 
+                        overlay.Image.Width, overlay.Image.Height);
                 }
             }
 

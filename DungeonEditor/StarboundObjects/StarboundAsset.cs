@@ -19,9 +19,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Drawing;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects
 {
+    [ReadOnly(true)]
     public class StarboundAsset
     {
         [JsonIgnore]
@@ -34,5 +36,12 @@ namespace DungeonEditor.StarboundObjects
         {
             return (StarboundAsset) MemberwiseClone();
         }
+
+        public override string ToString()
+        {
+            return AssetName != null ? AssetName : "[Asset]";
+        }
+
+
     }
 }

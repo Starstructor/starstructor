@@ -58,12 +58,14 @@ namespace DungeonEditor.GUI
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,40 +78,49 @@ namespace DungeonEditor.GUI
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.authorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFile = new System.Windows.Forms.OpenFileDialog();
+            this.OpenFileDlg = new System.Windows.Forms.OpenFileDialog();
             this.SaveActive = new System.Windows.Forms.SaveFileDialog();
-            this.ScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.BottomBarTable = new System.Windows.Forms.TableLayoutPanel();
+            this.BottomBarStaticBrushLabel = new System.Windows.Forms.Label();
             this.BottomBarGfxModePanel = new System.Windows.Forms.Panel();
             this.BottomBarGfxCombo = new System.Windows.Forms.ComboBox();
             this.BottomBarModeLabel = new System.Windows.Forms.Label();
             this.BottomBarBrushLabel = new System.Windows.Forms.Label();
             this.BottomBarZoomLabel = new System.Windows.Forms.Label();
-            this.BottomBarXLabel = new System.Windows.Forms.Label();
-            this.BottomBarYLabel = new System.Windows.Forms.Label();
-            this.RightPanelTable = new System.Windows.Forms.TableLayoutPanel();
-            this.TreeViewVisualBrushTable = new System.Windows.Forms.TableLayoutPanel();
-            this.VisualRgbaBrushLabel = new System.Windows.Forms.Label();
-            this.VisualRgbaBrushDescLabel = new System.Windows.Forms.Label();
-            this.VisualGraphicBrushLabel = new System.Windows.Forms.Label();
-            this.VisualGraphicBrushDescLabel = new System.Windows.Forms.Label();
-            this.PartDescLabel = new System.Windows.Forms.Label();
-            this.PartTreeView = new System.Windows.Forms.TreeView();
-            this.BrushesDescLabel = new System.Windows.Forms.Label();
-            this.BrushesTreeView = new System.Windows.Forms.TreeView();
-            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
+            this.BottomBarPositionLabel = new System.Windows.Forms.Label();
             this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
             this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
+            this.RightPanelSplit = new System.Windows.Forms.SplitContainer();
+            this.RightPanelTabControl = new System.Windows.Forms.TabControl();
+            this.MainTab = new System.Windows.Forms.TabPage();
+            this.PartsTab = new System.Windows.Forms.TabPage();
+            this.PartTreeView = new System.Windows.Forms.TreeView();
+            this.BrushesTab = new System.Windows.Forms.TabPage();
+            this.BrushesTreeView = new System.Windows.Forms.TreeView();
+            this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
+            this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
+            this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
+            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
-            this.ScreenLayoutPanel.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
             this.BottomBarGfxModePanel.SuspendLayout();
-            this.RightPanelTable.SuspendLayout();
-            this.TreeViewVisualBrushTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RightPanelSplit)).BeginInit();
+            this.RightPanelSplit.Panel1.SuspendLayout();
+            this.RightPanelSplit.Panel2.SuspendLayout();
+            this.RightPanelSplit.SuspendLayout();
+            this.RightPanelTabControl.SuspendLayout();
+            this.PartsTab.SuspendLayout();
+            this.BrushesTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -136,10 +147,12 @@ namespace DungeonEditor.GUI
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
+            this.recentFilesToolStripMenuItem,
             this.toolStripSeparator3,
             this.closeToolStripMenuItem,
             this.toolStripSeparator2,
             this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
             this.toolStripSeparator4,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -153,28 +166,28 @@ namespace DungeonEditor.GUI
             this.dungeonToolStripMenuItem,
             this.shipToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // dungeonToolStripMenuItem
             // 
             this.dungeonToolStripMenuItem.Enabled = false;
             this.dungeonToolStripMenuItem.Name = "dungeonToolStripMenuItem";
-            this.dungeonToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.dungeonToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dungeonToolStripMenuItem.Text = "Dungeon";
             // 
             // shipToolStripMenuItem
             // 
             this.shipToolStripMenuItem.Enabled = false;
             this.shipToolStripMenuItem.Name = "shipToolStripMenuItem";
-            this.shipToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.shipToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.shipToolStripMenuItem.Text = "Ship";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -182,14 +195,14 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(135, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -197,7 +210,7 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -205,21 +218,29 @@ namespace DungeonEditor.GUI
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Enabled = false;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(135, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -254,6 +275,7 @@ namespace DungeonEditor.GUI
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.takeScreenshotToolStripMenuItem,
             this.refreshToolStripMenuItem,
             this.toolStripSeparator1,
             this.viewCollisionsToolStripMenuItem});
@@ -261,23 +283,32 @@ namespace DungeonEditor.GUI
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
+            // takeScreenshotToolStripMenuItem
+            // 
+            this.takeScreenshotToolStripMenuItem.Enabled = false;
+            this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
+            this.takeScreenshotToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.takeScreenshotToolStripMenuItem.Text = "Take &Screenshot";
+            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
+            // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // viewCollisionsToolStripMenuItem
             // 
             this.viewCollisionsToolStripMenuItem.Name = "viewCollisionsToolStripMenuItem";
-            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.viewCollisionsToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.viewCollisionsToolStripMenuItem.Text = "View &Collisions";
             this.viewCollisionsToolStripMenuItem.Click += new System.EventHandler(this.viewCollisionsToolStripMenuItem_Click);
             // 
@@ -351,72 +382,70 @@ namespace DungeonEditor.GUI
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.helpToolStripMenuItem.Text = "Help &Topics";
             // 
-            // OpenFile
+            // OpenFileDlg
             // 
-            this.OpenFile.FileName = "open";
-            this.OpenFile.Filter = "All Editor Types|*.dungeon;*.structure|Dungeon Files|*.dungeon|Ship Files|*.struc" +
+            this.OpenFileDlg.FileName = "open";
+            this.OpenFileDlg.Filter = "All Editor Types|*.dungeon;*.structure|Dungeon Files|*.dungeon|Ship Files|*.struc" +
     "ture";
-            this.OpenFile.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenDungeonOrImageMap_FileOk);
-            // 
-            // ScreenLayoutPanel
-            // 
-            this.ScreenLayoutPanel.AutoSize = true;
-            this.ScreenLayoutPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ScreenLayoutPanel.ColumnCount = 2;
-            this.ScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.ScreenLayoutPanel.Controls.Add(this.MainTableLayout, 0, 0);
-            this.ScreenLayoutPanel.Controls.Add(this.RightPanelTable, 1, 0);
-            this.ScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ScreenLayoutPanel.Location = new System.Drawing.Point(0, 24);
-            this.ScreenLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.ScreenLayoutPanel.Name = "ScreenLayoutPanel";
-            this.ScreenLayoutPanel.RowCount = 1;
-            this.ScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ScreenLayoutPanel.Size = new System.Drawing.Size(1264, 738);
-            this.ScreenLayoutPanel.TabIndex = 3;
+            this.OpenFileDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenDungeonOrImageMap_FileOk);
             // 
             // MainTableLayout
             // 
             this.MainTableLayout.ColumnCount = 1;
             this.MainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayout.Controls.Add(this.MainPictureBox, 0, 0);
             this.MainTableLayout.Controls.Add(this.BottomBarTable, 0, 1);
+            this.MainTableLayout.Controls.Add(this.splitContainer1, 0, 0);
             this.MainTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTableLayout.Location = new System.Drawing.Point(0, 0);
+            this.MainTableLayout.Location = new System.Drawing.Point(0, 24);
             this.MainTableLayout.Margin = new System.Windows.Forms.Padding(0);
             this.MainTableLayout.Name = "MainTableLayout";
             this.MainTableLayout.RowCount = 2;
-            this.MainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.MainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.MainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayout.Size = new System.Drawing.Size(1064, 738);
-            this.MainTableLayout.TabIndex = 2;
-            this.MainTableLayout.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.MainTableLayout_CellPaint);
+            this.MainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MainTableLayout.Size = new System.Drawing.Size(1264, 738);
+            this.MainTableLayout.TabIndex = 3;
             // 
             // BottomBarTable
             // 
             this.BottomBarTable.BackColor = System.Drawing.SystemColors.Control;
-            this.BottomBarTable.ColumnCount = 5;
-            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.BottomBarTable.ColumnCount = 7;
+            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BottomBarTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BottomBarTable.Controls.Add(this.BottomBarStaticBrushLabel, 0, 0);
             this.BottomBarTable.Controls.Add(this.BottomBarGfxModePanel, 0, 0);
-            this.BottomBarTable.Controls.Add(this.BottomBarBrushLabel, 1, 0);
-            this.BottomBarTable.Controls.Add(this.BottomBarZoomLabel, 2, 0);
-            this.BottomBarTable.Controls.Add(this.BottomBarXLabel, 3, 0);
-            this.BottomBarTable.Controls.Add(this.BottomBarYLabel, 4, 0);
+            this.BottomBarTable.Controls.Add(this.BottomBarBrushLabel, 4, 0);
+            this.BottomBarTable.Controls.Add(this.BottomBarZoomLabel, 5, 0);
+            this.BottomBarTable.Controls.Add(this.BottomBarPositionLabel, 6, 0);
+            this.BottomBarTable.Controls.Add(this.VisualRgbaBrushImageBox, 3, 0);
+            this.BottomBarTable.Controls.Add(this.VisualGraphicBrushImageBox, 2, 0);
             this.BottomBarTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BottomBarTable.Location = new System.Drawing.Point(0, 707);
             this.BottomBarTable.Margin = new System.Windows.Forms.Padding(0);
             this.BottomBarTable.Name = "BottomBarTable";
             this.BottomBarTable.RowCount = 1;
             this.BottomBarTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.BottomBarTable.Size = new System.Drawing.Size(1064, 31);
-            this.BottomBarTable.TabIndex = 1;
-            this.BottomBarTable.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.BottomBarTable_CellPaint);
+            this.BottomBarTable.Size = new System.Drawing.Size(1264, 31);
+            this.BottomBarTable.TabIndex = 3;
+            // 
+            // BottomBarStaticBrushLabel
+            // 
+            this.BottomBarStaticBrushLabel.AutoSize = true;
+            this.BottomBarStaticBrushLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BottomBarStaticBrushLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BottomBarStaticBrushLabel.Location = new System.Drawing.Point(180, 0);
+            this.BottomBarStaticBrushLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.BottomBarStaticBrushLabel.Name = "BottomBarStaticBrushLabel";
+            this.BottomBarStaticBrushLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.BottomBarStaticBrushLabel.Size = new System.Drawing.Size(42, 31);
+            this.BottomBarStaticBrushLabel.TabIndex = 8;
+            this.BottomBarStaticBrushLabel.Text = "Brush:";
+            this.BottomBarStaticBrushLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BottomBarGfxModePanel
             // 
@@ -443,7 +472,6 @@ namespace DungeonEditor.GUI
             this.BottomBarGfxCombo.Name = "BottomBarGfxCombo";
             this.BottomBarGfxCombo.Size = new System.Drawing.Size(125, 21);
             this.BottomBarGfxCombo.TabIndex = 5;
-            this.BottomBarGfxCombo.SelectedIndexChanged += new System.EventHandler(this.BottomBarGfxCombo_SelectedIndexChanged);
             // 
             // BottomBarModeLabel
             // 
@@ -463,13 +491,12 @@ namespace DungeonEditor.GUI
             this.BottomBarBrushLabel.AutoSize = true;
             this.BottomBarBrushLabel.BackColor = System.Drawing.Color.Transparent;
             this.BottomBarBrushLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BottomBarBrushLabel.Location = new System.Drawing.Point(180, 0);
+            this.BottomBarBrushLabel.Location = new System.Drawing.Point(284, 0);
             this.BottomBarBrushLabel.Margin = new System.Windows.Forms.Padding(0);
             this.BottomBarBrushLabel.Name = "BottomBarBrushLabel";
             this.BottomBarBrushLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.BottomBarBrushLabel.Size = new System.Drawing.Size(634, 31);
+            this.BottomBarBrushLabel.Size = new System.Drawing.Size(800, 31);
             this.BottomBarBrushLabel.TabIndex = 3;
-            this.BottomBarBrushLabel.Text = "Selected Brush:";
             this.BottomBarBrushLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BottomBarZoomLabel
@@ -477,155 +504,134 @@ namespace DungeonEditor.GUI
             this.BottomBarZoomLabel.BackColor = System.Drawing.Color.Transparent;
             this.BottomBarZoomLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BottomBarZoomLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.BottomBarZoomLabel.Location = new System.Drawing.Point(814, 0);
+            this.BottomBarZoomLabel.Location = new System.Drawing.Point(1084, 0);
             this.BottomBarZoomLabel.Margin = new System.Windows.Forms.Padding(0);
             this.BottomBarZoomLabel.Name = "BottomBarZoomLabel";
             this.BottomBarZoomLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.BottomBarZoomLabel.Size = new System.Drawing.Size(100, 31);
+            this.BottomBarZoomLabel.Size = new System.Drawing.Size(80, 31);
             this.BottomBarZoomLabel.TabIndex = 4;
             this.BottomBarZoomLabel.Text = "Zoom:";
             this.BottomBarZoomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // BottomBarXLabel
+            // BottomBarPositionLabel
             // 
-            this.BottomBarXLabel.BackColor = System.Drawing.Color.Transparent;
-            this.BottomBarXLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BottomBarXLabel.Location = new System.Drawing.Point(914, 0);
-            this.BottomBarXLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.BottomBarXLabel.Name = "BottomBarXLabel";
-            this.BottomBarXLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.BottomBarXLabel.Size = new System.Drawing.Size(75, 31);
-            this.BottomBarXLabel.TabIndex = 5;
-            this.BottomBarXLabel.Text = "X:";
-            this.BottomBarXLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BottomBarPositionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BottomBarPositionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BottomBarPositionLabel.Location = new System.Drawing.Point(1164, 0);
+            this.BottomBarPositionLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.BottomBarPositionLabel.Name = "BottomBarPositionLabel";
+            this.BottomBarPositionLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.BottomBarPositionLabel.Size = new System.Drawing.Size(100, 31);
+            this.BottomBarPositionLabel.TabIndex = 5;
+            this.BottomBarPositionLabel.Text = "Grid: N/A";
+            this.BottomBarPositionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // BottomBarYLabel
+            // VisualRgbaBrushImageBox
             // 
-            this.BottomBarYLabel.AutoSize = true;
-            this.BottomBarYLabel.BackColor = System.Drawing.Color.Transparent;
-            this.BottomBarYLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BottomBarYLabel.Location = new System.Drawing.Point(989, 0);
-            this.BottomBarYLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.BottomBarYLabel.Name = "BottomBarYLabel";
-            this.BottomBarYLabel.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.BottomBarYLabel.Size = new System.Drawing.Size(75, 31);
-            this.BottomBarYLabel.TabIndex = 6;
-            this.BottomBarYLabel.Text = "Y:";
-            this.BottomBarYLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(258, 5);
+            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
+            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(21, 21);
+            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualRgbaBrushImageBox.TabIndex = 6;
+            this.VisualRgbaBrushImageBox.TabStop = false;
             // 
-            // RightPanelTable
+            // VisualGraphicBrushImageBox
             // 
-            this.RightPanelTable.BackColor = System.Drawing.SystemColors.Control;
-            this.RightPanelTable.ColumnCount = 1;
-            this.RightPanelTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.RightPanelTable.Controls.Add(this.TreeViewVisualBrushTable, 0, 0);
-            this.RightPanelTable.Controls.Add(this.PartDescLabel, 0, 1);
-            this.RightPanelTable.Controls.Add(this.PartTreeView, 0, 2);
-            this.RightPanelTable.Controls.Add(this.BrushesDescLabel, 0, 3);
-            this.RightPanelTable.Controls.Add(this.BrushesTreeView, 0, 4);
-            this.RightPanelTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RightPanelTable.Location = new System.Drawing.Point(1064, 0);
-            this.RightPanelTable.Margin = new System.Windows.Forms.Padding(0);
-            this.RightPanelTable.Name = "RightPanelTable";
-            this.RightPanelTable.RowCount = 5;
-            this.RightPanelTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.RightPanelTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.RightPanelTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.RightPanelTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.RightPanelTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.RightPanelTable.Size = new System.Drawing.Size(200, 738);
-            this.RightPanelTable.TabIndex = 3;
-            this.RightPanelTable.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.RightPanelTable_CellPaint);
+            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(227, 5);
+            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
+            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(21, 21);
+            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualGraphicBrushImageBox.TabIndex = 7;
+            this.VisualGraphicBrushImageBox.TabStop = false;
             // 
-            // TreeViewVisualBrushTable
+            // splitContainer1
             // 
-            this.TreeViewVisualBrushTable.BackColor = System.Drawing.Color.Transparent;
-            this.TreeViewVisualBrushTable.ColumnCount = 2;
-            this.TreeViewVisualBrushTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TreeViewVisualBrushTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TreeViewVisualBrushTable.Controls.Add(this.VisualRgbaBrushLabel, 0, 0);
-            this.TreeViewVisualBrushTable.Controls.Add(this.VisualRgbaBrushDescLabel, 0, 1);
-            this.TreeViewVisualBrushTable.Controls.Add(this.VisualGraphicBrushLabel, 1, 0);
-            this.TreeViewVisualBrushTable.Controls.Add(this.VisualGraphicBrushDescLabel, 1, 1);
-            this.TreeViewVisualBrushTable.Controls.Add(this.VisualRgbaBrushImageBox, 0, 2);
-            this.TreeViewVisualBrushTable.Controls.Add(this.VisualGraphicBrushImageBox, 1, 2);
-            this.TreeViewVisualBrushTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TreeViewVisualBrushTable.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.TreeViewVisualBrushTable.Location = new System.Drawing.Point(0, 0);
-            this.TreeViewVisualBrushTable.Margin = new System.Windows.Forms.Padding(0);
-            this.TreeViewVisualBrushTable.Name = "TreeViewVisualBrushTable";
-            this.TreeViewVisualBrushTable.RowCount = 3;
-            this.TreeViewVisualBrushTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TreeViewVisualBrushTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TreeViewVisualBrushTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TreeViewVisualBrushTable.Size = new System.Drawing.Size(200, 150);
-            this.TreeViewVisualBrushTable.TabIndex = 5;
-            this.TreeViewVisualBrushTable.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.TreeViewVisualBrushTable_CellPaint);
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // VisualRgbaBrushLabel
+            // splitContainer1.Panel1
             // 
-            this.VisualRgbaBrushLabel.BackColor = System.Drawing.Color.Transparent;
-            this.VisualRgbaBrushLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualRgbaBrushLabel.Location = new System.Drawing.Point(0, 0);
-            this.VisualRgbaBrushLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.VisualRgbaBrushLabel.Name = "VisualRgbaBrushLabel";
-            this.VisualRgbaBrushLabel.Size = new System.Drawing.Size(100, 20);
-            this.VisualRgbaBrushLabel.TabIndex = 5;
-            this.VisualRgbaBrushLabel.Text = "Colour";
-            this.VisualRgbaBrushLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.splitContainer1.Panel1.Controls.Add(this.MainPictureBox);
+            this.splitContainer1.Panel1MinSize = 50;
             // 
-            // VisualRgbaBrushDescLabel
+            // splitContainer1.Panel2
             // 
-            this.VisualRgbaBrushDescLabel.AutoSize = true;
-            this.VisualRgbaBrushDescLabel.BackColor = System.Drawing.Color.Transparent;
-            this.VisualRgbaBrushDescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualRgbaBrushDescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualRgbaBrushDescLabel.Location = new System.Drawing.Point(0, 20);
-            this.VisualRgbaBrushDescLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.VisualRgbaBrushDescLabel.Name = "VisualRgbaBrushDescLabel";
-            this.VisualRgbaBrushDescLabel.Size = new System.Drawing.Size(100, 20);
-            this.VisualRgbaBrushDescLabel.TabIndex = 6;
-            this.VisualRgbaBrushDescLabel.Text = "no brush selected";
-            this.VisualRgbaBrushDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.splitContainer1.Panel2.Controls.Add(this.RightPanelSplit);
+            this.splitContainer1.Size = new System.Drawing.Size(1264, 707);
+            this.splitContainer1.SplitterDistance = 1024;
+            this.splitContainer1.SplitterWidth = 2;
+            this.splitContainer1.TabIndex = 4;
             // 
-            // VisualGraphicBrushLabel
+            // MainPictureBox
             // 
-            this.VisualGraphicBrushLabel.BackColor = System.Drawing.Color.Transparent;
-            this.VisualGraphicBrushLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualGraphicBrushLabel.Location = new System.Drawing.Point(100, 0);
-            this.VisualGraphicBrushLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.VisualGraphicBrushLabel.Name = "VisualGraphicBrushLabel";
-            this.VisualGraphicBrushLabel.Size = new System.Drawing.Size(100, 20);
-            this.VisualGraphicBrushLabel.TabIndex = 4;
-            this.VisualGraphicBrushLabel.Text = "Tile";
-            this.VisualGraphicBrushLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.MainPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.MainPictureBox.Name = "MainPictureBox";
+            this.MainPictureBox.Size = new System.Drawing.Size(1024, 707);
+            this.MainPictureBox.TabIndex = 3;
             // 
-            // VisualGraphicBrushDescLabel
+            // RightPanelSplit
             // 
-            this.VisualGraphicBrushDescLabel.AutoSize = true;
-            this.VisualGraphicBrushDescLabel.BackColor = System.Drawing.Color.Transparent;
-            this.VisualGraphicBrushDescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualGraphicBrushDescLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualGraphicBrushDescLabel.Location = new System.Drawing.Point(100, 20);
-            this.VisualGraphicBrushDescLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.VisualGraphicBrushDescLabel.Name = "VisualGraphicBrushDescLabel";
-            this.VisualGraphicBrushDescLabel.Size = new System.Drawing.Size(100, 20);
-            this.VisualGraphicBrushDescLabel.TabIndex = 7;
-            this.VisualGraphicBrushDescLabel.Text = "no brush selected";
-            this.VisualGraphicBrushDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.RightPanelSplit.BackColor = System.Drawing.SystemColors.Control;
+            this.RightPanelSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RightPanelSplit.Location = new System.Drawing.Point(0, 0);
+            this.RightPanelSplit.Name = "RightPanelSplit";
+            this.RightPanelSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // PartDescLabel
+            // RightPanelSplit.Panel1
             // 
-            this.PartDescLabel.BackColor = System.Drawing.Color.Transparent;
-            this.PartDescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartDescLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartDescLabel.Location = new System.Drawing.Point(0, 150);
-            this.PartDescLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PartDescLabel.Name = "PartDescLabel";
-            this.PartDescLabel.Size = new System.Drawing.Size(200, 25);
-            this.PartDescLabel.TabIndex = 1;
-            this.PartDescLabel.Text = "Parts List";
-            this.PartDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.RightPanelSplit.Panel1.Controls.Add(this.RightPanelTabControl);
+            // 
+            // RightPanelSplit.Panel2
+            // 
+            this.RightPanelSplit.Panel2.Controls.Add(this.RightPanelProperties);
+            this.RightPanelSplit.Size = new System.Drawing.Size(238, 707);
+            this.RightPanelSplit.SplitterDistance = 370;
+            this.RightPanelSplit.SplitterWidth = 2;
+            this.RightPanelSplit.TabIndex = 6;
+            // 
+            // RightPanelTabControl
+            // 
+            this.RightPanelTabControl.Controls.Add(this.MainTab);
+            this.RightPanelTabControl.Controls.Add(this.PartsTab);
+            this.RightPanelTabControl.Controls.Add(this.BrushesTab);
+            this.RightPanelTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RightPanelTabControl.Location = new System.Drawing.Point(0, 0);
+            this.RightPanelTabControl.Name = "RightPanelTabControl";
+            this.RightPanelTabControl.SelectedIndex = 0;
+            this.RightPanelTabControl.Size = new System.Drawing.Size(238, 370);
+            this.RightPanelTabControl.TabIndex = 0;
+            // 
+            // MainTab
+            // 
+            this.MainTab.Location = new System.Drawing.Point(4, 22);
+            this.MainTab.Name = "MainTab";
+            this.MainTab.Padding = new System.Windows.Forms.Padding(3);
+            this.MainTab.Size = new System.Drawing.Size(230, 344);
+            this.MainTab.TabIndex = 0;
+            this.MainTab.Text = "Main";
+            this.MainTab.UseVisualStyleBackColor = true;
+            // 
+            // PartsTab
+            // 
+            this.PartsTab.Controls.Add(this.PartTreeView);
+            this.PartsTab.Location = new System.Drawing.Point(4, 22);
+            this.PartsTab.Name = "PartsTab";
+            this.PartsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PartsTab.Size = new System.Drawing.Size(230, 344);
+            this.PartsTab.TabIndex = 1;
+            this.PartsTab.Text = "Parts";
+            this.PartsTab.UseVisualStyleBackColor = true;
             // 
             // PartTreeView
             // 
@@ -634,26 +640,23 @@ namespace DungeonEditor.GUI
             this.PartTreeView.FullRowSelect = true;
             this.PartTreeView.HideSelection = false;
             this.PartTreeView.Indent = 12;
-            this.PartTreeView.Location = new System.Drawing.Point(0, 175);
+            this.PartTreeView.Location = new System.Drawing.Point(3, 3);
             this.PartTreeView.Margin = new System.Windows.Forms.Padding(0);
             this.PartTreeView.Name = "PartTreeView";
             this.PartTreeView.ShowLines = false;
-            this.PartTreeView.Size = new System.Drawing.Size(200, 134);
-            this.PartTreeView.TabIndex = 3;
-            this.PartTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PartTreeView_AfterSelect);
+            this.PartTreeView.Size = new System.Drawing.Size(224, 338);
+            this.PartTreeView.TabIndex = 5;
             // 
-            // BrushesDescLabel
+            // BrushesTab
             // 
-            this.BrushesDescLabel.BackColor = System.Drawing.Color.Transparent;
-            this.BrushesDescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrushesDescLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrushesDescLabel.Location = new System.Drawing.Point(0, 309);
-            this.BrushesDescLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.BrushesDescLabel.Name = "BrushesDescLabel";
-            this.BrushesDescLabel.Size = new System.Drawing.Size(200, 25);
-            this.BrushesDescLabel.TabIndex = 3;
-            this.BrushesDescLabel.Text = "Brushes List";
-            this.BrushesDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BrushesTab.Controls.Add(this.BrushesTreeView);
+            this.BrushesTab.Location = new System.Drawing.Point(4, 22);
+            this.BrushesTab.Name = "BrushesTab";
+            this.BrushesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.BrushesTab.Size = new System.Drawing.Size(230, 344);
+            this.BrushesTab.TabIndex = 2;
+            this.BrushesTab.Text = "Brushes";
+            this.BrushesTab.UseVisualStyleBackColor = true;
             // 
             // BrushesTreeView
             // 
@@ -662,50 +665,40 @@ namespace DungeonEditor.GUI
             this.BrushesTreeView.FullRowSelect = true;
             this.BrushesTreeView.HideSelection = false;
             this.BrushesTreeView.Indent = 12;
-            this.BrushesTreeView.Location = new System.Drawing.Point(0, 334);
+            this.BrushesTreeView.Location = new System.Drawing.Point(3, 3);
             this.BrushesTreeView.Margin = new System.Windows.Forms.Padding(0);
             this.BrushesTreeView.Name = "BrushesTreeView";
             this.BrushesTreeView.PathSeparator = "/";
             this.BrushesTreeView.ShowLines = false;
             this.BrushesTreeView.ShowNodeToolTips = true;
-            this.BrushesTreeView.Size = new System.Drawing.Size(200, 404);
-            this.BrushesTreeView.TabIndex = 4;
-            this.BrushesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrushesTreeView_AfterSelect);
+            this.BrushesTreeView.Size = new System.Drawing.Size(224, 338);
+            this.BrushesTreeView.TabIndex = 6;
             // 
-            // MainPictureBox
+            // RightPanelProperties
             // 
-            this.MainPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPictureBox.Location = new System.Drawing.Point(3, 3);
-            this.MainPictureBox.Name = "MainPictureBox";
-            this.MainPictureBox.Size = new System.Drawing.Size(1058, 701);
-            this.MainPictureBox.TabIndex = 2;
-            this.MainPictureBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainPictureBox_KeyDown);
-            this.MainPictureBox.MouseEnter += new System.EventHandler(this.MainPictureBox_MouseEnter);
+            this.RightPanelProperties.BackColor = System.Drawing.SystemColors.Control;
+            this.RightPanelProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RightPanelProperties.Location = new System.Drawing.Point(0, 0);
+            this.RightPanelProperties.Name = "RightPanelProperties";
+            this.RightPanelProperties.Size = new System.Drawing.Size(238, 335);
+            this.RightPanelProperties.TabIndex = 0;
             // 
-            // VisualRgbaBrushImageBox
+            // SaveFileDlg
             // 
-            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(5, 45);
-            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
-            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(90, 100);
-            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualRgbaBrushImageBox.TabIndex = 3;
-            this.VisualRgbaBrushImageBox.TabStop = false;
+            this.SaveFileDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFile_FileOk);
             // 
-            // VisualGraphicBrushImageBox
+            // SaveScreenshotDlg
             // 
-            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(105, 45);
-            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
-            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(90, 100);
-            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualGraphicBrushImageBox.TabIndex = 2;
-            this.VisualGraphicBrushImageBox.TabStop = false;
+            this.SaveScreenshotDlg.DefaultExt = "png";
+            this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
+            this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
+            // 
+            // recentFilesToolStripMenuItem
+            // 
+            this.recentFilesToolStripMenuItem.Enabled = false;
+            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recentFilesToolStripMenuItem.Text = "&Recent Files";
             // 
             // MainWindow
             // 
@@ -713,7 +706,7 @@ namespace DungeonEditor.GUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(1264, 762);
-            this.Controls.Add(this.ScreenLayoutPanel);
+            this.Controls.Add(this.MainTableLayout);
             this.Controls.Add(this.MainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
@@ -725,16 +718,23 @@ namespace DungeonEditor.GUI
             this.Shown += new System.EventHandler(this.MainWindow_Shown);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
-            this.ScreenLayoutPanel.ResumeLayout(false);
             this.MainTableLayout.ResumeLayout(false);
             this.BottomBarTable.ResumeLayout(false);
             this.BottomBarTable.PerformLayout();
             this.BottomBarGfxModePanel.ResumeLayout(false);
-            this.RightPanelTable.ResumeLayout(false);
-            this.TreeViewVisualBrushTable.ResumeLayout(false);
-            this.TreeViewVisualBrushTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.RightPanelSplit.Panel1.ResumeLayout(false);
+            this.RightPanelSplit.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RightPanelSplit)).EndInit();
+            this.RightPanelSplit.ResumeLayout(false);
+            this.RightPanelTabControl.ResumeLayout(false);
+            this.PartsTab.ResumeLayout(false);
+            this.BrushesTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -750,16 +750,11 @@ namespace DungeonEditor.GUI
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem starboundToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setDirectoryToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog OpenFile;
+        private System.Windows.Forms.OpenFileDialog OpenFileDlg;
         private System.Windows.Forms.SaveFileDialog SaveActive;
         private System.Windows.Forms.ToolStripMenuItem dungeonToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addObjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addDungeonMapToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel ScreenLayoutPanel;
-        private NoAliasPictureBox VisualGraphicBrushImageBox;
-        private NoAliasPictureBox VisualRgbaBrushImageBox;
-        private System.Windows.Forms.Label VisualRgbaBrushLabel;
-        private System.Windows.Forms.Label VisualGraphicBrushLabel;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dungeonToolStripMenuItem;
@@ -770,31 +765,39 @@ namespace DungeonEditor.GUI
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayout;
-        private System.Windows.Forms.Label BottomBarModeLabel;
-        private System.Windows.Forms.ComboBox BottomBarGfxCombo;
-        private System.Windows.Forms.Label BottomBarBrushLabel;
-        private System.Windows.Forms.TableLayoutPanel BottomBarTable;
-        private System.Windows.Forms.Panel BottomBarGfxModePanel;
-        private System.Windows.Forms.Label BottomBarZoomLabel;
-        private System.Windows.Forms.Label BottomBarXLabel;
-        private System.Windows.Forms.Label BottomBarYLabel;
-        private System.Windows.Forms.TableLayoutPanel RightPanelTable;
-        private System.Windows.Forms.Label PartDescLabel;
-        private System.Windows.Forms.TreeView PartTreeView;
-        private System.Windows.Forms.Label BrushesDescLabel;
-        private System.Windows.Forms.TreeView BrushesTreeView;
-        private System.Windows.Forms.TableLayoutPanel TreeViewVisualBrushTable;
-        private System.Windows.Forms.Label VisualRgbaBrushDescLabel;
-        private System.Windows.Forms.Label VisualGraphicBrushDescLabel;
         private System.Windows.Forms.ToolStripMenuItem addBrushToolStripMenuItem;
-        private ImageBox MainPictureBox;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem viewCollisionsToolStripMenuItem;
         private ToolStripMenuItem undoToolStripMenuItem;
         private ToolStripMenuItem refreshToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem shipToolStripMenuItem;
+        private TableLayoutPanel MainTableLayout;
+        private TableLayoutPanel BottomBarTable;
+        private Label BottomBarStaticBrushLabel;
+        private Panel BottomBarGfxModePanel;
+        private ComboBox BottomBarGfxCombo;
+        private Label BottomBarModeLabel;
+        private Label BottomBarBrushLabel;
+        private Label BottomBarZoomLabel;
+        private Label BottomBarPositionLabel;
+        private NoAliasPictureBox VisualRgbaBrushImageBox;
+        private NoAliasPictureBox VisualGraphicBrushImageBox;
+        private SplitContainer splitContainer1;
+        private ImageBox MainPictureBox;
+        private SplitContainer RightPanelSplit;
+        private TabControl RightPanelTabControl;
+        private TabPage MainTab;
+        private TabPage PartsTab;
+        private TabPage BrushesTab;
+        private PropertyGrid RightPanelProperties;
+        private SaveFileDialog SaveFileDlg;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private TreeView PartTreeView;
+        private TreeView BrushesTreeView;
+        private ToolStripMenuItem takeScreenshotToolStripMenuItem;
+        private SaveFileDialog SaveScreenshotDlg;
+        private ToolStripMenuItem recentFilesToolStripMenuItem;
 
     }
 }

@@ -86,12 +86,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Editor.cs" />
-    <Compile Include="EditorHelpers.cs" />
+    <Compile Include="EditorTypes\Vec2I.cs" />
+    <Compile Include="EditorTypes\Vec2F.cs" />
+    <Compile Include="External Helpers\ColorSerializer.cs" />
+    <Compile Include="Editor\Editor.cs" />
+    <Compile Include="Editor\EditorHelpers.cs" />
     <Compile Include="EditorObjects\EditorFile.cs" />
     <Compile Include="EditorObjects\EditorMap.cs" />
     <Compile Include="EditorObjects\EditorMapPart.cs" />
-    <Compile Include="EditorSettings.cs" />
+    <Compile Include="Editor\EditorSettings.cs" />
     <Compile Include="EditorObjects\EditorBrush.cs" />
     <Compile Include="GUI\DirPopup.cs">
       <SubType>Form</SubType>
@@ -114,11 +117,15 @@
     <Compile Include="GUI\ImageBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="JsonParser.cs" />
-    <Compile Include="ByteListEqualityComparer.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="External Helpers\JsonParser.cs" />
+    <Compile Include="External Helpers\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Renderer.cs" />
     <Compile Include="StarboundObjects\Dungeons\DungeonMetadata.cs" />
     <Compile Include="StarboundObjects\Dungeons\DungeonPart.cs" />
@@ -141,12 +148,16 @@
     <Compile Include="StarboundObjects\Tiles\StarboundLiquid.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundPlatform.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundTile.cs" />
-    <Compile Include="UndoManager.cs" />
+    <Compile Include="EditorObjects\UndoManager.cs" />
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -177,8 +188,8 @@
     <Folder Include="StarboundObjects\Platforms\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="Properties\app.config" />
+    <None Include="Properties\packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
