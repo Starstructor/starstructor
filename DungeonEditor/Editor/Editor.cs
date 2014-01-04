@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +36,7 @@ using DungeonEditor.StarboundObjects.Ships;
 using DungeonEditor.StarboundObjects.Tiles;
 using Newtonsoft.Json;
 
-namespace DungeonEditor
+namespace DungeonEditor.Editor
 {
     public class Editor
     {
@@ -426,10 +430,18 @@ namespace DungeonEditor
                         {
                             orientation.LeftFrames = new JsonParser(leftFramesPath).ParseJson<ObjectFrames>();
                         }
+                        else
+                        {
+                            
+                        }
 
                         if (rightFramesPath != null)
                         {
                             orientation.RightFrames = new JsonParser(rightFramesPath).ParseJson<ObjectFrames>();
+                        }
+                        else
+                        {
+
                         }
 
                         string leftPath = Path.Combine(Path.GetDirectoryName(path), imageNameLeft);
@@ -452,6 +464,11 @@ namespace DungeonEditor
                             orientation.LeftImage = croppedBmp;
 
                             m_log.Write("  Left image loaded at " + leftPath);
+                        }
+                        else if (orientation.LeftFrames == null)
+                        {
+                            m_log.Write("  Left frames for asset " + name + " at location " + leftFramesPath + "" +
+                                        " not found!");
                         }
                         else
                         {
@@ -476,6 +493,11 @@ namespace DungeonEditor
                             orientation.RightImage = croppedBmp;
 
                             m_log.Write("  Right image loaded at " + rightPath);
+                        }
+                        else if (orientation.RightFrames == null)
+                        {
+                            m_log.Write("  Right frames for asset " + name + " at location " + rightFramesPath + "" +
+                                        " not found!");
                         }
                         else
                         {
@@ -535,9 +557,13 @@ namespace DungeonEditor
 
                             m_log.Write("  Image loaded at " + imagePath);
                         }
+                        else if (orientation.RightFrames == null)
+                        {
+                            m_log.Write("   Frames for asset " + name + " at location " + framesPath + " not found!");
+                        }
                         else
                         {
-                            m_log.Write("Image for asset " + name + " at location " + imagePath + " not found!");
+                            m_log.Write("   Image for asset " + name + " at location " + imagePath + " not found!");
                         }
                     }
                     // No image has been found, this isn't a valid object, leave

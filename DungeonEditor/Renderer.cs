@@ -1,6 +1,9 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +28,6 @@ using System.Drawing.Imaging;
 using DungeonEditor.EditorObjects;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Tiles;
-using System.ComponentModel;
 using DungeonEditor.EditorTypes;
 
 namespace DungeonEditor
@@ -37,7 +39,7 @@ namespace DungeonEditor
         public static bool DrawObject(StarboundObject obj, int x, int y, ObjectOrientation orientation,
             ObjectDirection direction, Graphics gfx)
         {
-            return DrawObject(obj, x, y, orientation, direction, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawObject(obj, x, y, orientation, direction, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
 
@@ -86,7 +88,7 @@ namespace DungeonEditor
 
         public static bool DrawForegroundTile(StarboundTile tile, int x, int y, Graphics gfx)
         {
-            return DrawForegroundTile(tile, x, y, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawForegroundTile(tile, x, y, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawForegroundTile(StarboundTile tile, int x, int y, int gridFactor, Graphics gfx)
@@ -121,7 +123,7 @@ namespace DungeonEditor
 
         public static bool DrawBackgroundTile(StarboundTile tile, int x, int y, Graphics gfx)
         {
-            return DrawForegroundTile(tile, x, y, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawForegroundTile(tile, x, y, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawBackgroundTile(StarboundTile tile, int x, int y, int gridFactor, Graphics gfx)
@@ -130,7 +132,7 @@ namespace DungeonEditor
                 return false;
 
             // How much we must scale to fit this correctly
-            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
+            float sizeScaleFactor = Editor.Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
             var sizeX = (int) Math.Ceiling(tile.Image.Width/sizeScaleFactor);
             var sizeY = (int) Math.Ceiling(tile.Image.Height/sizeScaleFactor);
 
@@ -182,7 +184,7 @@ namespace DungeonEditor
 
         public static bool DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
         {
-            return DrawBackground(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawBackground(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawBackground(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
@@ -199,7 +201,7 @@ namespace DungeonEditor
         public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            return DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -237,7 +239,7 @@ namespace DungeonEditor
 
         public static bool DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
         {
-            return DrawForeground(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawForeground(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawForeground(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
@@ -254,7 +256,7 @@ namespace DungeonEditor
         public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            return DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -296,7 +298,7 @@ namespace DungeonEditor
 
         public static bool DrawSpecial(List<EditorMapLayer> layers, Graphics gfx)
         {
-            return DrawSpecial(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawSpecial(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawSpecial(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
@@ -313,7 +315,7 @@ namespace DungeonEditor
         public static bool DrawSpecialBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            return DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawSpecialBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -350,7 +352,7 @@ namespace DungeonEditor
 
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, Graphics gfx)
         {
-            DrawObjectCollisions(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
+            DrawObjectCollisions(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
@@ -367,7 +369,7 @@ namespace DungeonEditor
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
+            DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -391,35 +393,35 @@ namespace DungeonEditor
                         {
                             var bluePen = new Pen(Color.Blue);
                             bluePen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(bluePen, x*Editor.DEFAULT_GRID_FACTOR, y*Editor.DEFAULT_GRID_FACTOR,
-                                Editor.DEFAULT_GRID_FACTOR, Editor.DEFAULT_GRID_FACTOR);
+                            gfx.DrawRectangle(bluePen, x*Editor.Editor.DEFAULT_GRID_FACTOR, y*Editor.Editor.DEFAULT_GRID_FACTOR,
+                                Editor.Editor.DEFAULT_GRID_FACTOR, Editor.Editor.DEFAULT_GRID_FACTOR);
                             bluePen.Dispose();
                         }
                         else if (i == 1)
                         {
                             var greenPen = new Pen(Color.Green);
                             greenPen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(greenPen, x*Editor.DEFAULT_GRID_FACTOR + 1,
-                                y*Editor.DEFAULT_GRID_FACTOR + 1, Editor.DEFAULT_GRID_FACTOR - 2,
-                                Editor.DEFAULT_GRID_FACTOR - 2);
+                            gfx.DrawRectangle(greenPen, x*Editor.Editor.DEFAULT_GRID_FACTOR + 1,
+                                y*Editor.Editor.DEFAULT_GRID_FACTOR + 1, Editor.Editor.DEFAULT_GRID_FACTOR - 2,
+                                Editor.Editor.DEFAULT_GRID_FACTOR - 2);
                             greenPen.Dispose();
                         }
                         else if (i == 2)
                         {
                             var crimsonPen = new Pen(Color.Crimson);
                             crimsonPen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(crimsonPen, x*Editor.DEFAULT_GRID_FACTOR + 2,
-                                y*Editor.DEFAULT_GRID_FACTOR + 2, Editor.DEFAULT_GRID_FACTOR - 4,
-                                Editor.DEFAULT_GRID_FACTOR - 4);
+                            gfx.DrawRectangle(crimsonPen, x*Editor.Editor.DEFAULT_GRID_FACTOR + 2,
+                                y*Editor.Editor.DEFAULT_GRID_FACTOR + 2, Editor.Editor.DEFAULT_GRID_FACTOR - 4,
+                                Editor.Editor.DEFAULT_GRID_FACTOR - 4);
                             crimsonPen.Dispose();
                         }
                         else if (i == 3)
                         {
                             var yellowPen = new Pen(Color.Yellow);
                             yellowPen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(yellowPen, x*Editor.DEFAULT_GRID_FACTOR + 3,
-                                y*Editor.DEFAULT_GRID_FACTOR + 3, Editor.DEFAULT_GRID_FACTOR - 6,
-                                Editor.DEFAULT_GRID_FACTOR - 6);
+                            gfx.DrawRectangle(yellowPen, x*Editor.Editor.DEFAULT_GRID_FACTOR + 3,
+                                y*Editor.Editor.DEFAULT_GRID_FACTOR + 3, Editor.Editor.DEFAULT_GRID_FACTOR - 6,
+                                Editor.Editor.DEFAULT_GRID_FACTOR - 6);
                             yellowPen.Dispose();
                         }
                     }

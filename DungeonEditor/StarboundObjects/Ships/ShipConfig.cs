@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +22,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using Newtonsoft.Json;
-using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {

@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,14 +21,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using System.Collections.Generic;
 using DungeonEditor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -38,20 +40,36 @@ namespace DungeonEditor.EditorObjects
 
     public class EditorBrush
     {
-        [JsonIgnore] protected StarboundAsset m_backAsset;
+        [JsonIgnore] 
+        protected StarboundAsset m_backAsset;
 
         [JsonIgnore]
         protected BindingList<string> m_brushRules = new BindingList<string>();
+
         [JsonIgnore]
         protected BindingList<string> m_brushTypes = new BindingList<string>();
 
-        [JsonIgnore] protected Color m_colourKey;
-        [JsonIgnore] protected string m_comment;
-        [JsonIgnore] protected ObjectDirection m_direction;
-        [JsonIgnore] protected StarboundAsset m_frontAsset;
-        [JsonIgnore] protected bool m_isSpecial;
-        [JsonIgnore] protected bool m_needsBackAsset;
-        [JsonIgnore] protected bool m_needsFrontAsset;
+        [JsonIgnore] 
+        protected Color m_colourKey;
+
+        [JsonIgnore] 
+        protected string m_comment;
+
+        [JsonIgnore] 
+        protected ObjectDirection m_direction;
+
+        [JsonIgnore] 
+        protected StarboundAsset m_frontAsset;
+
+        [JsonIgnore] 
+        protected bool m_isSpecial;
+
+        [JsonIgnore] 
+        protected bool m_needsBackAsset;
+
+        [JsonIgnore] 
+        protected bool m_needsFrontAsset;
+
         private string m_brushKey;
         private static Random g_randKey = new Random();
 

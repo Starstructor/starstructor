@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,10 +34,17 @@ namespace DungeonEditor.StarboundObjects.Objects
     [ReadOnly(true)]
     public class ObjectOrientation
     {
-        [JsonIgnore] public ObjectFrames LeftFrames;
-        [JsonIgnore] public Image LeftImage;
-        [JsonIgnore] public ObjectFrames RightFrames;
-        [JsonIgnore] public Image RightImage;
+        [JsonIgnore] 
+        public ObjectFrames LeftFrames;
+
+        [JsonIgnore]
+        public Image LeftImage;
+
+        [JsonIgnore] 
+        public ObjectFrames RightFrames;
+
+        [JsonIgnore] 
+        public Image RightImage;
 
         [JsonProperty("image")]
         public string ImageName { get; set; }
@@ -139,14 +150,14 @@ namespace DungeonEditor.StarboundObjects.Objects
             return frames;
         }
 
-        public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetWidth(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
             ObjectFrames frames = GetFrames(direction);
             return (int) Math.Ceiling(frames.FrameGrid.Size.x/sizeScaleFactor);
         }
 
-        public int GetHeight(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetHeight(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
 
@@ -154,7 +165,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             return (int) Math.Ceiling(frames.FrameGrid.Size.y/sizeScaleFactor);
         }
 
-        public int GetOriginX(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetOriginX(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
 
@@ -164,7 +175,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             return originX;
         }
 
-        public int GetOriginY(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetOriginY(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
 

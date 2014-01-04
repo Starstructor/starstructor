@@ -1,6 +1,10 @@
-/*Starstructor, the Starbound Toolet
-Copyright (C) 2013-2014  Chris Stamford
+/*Starstructor, the Starbound Toolet 
+Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
+
+Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,12 +21,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-// Format .dungeon
-
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using DungeonEditor.Editor;
 using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -41,11 +44,11 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("parts", Required = Required.Always), Browsable(false)]
         public List<DungeonPart> Parts { get; set; }
 
-        public override void LoadParts(Editor parent)
+        public override void LoadParts(Editor.Editor parent)
         {
             foreach (DungeonPart part in Parts)
             {
-                Editor.Log.Write("Loading part " + part.Name);
+                Editor.Editor.Log.Write("Loading part " + part.Name);
 
                 object imageList = part.Definition[1];
 
@@ -65,7 +68,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
                     if (!File.Exists(path))
                     {
-                        Editor.Log.Write("  Layer image " + fileName + "does not exist");
+                        Editor.Editor.Log.Write("  Layer image " + fileName + "does not exist");
                         continue;
                     }
 
@@ -76,22 +79,22 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                     part.Height = layerImg.Height;
 
                     part.Layers.Add(new EditorMapLayer(fileName, (Bitmap) layerImg, parent.BrushMap, part));
-                    Editor.Log.Write("  Layer image " + fileName + " loaded");
+                    Editor.Editor.Log.Write("  Layer image " + fileName + " loaded");
                 }
 
                 // Create the graphics image
-                part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
-                    part.Height*Editor.DEFAULT_GRID_FACTOR);
+                part.GraphicsMap = new Bitmap(part.Width*Editor.Editor.DEFAULT_GRID_FACTOR,
+                    part.Height*Editor.Editor.DEFAULT_GRID_FACTOR);
 
                 // Update the composite collision map, now that all layers have been loaded
                 part.UpdateCompositeCollisionMap();
 
                 part.Parent = this;
-                Editor.Log.Write("Completed loading part " + part.Name);
+                Editor.Editor.Log.Write("Completed loading part " + part.Name);
             }
         }
 
-        public override void GenerateBrushAndAssetMaps(Editor parent)
+        public override void GenerateBrushAndAssetMaps(Editor.Editor parent)
         {
             Dictionary<Color, EditorBrush> map = parent.BrushMap;
 
@@ -191,7 +194,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
         // This function is one big wall of useless repeated code
         // Fix it at some point
-        private void LoadSpecialBrushes(Editor parent)
+        private void LoadSpecialBrushes(Editor.Editor parent)
         {
             // Get all collision blocks
             foreach (DungeonBrush brush in BlockMap)
@@ -222,7 +225,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 // If this brush is surface foreground
                 else if (brush.BrushTypes.Contains("surface"))
                 {
-                    string assetName = Editor.Settings.SurfaceForegroundTile;
+                    string assetName = Editor.Editor.Settings.SurfaceForegroundTile;
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "surface");
                     if (asset == null && assetName.Contains("INTERNAL"))
@@ -242,7 +245,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 // If this brush is surface background
                 else if (brush.BrushTypes.Contains("surfacebackground"))
                 {
-                    string assetName = Editor.Settings.SurfaceBackgroundTile;
+                    string assetName = Editor.Editor.Settings.SurfaceBackgroundTile;
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "surfacebackground");
                     if (asset == null && assetName.Contains("INTERNAL"))
