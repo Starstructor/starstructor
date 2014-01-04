@@ -191,10 +191,14 @@ namespace DungeonEditor.Editor
 
         public void SaveFile(string path)
         {
+            // Leave, until ship serialization is fixed
+            return;
+
             m_log.Write("Saving " + path);
 
             ActiveFile.FilePath = path;
             File.Delete(path);
+
             if (ActiveFile is StarboundDungeon)
             {
                 JsonParser parser = new JsonParser(path);
