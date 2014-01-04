@@ -265,12 +265,12 @@ namespace DungeonEditor.GUI
 
             if (m_selectedBrush.FrontAsset != null)
             {
-                BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.AssetName;
+                BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.ToString();
             }
 
             if (m_selectedBrush.BackAsset != null)
             {
-                BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.AssetName;
+                BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.ToString();
             }
 
             BottomBarBrushLabel.Text += "        " + colour;

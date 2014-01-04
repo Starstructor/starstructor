@@ -43,6 +43,12 @@ namespace DungeonEditor
         private readonly Dictionary<string, StarboundAsset> m_assetMap
             = new Dictionary<string, StarboundAsset>();
 
+        private readonly Dictionary<string, StarboundObject> m_globalObjectMap
+            = new Dictionary<string, StarboundObject>();
+
+        private readonly Dictionary<string, StarboundTile> m_globalMaterialMap
+            = new Dictionary<string, StarboundTile>();
+
         private readonly Dictionary<Color, EditorBrush> m_brushMap
             = new Dictionary<Color, EditorBrush>();
 
@@ -81,12 +87,6 @@ namespace DungeonEditor
         public Dictionary<Color, EditorBrush> BrushMap
         {
             get { return m_brushMap; }
-        }
-
-        // Maps from a material name to a tile
-        public Dictionary<string, StarboundAsset> AssetMap
-        {
-            get { return m_assetMap; }
         }
 
         public EditorFile ActiveFile
@@ -209,7 +209,9 @@ namespace DungeonEditor
             m_activeFile = null;
             m_assetDirContents.Clear();
             BrushMap.Clear();
-            AssetMap.Clear();
+            m_assetMap.Clear();
+
+            m_globalObjectMap.Clear();
         }
 
         public void ScanAssetDirectory()
@@ -224,6 +226,7 @@ namespace DungeonEditor
 
             List<string> directories = new List<String>() {baseDir, modDir};
 
+            /*
             foreach (string path in directories)
             {
                 if (!Directory.Exists(path))
@@ -237,7 +240,46 @@ namespace DungeonEditor
                 m_assetDirContents.AddRange((Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
                     .Where(s => s.EndsWith(".material") || s.EndsWith(".object") ||
                                 s.EndsWith(".frames") || s.EndsWith(".npctype"))));
+            }*/
+
+            //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            foreach (string path in directories)
+            {
+                foreach (var file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
+                {
+                    StarboundObject sbObject = new JsonParser(file).ParseJson<StarboundObject>();
+                    m_globalObjectMap[sbObject.ObjectName] = sbObject;
+                }
             }
+            //MessageBox.Show("Elapsed: " + stopwatch.ElapsedMilliseconds + "ms");
+
+            //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            foreach (string path in directories)
+            {
+                foreach (var file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
+                {
+                    StarboundTile sbMaterial = new JsonParser(file).ParseJson<StarboundTile>();
+                    m_globalMaterialMap[sbMaterial.MaterialName] = sbMaterial;
+                }
+            }
+            //MessageBox.Show("Elapsed: " + stopwatch.ElapsedMilliseconds + "ms");
+
+        }
+
+        public StarboundObject GetObject(string name)
+        {
+            return m_globalObjectMap.ContainsKey(name) ? m_globalObjectMap[name] : null;
+        }
+
+        public StarboundTile GetMaterial(string name)
+        {
+            return m_globalMaterialMap.ContainsKey(name) ? m_globalMaterialMap[name] : null;
+        }
+
+        public void RegisterAsset(string name, string type, StarboundAsset asset)
+        {
+            if ( asset != null )
+                m_assetMap[name + EditorHelpers.GetExtensionFromBrushType(type)] = asset;
         }
 
         public StarboundAsset LoadAsset(string name, string rawType)
@@ -246,6 +288,23 @@ namespace DungeonEditor
 
             StarboundAsset newAsset = null;
             string ext = EditorHelpers.GetExtensionFromBrushType(rawType);
+
+            if ( ext == ".object" )
+            {
+                newAsset = GetObject(name);
+            }
+            else if ( ext == ".material" )
+            {
+                newAsset = GetMaterial(name);
+            }
+            
+
+
+
+            
+            if (m_assetMap.ContainsKey(name + ext))
+                return m_assetMap[name + ext];
+
             string path = m_assetDirContents.Find(file => Path.GetFileName(file) == name + ext);
 
             if (path == null) 
@@ -281,7 +340,7 @@ namespace DungeonEditor
                             imageAsBmp.PixelFormat);
 
                     tempAsset.Image = croppedBmp;
-                    tempAsset.AssetName = name + ext;
+                    //tempAsset.AssetName = name + ext;
 
                     m_log.Write("  Image loaded at " + imagePath);
                 }
@@ -301,7 +360,7 @@ namespace DungeonEditor
             else if (ext == ".object")
             {
                 StarboundObject sbObject = new JsonParser(path).ParseJson<StarboundObject>();
-                sbObject.AssetName = name + ext;
+                //sbObject.AssetName = name + ext;
 
                 foreach (ObjectOrientation orientation in sbObject.Orientations)
                 {
@@ -496,6 +555,7 @@ namespace DungeonEditor
             {
             }
 
+            RegisterAsset(name, rawType, newAsset);
             return newAsset;
         }
     }

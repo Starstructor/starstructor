@@ -49,7 +49,7 @@ namespace DungeonEditor
             {
                 type = ".npctype";
             }
-            else if (type == "lava" || type == "water" || type == "tar" || type == "acid" || type == "tentaclejuice")
+            else if (type == "lava" || type == "water" || type == "tar" || type == "acid" || type == "tentaclejuice" || type == "brush" )
             {
                 type = ".INTERNAL";
             }

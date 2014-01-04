@@ -134,6 +134,7 @@
     <Compile Include="StarboundObjects\Objects\ObjectFrames.cs" />
     <Compile Include="StarboundObjects\Objects\ObjectImageLayer.cs" />
     <Compile Include="StarboundObjects\Objects\ObjectOrientation.cs" />
+    <Compile Include="External Helpers\ImageLoader.cs" />
     <Compile Include="StarboundObjects\Ships\ShipConfig.cs" />
     <Compile Include="StarboundObjects\Ships\ShipObjectParams.cs" />
     <Compile Include="StarboundObjects\Ships\ShipOverlay.cs" />

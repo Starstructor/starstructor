@@ -29,8 +29,8 @@ namespace DungeonEditor.StarboundObjects
         [JsonIgnore]
         public Image Image { get; set; }
 
-        [JsonIgnore]
-        public string AssetName { get; set; }
+        //[JsonIgnore]
+        //public string AssetName { get; set; }
 
         public StarboundAsset GetShallowCopy()
         {
@@ -39,7 +39,7 @@ namespace DungeonEditor.StarboundObjects
 
         public override string ToString()
         {
-            return AssetName != null ? AssetName : "[Asset]";
+            return "[Unidentified Asset]";// AssetName != null ? AssetName : "[Asset]";
         }
 
 

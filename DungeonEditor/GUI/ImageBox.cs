@@ -140,7 +140,7 @@ namespace DungeonEditor.GUI
             else
             {
                 asset = new StarboundTile();
-                asset.AssetName = "gridAsset.INTERNAL";
+                //asset.AssetName = "gridAsset.INTERNAL";
                 asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 255, 255, 255, 128);
             }
 

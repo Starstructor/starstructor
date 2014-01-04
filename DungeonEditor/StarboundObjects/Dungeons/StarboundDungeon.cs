@@ -200,23 +200,18 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 if (brush.Connector != null && (bool) brush.Connector)
                 {
                     string assetName = brush.Comment + ".INTERNAL";
-                    StarboundAsset asset = null;
-
-                    if (parent.AssetMap.ContainsKey(assetName))
-                    {
-                        asset = parent.AssetMap[assetName];
-                    }
-                    else
+                    
+                    StarboundAsset asset = parent.LoadAsset(assetName, "brush");
+                    if (asset == null )
                     {
                         asset = new StarboundAsset();
-                        asset.AssetName = assetName;
+                        //asset.AssetName = assetName;
                         asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
                             brush.Colour.R,
                             brush.Colour.G,
                             brush.Colour.B,
                             brush.Colour.A);
-
-                        parent.AssetMap[asset.AssetName] = asset;
+                        parent.RegisterAsset(assetName, "brush", asset);
                     }
 
                     brush.NeedsFrontAsset = true;
@@ -228,27 +223,15 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 else if (brush.BrushTypes.Contains("surface"))
                 {
                     string assetName = Editor.Settings.SurfaceForegroundTile;
-                    StarboundAsset asset = null;
-
-                    if (parent.AssetMap.ContainsKey(assetName))
+                    
+                    StarboundAsset asset = parent.LoadAsset(assetName, "surface");
+                    if (asset == null && assetName.Contains("INTERNAL"))
                     {
-                        asset = parent.AssetMap[assetName];
-                    }
-                    else
-                    {
-                        if (assetName.Contains("INTERNAL"))
-                        {
-                            asset = new StarboundAsset();
-                            asset.AssetName = assetName;
-                            asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                                87, 59, 12, 255);
-                        }
-                        else
-                        {
-                            asset = parent.LoadAsset(assetName, "surface");
-                        }
-
-                        parent.AssetMap[assetName] = asset;
+                        asset = new StarboundAsset();
+                        //asset.AssetName = assetName;
+                        asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
+                            87, 59, 12, 255);
+                        parent.RegisterAsset(assetName, "surface", asset);
                     }
 
                     brush.FrontAsset = asset;
@@ -260,29 +243,16 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                 else if (brush.BrushTypes.Contains("surfacebackground"))
                 {
                     string assetName = Editor.Settings.SurfaceBackgroundTile;
-                    StarboundAsset asset = null;
-
-                    if (parent.AssetMap.ContainsKey(assetName))
+                    
+                    StarboundAsset asset = parent.LoadAsset(assetName, "surfacebackground");
+                    if (asset == null && assetName.Contains("INTERNAL"))
                     {
-                        asset = parent.AssetMap[assetName];
+                        asset = new StarboundAsset();
+                        //asset.AssetName = assetName;
+                        asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
+                            87, 59, 12, 255);
+                        parent.RegisterAsset(assetName, "surfacebackground", asset);
                     }
-                    else
-                    {
-                        if (assetName.Contains("INTERNAL"))
-                        {
-                            asset = new StarboundAsset();
-                            asset.AssetName = assetName;
-                            asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                                87, 59, 12, 255);
-                        }
-                        else
-                        {
-                            asset = parent.LoadAsset(assetName, "surfacebackground");
-                        }
-
-                        parent.AssetMap[assetName] = asset;
-                    }
-
                     brush.BackAsset = asset;
                     brush.BrushTypes.Add("back");
                     brush.NeedsBackAsset = true;

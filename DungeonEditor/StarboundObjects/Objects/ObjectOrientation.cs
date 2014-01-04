@@ -124,46 +124,39 @@ namespace DungeonEditor.StarboundObjects.Objects
         //particleEmitter       optional, object with more properties
         //particleEmitters      optional, list of particleEmitter
 
+        private double GetSizeScaleFactor(double gridFactor)
+        {
+            return Editor.DEFAULT_GRID_FACTOR / gridFactor;
+        }
+
+        private ObjectFrames GetFrames(ObjectDirection direction)
+        {
+            ObjectFrames frames = null;
+            if (direction == ObjectDirection.DIRECTION_LEFT && LeftFrames != null)
+                frames = LeftFrames;
+            else
+                frames = RightFrames;
+            return frames;
+        }
 
         public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
-
-            ObjectFrames frames;
-
-            if (direction == ObjectDirection.DIRECTION_LEFT && LeftFrames != null)
-            {
-                frames = LeftFrames;
-            }
-            else
-            {
-                frames = RightFrames;
-            }
-
+            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
+            ObjectFrames frames = GetFrames(direction);
             return (int) Math.Ceiling(frames.FrameGrid.Size.x/sizeScaleFactor);
         }
 
         public int GetHeight(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
+            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
 
-            ObjectFrames frames;
-
-            if (direction == ObjectDirection.DIRECTION_LEFT && LeftFrames != null)
-            {
-                frames = LeftFrames;
-            }
-            else
-            {
-                frames = RightFrames;
-            }
-
+            ObjectFrames frames = GetFrames(direction);
             return (int) Math.Ceiling(frames.FrameGrid.Size.y/sizeScaleFactor);
         }
 
         public int GetOriginX(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
+            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
 
             int originX = 0;
             originX += (int) Math.Floor(ImagePosition.x/sizeScaleFactor);
@@ -173,7 +166,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public int GetOriginY(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            float sizeScaleFactor = Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
+            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
 
             int originY = -GetHeight(gridFactor, direction) + gridFactor;
             originY -= (int) Math.Floor(ImagePosition.y/sizeScaleFactor);
