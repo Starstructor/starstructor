@@ -27,11 +27,11 @@ using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
-    [ReadOnly(true)]
     public class ShipObjectParams
     {
         [JsonProperty("treasurePools")]
-        public List<string> TreasurePools { get; set; }
+        [Browsable(false)]
+        public BindingList<string> TreasurePools { get; set; }
 
         [JsonProperty("level")]
         public double? Level { get; set; }
@@ -46,6 +46,12 @@ namespace DungeonEditor.StarboundObjects.Ships
         // color ??? (not sure)
 
         [JsonProperty("unbreakable")]
+        [Description("Indicates that the object cannot be broken and is permanently in place.")]
         public bool? Unbreakable { get; set; }
+
+        public override string ToString()
+        {
+            return "[ShipObjectParams]";
+        }
     }
 }

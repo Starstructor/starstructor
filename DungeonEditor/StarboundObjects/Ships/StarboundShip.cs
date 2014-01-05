@@ -56,7 +56,7 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("blockKey")]
         public BindingList<ShipBrush> Brushes { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
 

@@ -29,12 +29,10 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 {
     public class DungeonMetadata
     {
-        [ReadOnly(true)]
         [JsonProperty("name",Required=Required.Always)]
         [Description("The name of the dungeon.")]
         public string Name { get; set; }
 
-        [ReadOnly(true)]
         [JsonProperty("species",Required=Required.Always)]
         [Description("The race that the dungeon belongs to.")]
         public string Species { get; set; }
@@ -43,8 +41,8 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("rules")]
         public List<object> Rules { get; set; }
 
-        [ReadOnly(true)]
         [JsonProperty("maxRadius")]
+        [Description("The maximum radius that the dungeon can spread.")]
         [DefaultValue(100)]
         public int? MaxRadius { get; set; }
 
@@ -57,8 +55,8 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonProperty("anchor", Required = Required.Always)]
         public BindingList<string> Anchor { get; set; }
 
-        [ReadOnly(true)]
         [JsonProperty("gravity")]
+        [Description("The gravity within the dungeon area. Dungeon gravity")]
         public int? Gravity { get; set; }
 
         public override string ToString()

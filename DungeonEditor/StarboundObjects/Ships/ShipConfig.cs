@@ -22,12 +22,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
     public class ShipConfig
     {
         [JsonProperty("fuelMax",Required=Required.Always)]
+        [Description("The maximum amount of fuel that the ship can hold.")]
         public int FuelMax { get; set; }
 
         public override string ToString()
