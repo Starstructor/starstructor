@@ -19,6 +19,7 @@ namespace DungeonEditor.StarboundObjects.Objects
         private ObjectFrames m_frames;
         private string m_parseName;
         private string m_fileName;
+        private bool m_flipped;
 
         public ObjectFrames Frames 
         {
@@ -36,8 +37,9 @@ namespace DungeonEditor.StarboundObjects.Objects
             }
         }
 
-        public ObjectImageManager(string name, string framesDir)
+        public ObjectImageManager(string name, string framesDir, bool flipped)
         {
+            m_flipped = flipped;
             int idx = name.IndexOf(':');
 
             // Get the file name (ex: "stuff.png")
@@ -95,7 +97,9 @@ namespace DungeonEditor.StarboundObjects.Objects
             if ( frameRect == null )
                 return null;
 
-            return m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
+            Bitmap result = m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
+            result.RotateFlip(m_flipped ? RotateFlipType.RotateNoneFlipX : RotateFlipType.RotateNoneFlipNone);
+            return result;
         }
 
         public bool DrawObject(Graphics gfx, int x, int y, int originX, int originY, int sizeX, int sizeY, 
@@ -104,8 +108,12 @@ namespace DungeonEditor.StarboundObjects.Objects
             if (m_image == null || m_image.ImageFile == null || m_frames == null)
                 return false;
 
-            Rectangle? srcRect = GetImageFrame();
+            /*Rectangle? srcRect = GetImageFrame();
             if ( srcRect == null )
+                return false;*/
+
+            Image srcImage = GetImageFrameBitmap();
+            if (srcImage == null)
                 return false;
             
             Rectangle dstRect = new Rectangle(
@@ -119,14 +127,14 @@ namespace DungeonEditor.StarboundObjects.Objects
 
             var attributes = new ImageAttributes();
             attributes.SetColorMatrix(colourMatrix);
-
+            
             // Fix this, scaling on colour map
-            gfx.DrawImage(m_image.ImageFile, 
+            gfx.DrawImage(srcImage, 
                 dstRect, 
-                srcRect.Value.X,
-                srcRect.Value.Y,
-                srcRect.Value.Width,
-                srcRect.Value.Height,
+                0,
+                0,
+                srcImage.Width,
+                srcImage.Height,
                 GraphicsUnit.Pixel, 
                 attributes);
             

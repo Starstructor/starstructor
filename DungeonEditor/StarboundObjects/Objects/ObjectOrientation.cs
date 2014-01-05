@@ -135,21 +135,21 @@ namespace DungeonEditor.StarboundObjects.Objects
         {
             // @TODO: Don't use image copies, go deeper and make the ImageLoader cache its own results
             if (ImageName != null)
-                MainImage = new ObjectImageManager(ImageName, assetDirectory);
+                MainImage = new ObjectImageManager(ImageName, assetDirectory, false);
             if (DualImageName != null)
-                DualImage = new ObjectImageManager(DualImageName, assetDirectory);
+                DualImage = new ObjectImageManager(DualImageName, assetDirectory, false);
             if (LeftImageName != null)
-                LeftImage = new ObjectImageManager(LeftImageName, assetDirectory);
+                LeftImage = new ObjectImageManager(LeftImageName, assetDirectory, false);
             if (RightImageName != null)
-                RightImage = new ObjectImageManager(RightImageName, assetDirectory);
+                RightImage = new ObjectImageManager(RightImageName, assetDirectory, false);
 
             if ( ImageLayers != null && ImageLayers.Count > 0 )
             {
                 // @TODO: Layers not supported
-                MainImage = new ObjectImageManager(ImageLayers[0].ImageName, assetDirectory);
+                MainImage = new ObjectImageManager(ImageLayers[0].ImageName, assetDirectory, false);
             }
 
-            if ( DualImageName != null )
+            if ( DualImage != null )
             {
                 if (RightImage == null)
                 {
@@ -158,8 +158,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 if ( LeftImage == null )
                 {
                     // @TODO: Deal with this, useless copy invokes ImageLoader to load the image
-                    LeftImage = new ObjectImageManager(DualImageName, assetDirectory);
-                    LeftImage.Loader.ImageFile.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                    LeftImage = new ObjectImageManager(DualImageName, assetDirectory, true);
                 }
                 if ( MainImage == null )
                 {
@@ -177,8 +176,6 @@ namespace DungeonEditor.StarboundObjects.Objects
                 manager = RightImage;
             else if (MainImage != null)
                 manager = MainImage;
-            else if (DualImage != null)
-                manager = DualImage;
 
             return manager;
         }
