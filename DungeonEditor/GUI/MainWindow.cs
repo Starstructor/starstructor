@@ -58,10 +58,19 @@ namespace DungeonEditor.GUI
             {
                 if (m_pselectedMap != value)
                 {
+                    EditorMap parentNext = value;
+                    if (parentNext is EditorMapLayer)
+                        parentNext = (parentNext as EditorMapLayer).Parent;
+
+                    EditorMap parentPrev = m_pselectedMap;
+                    if (parentPrev is EditorMapLayer)
+                        parentPrev = (parentPrev as EditorMapLayer).Parent;
+
+                    bool wantReset = parentNext != parentPrev;
                     m_pselectedMap = value;
 
                     // Update the work area
-                    UpdateImageBox(true, true);
+                    UpdateImageBox(wantReset, wantReset);
 
                     // Update menus/properties
                     takeScreenshotToolStripMenuItem.Enabled = (value != null);

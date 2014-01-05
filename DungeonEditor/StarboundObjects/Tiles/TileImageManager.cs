@@ -70,7 +70,6 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 gridFactor,
                 gridFactor);
 
-
             float[][] floatColourMatrx =
             {
                 new float[] {1, 0, 0, 0, 0},

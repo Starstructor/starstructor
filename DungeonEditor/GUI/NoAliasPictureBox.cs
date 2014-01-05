@@ -34,7 +34,10 @@ namespace DungeonEditor.GUI
         protected override void OnPaint(PaintEventArgs e)
         {
             // Stop anti-aliasing -- pixels are important
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
 
             // Fix the random pixel offset, so there isn't a magical margin at bottom and right
             e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;

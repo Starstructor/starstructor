@@ -162,6 +162,8 @@ namespace DungeonEditor.GUI
 
             e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
             e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+            e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+            e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
 
             // Identity matrix
             var trans = new Matrix();
@@ -176,7 +178,7 @@ namespace DungeonEditor.GUI
             e.Graphics.Transform = trans;
 
             // Draw the image in the world
-            e.Graphics.DrawImage(m_image, 0, 0, m_image.Width, m_image.Height);
+            e.Graphics.DrawImage(m_image, 0, 0);
 
             // Draw border
             if (m_gridFactor > 1)
@@ -189,7 +191,7 @@ namespace DungeonEditor.GUI
                         m_image.Width,
                         m_image.Height),
                     SystemColors.ControlDarkDark,
-                    ButtonBorderStyle.Dashed);
+                    ButtonBorderStyle.Solid);
             }
 
             // Only proceed if the mouse is in bounds, and there is a selected asset

@@ -63,7 +63,7 @@ namespace DungeonEditor
 
                         // Don't draw this brush if it isn't flagged as a back brush, or if it
                         // is also flagged as a front brush.
-                        if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front"))
+                        if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front") && brush.BackAsset is StarboundTile )
                         {
                             ((StarboundTile)brush.BackAsset).DrawTile(gfx, x, y, gridFactor, true);
                             //DrawBackgroundTile((StarboundTile) brush.BackAsset, x, y, gridFactor, gfx);
@@ -108,7 +108,7 @@ namespace DungeonEditor
                                 System.Windows.Forms.MessageBox.Show("DrawForeground failed");
                             //DrawObject(obj, x, y, orientation, brush.Direction, gridFactor, gfx, 1.0f);
                         }
-                        else if (brush.BrushTypes.Contains("front"))
+                        else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundTile)
                         {
                             ((StarboundTile)brush.FrontAsset).DrawTile(gfx, x, y, gridFactor);
                             //DrawForegroundTile((StarboundTile) brush.FrontAsset, x, y, gridFactor, gfx, 1.0f);
