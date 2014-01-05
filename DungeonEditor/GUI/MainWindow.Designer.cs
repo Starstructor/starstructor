@@ -54,6 +54,7 @@ namespace DungeonEditor.GUI
             this.dungeonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -103,7 +104,6 @@ namespace DungeonEditor.GUI
             this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
             this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
-            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
@@ -166,43 +166,50 @@ namespace DungeonEditor.GUI
             this.dungeonToolStripMenuItem,
             this.shipToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // dungeonToolStripMenuItem
             // 
             this.dungeonToolStripMenuItem.Enabled = false;
             this.dungeonToolStripMenuItem.Name = "dungeonToolStripMenuItem";
-            this.dungeonToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dungeonToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.dungeonToolStripMenuItem.Text = "Dungeon";
             // 
             // shipToolStripMenuItem
             // 
             this.shipToolStripMenuItem.Enabled = false;
             this.shipToolStripMenuItem.Name = "shipToolStripMenuItem";
-            this.shipToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.shipToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.shipToolStripMenuItem.Text = "Ship";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // recentFilesToolStripMenuItem
+            // 
+            this.recentFilesToolStripMenuItem.Enabled = false;
+            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.recentFilesToolStripMenuItem.Text = "&Recent Files";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(135, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -210,7 +217,7 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -218,7 +225,7 @@ namespace DungeonEditor.GUI
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -226,7 +233,7 @@ namespace DungeonEditor.GUI
             // 
             this.saveAsToolStripMenuItem.Enabled = false;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -234,13 +241,13 @@ namespace DungeonEditor.GUI
             // 
             this.toolStripSeparator4.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(135, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -574,6 +581,7 @@ namespace DungeonEditor.GUI
             // MainPictureBox
             // 
             this.MainPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.MainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPictureBox.Location = new System.Drawing.Point(0, 0);
             this.MainPictureBox.Name = "MainPictureBox";
@@ -692,13 +700,6 @@ namespace DungeonEditor.GUI
             this.SaveScreenshotDlg.DefaultExt = "png";
             this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
             this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
-            // 
-            // recentFilesToolStripMenuItem
-            // 
-            this.recentFilesToolStripMenuItem.Enabled = false;
-            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.recentFilesToolStripMenuItem.Text = "&Recent Files";
             // 
             // MainWindow
             // 

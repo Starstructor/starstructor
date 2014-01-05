@@ -66,7 +66,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
         [JsonConverter(typeof(ColorSerializer))]
         public Color ConnnectorColour { get; set; }
         
-        // left, right, up, down, and unknown
+        // left, right, up, down, and unknown; (why is it ConnectorDirection???)
         [ReadOnly(true)]
         [JsonProperty("direction"), Category("Connector")]
         [DefaultValue("unknown")]

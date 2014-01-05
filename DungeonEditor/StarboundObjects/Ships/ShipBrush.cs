@@ -29,45 +29,55 @@ using System.ComponentModel;
 
 namespace DungeonEditor.StarboundObjects.Ships
 {
-    [ReadOnly(true)]
     public class ShipBrush : EditorBrush
     {
         [JsonIgnore]
+        [ReadOnly(true)]
         public override string Comment { get; set; }
 
         [JsonProperty("foregroundBlock"), Category("Graphic")]
         [DefaultValue(false)]
+        [ReadOnly(true)]
         public bool ForegroundBlock { get; set; }
 
         [JsonProperty("backgroundBlock"), Category("Graphic")]
         [DefaultValue(false)]
+        [ReadOnly(true)]
         public bool BackgroundBlock { get; set; }
 
         [JsonProperty("foregroundMat"), Category("Graphic")]
         [DefaultValue("")]
+        [ReadOnly(true)]
         public string ForegroundMat { get; set; }
 
         [JsonProperty("backgroundMat"), Category("Graphic")]
         [DefaultValue("")]
+        [ReadOnly(true)]
         public string BackgroundMat { get; set; }
 
         [JsonProperty("object")]
         [DefaultValue("")]
+        [ReadOnly(true)]
         public string Object { get; set; }
 
         // either left or right
         [JsonProperty("objectDirection"), Category("Orientation")]
         [DefaultValue("left")]
+        [ReadOnly(true)]
         public string ObjectDirection { get; set; }
 
         [JsonProperty("objectParameters")]
+        [ReadOnly(true)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         public ShipObjectParams ObjectParameters { get; set; }
 
         [JsonProperty("flags")]
+        [Browsable(false)]
         public List<string> Flags { get; set; }
 
         [JsonProperty("value",Required=Required.Always)]
         [JsonConverter(typeof(ColorSerializer))]
+        [ReadOnly(true)]
         public override Color Colour { get; set; }
 
     }

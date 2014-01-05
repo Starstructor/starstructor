@@ -35,13 +35,14 @@ namespace DungeonEditor
         private JsonSerializerSettings settings = new JsonSerializerSettings()
         {
             NullValueHandling = NullValueHandling.Ignore,
-            DefaultValueHandling = DefaultValueHandling.Ignore,
+            //DefaultValueHandling = DefaultValueHandling.Ignore,
             Formatting = Formatting.Indented,
             
             Converters = new List<JsonConverter> { 
                 //new ColorSerializer(),     // Color object already handled internally, not sure how to replace
                 new Vec2F.Serializer(),
-                new Vec2I.Serializer()
+                new Vec2I.Serializer(),
+                new RectI.Serializer()
             }
         };
             
