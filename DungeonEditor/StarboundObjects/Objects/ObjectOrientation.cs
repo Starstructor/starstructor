@@ -132,6 +132,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public void InitializeAssets(string assetDirectory)
         {
+            // @TODO: Don't use image copies, go deeper and make the ImageLoader cache its own results
             if (ImageName != null)
                 MainImage = new ObjectImageManager(ImageName, assetDirectory);
             if (DualImageName != null)
@@ -143,6 +144,7 @@ namespace DungeonEditor.StarboundObjects.Objects
 
             if ( ImageLayers != null && ImageLayers.Count > 0 )
             {
+                // @TODO: Layers not supported
                 MainImage = new ObjectImageManager(ImageLayers[0].ImageName, assetDirectory);
             }
 
@@ -154,6 +156,7 @@ namespace DungeonEditor.StarboundObjects.Objects
                 }
                 if ( LeftImage == null )
                 {
+                    // @TODO: Deal with this, useless copy invokes ImageLoader to load the image
                     LeftImage = new ObjectImageManager(DualImageName, assetDirectory);
                     LeftImage.Loader.ImageFile.RotateFlip(RotateFlipType.RotateNoneFlipX);
                 }

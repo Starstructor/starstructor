@@ -92,25 +92,25 @@ namespace DungeonEditor.EditorObjects
                 // (low priority)
                 if (name == "lava")
                 {
-                    asset = new StarboundTile();
+                    asset = new StarboundAsset();
                     //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 207, 16, 32, 255);
                 }
                 else if (name == "acid")
                 {
-                    asset = new StarboundTile();
+                    asset = new StarboundAsset();
                     //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 107, 141, 63, 255);
                 }
                 else if (name == "water")
                 {
-                    asset = new StarboundTile();
+                    asset = new StarboundAsset();
                     //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 0, 78, 111, 255);
                 }
                 else if (name == "liquidtar" || name == "tentaclejuice")
                 {
-                    asset = new StarboundTile();
+                    asset = new StarboundAsset();
                     //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 200, 191, 231, 255);
                 }

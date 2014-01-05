@@ -33,6 +33,9 @@ namespace DungeonEditor.StarboundObjects.Tiles
     [ReadOnly(true)]
     public class StarboundTile : StarboundAsset
     {
+        [JsonIgnore]
+        public MaterialImageManager Frames;
+
         [JsonProperty("description"), Category("Description")]
         [DefaultValue("")]
         [Description("A general description of the current tile.")]
@@ -126,9 +129,6 @@ namespace DungeonEditor.StarboundObjects.Tiles
         [JsonProperty("transparent")]
         public bool? Transparent { get; set; }
 
-        [JsonIgnore]
-        public TileImageManager Frames;
-
         // Condition: Platform=false
         [JsonProperty("frames")]
         public string FramesString { get; set; }
@@ -154,18 +154,18 @@ namespace DungeonEditor.StarboundObjects.Tiles
         {
             if (Platform)
             {
-                // Retrieve platforms/stairs
-                // PlatformImage
-                // StairImage
-                if ( PlatformImageStr != null )
-                    Frames = new TileImageManager(PlatformImageStr, Path.GetDirectoryName(FullPath));
+                Frames = new PlatformImageManager(
+                    PlatformImageStr, 
+                    PlatformVariants ?? 1, 
+                    StairImageStr, 
+                    StairVariants ?? 1, 
+                    Path.GetDirectoryName(FullPath));
             }
             else
             {
-                // Retrieve frames
-                if (FramesString != null)
-                    Frames = new TileImageManager(FramesString, Path.GetDirectoryName(FullPath));
+                Frames = new TileImageManager(FramesString, Path.GetDirectoryName(FullPath));
             }
+            this.Image = Frames.GetImageFrameBitmap();
         }
 
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
