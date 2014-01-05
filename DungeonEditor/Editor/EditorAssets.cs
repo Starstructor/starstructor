@@ -5,6 +5,7 @@ using System.Text;
 using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Tiles;
 using System.IO;
+using System.Threading;
 
 namespace DungeonEditor.Editor
 {
@@ -16,23 +17,37 @@ namespace DungeonEditor.Editor
         private static Dictionary<string, StarboundTile> g_MaterialMap
             = new Dictionary<string, StarboundTile>();
 
+        private static Thread m_worker = null;
+
         public static void RefreshAssets()
         {
-            g_ObjectMap.Clear();
-            g_MaterialMap.Clear();
+            try
+            {
+                if (m_worker != null)
+                    m_worker.Abort();
+            }
+            catch   // Abort() threw an exception, in which case it's probably already terminated
+            { }
 
+            // Check for asset path
             if (Editor.Settings.AssetDirPath == null)
             {
                 System.Windows.Forms.MessageBox.Show("Asset directory not specified.");
                 return;
             }
 
+            m_worker = new Thread(RefreshAssetsBackground);
+            
+            g_ObjectMap.Clear();
+            g_MaterialMap.Clear();
+
+            m_worker.Start();
+        }
+        public static void RefreshAssetsBackground()
+        {
             // Scan directory based on path
             // Update this to include any mod folders
-            string baseDir = Editor.Settings.AssetDirPath;
-            string modDir = Path.Combine(Directory.GetParent(baseDir).ToString(), "mods");
-
-            List<string> directories = new List<String>() { modDir, baseDir };
+            List<string> directories = new List<String>() { Editor.Settings.ModsDirPath, Editor.Settings.AssetDirPath };
 
             foreach (string path in directories)
             {
@@ -63,6 +78,9 @@ namespace DungeonEditor.Editor
 
         public static StarboundObject GetObject(string name)
         {
+            if (m_worker != null)
+                m_worker.Join();
+
             if ( !g_ObjectMap.ContainsKey(name) )
             {
                 RefreshAssets();
@@ -77,6 +95,9 @@ namespace DungeonEditor.Editor
 
         public static StarboundTile GetMaterial(string name)
         {
+            if (m_worker != null)
+                m_worker.Join();
+
             if ( !g_MaterialMap.ContainsKey(name) )
             {
                 RefreshAssets();
