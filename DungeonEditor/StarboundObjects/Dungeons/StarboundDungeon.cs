@@ -214,7 +214,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                             brush.Colour.G,
                             brush.Colour.B,
                             brush.Colour.A);
-                        parent.RegisterAsset(assetName, "brush", asset);
+                        //parent.RegisterAsset(assetName, "brush", asset);
                     }
 
                     brush.NeedsFrontAsset = true;
@@ -234,7 +234,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                         //asset.AssetName = assetName;
                         asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
                             87, 59, 12, 255);
-                        parent.RegisterAsset(assetName, "surface", asset);
+                        //parent.RegisterAsset(assetName, "surface", asset);
                     }
 
                     brush.FrontAsset = asset;
@@ -254,7 +254,7 @@ namespace DungeonEditor.StarboundObjects.Dungeons
                         //asset.AssetName = assetName;
                         asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
                             87, 59, 12, 255);
-                        parent.RegisterAsset(assetName, "surfacebackground", asset);
+                        //parent.RegisterAsset(assetName, "surfacebackground", asset);
                     }
                     brush.BackAsset = asset;
                     brush.BrushTypes.Add("back");

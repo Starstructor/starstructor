@@ -34,17 +34,14 @@ namespace DungeonEditor.StarboundObjects.Objects
     [ReadOnly(true)]
     public class ObjectOrientation
     {
-        [JsonIgnore] 
-        public ObjectFrames LeftFrames;
-
         [JsonIgnore]
-        public Image LeftImage;
-
-        [JsonIgnore] 
-        public ObjectFrames RightFrames;
-
-        [JsonIgnore] 
-        public Image RightImage;
+        public ObjectImageManager MainImage;
+        [JsonIgnore]
+        public ObjectImageManager DualImage;
+        [JsonIgnore]
+        public ObjectImageManager LeftImage;
+        [JsonIgnore]
+        public ObjectImageManager RightImage;
 
         [JsonProperty("image")]
         public string ImageName { get; set; }
@@ -52,15 +49,13 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("dualImage")]
         public string DualImageName { get; set; }
 
-        // Only available if dualImage is true
         [JsonProperty("leftImage")]
         public string LeftImageName { get; set; }
 
-        // Only available if dualImage is true
         [JsonProperty("rightImage")]
         public string RightImageName { get; set; }
 
-        [JsonProperty("imageLayers")]
+        [JsonProperty("imageLayers"), Browsable(false)]
         public List<ObjectImageLayer> ImageLayers { get; set; }
 
         // only if imageLayers is not found
@@ -135,39 +130,67 @@ namespace DungeonEditor.StarboundObjects.Objects
         //particleEmitter       optional, object with more properties
         //particleEmitters      optional, list of particleEmitter
 
-        private double GetSizeScaleFactor(double gridFactor)
+        public void InitializeAssets(string assetDirectory)
         {
-            return Editor.DEFAULT_GRID_FACTOR / gridFactor;
+            if (ImageName != null)
+                MainImage = new ObjectImageManager(ImageName, assetDirectory);
+            if (DualImageName != null)
+                DualImage = new ObjectImageManager(DualImageName, assetDirectory);
+            if (LeftImageName != null)
+                LeftImage = new ObjectImageManager(LeftImageName, assetDirectory);
+            if (RightImageName != null)
+                RightImage = new ObjectImageManager(RightImageName, assetDirectory);
+
+            if ( ImageLayers != null && ImageLayers.Count > 0 )
+            {
+                MainImage = new ObjectImageManager(ImageLayers[0].ImageName, assetDirectory);
+            }
+
+            if ( DualImageName != null )
+            {
+                if (RightImage == null)
+                {
+                    RightImage = DualImage;
+                }
+                if ( LeftImage == null )
+                {
+                    LeftImage = new ObjectImageManager(DualImageName, assetDirectory);
+                    LeftImage.Loader.ImageFile.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                }
+                if ( MainImage == null )
+                {
+                    MainImage = DualImage;
+                }
+            }
         }
 
-        private ObjectFrames GetFrames(ObjectDirection direction)
+        public ObjectImageManager GetImageManager(ObjectDirection direction)
         {
-            ObjectFrames frames = null;
-            if (direction == ObjectDirection.DIRECTION_LEFT && LeftFrames != null)
-                frames = LeftFrames;
-            else
-                frames = RightFrames;
-            return frames;
+            ObjectImageManager manager = null;
+            if (direction == ObjectDirection.DIRECTION_LEFT && LeftImage != null)
+                manager = LeftImage;
+            else if (direction == ObjectDirection.DIRECTION_RIGHT && RightImage != null)
+                manager = RightImage;
+            else if (MainImage != null)
+                manager = MainImage;
+            return manager;
         }
 
         public int GetWidth(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
-            ObjectFrames frames = GetFrames(direction);
-            return (int) Math.Ceiling(frames.FrameGrid.Size.x/sizeScaleFactor);
+            var manager = GetImageManager(direction);
+            return manager != null ? manager.Frames.FrameGrid.GetWidth(gridFactor) : 0;
         }
 
         public int GetHeight(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
-
-            ObjectFrames frames = GetFrames(direction);
-            return (int) Math.Ceiling(frames.FrameGrid.Size.y/sizeScaleFactor);
+            var manager = GetImageManager(direction);
+            return manager != null ? manager.Frames.FrameGrid.GetHeight(gridFactor) : 0;
         }
 
         public int GetOriginX(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
+            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
 
             int originX = 0;
             originX += (int) Math.Floor(ImagePosition.x/sizeScaleFactor);
@@ -177,12 +200,29 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public int GetOriginY(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            var sizeScaleFactor = GetSizeScaleFactor(gridFactor);
+            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
 
             int originY = -GetHeight(gridFactor, direction) + gridFactor;
             originY -= (int) Math.Floor(ImagePosition.y/sizeScaleFactor);
 
             return originY;
+        }
+
+        //public static bool DrawObject(StarboundObject obj, int x, int y, ObjectOrientation orientation,
+          //  ObjectDirection direction, int gridFactor, Graphics gfx, float opacity)
+        public bool DrawObject(Graphics gfx, int x, int y, ObjectDirection direction, 
+            int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, float opacity = 1.0f)
+        {
+            var manager = GetImageManager(direction);
+            if (manager == null)
+                return false;
+
+            int sizeX = GetWidth(gridFactor, direction);
+            int sizeY = GetHeight(gridFactor, direction);
+            int originX = GetOriginX(gridFactor, direction);
+            int originY = GetOriginY(gridFactor, direction);
+
+            return manager.DrawObject(gfx, x, y, originX, originY, sizeX, sizeY, gridFactor, opacity);
         }
     }
 }

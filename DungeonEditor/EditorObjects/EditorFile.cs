@@ -114,7 +114,7 @@ namespace DungeonEditor.EditorObjects
                     //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 200, 191, 231, 255);
                 }
-                parent.RegisterAsset(name, type, asset);
+                //parent.RegisterAsset(name, type, asset);
             }
 
             if (asset != null)

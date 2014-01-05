@@ -208,22 +208,10 @@ namespace DungeonEditor.EditorObjects
                 Renderer.DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
         }
 
-
-        protected virtual void DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
-        {
-            DrawBackgroundBetween(layers, 0, 0, Width, Height, gfx);
-        }
-
         protected virtual void DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             Renderer.DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
-        }
-
-
-        protected virtual void DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
-        {
-            DrawForegroundBetween(layers, 0, 0, Width, Height, gfx);
         }
 
         protected virtual void DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,

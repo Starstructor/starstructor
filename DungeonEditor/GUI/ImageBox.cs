@@ -194,15 +194,17 @@ namespace DungeonEditor.GUI
 
             // Only proceed if the mouse is in bounds, and there is a selected asset
             // If so, draw the preview image of the currently selected brush
-            if (m_selectedAsset != null && m_selectedAsset.Image != null &&
+            if (m_selectedAsset != null && 
                 m_mouseGridX != -1 && m_mouseGridY != -1)
             {
                 if (m_selectedAsset is StarboundObject)
                 {
-                    StarboundObject sbObject = (StarboundObject)m_selectedAsset;
-                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX, m_mouseGridY);
+                    StarboundObject sbObject = m_selectedAsset as StarboundObject;
+                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX, m_mouseGridY, 
+                                                                                        m_selectedBrush.Direction);
 
-                    Renderer.DrawObject(
+                    orientation.DrawObject(e.Graphics, m_mouseGridX, m_mouseGridY, m_selectedBrush.Direction, m_gridFactor, 0.5f);
+                    /*Renderer.DrawObject(
                         (StarboundObject) m_selectedAsset,
                         m_mouseGridX,
                         m_mouseGridY,
@@ -210,19 +212,23 @@ namespace DungeonEditor.GUI
                         m_selectedBrush.Direction,
                         m_gridFactor,
                         e.Graphics,
-                        0.5f);
+                        0.5f);*/
                 }
-                else if (m_selectedAsset is StarboundTile)
+                else if (m_selectedAsset is StarboundTile )
                 {
-                    Renderer.DrawForegroundTile(
+                    StarboundTile sbTile = m_selectedAsset as StarboundTile;
+
+                    sbTile.DrawTile(e.Graphics, m_mouseGridX, m_mouseGridY, m_gridFactor, false, 0.5f);
+
+                    /*Renderer.DrawForegroundTile(
                         (StarboundTile) m_selectedAsset,
                         m_mouseGridX,
                         m_mouseGridY,
                         m_gridFactor,
                         e.Graphics,
-                        0.5f);
+                        0.5f);*/
                 }
-                else
+                else if ( m_selectedAsset.Image != null )
                 {
                     e.Graphics.DrawImage(m_selectedAsset.Image, m_mouseGridX*8, m_mouseGridY*8, 8, 8);
                 }

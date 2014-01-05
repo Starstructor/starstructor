@@ -27,6 +27,37 @@ namespace DungeonEditor.Editor
 {
     public static class EditorHelpers
     {
+        /** Searches known Starbound paths for an asset. It searches for fileName in the following order:
+         *          activeDirectory -> mods -> assets
+         *  A null return value indicates that the file doesn't exist under any path.
+         */
+        public static string FindAsset(string activeDirectory, string fileName)
+        {
+            // This is a workaround for a bug in Path.Combine
+            while (fileName.Length > 0 &&
+                (fileName[0] == Path.DirectorySeparatorChar || fileName[0] == Path.AltDirectorySeparatorChar))
+            {
+                fileName = fileName.Substring(1);
+            }
+
+            // Get the initial asset path
+            string assetPath = Path.Combine(activeDirectory, fileName);
+            if (!File.Exists(assetPath))
+            {
+                // Try the mods directory
+                assetPath = Path.Combine(Editor.Settings.ModsDirPath, fileName);
+                if (!File.Exists(assetPath))
+                {
+                    assetPath = Path.Combine(Editor.Settings.AssetDirPath, fileName);
+                    if (!File.Exists(assetPath))
+                    {
+                        //MessageBox.Show("Failed to locate " + imagePath + "\n" + baseDir + " | " + m_fileName);
+                        return null;
+                    }
+                }
+            }
+            return assetPath;
+        }
         public static string ParsePath(string activeDirectory, string path)
         {
             // This is a file name without any directories

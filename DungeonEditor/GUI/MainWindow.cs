@@ -717,7 +717,7 @@ namespace DungeonEditor.GUI
         private void setDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var guiPopup = new DirPopup(m_parent);
-            guiPopup.ShowDialog();
+            guiPopup.ShowDialog();      // What is going on here???
             OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
         }
 

@@ -36,6 +36,9 @@ namespace DungeonEditor.StarboundObjects
         //[JsonIgnore]
         //public string AssetName { get; set; }
 
+        [JsonIgnore]
+        public string FullPath { get; set; }
+
         public StarboundAsset GetShallowCopy()
         {
             return (StarboundAsset) MemberwiseClone();
@@ -43,7 +46,7 @@ namespace DungeonEditor.StarboundObjects
 
         public override string ToString()
         {
-            return "[Unidentified Asset]";
+            return FullPath ?? "[Unidentified Asset]";
         }
     }
 }

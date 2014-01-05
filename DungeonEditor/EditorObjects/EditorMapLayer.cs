@@ -172,7 +172,7 @@ namespace DungeonEditor.EditorObjects
             if (oldBrush != null && oldBrush.FrontAsset != null && oldBrush.FrontAsset is StarboundObject)
             {
                 StarboundObject sbObject = (StarboundObject)oldBrush.FrontAsset;
-                ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
+                ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y, brush.Direction);
 
                 int sizeX = orientation.GetWidth(1, brush.Direction);
                 int sizeY = orientation.GetHeight(1, brush.Direction);
@@ -212,7 +212,7 @@ namespace DungeonEditor.EditorObjects
                 if (brush.FrontAsset is StarboundObject)
                 {
                     var sbObject = (StarboundObject) brush.FrontAsset;
-                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y);
+                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y, brush.Direction);
 
                     int sizeX = orientation.GetWidth(1, brush.Direction);
                     int sizeY = orientation.GetHeight(1, brush.Direction);

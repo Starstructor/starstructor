@@ -24,9 +24,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 
 namespace DungeonEditor.StarboundObjects.Tiles
 {
+    // AKA material
+
     [ReadOnly(true)]
     public class StarboundTile : StarboundAsset
     {
@@ -102,7 +105,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         // Condition: Platform=true
         [JsonProperty("platformImage"), Category("Platform")]
-        public string PlatformImage { get; set; }
+        public string PlatformImageStr { get; set; }
 
         // Condition: Platform=true
         [JsonProperty("platformVariants"), Category("Platform")]
@@ -110,7 +113,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         // Condition: Platform=true
         [JsonProperty("stairImage"), Category("Platform")]
-        public string StairImage { get; set; }
+        public string StairImageStr { get; set; }
 
         // Condition: Platform=true
         [JsonProperty("stairVariants"), Category("Platform")]
@@ -123,9 +126,12 @@ namespace DungeonEditor.StarboundObjects.Tiles
         [JsonProperty("transparent")]
         public bool? Transparent { get; set; }
 
+        [JsonIgnore]
+        public TileImageManager Frames;
+
         // Condition: Platform=false
         [JsonProperty("frames")]
-        public string Frames { get; set; }
+        public string FramesString { get; set; }
 
         // Condition: Platform=false
         [JsonProperty("variants")]
@@ -141,12 +147,41 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         public override string ToString()
         {
-            if (ShortDescription != null)
-                return ShortDescription;
-            else if (MaterialName != null)
-                return MaterialName;
+            return ShortDescription ?? MaterialName ?? base.ToString();
+        }
+
+        public void InitializeAssets()
+        {
+            if (Platform)
+            {
+                // Retrieve platforms/stairs
+                // PlatformImage
+                // StairImage
+                if ( PlatformImageStr != null )
+                    Frames = new TileImageManager(PlatformImageStr, Path.GetDirectoryName(FullPath));
+            }
             else
-                return base.ToString();
+            {
+                // Retrieve frames
+                if (FramesString != null)
+                    Frames = new TileImageManager(FramesString, Path.GetDirectoryName(FullPath));
+            }
+        }
+
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
+            bool background = false, float opacity = 1.0f)
+        {
+            if (Frames == null)
+            {
+                if ( MaterialName != null )
+                    System.Windows.Forms.MessageBox.Show("Draw Tile Fail for " + MaterialName);
+                return false;
+            }
+            
+            if (Transparent != null && Transparent.Value)
+                opacity *= 0.6f;
+
+            return Frames.DrawTile(gfx, x, y, gridFactor, background, opacity);
         }
     }
 }

@@ -30,38 +30,13 @@ namespace DungeonEditor.EditorTypes
     [ReadOnly(true)]
     public struct Vec2I
     {
-        int m_x;
-        int m_y;
+        public int x, y;
 
-        public int x
+        public Vec2I(int x = 0, int y = 0)
         {
-            get { return m_x; }
-            set { m_x = value; }
+            this.x = x;
+            this.y = y;
         }
-        public int y
-        {
-            get { return m_y; }
-            set { m_y = value; }
-        }
-
-
-        public Vec2I(int x_ = 0, int y_ = 0)
-        {
-            m_x = x_;
-            m_y = y_;
-        }
-
-        public Vec2I(List<int> source)
-        {
-            m_x = 0;
-            if (source.Count > 0)
-                m_x = source[0];
-
-            m_y = 0;
-            if (source.Count > 1)
-                m_y = source[1];
-        }
-
         public override string ToString()
         {
             return "(" + x + ", " + y + ")";

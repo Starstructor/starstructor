@@ -86,8 +86,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditorTypes\RectI.cs" />
     <Compile Include="EditorTypes\Vec2I.cs" />
     <Compile Include="EditorTypes\Vec2F.cs" />
+    <Compile Include="Editor\EditorAssets.cs" />
     <Compile Include="External Helpers\ColorSerializer.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Editor\EditorHelpers.cs" />
@@ -131,8 +133,10 @@
     <Compile Include="StarboundObjects\Dungeons\DungeonPart.cs" />
     <Compile Include="StarboundObjects\Dungeons\DungeonBrush.cs" />
     <Compile Include="StarboundObjects\Objects\ObjectFrameGrid.cs" />
+    <Compile Include="StarboundObjects\Objects\ObjectFrameGrouped.cs" />
     <Compile Include="StarboundObjects\Objects\ObjectFrames.cs" />
     <Compile Include="StarboundObjects\Objects\ObjectImageLayer.cs" />
+    <Compile Include="StarboundObjects\Objects\ObjectImageManager.cs" />
     <Compile Include="StarboundObjects\Objects\ObjectOrientation.cs" />
     <Compile Include="External Helpers\ImageLoader.cs" />
     <Compile Include="StarboundObjects\Ships\ShipConfig.cs" />
@@ -146,10 +150,11 @@
     <Compile Include="StarboundObjects\Objects\StarboundObject.cs" />
     <Compile Include="StarboundObjects\StarboundAsset.cs" />
     <Compile Include="EditorObjects\EditorMapLayer.cs" />
+    <Compile Include="StarboundObjects\Tiles\MaterialImageManager.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundLiquid.cs" />
-    <Compile Include="StarboundObjects\Tiles\StarboundPlatform.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundTile.cs" />
     <Compile Include="EditorObjects\UndoManager.cs" />
+    <Compile Include="StarboundObjects\Tiles\TileImageManager.cs" />
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </EmbeddedResource>
