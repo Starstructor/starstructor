@@ -83,55 +83,42 @@ namespace DungeonEditor.EditorObjects
             if (!brush.NeedsBackAsset || extension == null || type == "object" || type == "npc")
                 return;
 
-            StarboundAsset asset = null;
-
             // Load the background tile
-            if (parent.AssetMap.ContainsKey(name + extension))
-            {
-                asset = parent.AssetMap[name + extension];
-                brush.BackAsset = asset;
-            }
-            else
+            StarboundAsset asset = parent.LoadAsset(name, type);
+            if ( asset == null )
             {
                 // If this is an internal asset - liquids, etc
                 // This is a hack to display liquids until liquid parsing has been implemented
                 // (low priority)
                 if (name == "lava")
                 {
-                    asset = new StarboundTile();
-                    asset.AssetName = name;
+                    asset = new StarboundAsset();
+                    //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 207, 16, 32, 255);
                 }
                 else if (name == "acid")
                 {
-                    asset = new StarboundTile();
-                    asset.AssetName = name;
+                    asset = new StarboundAsset();
+                    //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 107, 141, 63, 255);
                 }
                 else if (name == "water")
                 {
-                    asset = new StarboundTile();
-                    asset.AssetName = name;
+                    asset = new StarboundAsset();
+                    //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 0, 78, 111, 255);
                 }
                 else if (name == "liquidtar" || name == "tentaclejuice")
                 {
-                    asset = new StarboundTile();
-                    asset.AssetName = name;
+                    asset = new StarboundAsset();
+                    //asset.AssetName = name;
                     asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 200, 191, 231, 255);
                 }
-                    // Else just load the asset
-                else
-                {
-                    asset = parent.LoadAsset(name, type);
-                }
-
-                if (asset != null)
-                {
-                    parent.AssetMap[name + extension] = asset;
-                    brush.BackAsset = asset;
-                }
+                //parent.RegisterAsset(name, type, asset);
             }
+
+            if (asset != null)
+                brush.BackAsset = asset;
         }
 
         public virtual void LoadBrushWithFrontAsset(EditorBrush brush, Editor.Editor parent, string name, string type)
@@ -141,24 +128,10 @@ namespace DungeonEditor.EditorObjects
             if (!brush.NeedsFrontAsset || extension == null)
                 return;
 
-            StarboundAsset asset = null;
-
             // Load the foreground tile
-            if (parent.AssetMap.ContainsKey(name + extension))
-            {
-                asset = parent.AssetMap[name + extension];
+            StarboundAsset asset = parent.LoadAsset(name, type);
+            if (asset != null)
                 brush.FrontAsset = asset;
-            }
-            else
-            {
-                asset = parent.LoadAsset(name, type);
-
-                if (asset != null)
-                {
-                    parent.AssetMap[name + extension] = asset;
-                    brush.FrontAsset = asset;
-                }
-            }
         }
     }
 }

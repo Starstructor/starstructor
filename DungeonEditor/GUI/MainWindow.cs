@@ -58,10 +58,19 @@ namespace DungeonEditor.GUI
             {
                 if (m_pselectedMap != value)
                 {
+                    EditorMap parentNext = value;
+                    if (parentNext is EditorMapLayer)
+                        parentNext = (parentNext as EditorMapLayer).Parent;
+
+                    EditorMap parentPrev = m_pselectedMap;
+                    if (parentPrev is EditorMapLayer)
+                        parentPrev = (parentPrev as EditorMapLayer).Parent;
+
+                    bool wantReset = parentNext != parentPrev;
                     m_pselectedMap = value;
 
                     // Update the work area
-                    UpdateImageBox(true, true);
+                    UpdateImageBox(wantReset, wantReset);
 
                     // Update menus/properties
                     takeScreenshotToolStripMenuItem.Enabled = (value != null);
@@ -269,12 +278,12 @@ namespace DungeonEditor.GUI
 
             if (m_selectedBrush.FrontAsset != null)
             {
-                BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.AssetName;
+                BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.ToString();
             }
 
             if (m_selectedBrush.BackAsset != null)
             {
-                BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.AssetName;
+                BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.ToString();
             }
 
             BottomBarBrushLabel.Text += "        " + colour;
@@ -410,6 +419,7 @@ namespace DungeonEditor.GUI
         {
             List<TreeNode> anchorNodes = new List<TreeNode>();
             List<TreeNode> extensionNodes = new List<TreeNode>();
+            List<TreeNode> baseNodes = new List<TreeNode>();
 
             foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
             {
@@ -441,6 +451,7 @@ namespace DungeonEditor.GUI
                     PartTreeView.Nodes.Add(parentNode);
                 }
             }
+            PartTreeView.Nodes.AddRange(baseNodes.ToArray());
 
             // If this is a dungeon, create the anchors and extensions
             if (m_parent != null && m_parent.ActiveFile is StarboundDungeon)
@@ -491,6 +502,7 @@ namespace DungeonEditor.GUI
         // Populate the brush list
         private void PopulateBrushList()
         {
+            List<TreeNode> baseNodes = new List<TreeNode>();
             BrushesTreeView.ImageList = new ImageList();
             BrushesTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8,8,255,255,255,255));
             foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
@@ -500,18 +512,19 @@ namespace DungeonEditor.GUI
                 if (String.IsNullOrWhiteSpace(comment))
                     comment = "NO COMMENT DEFINED";
 
-                TreeNode parentNode = BrushesTreeView.Nodes.Add(comment);
+                TreeNode parentNode = new TreeNode(comment);
                 if (brush.GetAssetPreview() != null)
                 {
-                    BrushesTreeView.ImageList.Images.Add(brush.GetKey(), brush.GetAssetPreview().GetThumbnailImage(8, 8, null, IntPtr.Zero));
+                    BrushesTreeView.ImageList.Images.Add(brush.GetKey(), brush.GetAssetPreview());
                     parentNode.ImageKey = brush.GetKey();
                     parentNode.SelectedImageKey = brush.GetKey();
                 }
+                baseNodes.Add(parentNode);
                                 
                 // Add this node to the brush -> node map
                 m_brushNodeMap[parentNode] = brush;
             }
-
+            BrushesTreeView.Nodes.AddRange(baseNodes.ToArray());
         }
 
         private void BrushesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -717,7 +730,7 @@ namespace DungeonEditor.GUI
         private void setDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var guiPopup = new DirPopup(m_parent);
-            guiPopup.ShowDialog();
+            guiPopup.ShowDialog();      // What is going on here???
             OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
         }
 

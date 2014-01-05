@@ -56,7 +56,7 @@ namespace DungeonEditor.StarboundObjects.Ships
         [JsonProperty("blockKey")]
         public BindingList<ShipBrush> Brushes { get; set; }
 
-        [ReadOnly(true)]
+        [Browsable(false)]
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
 
@@ -80,10 +80,11 @@ namespace DungeonEditor.StarboundObjects.Ships
             part.Parent = this;
             part.Width = layerImg.Width;
             part.Height = layerImg.Height;
-
+            
             part.Layers.Add(new EditorMapLayer(PartImage, (Bitmap) layerImg, parent.BrushMap, part));
             part.GraphicsMap = new Bitmap(part.Width*Editor.Editor.DEFAULT_GRID_FACTOR,
-                part.Height*Editor.Editor.DEFAULT_GRID_FACTOR);
+                part.Height*Editor.Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
             part.UpdateCompositeCollisionMap();
 
             ReadableParts.Add(part);

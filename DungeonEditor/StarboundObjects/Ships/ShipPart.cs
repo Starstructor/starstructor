@@ -36,7 +36,7 @@ namespace DungeonEditor.StarboundObjects.Ships
 
         public override void UpdateLayerImage(List<EditorMapLayer> layers)
         {
-            Graphics gfx = Graphics.FromImage(GraphicsMap);
+            Graphics gfx = m_graphicsContext;
             StarboundShip parentShip = (StarboundShip)m_parent;
 
             gfx.Clear(SystemColors.ControlDark);
@@ -78,7 +78,7 @@ namespace DungeonEditor.StarboundObjects.Ships
                 }
             }
 
-            gfx.Dispose();
+            //gfx.Dispose();
         }
 
         public override void UpdateLayerImageBetween(int xmin, int ymin, int xmax, int ymax)

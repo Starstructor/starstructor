@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using System;
+using System.Windows.Forms;
 
 namespace DungeonEditor.EditorObjects
 {
@@ -160,12 +161,12 @@ namespace DungeonEditor.EditorObjects
                 if (FrontAsset is StarboundObject)
                 {
                     StarboundObject sbObject = (StarboundObject)FrontAsset;
-                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+                    //ObjectOrientation orientation = sbObject.GetDefaultOrientation();
 
-                    if (Direction == ObjectDirection.DIRECTION_LEFT)
-                        assetImg = orientation.LeftImage;
-                    else if (Direction == ObjectDirection.DIRECTION_RIGHT)
-                        assetImg = orientation.RightImage;
+                    assetImg = sbObject.InventoryIcon.ImageFile;
+                    //ObjectImageManager manager = orientation.GetImageManager(Direction);
+                    //if ( manager != null )
+                      //  assetImg = manager.GetImageFrameBitmap();
                 }
 
                 if (assetImg == null)
@@ -176,12 +177,12 @@ namespace DungeonEditor.EditorObjects
                 if (BackAsset is StarboundObject)
                 {
                     StarboundObject sbObject = (StarboundObject)BackAsset;
-                    ObjectOrientation orientation = sbObject.GetDefaultOrientation();
+                    //ObjectOrientation orientation = sbObject.GetDefaultOrientation();
 
-                    if (Direction == ObjectDirection.DIRECTION_LEFT)
-                        assetImg = orientation.LeftImage;
-                    else if (Direction == ObjectDirection.DIRECTION_RIGHT)
-                        assetImg = orientation.RightImage;
+                    assetImg = sbObject.InventoryIcon.ImageFile;
+                    //ObjectImageManager manager = orientation.GetImageManager(Direction);
+                    //if (manager != null)
+                      //  assetImg = manager.GetImageFrameBitmap();
                 }
 
                 if (assetImg == null)

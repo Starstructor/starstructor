@@ -24,13 +24,36 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace DungeonEditor.Editor
 {
     public class EditorSettings
     {
+        private string m_assetPath;
+
         [JsonProperty("dir")] 
-        public string AssetDirPath;
+        public string AssetDirPath
+        {
+            get
+            {
+                return m_assetPath;
+            }
+            set
+            {
+                m_assetPath = value;
+                //EditorAssets.RefreshAssets();        // This doesn't seem to work, AssetDirPath still returns null here
+            }
+        }
+
+        [JsonIgnore]
+        public string ModsDirPath
+        {
+            get
+            {
+                return Path.Combine(Directory.GetParent(m_assetPath).ToString(), "mods");
+            }
+        }
 
         [JsonProperty("graphicalDisplay")] 
         public bool GraphicalDisplay = true;

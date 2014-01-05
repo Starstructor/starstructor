@@ -23,6 +23,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Collections.Generic;
+using DungeonEditor.EditorTypes;
+using System.Drawing;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
@@ -31,5 +34,35 @@ namespace DungeonEditor.StarboundObjects.Objects
     {
         [JsonProperty("frameGrid"), TypeConverter(typeof(ExpandableObjectConverter))]
         public ObjectFrameGrid FrameGrid { get; set; }
+
+        [JsonProperty("frameList"), Browsable(false)]
+        public Dictionary<string, RectI> FrameList { get; set; }
+
+        [JsonProperty("grouped"), TypeConverter(typeof(ExpandableObjectConverter))]
+        public ObjectFrameGrouped Grouped { get; set; }
+
+        [JsonProperty("aliases"), Browsable(false)]
+        public Dictionary<string, string> Aliases { get; set; }
+
+        public Vec2I? GetPositionFromKey(string key)
+        {
+            // Resolve alias, if any
+            while (Aliases != null && Aliases.ContainsKey(key))
+                key = Aliases[key];
+
+            if (FrameGrid != null)
+                return FrameGrid.GetPositionFromKey(key);
+
+            return null;
+        }
+
+        public Rectangle GetFrameRectangle(Vec2I framePos)
+        {
+            return new Rectangle(
+                framePos.x * FrameGrid.Size.x,
+                framePos.y * FrameGrid.Size.y,
+                FrameGrid.Size.x,
+                FrameGrid.Size.y);
+        }
     }
 }

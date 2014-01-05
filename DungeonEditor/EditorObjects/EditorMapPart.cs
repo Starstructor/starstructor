@@ -36,8 +36,8 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] 
         protected Graphics m_graphicsContext;
 
-        [JsonIgnore] 
-        protected Image m_graphicsMap;
+        [JsonIgnore]
+        protected Bitmap m_graphicsMap;
 
         [JsonIgnore] 
         protected EditorFile m_parent;
@@ -65,7 +65,7 @@ namespace DungeonEditor.EditorObjects
         }
 
         [JsonIgnore, Browsable(false)]
-        public virtual Image GraphicsMap
+        public virtual Bitmap GraphicsMap
         {
             get { return m_graphicsMap; }
             set
@@ -80,6 +80,11 @@ namespace DungeonEditor.EditorObjects
                 if (m_graphicsMap != null)
                 {
                     m_graphicsContext = Graphics.FromImage(m_graphicsMap);
+                    
+                    m_graphicsContext.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+                    m_graphicsContext.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    m_graphicsContext.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                    m_graphicsContext.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
                 }
             }
         }
@@ -208,22 +213,10 @@ namespace DungeonEditor.EditorObjects
                 Renderer.DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
         }
 
-
-        protected virtual void DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
-        {
-            DrawBackgroundBetween(layers, 0, 0, Width, Height, gfx);
-        }
-
         protected virtual void DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
             Renderer.DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
-        }
-
-
-        protected virtual void DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
-        {
-            DrawForegroundBetween(layers, 0, 0, Width, Height, gfx);
         }
 
         protected virtual void DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,

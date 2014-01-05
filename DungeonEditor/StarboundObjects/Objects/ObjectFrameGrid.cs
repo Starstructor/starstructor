@@ -24,18 +24,65 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using Newtonsoft.Json;
 using System.ComponentModel;
 using DungeonEditor.EditorTypes;
+using System.Collections.Generic;
+using System;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class ObjectFrameGrid
     {
-        [JsonProperty("size"), Category("Orientation"), TypeConverter(typeof(ExpandableObjectConverter))]
+        [JsonProperty("size"), TypeConverter(typeof(ExpandableObjectConverter))]
         public Vec2I Size { get; set; }
-        //public List<int> Size { get; set; }
-
-        [JsonProperty("dimensions"), Category("Orientation"), TypeConverter(typeof(ExpandableObjectConverter))]
+        
+        [JsonProperty("dimensions"), TypeConverter(typeof(ExpandableObjectConverter))]
         public Vec2I Dimensions { get; set; }
-        //public List<int> Dimensions { get; set; }
+
+        private Dictionary<string, Vec2I> m_keyMap = new Dictionary<string, Vec2I>();
+
+        private List<List<string>> m_names;
+
+        [JsonProperty("names"), Browsable(false)]
+        public List<List<string>> Names
+        { 
+            get
+            {
+                return m_names;
+            }
+            set
+            {
+                m_names = value;
+                for ( int y = 0; y < value.Count; ++y )
+                {
+                    for (int x = 0; x < value[y].Count; ++x)
+                    {
+                        if ( value[y][x] != null )
+                            m_keyMap[value[y][x]] = new Vec2I(x, y);
+                    }
+                }
+            }
+        }
+
+        // "begin" ?? Not sure of the type, and it's never used
+
+        public Vec2I? GetPositionFromKey(string key)
+        {
+            if (m_keyMap.ContainsKey(key))
+                return m_keyMap[key];
+
+            return null;
+        }
+
+        public int GetWidth(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR)
+        {
+            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
+            return (int)Math.Ceiling(Size.x / sizeScaleFactor);
+        }
+        public int GetHeight(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR)
+        {
+            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
+            return (int)Math.Ceiling(Size.y / sizeScaleFactor);
+        }
+
     }
 }

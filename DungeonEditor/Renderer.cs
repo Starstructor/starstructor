@@ -36,168 +36,6 @@ namespace DungeonEditor
     // to the provided graphics context.
     public class Renderer
     {
-        public static bool DrawObject(StarboundObject obj, int x, int y, ObjectOrientation orientation,
-            ObjectDirection direction, Graphics gfx)
-        {
-            return DrawObject(obj, x, y, orientation, direction, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
-        }
-
-
-        public static bool DrawObject(StarboundObject obj, int x, int y, ObjectOrientation orientation,
-            ObjectDirection direction, int gridFactor, Graphics gfx)
-        {
-            return DrawObject(obj, x, y, orientation, direction, gridFactor, gfx, 1.0f);
-        }
-
-        public static bool DrawObject(StarboundObject obj, int x, int y, ObjectOrientation orientation,
-            ObjectDirection direction, int gridFactor, Graphics gfx, float opacity)
-        {
-            if (obj.Image == null)
-                return false;
-
-            Image objImage = orientation.RightImage;
-
-            if (direction == ObjectDirection.DIRECTION_LEFT)
-            {
-                objImage = orientation.LeftImage;
-            }
-
-            int sizeX = orientation.GetWidth(gridFactor, direction);
-            int sizeY = orientation.GetHeight(gridFactor, direction);
-            int originX = orientation.GetOriginX(gridFactor, direction);
-            int originY = orientation.GetOriginY(gridFactor, direction);
-
-            var colourMatrix = new ColorMatrix();
-            colourMatrix.Matrix33 = opacity;
-            var attributes = new ImageAttributes();
-            attributes.SetColorMatrix(colourMatrix);
-
-            // Fix this, scaling on colour map
-            gfx.DrawImage(objImage,
-                new Rectangle(
-                    (x*gridFactor) + originX,
-                    (y*gridFactor) + originY,
-                    sizeX,
-                    sizeY),
-                0, 0, sizeX, sizeY,
-                GraphicsUnit.Pixel, attributes);
-
-            return true;
-        }
-
-
-        public static bool DrawForegroundTile(StarboundTile tile, int x, int y, Graphics gfx)
-        {
-            return DrawForegroundTile(tile, x, y, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
-        }
-
-        public static bool DrawForegroundTile(StarboundTile tile, int x, int y, int gridFactor, Graphics gfx)
-        {
-            return DrawForegroundTile(tile, x, y, gridFactor, gfx, 1.0f);
-        }
-
-        public static bool DrawForegroundTile(StarboundTile tile, int x, int y, int gridFactor, Graphics gfx,
-            float opacity)
-        {
-            if (tile.Image == null)
-                return false;
-
-            var colourMatrix = new ColorMatrix();
-            colourMatrix.Matrix33 = opacity;
-            var attributes = new ImageAttributes();
-            attributes.SetColorMatrix(colourMatrix);
-
-            // Fix this, scaling on colour map
-            gfx.DrawImage(tile.Image,
-                new Rectangle(
-                    x*gridFactor,
-                    y*gridFactor,
-                    gridFactor,
-                    gridFactor),
-                0, 0, gridFactor, gridFactor,
-                GraphicsUnit.Pixel, attributes);
-
-            return true;
-        }
-
-
-        public static bool DrawBackgroundTile(StarboundTile tile, int x, int y, Graphics gfx)
-        {
-            return DrawForegroundTile(tile, x, y, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
-        }
-
-        public static bool DrawBackgroundTile(StarboundTile tile, int x, int y, int gridFactor, Graphics gfx)
-        {
-            if (tile.Image == null)
-                return false;
-
-            // How much we must scale to fit this correctly
-            float sizeScaleFactor = Editor.Editor.DEFAULT_GRID_FACTOR/(float) gridFactor;
-            var sizeX = (int) Math.Ceiling(tile.Image.Width/sizeScaleFactor);
-            var sizeY = (int) Math.Ceiling(tile.Image.Height/sizeScaleFactor);
-
-            float[][] floatColourMatrx =
-            {
-                new float[] {1, 0, 0, 0, 0},
-                new float[] {0, 1, 0, 0, 0},
-                new float[] {0, 0, 1, 0, 0},
-                new float[] {0, 0, 0, 1, 0},
-                new[] {-0.25f, -0.25f, -0.25f, 1, 1}
-            };
-
-            var colourMatrix = new ColorMatrix(floatColourMatrx);
-            var attributes = new ImageAttributes();
-            attributes.SetColorMatrix(colourMatrix);
-
-            gfx.DrawImage(tile.Image,
-                new Rectangle(
-                    x*gridFactor,
-                    y*gridFactor,
-                    sizeX,
-                    sizeY),
-                0, 0, sizeX, sizeY,
-                GraphicsUnit.Pixel, attributes);
-
-            attributes.Dispose();
-
-            return true;
-        }
-
-
-        public static bool DrawPlatform()
-        {
-            return false;
-        }
-
-
-        public static bool DrawLiquid()
-        {
-            return false;
-        }
-
-
-        public static bool DrawNpc()
-        {
-            return false;
-        }
-
-
-        public static bool DrawBackground(List<EditorMapLayer> layers, Graphics gfx)
-        {
-            return DrawBackground(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
-        }
-
-        public static bool DrawBackground(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
-        {
-            if (layers == null || layers.Count == 0)
-                return false;
-
-            int width = layers[0].Width;
-            int height = layers[0].Height;
-
-            return DrawBackgroundBetween(layers, 0, 0, width, height, gridFactor, gfx);
-        }
-
         public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
@@ -225,32 +63,16 @@ namespace DungeonEditor
 
                         // Don't draw this brush if it isn't flagged as a back brush, or if it
                         // is also flagged as a front brush.
-                        if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front"))
+                        if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front") && brush.BackAsset is StarboundTile )
                         {
-                            DrawBackgroundTile((StarboundTile) brush.BackAsset, x, y, gridFactor, gfx);
+                            ((StarboundTile)brush.BackAsset).DrawTile(gfx, x, y, gridFactor, true);
+                            //DrawBackgroundTile((StarboundTile) brush.BackAsset, x, y, gridFactor, gfx);
                         }
                     }
                 }
             }
 
             return true;
-        }
-
-
-        public static bool DrawForeground(List<EditorMapLayer> layers, Graphics gfx)
-        {
-            return DrawForeground(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
-        }
-
-        public static bool DrawForeground(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
-        {
-            if (layers == null || layers.Count == 0)
-                return false;
-
-            int width = layers[0].Width;
-            int height = layers[0].Height;
-
-            return DrawForegroundBetween(layers, 0, 0, width, height, gridFactor, gfx);
         }
 
         public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -278,15 +100,18 @@ namespace DungeonEditor
                         if (brush == null || !brush.NeedsFrontAsset || brush.FrontAsset == null)
                             continue;
 
-                        if (brush.BrushTypes.Contains("object"))
+                        if (brush.BrushTypes.Contains("object") && brush.FrontAsset is StarboundObject )
                         {
-                            var obj = (StarboundObject) brush.FrontAsset;
-                            ObjectOrientation orientation = obj.GetCorrectOrientation(layers[0].Parent, x, y);
-                            DrawObject(obj, x, y, orientation, brush.Direction, gridFactor, gfx);
+                            var obj = brush.FrontAsset as StarboundObject;
+                            ObjectOrientation orientation = obj.GetCorrectOrientation(layers[0].Parent, x, y, brush.Direction);
+                            if (!orientation.DrawObject(gfx, x, y, brush.Direction, gridFactor))
+                                System.Windows.Forms.MessageBox.Show("DrawForeground failed for " + obj.ObjectName);
+                            //DrawObject(obj, x, y, orientation, brush.Direction, gridFactor, gfx, 1.0f);
                         }
-                        else if (brush.BrushTypes.Contains("front"))
+                        else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundTile)
                         {
-                            DrawForegroundTile((StarboundTile) brush.FrontAsset, x, y, gridFactor, gfx);
+                            ((StarboundTile)brush.FrontAsset).DrawTile(gfx, x, y, gridFactor);
+                            //DrawForegroundTile((StarboundTile) brush.FrontAsset, x, y, gridFactor, gfx, 1.0f);
                         }
                     }
                 }

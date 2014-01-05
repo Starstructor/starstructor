@@ -82,11 +82,6 @@ namespace DungeonEditor.GUI
             SetSelectedBrush(null);
         }
 
-        public Image GetImage()
-        {
-            return m_image;
-        }
-
         public void SetImage(Image image, int gridFactor)
         {
             SetImage(image, true, true, gridFactor);
@@ -106,7 +101,6 @@ namespace DungeonEditor.GUI
             // Just set the image DPI to match the image box DPI
             // To much hassle to convert between DPIs otherwise
             ((Bitmap) m_image).SetResolution(96, 96);
-
 
             if (resetZoom)
             {
@@ -143,8 +137,8 @@ namespace DungeonEditor.GUI
             }
             else
             {
-                asset = new StarboundTile();
-                asset.AssetName = "gridAsset.INTERNAL";
+                asset = new StarboundAsset();
+                //asset.AssetName = "gridAsset.INTERNAL";
                 asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 255, 255, 255, 128);
             }
 
@@ -162,6 +156,8 @@ namespace DungeonEditor.GUI
 
             e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
             e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+            e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+            e.Graphics.SmoothingMode = SmoothingMode.None;
 
             // Identity matrix
             var trans = new Matrix();
@@ -176,7 +172,7 @@ namespace DungeonEditor.GUI
             e.Graphics.Transform = trans;
 
             // Draw the image in the world
-            e.Graphics.DrawImage(m_image, 0, 0, m_image.Width, m_image.Height);
+            e.Graphics.DrawImageUnscaled(m_image, 0, 0);
 
             // Draw border
             if (m_gridFactor > 1)
@@ -189,40 +185,29 @@ namespace DungeonEditor.GUI
                         m_image.Width,
                         m_image.Height),
                     SystemColors.ControlDarkDark,
-                    ButtonBorderStyle.Dashed);
+                    ButtonBorderStyle.Solid);
             }
 
             // Only proceed if the mouse is in bounds, and there is a selected asset
             // If so, draw the preview image of the currently selected brush
-            if (m_selectedAsset != null && m_selectedAsset.Image != null &&
+            if (m_selectedAsset != null && 
                 m_mouseGridX != -1 && m_mouseGridY != -1)
             {
                 if (m_selectedAsset is StarboundObject)
                 {
-                    StarboundObject sbObject = (StarboundObject)m_selectedAsset;
-                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX, m_mouseGridY);
+                    StarboundObject sbObject = m_selectedAsset as StarboundObject;
+                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX, m_mouseGridY, 
+                                                                                        m_selectedBrush.Direction);
 
-                    Renderer.DrawObject(
-                        (StarboundObject) m_selectedAsset,
-                        m_mouseGridX,
-                        m_mouseGridY,
-                        orientation,
-                        m_selectedBrush.Direction,
-                        m_gridFactor,
-                        e.Graphics,
-                        0.5f);
+                    orientation.DrawObject(e.Graphics, m_mouseGridX, m_mouseGridY, m_selectedBrush.Direction, m_gridFactor, 0.5f);
                 }
-                else if (m_selectedAsset is StarboundTile)
+                else if (m_selectedAsset is StarboundTile )
                 {
-                    Renderer.DrawForegroundTile(
-                        (StarboundTile) m_selectedAsset,
-                        m_mouseGridX,
-                        m_mouseGridY,
-                        m_gridFactor,
-                        e.Graphics,
-                        0.5f);
+                    StarboundTile sbTile = m_selectedAsset as StarboundTile;
+
+                    sbTile.DrawTile(e.Graphics, m_mouseGridX, m_mouseGridY, m_gridFactor, false, 0.5f);
                 }
-                else
+                else if ( m_selectedAsset.Image != null )
                 {
                     e.Graphics.DrawImage(m_selectedAsset.Image, m_mouseGridX*8, m_mouseGridY*8, 8, 8);
                 }

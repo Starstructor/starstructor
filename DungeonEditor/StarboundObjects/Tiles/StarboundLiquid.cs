@@ -22,7 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 namespace DungeonEditor.StarboundObjects.Tiles
 {
-    public class StarboundLiquid
+    public class StarboundLiquid : StarboundAsset
     {
     }
 }

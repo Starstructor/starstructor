@@ -29,6 +29,7 @@ using System.Drawing;
 using System.ComponentModel;
 using System;
 using DungeonEditor.EditorTypes;
+using System.IO;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
@@ -186,17 +187,36 @@ namespace DungeonEditor.StarboundObjects.Objects
         [JsonProperty("shortdescription"), Category("Description")]
         public string Shortdescription { get; set; }
 
+        [JsonIgnore]
+        public ImageLoader InventoryIcon { get; set; }
+
         [JsonProperty("inventoryIcon")]
         [DefaultValue("/interface/inventory/x.png")]
-        public string InventoryIcon { get; set; }
+        public string InventoryIconStr { get; set; }
 
+        public void InitializeAssets()
+        {
+            if ( Orientations != null )
+            {
+                foreach (var orientation in Orientations)
+                    orientation.InitializeAssets(Path.GetDirectoryName(FullPath));
+            }
+
+            // Get the inventory icon
+            string iconStr = InventoryIconStr ?? "/interface/inventory/x.png";
+            string inventoryPath = Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(this.FullPath), iconStr);
+            if ( inventoryPath == null )
+                inventoryPath = Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(this.FullPath), "/interface/inventory/x.png");
+
+            InventoryIcon = new ImageLoader(inventoryPath);
+        }
         
         public ObjectOrientation GetDefaultOrientation()
         {
             return Orientations.FirstOrDefault();
         }
 
-        public ObjectOrientation GetCorrectOrientation(EditorMap map, int x, int y)
+        public ObjectOrientation GetCorrectOrientation(EditorMap map, int x, int y, ObjectDirection direction)
         {
             EditorMapPart part = null;
 
@@ -219,68 +239,28 @@ namespace DungeonEditor.StarboundObjects.Objects
                 if (anchors == null)
                     continue;
 
-                if (anchors.Contains("top") && anchors.Contains("left"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)) &&
-                        CheckCollisionMapAtOffset(part, x - 1, y))
-                    {
-                        return orientation;
-                    }
-                }
+                if (anchors.Contains("top") && !CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)))
+                    continue;
 
-                else if (anchors.Contains("top") && anchors.Contains("right"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)) &&
-                        CheckCollisionMapAtOffset(part, x + 1, y))
-                    {
-                        return orientation;
-                    }
-                }
+                if (anchors.Contains("left") && !CheckCollisionMapAtOffset(part, x - 1, y))
+                    continue;
 
-                else if (anchors.Contains("bottom") && anchors.Contains("left"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)) &&
-                        CheckCollisionMapAtOffset(part, x - 1, y))
-                    {
-                        return orientation;
-                    }
-                }
+                if (anchors.Contains("right") && !CheckCollisionMapAtOffset(part, x + 1, y))
+                    continue;
 
-                else if (anchors.Contains("bottom") && anchors.Contains("right"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)) &&
-                        CheckCollisionMapAtOffset(part, x + 1, y))
-                        return orientation;
-                }
+                if (anchors.Contains("bottom") && !CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)))
+                    continue;
 
-                else if (anchors.Contains("top"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)))
-                        return orientation;
-                }
+                if (orientation.Direction == "left" && direction != ObjectDirection.DIRECTION_LEFT)
+                    continue;
 
-                else if (anchors.Contains("bottom"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)))
-                        return orientation;
-                }
+                if (orientation.Direction == "right" && direction != ObjectDirection.DIRECTION_RIGHT)
+                    continue;
 
-                else if (anchors.Contains("left"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x - 1, y))
-                        return orientation;
-                }
+                //if ( anchors.Contains("background") )
+                //    return orientation;
 
-                else if (anchors.Contains("right"))
-                {
-                    if (CheckCollisionMapAtOffset(part, x + 1, y))
-                        return orientation;
-                }
-
-                else if (anchors.Contains("background"))
-                {
-                    return orientation;
-                }
+                return orientation;
             }
 
             return Orientations.FirstOrDefault();
