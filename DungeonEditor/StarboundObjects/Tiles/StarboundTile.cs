@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -31,7 +32,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
     // AKA material
 
     [ReadOnly(true)]
-    public class StarboundTile : StarboundAsset
+    public class StarboundTile : StarboundAsset, IDisposable
     {
         [JsonIgnore]
         public MaterialImageManager Frames;
@@ -182,6 +183,15 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 opacity *= 0.6f;
 
             return Frames.DrawTile(gfx, x, y, gridFactor, background, opacity);
+        }
+
+        public void Dispose()
+        {
+            if ( Frames != null )
+            {
+                Frames.Dispose();
+                Frames = null;
+            }
         }
     }
 }

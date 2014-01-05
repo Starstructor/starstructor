@@ -28,11 +28,12 @@ using DungeonEditor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using DungeonEditor.EditorTypes;
+using System.Windows.Forms;
 
 namespace DungeonEditor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
-    public class ObjectOrientation
+    public class ObjectOrientation : IDisposable
     {
         [JsonIgnore]
         public ObjectImageManager MainImage;
@@ -170,12 +171,15 @@ namespace DungeonEditor.StarboundObjects.Objects
         public ObjectImageManager GetImageManager(ObjectDirection direction)
         {
             ObjectImageManager manager = null;
-            if (direction == ObjectDirection.DIRECTION_LEFT && LeftImage != null)
+            if ((direction == ObjectDirection.DIRECTION_LEFT || direction == ObjectDirection.DIRECTION_NONE) && LeftImage != null)
                 manager = LeftImage;
-            else if (direction == ObjectDirection.DIRECTION_RIGHT && RightImage != null)
+            else if ((direction == ObjectDirection.DIRECTION_RIGHT || direction == ObjectDirection.DIRECTION_NONE) && RightImage != null)
                 manager = RightImage;
             else if (MainImage != null)
                 manager = MainImage;
+            else if (DualImage != null)
+                manager = DualImage;
+
             return manager;
         }
 
@@ -218,7 +222,10 @@ namespace DungeonEditor.StarboundObjects.Objects
         {
             var manager = GetImageManager(direction);
             if (manager == null)
+            {
+                MessageBox.Show("Manager is null");
                 return false;
+            }
 
             int sizeX = GetWidth(gridFactor, direction);
             int sizeY = GetHeight(gridFactor, direction);
@@ -226,6 +233,30 @@ namespace DungeonEditor.StarboundObjects.Objects
             int originY = GetOriginY(gridFactor, direction);
 
             return manager.DrawObject(gfx, x, y, originX, originY, sizeX, sizeY, gridFactor, opacity);
+        }
+
+        public void Dispose()
+        {
+            if ( MainImage != null )
+            {
+                MainImage.Dispose();
+                MainImage = null;
+            }
+            if ( DualImage != null )
+            {
+                DualImage.Dispose();
+                DualImage = null;
+            }
+            if ( LeftImage != null )
+            {
+                LeftImage.Dispose();
+                LeftImage = null;
+            }
+            if ( RightImage != null )
+            {
+                RightImage.Dispose();
+                RightImage = null;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Drawing.Imaging;
 namespace DungeonEditor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
-    public class ObjectImageManager
+    public class ObjectImageManager : IDisposable
     {
         private ImageLoader m_image;
         private ObjectFrames m_frames;
@@ -131,6 +131,15 @@ namespace DungeonEditor.StarboundObjects.Objects
                 attributes);
             
             return true;
+        }
+
+        public void Dispose()
+        {
+            if ( m_image != null )
+            {
+                m_image.Dispose();
+                m_image = null;
+            }
         }
     }
 }

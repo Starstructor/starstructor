@@ -38,7 +38,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
             m_stairVariants = stairVariants;
         }
 
-        public override Rectangle? GetImageFrame(int variant = 1, int colour = 0)
+        public Rectangle? GetImageFrame(int variant = 1, int colour = 0)
         {
             if (m_platformImage.ImageFile == null)
                 return null;
@@ -50,7 +50,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 TILE_SIZE.y);
         }
 
-        public override Bitmap GetImageFrameBitmap(int variant = 1, int colour = 0)
+        public Bitmap GetImageFrameBitmap(int variant = 1, int colour = 0)
         {
             Rectangle? frameRect = GetImageFrame(variant, colour);
 
@@ -60,7 +60,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
             return m_platformImage.ImageFile.Clone(frameRect.Value, m_platformImage.ImageFile.PixelFormat);
         }
 
-        public override bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
             if (m_platformImage == null || m_platformImage.ImageFile == null)
@@ -103,6 +103,20 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 attributes);
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            if ( m_platformImage != null )
+            {
+                m_platformImage.Dispose();
+                m_platformImage = null;
+            }
+            if ( m_stairImage != null )
+            {
+                m_stairImage.Dispose();
+                m_stairImage = null;
+            }
         }
     }
 }

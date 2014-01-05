@@ -100,12 +100,12 @@ namespace DungeonEditor
                         if (brush == null || !brush.NeedsFrontAsset || brush.FrontAsset == null)
                             continue;
 
-                        if (brush.BrushTypes.Contains("object"))
+                        if (brush.BrushTypes.Contains("object") && brush.FrontAsset is StarboundObject )
                         {
-                            var obj = (StarboundObject) brush.FrontAsset;
+                            var obj = brush.FrontAsset as StarboundObject;
                             ObjectOrientation orientation = obj.GetCorrectOrientation(layers[0].Parent, x, y, brush.Direction);
                             if (!orientation.DrawObject(gfx, x, y, brush.Direction, gridFactor))
-                                System.Windows.Forms.MessageBox.Show("DrawForeground failed");
+                                System.Windows.Forms.MessageBox.Show("DrawForeground failed for " + obj.ObjectName);
                             //DrawObject(obj, x, y, orientation, brush.Direction, gridFactor, gfx, 1.0f);
                         }
                         else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundTile)

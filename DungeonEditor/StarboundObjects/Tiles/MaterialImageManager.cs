@@ -8,13 +8,13 @@ using System.Drawing;
 namespace DungeonEditor.StarboundObjects.Tiles
 {
     [ReadOnly(true)]
-    public abstract class MaterialImageManager
+    public interface MaterialImageManager : IDisposable
     {
-        abstract public Rectangle? GetImageFrame(int variant = 0, int colour = 0);
+        Rectangle? GetImageFrame(int variant = 0, int colour = 0);
 
-        abstract public Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0);
+        Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0);
 
-        abstract public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR,
+        bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR,
             bool background = false, float opacity = 1.0f);
     }
 }

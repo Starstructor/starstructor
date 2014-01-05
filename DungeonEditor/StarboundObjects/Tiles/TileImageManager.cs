@@ -32,7 +32,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
             m_image = new ImageLoader(m_fileName);
         }
 
-        public override Rectangle? GetImageFrame(int variant = 0, int colour = 0)
+        public Rectangle? GetImageFrame(int variant = 0, int colour = 0)
         {
             if (m_image.ImageFile == null)
                 return null;
@@ -44,7 +44,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 TILE_SIZE.y);
         }
 
-        public override Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0)
+        public Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0)
         {
             Rectangle? frameRect = GetImageFrame(variant, colour);
 
@@ -54,7 +54,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
             return m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
         }
 
-        public override bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
             if (m_image == null || m_image.ImageFile == null)
@@ -96,6 +96,15 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 attributes);
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            if ( m_image != null )
+            {
+                m_image.Dispose();
+                m_image = null;
+            }
         }
     }
 }
