@@ -84,8 +84,8 @@ namespace DungeonEditor.StarboundObjects.Dungeons
 
                 // Create the graphics image
                 part.GraphicsMap = new Bitmap(part.Width*Editor.Editor.DEFAULT_GRID_FACTOR,
-                    part.Height*Editor.Editor.DEFAULT_GRID_FACTOR);
-
+                    part.Height*Editor.Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                
                 // Update the composite collision map, now that all layers have been loaded
                 part.UpdateCompositeCollisionMap();
 

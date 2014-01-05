@@ -36,8 +36,8 @@ namespace DungeonEditor.EditorObjects
         [JsonIgnore] 
         protected Graphics m_graphicsContext;
 
-        [JsonIgnore] 
-        protected Image m_graphicsMap;
+        [JsonIgnore]
+        protected Bitmap m_graphicsMap;
 
         [JsonIgnore] 
         protected EditorFile m_parent;
@@ -65,7 +65,7 @@ namespace DungeonEditor.EditorObjects
         }
 
         [JsonIgnore, Browsable(false)]
-        public virtual Image GraphicsMap
+        public virtual Bitmap GraphicsMap
         {
             get { return m_graphicsMap; }
             set
@@ -80,6 +80,11 @@ namespace DungeonEditor.EditorObjects
                 if (m_graphicsMap != null)
                 {
                     m_graphicsContext = Graphics.FromImage(m_graphicsMap);
+                    
+                    m_graphicsContext.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+                    m_graphicsContext.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    m_graphicsContext.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                    m_graphicsContext.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
                 }
             }
         }

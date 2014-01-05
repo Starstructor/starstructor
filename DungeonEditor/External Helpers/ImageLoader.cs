@@ -25,7 +25,18 @@ namespace DungeonEditor
                 if (m_image == null )
                 {
                     if (m_imageFileName != null && File.Exists(m_imageFileName))
-                        m_image = Bitmap.FromFile(m_imageFileName) as Bitmap;
+                    {
+                        Bitmap loadBmp = new Bitmap(m_imageFileName);
+                        m_image = new Bitmap(loadBmp.Width, loadBmp.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                        Graphics pGraphics = Graphics.FromImage(m_image);
+                        //pGraphics.Clear(Color.Transparent);
+                        
+                        Rectangle rct = new Rectangle(0, 0, loadBmp.Width, loadBmp.Height);
+                        pGraphics.DrawImage(loadBmp, rct, rct, GraphicsUnit.Pixel);
+                        
+                        pGraphics.Dispose();
+                        loadBmp.Dispose();
+                    }
                     else if (m_imageFileName != null)
                         System.Windows.Forms.MessageBox.Show("Not found: " + m_imageFileName);
                 }

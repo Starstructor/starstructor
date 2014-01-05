@@ -120,7 +120,6 @@ namespace DungeonEditor.StarboundObjects.Objects
             var attributes = new ImageAttributes();
             attributes.SetColorMatrix(colourMatrix);
 
-            
             // Fix this, scaling on colour map
             gfx.DrawImage(m_image.ImageFile, 
                 dstRect, 
