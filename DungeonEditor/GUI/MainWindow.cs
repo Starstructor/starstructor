@@ -150,13 +150,20 @@ namespace DungeonEditor.GUI
 
             if (Editor.Editor.Settings.AssetDirPath == null)
             {
-                // Try to auto-find directory
-                string path = (string)Registry.GetValue(
-                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 211820",
-                    "InstallLocation", null);
+				string path = string.Empty;
+
+				try
+				{
+	                // Try to auto-find directory
+	                path = (string)Registry.GetValue(
+	                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 211820",
+	                    "InstallLocation", null);
+				}
+				catch(Exception ex) {
+				}
 
                 // If found
-                if (path != null)
+				if (path != string.Empty)
                 {
                     path = Path.Combine(path, "assets");
                     Editor.Editor.Settings.AssetDirPath = path;
