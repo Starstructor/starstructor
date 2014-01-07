@@ -34,11 +34,6 @@ namespace DungeonEditor
             m_file = new StreamWriter(path, true) {AutoFlush = true};
         }
 
-        ~Logger()
-        {
-            m_file.Close();
-        }
-
         public void Write(string text)
         {
             if (m_file == null || text == null)
