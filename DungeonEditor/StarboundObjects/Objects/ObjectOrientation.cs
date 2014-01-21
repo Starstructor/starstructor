@@ -24,13 +24,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using DungeonEditor.EditorObjects;
+using Starstructor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.Windows.Forms;
 
-namespace DungeonEditor.StarboundObjects.Objects
+namespace Starstructor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class ObjectOrientation : IDisposable

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace DungeonEditor.StarboundObjects.Dungeons
+namespace Starstructor.StarboundObjects.Dungeons
 {
     public class DungeonMetadata
     {

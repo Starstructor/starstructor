@@ -26,10 +26,10 @@ using System.Drawing;
 using System.Linq;
 using Newtonsoft.Json;
 using System.ComponentModel;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.Collections.ObjectModel;
 
-namespace DungeonEditor.EditorObjects
+namespace Starstructor.EditorObjects
 {
     public class EditorMapPart : EditorMap
     {

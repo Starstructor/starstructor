@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 
-namespace DungeonEditor.EditorObjects
+namespace Starstructor.EditorObjects
 {
     public struct BrushChangeInfo
     {

@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace DungeonEditor.GUI
+namespace Starstructor.GUI
 {
     public partial class DirPopup : Form
     {

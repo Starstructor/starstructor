@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using DungeonEditor.EditorObjects;
-using DungeonEditor.StarboundObjects.Objects;
-using DungeonEditor.StarboundObjects.Tiles;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorObjects;
+using Starstructor.StarboundObjects.Objects;
+using Starstructor.StarboundObjects.Tiles;
+using Starstructor.EditorTypes;
 
-namespace DungeonEditor
+namespace Starstructor
 {
     // Handles rendering various parts of the Starbound world
     // to the provided graphics context.

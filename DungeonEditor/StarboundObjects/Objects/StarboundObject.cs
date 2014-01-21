@@ -23,15 +23,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using System.Linq;
-using DungeonEditor.EditorObjects;
+using Starstructor.EditorObjects;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.ComponentModel;
 using System;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.IO;
 
-namespace DungeonEditor.StarboundObjects.Objects
+namespace Starstructor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class StarboundObject : StarboundAsset

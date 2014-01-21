@@ -17,7 +17,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 using System.Windows.Forms;
-namespace DungeonEditor.GUI
+namespace Starstructor.GUI
 {
     partial class MainWindow
     {
@@ -100,9 +100,9 @@ namespace DungeonEditor.GUI
             this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
             this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
-            this.VisualRgbaBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
-            this.VisualGraphicBrushImageBox = new DungeonEditor.GUI.NoAliasPictureBox();
-            this.MainPictureBox = new DungeonEditor.GUI.ImageBox();
+            this.VisualRgbaBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
+            this.VisualGraphicBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
+            this.MainPictureBox = new Starstructor.GUI.ImageBox();
             this.MainMenu.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();

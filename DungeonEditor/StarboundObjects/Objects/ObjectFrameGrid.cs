@@ -23,11 +23,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using Newtonsoft.Json;
 using System.ComponentModel;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.Collections.Generic;
 using System;
 
-namespace DungeonEditor.StarboundObjects.Objects
+namespace Starstructor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class ObjectFrameGrid

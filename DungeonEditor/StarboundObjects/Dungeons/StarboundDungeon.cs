@@ -25,13 +25,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using DungeonEditor.Editor;
-using DungeonEditor.EditorObjects;
+using Starstructor.Editor;
+using Starstructor.EditorObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 
-namespace DungeonEditor.StarboundObjects.Dungeons
+namespace Starstructor.StarboundObjects.Dungeons
 {
     public class StarboundDungeon : EditorFile
     {

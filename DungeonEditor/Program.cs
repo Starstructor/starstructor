@@ -22,9 +22,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System;
 using System.Windows.Forms;
-using DungeonEditor.GUI;
+using Starstructor.GUI;
 
-namespace DungeonEditor
+namespace Starstructor
 {
     internal static class Program
     {

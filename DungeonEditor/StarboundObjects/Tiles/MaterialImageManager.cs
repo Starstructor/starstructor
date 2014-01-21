@@ -24,7 +24,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 
-namespace DungeonEditor.StarboundObjects.Tiles
+namespace Starstructor.StarboundObjects.Tiles
 {
     [ReadOnly(true)]
     public interface MaterialImageManager : IDisposable

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Newtonsoft.Json;
 
-namespace DungeonEditor
+namespace Starstructor
 {
     public class ColorSerializer : JsonConverter
     {

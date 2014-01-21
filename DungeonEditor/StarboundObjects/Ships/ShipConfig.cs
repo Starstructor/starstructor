@@ -24,7 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace DungeonEditor.StarboundObjects.Ships
+namespace Starstructor.StarboundObjects.Ships
 {
     public class ShipConfig
     {

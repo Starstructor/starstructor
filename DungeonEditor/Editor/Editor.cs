@@ -27,13 +27,13 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using DungeonEditor.EditorObjects;
-using DungeonEditor.StarboundObjects;
-using DungeonEditor.StarboundObjects.Dungeons;
-using DungeonEditor.StarboundObjects.Ships;
+using Starstructor.EditorObjects;
+using Starstructor.StarboundObjects;
+using Starstructor.StarboundObjects.Dungeons;
+using Starstructor.StarboundObjects.Ships;
 using Newtonsoft.Json;
 
-namespace DungeonEditor.Editor
+namespace Starstructor.Editor
 {
     public class Editor
     {

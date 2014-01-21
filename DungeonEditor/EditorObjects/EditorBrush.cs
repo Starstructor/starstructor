@@ -21,14 +21,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using DungeonEditor.StarboundObjects;
+using Starstructor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
-using DungeonEditor.StarboundObjects.Objects;
+using Starstructor.StarboundObjects.Objects;
 using System;
 
-namespace DungeonEditor.EditorObjects
+namespace Starstructor.EditorObjects
 {
     public enum ObjectDirection
     {

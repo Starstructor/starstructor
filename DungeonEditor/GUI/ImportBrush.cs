@@ -22,7 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Windows.Forms;
 
-namespace DungeonEditor.GUI
+namespace Starstructor.GUI
 {
     public partial class ImportBrush : Form
     {

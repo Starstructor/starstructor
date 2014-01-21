@@ -24,13 +24,13 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using DungeonEditor.Editor;
-using DungeonEditor.EditorObjects;
-using DungeonEditor.StarboundObjects;
-using DungeonEditor.StarboundObjects.Objects;
-using DungeonEditor.StarboundObjects.Tiles;
+using Starstructor.Editor;
+using Starstructor.EditorObjects;
+using Starstructor.StarboundObjects;
+using Starstructor.StarboundObjects.Objects;
+using Starstructor.StarboundObjects.Tiles;
 
-namespace DungeonEditor.GUI
+namespace Starstructor.GUI
 {
     public class ImageBox : UserControl
     {

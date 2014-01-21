@@ -27,7 +27,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 
-namespace DungeonEditor.StarboundObjects.Tiles
+namespace Starstructor.StarboundObjects.Tiles
 {
     // AKA material
     [ReadOnly(true)]

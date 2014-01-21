@@ -25,10 +25,10 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Drawing;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.Drawing.Imaging;
 
-namespace DungeonEditor.StarboundObjects.Objects
+namespace Starstructor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class ObjectImageManager : IDisposable

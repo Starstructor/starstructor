@@ -23,9 +23,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 
-namespace DungeonEditor.StarboundObjects.Objects
+namespace Starstructor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class ObjectFrameGrouped

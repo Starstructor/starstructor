@@ -24,10 +24,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Collections.Generic;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.Drawing;
 
-namespace DungeonEditor.StarboundObjects.Objects
+namespace Starstructor.StarboundObjects.Objects
 {
     [ReadOnly(true)]
     public class ObjectFrames

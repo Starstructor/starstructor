@@ -25,11 +25,11 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
 using System;
-using DungeonEditor.StarboundObjects.Objects;
+using Starstructor.StarboundObjects.Objects;
 using System.ComponentModel;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 
-namespace DungeonEditor.EditorObjects
+namespace Starstructor.EditorObjects
 {
     public class EditorMap
     {

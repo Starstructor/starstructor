@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
 
-namespace DungeonEditor.EditorTypes
+namespace Starstructor.EditorTypes
 {
     [ReadOnly(true)]
     public struct Vec2I

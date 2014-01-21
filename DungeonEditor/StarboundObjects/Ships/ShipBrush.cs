@@ -22,12 +22,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
-using DungeonEditor.EditorObjects;
+using Starstructor.EditorObjects;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.ComponentModel;
 
-namespace DungeonEditor.StarboundObjects.Ships
+namespace Starstructor.StarboundObjects.Ships
 {
     public class ShipBrush : EditorBrush
     {

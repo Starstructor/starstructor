@@ -25,7 +25,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace DungeonEditor.StarboundObjects
+namespace Starstructor.StarboundObjects
 {
     [ReadOnly(true)]
     public class StarboundAsset

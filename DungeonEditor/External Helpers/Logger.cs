@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.IO;
 
-namespace DungeonEditor
+namespace Starstructor
 {
     public class Logger
     {

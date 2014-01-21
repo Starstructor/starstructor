@@ -27,9 +27,9 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 
-namespace DungeonEditor
+namespace Starstructor
 {
     public class JsonParser
     {

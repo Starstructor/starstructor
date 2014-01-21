@@ -24,9 +24,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Drawing;
 using Newtonsoft.Json;
 using System.ComponentModel;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 
-namespace DungeonEditor.StarboundObjects.Ships
+namespace Starstructor.StarboundObjects.Ships
 {
     [ReadOnly(true)]
     public class ShipOverlay

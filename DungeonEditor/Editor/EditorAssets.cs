@@ -23,12 +23,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System;
 using System.Collections.Generic;
-using DungeonEditor.StarboundObjects.Objects;
-using DungeonEditor.StarboundObjects.Tiles;
+using Starstructor.StarboundObjects.Objects;
+using Starstructor.StarboundObjects.Tiles;
 using System.IO;
 using System.Threading;
 
-namespace DungeonEditor.Editor
+namespace Starstructor.Editor
 {
     public static class EditorAssets
     {

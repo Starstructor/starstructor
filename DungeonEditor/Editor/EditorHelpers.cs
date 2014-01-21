@@ -24,7 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Drawing;
 using System.IO;
 
-namespace DungeonEditor.Editor
+namespace Starstructor.Editor
 {
     public static class EditorHelpers
     {

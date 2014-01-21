@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace DungeonEditor.Editor
+namespace Starstructor.Editor
 {
     public class EditorSettings
     {

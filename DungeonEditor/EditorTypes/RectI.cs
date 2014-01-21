@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace DungeonEditor.EditorTypes
+namespace Starstructor.EditorTypes
 {
     public struct RectI
     {

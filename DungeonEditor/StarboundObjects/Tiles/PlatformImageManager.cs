@@ -22,11 +22,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.ComponentModel;
-using DungeonEditor.EditorTypes;
+using Starstructor.EditorTypes;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace DungeonEditor.StarboundObjects.Tiles
+namespace Starstructor.StarboundObjects.Tiles
 {
     [ReadOnly(true)]
     public class PlatformImageManager : MaterialImageManager

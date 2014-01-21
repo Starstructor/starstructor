@@ -29,13 +29,13 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DungeonEditor.Editor;
-using DungeonEditor.EditorObjects;
-using DungeonEditor.StarboundObjects.Dungeons;
-using DungeonEditor.StarboundObjects.Ships;
+using Starstructor.Editor;
+using Starstructor.EditorObjects;
+using Starstructor.StarboundObjects.Dungeons;
+using Starstructor.StarboundObjects.Ships;
 using Microsoft.Win32;
 
-namespace DungeonEditor.GUI
+namespace Starstructor.GUI
 {
     public partial class MainWindow : Form
     {
