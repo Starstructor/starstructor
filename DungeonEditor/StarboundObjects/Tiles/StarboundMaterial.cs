@@ -182,8 +182,8 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 return false;
             }
             
-            if (Transparent != null && Transparent.Value)
-                opacity *= 0.6f;
+            //if (Transparent != null && Transparent.Value)
+            //    opacity *= 0.6f;
 
             return Frames.DrawTile(gfx, x, y, gridFactor, background, opacity);
         }
