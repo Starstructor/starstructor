@@ -78,7 +78,7 @@ namespace DungeonEditor
             if (path == null)
                 return null;
 
-            var file = new StreamReader(path);
+            StreamReader file = new StreamReader(path);
             string rawJson = file.ReadToEnd();
             file.Close();
 

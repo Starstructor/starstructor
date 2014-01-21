@@ -21,27 +21,37 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DungeonEditor.GUI
 {
     public partial class DirPopup : Form
     {
-        private Editor.Editor m_parent;
         private bool m_pathSet;
 
-        public DirPopup(Editor.Editor parent)
+        public DirPopup()
         {
-            m_parent = parent;
             InitializeComponent();
         }
 
         private void ButtonAccept_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrWhiteSpace(FolderTextbox.Text) || !Directory.Exists(FolderTextbox.Text))
+            {
+                MessageBox.Show("You entered an invalid directory. Please fix it.");
+                return;
+            }
+
             Editor.Editor.Settings.AssetDirPath = FolderTextbox.Text;
             m_pathSet = true;
 
             Close();
+        }
+
+        private void DirPopup_Load(object sender, EventArgs e)
+        {
+            FolderTextbox.Text = Editor.Editor.Settings.AssetDirPath;
         }
 
         private void ButtonBrowse_Click(object sender, EventArgs e)

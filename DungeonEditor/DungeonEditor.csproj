@@ -104,6 +104,12 @@
     <Compile Include="GUI\DirPopup.Designer.cs">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ImportBrush.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ImportBrush.Designer.cs">
+      <DependentUpon>ImportBrush.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     <Compile Include="StarboundObjects\Tiles\TileImageManager.cs" />
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ImportBrush.resx">
+      <DependentUpon>ImportBrush.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

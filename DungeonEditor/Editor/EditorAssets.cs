@@ -78,11 +78,20 @@ namespace DungeonEditor.Editor
             // Update this to include any mod folders
             List<string> directories = new List<String>() { Editor.Settings.ModsDirPath, Editor.Settings.AssetDirPath };
 
+            // remove directories that do not exist
+            for (int i = directories.Count; i != 0; --i)
+            {
+                if (!Directory.Exists(directories[i - 1]))
+                    directories.RemoveAt(i - 1);
+            }
+
+            // Iterate through directories 
             foreach (string path in directories)
             {
-                foreach (var file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
+                foreach (string file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
                 {
                     StarboundObject sbObject = JsonParser.ParseJson<StarboundObject>(file);
+
                     if (m_objectMap.ContainsKey(sbObject.ObjectName))
                         continue;
 
@@ -91,9 +100,10 @@ namespace DungeonEditor.Editor
                     sbObject.InitializeAssets();
                 }
 
-                foreach (var file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
+                foreach (string file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
                 {
                     StarboundMaterial sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
+
                     if (m_materialMap.ContainsKey(sbMaterial.MaterialName))
                         continue;
 

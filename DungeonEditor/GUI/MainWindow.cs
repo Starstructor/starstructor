@@ -77,6 +77,7 @@ namespace DungeonEditor.GUI
                     UpdatePropertiesPanel();
 
                     TreeNode desiredNode = null;
+
                     if (value != null)
                     {
                         try
@@ -85,9 +86,11 @@ namespace DungeonEditor.GUI
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("OOPS! Something bad happened. Report this.\n\n" + ex);
+                            Editor.Editor.Log.Write(ex.ToString());
+                            MessageBox.Show("Something bad happened. Consult log file for more information. Report this on the forums.");
                         }
                     }
+
                     PartTreeView.SelectedNode = desiredNode;
                 }
             }
@@ -100,15 +103,11 @@ namespace DungeonEditor.GUI
             InitializeComponent();
 
             // Callbacks added here since the designer enjoys making life miserable
-            this.MainPictureBox.MouseEnter += new System.EventHandler(this.MainPictureBox_MouseEnter);
-            
-            this.BottomBarGfxCombo.SelectedIndexChanged += new System.EventHandler(this.BottomBarGfxCombo_SelectedIndexChanged);
-
-            this.RightPanelTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.RightPanelTabControl_Selected);
-
-            this.PartTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PartTreeView_AfterSelect);
-            this.BrushesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BrushesTreeView_AfterSelect);
-
+            MainPictureBox.MouseEnter += MainPictureBox_MouseEnter;  
+            BottomBarGfxCombo.SelectedIndexChanged += BottomBarGfxCombo_SelectedIndexChanged;
+            RightPanelTabControl.Selected += RightPanelTabControl_Selected;
+            PartTreeView.AfterSelect += PartTreeView_AfterSelect;
+            BrushesTreeView.AfterSelect += BrushesTreeView_AfterSelect;
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -129,19 +128,20 @@ namespace DungeonEditor.GUI
         {
             recentFilesToolStripMenuItem.DropDownItems.Clear();
             recentFilesToolStripMenuItem.Enabled = Editor.Editor.Settings.RecentFiles.Count > 0;
-            foreach (var file in Editor.Editor.Settings.RecentFiles)
+
+            foreach (var newItem in Editor.Editor.Settings.RecentFiles.Select(file => recentFilesToolStripMenuItem.DropDownItems.Add(file)))
             {
-                var newItem = recentFilesToolStripMenuItem.DropDownItems.Add(file);
-                newItem.Click += new System.EventHandler(recentFileHistory_Click);
+                newItem.Click += recentFileHistory_Click;
             }
         }
         private void recentFileHistory_Click(object sender, EventArgs e)
         {
-            if ( sender is ToolStripMenuItem )
-            {
-                var item = sender as ToolStripMenuItem;
-                OpenFile(item.Text);
-            }
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+
+            if (item == null)
+                return;
+
+            OpenFile(item.Text);
         }
 
         private void MainWindow_Shown(object sender, EventArgs e)
@@ -160,6 +160,7 @@ namespace DungeonEditor.GUI
                 {
                     path = Path.Combine(path, "assets");
                     Editor.Editor.Settings.AssetDirPath = path;
+                    m_parent.SaveSettings();
                 }
                 // Otherwise prompt the user
                 else
@@ -167,12 +168,11 @@ namespace DungeonEditor.GUI
                     MessageBox.Show(
                         "Could not find Starbound folder. Please navigate to Starbound's assets directory on the next screen.");
 
-                    DirPopup guiPopup = new DirPopup(m_parent);
+                    DirPopup guiPopup = new DirPopup();
                     guiPopup.ShowDialog();
                 }
             }
-
-            m_parent.SaveSettings();
+    
             OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
             MainPictureBox.Focus();
         }
@@ -218,6 +218,7 @@ namespace DungeonEditor.GUI
             closeToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Enabled = false;
             saveAsToolStripMenuItem.Enabled = false;
+            addBrushToolStripMenuItem.Enabled = false;
 
             // Force the garbage collector to clean up
             // But it won't do it until next file load because that would be too easy
@@ -278,15 +279,15 @@ namespace DungeonEditor.GUI
 
             if (m_selectedBrush.FrontAsset != null)
             {
-                BottomBarBrushLabel.Text += "       front: " + m_selectedBrush.FrontAsset.ToString();
+                BottomBarBrushLabel.Text += " front: " + m_selectedBrush.FrontAsset.ToString();
             }
 
             if (m_selectedBrush.BackAsset != null)
             {
-                BottomBarBrushLabel.Text += "       back: " + m_selectedBrush.BackAsset.ToString();
+                BottomBarBrushLabel.Text += " back: " + m_selectedBrush.BackAsset.ToString();
             }
 
-            BottomBarBrushLabel.Text += "        " + colour;
+            BottomBarBrushLabel.Text += " " + colour;
 
             // Populate the colour box
             VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
@@ -440,7 +441,8 @@ namespace DungeonEditor.GUI
                 // Dungeon-specific, split parts into Anchors and Extensions
                 if (m_parent != null && m_parent.ActiveFile is StarboundDungeon)
                 {
-                    var dungeon = m_parent.ActiveFile as StarboundDungeon;
+                    StarboundDungeon dungeon = m_parent.ActiveFile as StarboundDungeon;
+
                     if ( dungeon.Metadata.Anchor.Contains(part.Name) )
                         anchorNodes.Add(parentNode);
                     else
@@ -451,13 +453,14 @@ namespace DungeonEditor.GUI
                     PartTreeView.Nodes.Add(parentNode);
                 }
             }
+
             PartTreeView.Nodes.AddRange(baseNodes.ToArray());
 
             // If this is a dungeon, create the anchors and extensions
             if (m_parent != null && m_parent.ActiveFile is StarboundDungeon)
             {
-                var anchorsNode = new TreeNode("Anchors", anchorNodes.ToArray());
-                var extensionsNode = new TreeNode("Extensions", extensionNodes.ToArray());
+                TreeNode anchorsNode = new TreeNode("Anchors", anchorNodes.ToArray());
+                TreeNode extensionsNode = new TreeNode("Extensions", extensionNodes.ToArray());
                 anchorsNode.Expand();
                 extensionsNode.Expand();
                 PartTreeView.Nodes.Add(anchorsNode);
@@ -473,12 +476,17 @@ namespace DungeonEditor.GUI
         private void UpdatePropertiesPanel()
         {
             TabPage tab = RightPanelTabControl.SelectedTab;
+
             if ( tab == MainTab )
             {
                 if (m_parent.ActiveFile is StarboundDungeon)
-                    RightPanelProperties.SelectedObject = ((StarboundDungeon)m_parent.ActiveFile).Metadata;
+                {
+                    RightPanelProperties.SelectedObject = ((StarboundDungeon) m_parent.ActiveFile).Metadata;
+                }
                 else
+                {
                     RightPanelProperties.SelectedObject = m_parent.ActiveFile;
+                }
             }
             else if ( tab == PartsTab )
             {
@@ -505,6 +513,7 @@ namespace DungeonEditor.GUI
             List<TreeNode> baseNodes = new List<TreeNode>();
             BrushesTreeView.ImageList = new ImageList();
             BrushesTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8,8,255,255,255,255));
+
             foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
             {
                 string comment = brush.Comment;
@@ -524,6 +533,7 @@ namespace DungeonEditor.GUI
                 // Add this node to the brush -> node map
                 m_brushNodeMap[parentNode] = brush;
             }
+
             BrushesTreeView.Nodes.AddRange(baseNodes.ToArray());
         }
 
@@ -578,7 +588,6 @@ namespace DungeonEditor.GUI
 
             MainPictureBox.Invalidate();
         }
-
 
         // Recursively generate a list of TreeNodes
         // This needs to be improved in the future
@@ -645,7 +654,6 @@ namespace DungeonEditor.GUI
                 MessageBox.Show("Unable to load!");
                 UpdateRecentHistoryList();
 
-                //Close();
                 return;
             }
 
@@ -673,6 +681,7 @@ namespace DungeonEditor.GUI
             closeToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
+            addBrushToolStripMenuItem.Enabled = true;
             MainPictureBox.Focus();
 
             UpdatePropertiesPanel();
@@ -729,7 +738,7 @@ namespace DungeonEditor.GUI
 
         private void setDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var guiPopup = new DirPopup(m_parent);
+            DirPopup guiPopup = new DirPopup();
             guiPopup.ShowDialog();      // What is going on here???
             OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
         }
@@ -766,6 +775,8 @@ namespace DungeonEditor.GUI
 
             m_parent.ActiveFile.FilePath = path;
             m_parent.SaveFile(path);
+
+            // Save each changed layer
             foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
             {
                 foreach (EditorMapLayer layer in part.Layers)
@@ -781,24 +792,29 @@ namespace DungeonEditor.GUI
                         newColourMap.Save(layerPath, ImageFormat.Png);
                         layer.Changed = false;
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
-                        MessageBox.Show("REPORT THIS ON THE FORUMS\n\n" + ex);
+                        Editor.Editor.Log.Write(e.Message);
+                        MessageBox.Show("Failed to save image " + layerPath + ", please try again");
                     }
                 }
             }
+
+            // Save each overlay
             if ( m_parent.ActiveFile is StarboundShip )
             {
                 foreach ( ShipOverlay overlay in ((StarboundShip)m_parent.ActiveFile).BackgroundOverlays )
                 {
                     string overlayPath = Path.Combine(Path.GetDirectoryName(m_parent.ActiveFile.FilePath), overlay.ImageName);
+
                     try
                     {
                         overlay.Image.Save(overlayPath, ImageFormat.Png);
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
-                        MessageBox.Show("REPORT THIS ON THE FORUMS (#2)\n\n" + ex);
+                        Editor.Editor.Log.Write(e.Message);
+                        MessageBox.Show("Failed to save image " + overlayPath + ", please try again");
                     }
                 }
             }
@@ -808,9 +824,7 @@ namespace DungeonEditor.GUI
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (PromptSaveWork() == DialogResult.OK)
-            {
                 SaveWork();
-            }
         }
 
         private void MainPictureBox_MouseEnter(object sender, EventArgs e)
@@ -869,11 +883,17 @@ namespace DungeonEditor.GUI
         private void SaveScreenshotDlg_FileOk(object sender, CancelEventArgs e)
         {
             EditorMapPart part = GetSelectedPart();
+
             if (part != null)
             {
                 part.GraphicsMap.Save(SaveScreenshotDlg.FileName, ImageFormat.Png);
             }
         }
-        
+
+        private void addBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportBrush brush = new ImportBrush();
+            brush.ShowDialog();
+        }
     }
 }

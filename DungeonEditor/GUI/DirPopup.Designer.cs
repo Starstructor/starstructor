@@ -106,8 +106,10 @@ namespace DungeonEditor.GUI
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DirPopup";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter directory";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DirPopup_FormClosing);
+            this.Load += new System.EventHandler(this.DirPopup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

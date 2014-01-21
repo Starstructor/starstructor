@@ -16,10 +16,10 @@ namespace DungeonEditor.StarboundObjects.Objects
     public class ObjectImageManager : IDisposable
     {
         private ImageLoader m_image;
-        private ObjectFrames m_frames;
-        private string m_parseName;
+        private readonly ObjectFrames m_frames;
+        private readonly string m_parseName;
+        private readonly bool m_flipped;
         private string m_fileName;
-        private bool m_flipped;
 
         public ObjectFrames Frames 
         {
@@ -44,26 +44,30 @@ namespace DungeonEditor.StarboundObjects.Objects
 
             // Get the file name (ex: "stuff.png")
             m_fileName = name;
+
             if (idx != -1)
                 m_fileName = name.Substring(0, idx);
 
             // Get the parse name (ex: "<color>.<frame>", there is also <key>)
             m_parseName = "";
+
             if (idx != -1)
                 m_parseName = name.Substring(idx+1);
 
             // Get the image file
             string imagePath = Editor.EditorHelpers.FindAsset(framesDir, m_fileName);
+
             if ( imagePath == null )
             {
                 MessageBox.Show("Asset not found.\n" + m_fileName + "\nIn active directory: " + framesDir);
             }
+
             m_image = imagePath != null ? new ImageLoader(imagePath) : null;
 
             // Get frames file
-            string framePath = Editor.EditorHelpers.FindAsset(framesDir, Path.GetFileNameWithoutExtension(m_fileName) + ".frames");
-            if ( framePath == null )
-                framePath = Editor.EditorHelpers.FindAsset(framesDir, "default.frames");
+            string framePath = Editor.EditorHelpers.FindAsset(framesDir, Path.GetFileNameWithoutExtension(m_fileName) + ".frames") ??
+                               Editor.EditorHelpers.FindAsset(framesDir, "default.frames");
+
             m_frames = framePath != null ? JsonParser.ParseJson<ObjectFrames>(framePath) : null;
         }
 
@@ -84,7 +88,9 @@ namespace DungeonEditor.StarboundObjects.Objects
             string frameKey = GetFrameKey(frame, colour, key);
 
             Vec2I? framePos = m_frames.GetPositionFromKey(frameKey);
-            if (framePos == null)   // key does not exist
+
+            // key does not exist
+            if (framePos == null) 
                 return null;
 
             return m_frames.GetFrameRectangle(framePos.Value);
@@ -143,11 +149,11 @@ namespace DungeonEditor.StarboundObjects.Objects
 
         public void Dispose()
         {
-            if ( m_image != null )
-            {
-                m_image.Dispose();
-                m_image = null;
-            }
+            if (m_image == null) 
+                return;
+
+            m_image.Dispose();
+            m_image = null;
         }
     }
 }

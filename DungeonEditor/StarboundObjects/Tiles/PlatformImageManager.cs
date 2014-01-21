@@ -9,9 +9,11 @@ namespace DungeonEditor.StarboundObjects.Tiles
     public class PlatformImageManager : MaterialImageManager
     {
         private ImageLoader m_platformImage;
+        private readonly string m_platformFileName;
         private readonly int m_platformVariants;
 
         private ImageLoader m_stairImage;
+        private readonly string m_stairsFileName;
         private int m_stairVariants;
 
         // Internal frames definition
@@ -23,9 +25,11 @@ namespace DungeonEditor.StarboundObjects.Tiles
         {
             // Get the image file
             m_platformImage = new ImageLoader(Editor.EditorHelpers.FindAsset(framesDir, platformName));
+            m_platformFileName = platformName;
             m_platformVariants = platformVariants;
 
             m_stairImage = new ImageLoader(Editor.EditorHelpers.FindAsset(framesDir, stairsName));
+            m_stairsFileName = stairsName;
             m_stairVariants = stairVariants;
         }
 
