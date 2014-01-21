@@ -20,28 +20,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using System.Windows.Forms;
-
-namespace Starstructor.GUI
+namespace Starstructor.StarboundTypes.Npcs
 {
-    public partial class NoAliasPictureBox : PictureBox
+    public class StarboundNpc : StarboundAsset
     {
-        public NoAliasPictureBox()
-        {
-            InitializeComponent();
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            // Fix the random pixel offset, so there isn't a magical margin at bottom and right
-            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-
-            // Stop anti-aliasing -- pixels are important
-            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-
-            base.OnPaint(e);
-        }
     }
 }

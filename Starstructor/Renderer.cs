@@ -25,9 +25,9 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Starstructor.EditorObjects;
-using Starstructor.StarboundObjects.Objects;
-using Starstructor.StarboundObjects.Tiles;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes.Objects;
+using Starstructor.StarboundTypes.Tiles;
 
 namespace Starstructor
 {
@@ -110,7 +110,7 @@ namespace Starstructor
 
                         if (brush.BrushTypes.Contains("object") && brush.FrontAsset is StarboundObject )
                         {
-                            var obj = brush.FrontAsset as StarboundObject;
+                            StarboundObject obj = brush.FrontAsset as StarboundObject;
                             ObjectOrientation orientation = obj.GetCorrectOrientation(layers[0].Parent, x, y, brush.Direction);
                             if (!orientation.DrawObject(gfx, x, y, brush.Direction, gridFactor, opacity))
                                 Editor.Log.Write("DrawForeground failed for " + obj.ObjectName);

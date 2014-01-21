@@ -29,9 +29,9 @@ using System.Reflection;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Starstructor.EditorObjects;
-using Starstructor.StarboundObjects;
-using Starstructor.StarboundObjects.Dungeons;
-using Starstructor.StarboundObjects.Ships;
+using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Dungeons;
+using Starstructor.StarboundTypes.Ships;
 
 namespace Starstructor
 {

@@ -98,6 +98,18 @@
     <Compile Include="EditorObjects\EditorMapPart.cs" />
     <Compile Include="EditorSettings.cs" />
     <Compile Include="EditorObjects\EditorBrush.cs" />
+    <Compile Include="GUI\AssetGallery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\AssetGallery.Designer.cs">
+      <DependentUpon>AssetGallery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AssetGalleryComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\AssetGalleryComponent.Designer.cs">
+      <DependentUpon>AssetGalleryComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\DirPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,33 +147,36 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Renderer.cs" />
-    <Compile Include="StarboundObjects\Dungeons\DungeonMetadata.cs" />
-    <Compile Include="StarboundObjects\Dungeons\DungeonPart.cs" />
-    <Compile Include="StarboundObjects\Dungeons\DungeonBrush.cs" />
-    <Compile Include="StarboundObjects\Objects\ObjectFrameGrid.cs" />
-    <Compile Include="StarboundObjects\Objects\ObjectFrameGrouped.cs" />
-    <Compile Include="StarboundObjects\Objects\ObjectFrames.cs" />
-    <Compile Include="StarboundObjects\Objects\ObjectImageLayer.cs" />
-    <Compile Include="StarboundObjects\Objects\ObjectImageManager.cs" />
-    <Compile Include="StarboundObjects\Objects\ObjectOrientation.cs" />
+    <Compile Include="StarboundTypes\Dungeons\DungeonMetadata.cs" />
+    <Compile Include="StarboundTypes\Dungeons\DungeonPart.cs" />
+    <Compile Include="StarboundTypes\Dungeons\DungeonBrush.cs" />
+    <Compile Include="StarboundTypes\Objects\ObjectFrameGrid.cs" />
+    <Compile Include="StarboundTypes\Objects\ObjectFrameGrouped.cs" />
+    <Compile Include="StarboundTypes\Objects\ObjectFrames.cs" />
+    <Compile Include="StarboundTypes\Objects\ObjectImageLayer.cs" />
+    <Compile Include="StarboundTypes\Objects\ObjectImageManager.cs" />
+    <Compile Include="StarboundTypes\Objects\ObjectOrientation.cs" />
     <Compile Include="External Helpers\ImageLoader.cs" />
-    <Compile Include="StarboundObjects\Ships\ShipConfig.cs" />
-    <Compile Include="StarboundObjects\Ships\ShipObjectParams.cs" />
-    <Compile Include="StarboundObjects\Ships\ShipOverlay.cs" />
-    <Compile Include="StarboundObjects\Ships\ShipPart.cs" />
-    <Compile Include="StarboundObjects\Ships\ShipBrush.cs" />
-    <Compile Include="StarboundObjects\Ships\StarboundShip.cs" />
-    <Compile Include="StarboundObjects\Dungeons\StarboundDungeon.cs" />
-    <Compile Include="StarboundObjects\Npcs\StarboundNpc.cs" />
-    <Compile Include="StarboundObjects\Objects\StarboundObject.cs" />
-    <Compile Include="StarboundObjects\StarboundAsset.cs" />
+    <Compile Include="StarboundTypes\Ships\ShipConfig.cs" />
+    <Compile Include="StarboundTypes\Ships\ShipObjectParams.cs" />
+    <Compile Include="StarboundTypes\Ships\ShipOverlay.cs" />
+    <Compile Include="StarboundTypes\Ships\ShipPart.cs" />
+    <Compile Include="StarboundTypes\Ships\ShipBrush.cs" />
+    <Compile Include="StarboundTypes\Ships\StarboundShip.cs" />
+    <Compile Include="StarboundTypes\Dungeons\StarboundDungeon.cs" />
+    <Compile Include="StarboundTypes\Npcs\StarboundNpc.cs" />
+    <Compile Include="StarboundTypes\Objects\StarboundObject.cs" />
+    <Compile Include="StarboundTypes\StarboundAsset.cs" />
     <Compile Include="EditorObjects\EditorMapLayer.cs" />
-    <Compile Include="StarboundObjects\Tiles\MaterialImageManager.cs" />
-    <Compile Include="StarboundObjects\Tiles\StarboundLiquid.cs" />
-    <Compile Include="StarboundObjects\Tiles\StarboundMaterial.cs" />
+    <Compile Include="StarboundTypes\Tiles\MaterialImageManager.cs" />
+    <Compile Include="StarboundTypes\Tiles\StarboundLiquid.cs" />
+    <Compile Include="StarboundTypes\Tiles\StarboundMaterial.cs" />
     <Compile Include="EditorObjects\UndoManager.cs" />
-    <Compile Include="StarboundObjects\Tiles\PlatformImageManager.cs" />
-    <Compile Include="StarboundObjects\Tiles\TileImageManager.cs" />
+    <Compile Include="StarboundTypes\Tiles\PlatformImageManager.cs" />
+    <Compile Include="StarboundTypes\Tiles\TileImageManager.cs" />
+    <EmbeddedResource Include="GUI\AssetGalleryComponent.resx">
+      <DependentUpon>AssetGalleryComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,8 +215,8 @@
     <Content Include="Resources\starstructor.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="StarboundObjects\Liquids\" />
-    <Folder Include="StarboundObjects\Platforms\" />
+    <Folder Include="StarboundTypes\Liquids\" />
+    <Folder Include="StarboundTypes\Platforms\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\app.config" />

@@ -22,9 +22,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
-using Starstructor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using Starstructor.StarboundTypes;
 
 namespace Starstructor.EditorObjects
 {

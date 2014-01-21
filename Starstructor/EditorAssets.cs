@@ -25,9 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Starstructor.StarboundObjects;
-using Starstructor.StarboundObjects.Objects;
-using Starstructor.StarboundObjects.Tiles;
+using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Objects;
+using Starstructor.StarboundTypes.Tiles;
 
 namespace Starstructor
 {

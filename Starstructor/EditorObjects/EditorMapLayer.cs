@@ -23,11 +23,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using System.Drawing;
-using Starstructor.StarboundObjects.Objects;
-using Starstructor.StarboundObjects.Ships;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes.Objects;
+using Starstructor.StarboundTypes.Ships;
 
 namespace Starstructor.EditorObjects
 {

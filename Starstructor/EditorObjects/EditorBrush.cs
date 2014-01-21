@@ -21,12 +21,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using Starstructor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
-using Starstructor.StarboundObjects.Objects;
 using System;
+using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor.EditorObjects
 {
@@ -185,6 +185,7 @@ namespace Starstructor.EditorObjects
                 if (assetImg == null)
                     assetImg = BackAsset.Image;
             }
+
             return assetImg;
         }
 

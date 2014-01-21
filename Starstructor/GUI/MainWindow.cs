@@ -30,9 +30,9 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
-using Starstructor.StarboundObjects.Dungeons;
-using Starstructor.StarboundObjects.Ships;
 using Microsoft.Win32;
+using Starstructor.StarboundTypes.Dungeons;
+using Starstructor.StarboundTypes.Ships;
 
 namespace Starstructor.GUI
 {

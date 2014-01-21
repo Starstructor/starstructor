@@ -25,9 +25,9 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
-using Starstructor.StarboundObjects;
-using Starstructor.StarboundObjects.Objects;
-using Starstructor.StarboundObjects.Tiles;
+using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Objects;
+using Starstructor.StarboundTypes.Tiles;
 
 namespace Starstructor.GUI
 {

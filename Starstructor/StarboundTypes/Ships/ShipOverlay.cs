@@ -4,6 +4,7 @@ Contact: cstamford@gmail.com
 
 Source file contributers:
  Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,28 +21,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using System.Windows.Forms;
+using System.ComponentModel;
+using System.Drawing;
+using Newtonsoft.Json;
+using Starstructor.EditorTypes;
 
-namespace Starstructor.GUI
+namespace Starstructor.StarboundTypes.Ships
 {
-    public partial class NoAliasPictureBox : PictureBox
+    [ReadOnly(true)]
+    public class ShipOverlay
     {
-        public NoAliasPictureBox()
-        {
-            InitializeComponent();
-        }
+        [JsonIgnore] public Image Image;
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            // Fix the random pixel offset, so there isn't a magical margin at bottom and right
-            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+        [JsonProperty("image", Required=Required.Always)]
+        public string ImageName { get; set; }
 
-            // Stop anti-aliasing -- pixels are important
-            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-
-            base.OnPaint(e);
-        }
+        // Vec2F
+        [JsonProperty("position", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
+        public Vec2F Position { get; set; }
     }
 }

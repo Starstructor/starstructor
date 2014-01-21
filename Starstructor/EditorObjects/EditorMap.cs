@@ -25,9 +25,9 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
 using System;
-using Starstructor.StarboundObjects.Objects;
 using System.ComponentModel;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor.EditorObjects
 {
