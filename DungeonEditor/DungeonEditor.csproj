@@ -152,7 +152,7 @@
     <Compile Include="EditorObjects\EditorMapLayer.cs" />
     <Compile Include="StarboundObjects\Tiles\MaterialImageManager.cs" />
     <Compile Include="StarboundObjects\Tiles\StarboundLiquid.cs" />
-    <Compile Include="StarboundObjects\Tiles\StarboundTile.cs" />
+    <Compile Include="StarboundObjects\Tiles\StarboundMaterial.cs" />
     <Compile Include="EditorObjects\UndoManager.cs" />
     <Compile Include="StarboundObjects\Tiles\PlatformImageManager.cs" />
     <Compile Include="StarboundObjects\Tiles\TileImageManager.cs" />

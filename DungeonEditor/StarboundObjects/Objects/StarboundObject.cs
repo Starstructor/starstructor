@@ -204,9 +204,8 @@ namespace DungeonEditor.StarboundObjects.Objects
 
             // Get the inventory icon
             string iconStr = InventoryIconStr ?? "/interface/inventory/x.png";
-            string inventoryPath = Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(this.FullPath), iconStr);
-            if ( inventoryPath == null )
-                inventoryPath = Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(this.FullPath), "/interface/inventory/x.png");
+            string inventoryPath = Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), iconStr) ??
+                                   Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), "/interface/inventory/x.png");
 
             InventoryIcon = new ImageLoader(inventoryPath);
         }
@@ -266,7 +265,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             return Orientations.FirstOrDefault();
         }
 
-        private bool CheckCollisionMapAtOffset(EditorMapPart part, int x, int y)
+        private static bool CheckCollisionMapAtOffset(EditorMapPart part, int x, int y)
         {
             HashSet<Vec2I> collisions = part.GetCollisionsAt(x, y);
 

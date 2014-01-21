@@ -64,7 +64,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             string framePath = Editor.EditorHelpers.FindAsset(framesDir, Path.GetFileNameWithoutExtension(m_fileName) + ".frames");
             if ( framePath == null )
                 framePath = Editor.EditorHelpers.FindAsset(framesDir, "default.frames");
-            m_frames = framePath != null ? new JsonParser(framePath).ParseJson<ObjectFrames>() : null;
+            m_frames = framePath != null ? JsonParser.ParseJson<ObjectFrames>(framePath) : null;
         }
 
         public string GetFrameKey(string frame = "default", string colour = "default", string key = "default")

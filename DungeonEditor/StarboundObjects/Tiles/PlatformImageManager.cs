@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DungeonEditor.EditorTypes;
-using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -14,11 +9,9 @@ namespace DungeonEditor.StarboundObjects.Tiles
     public class PlatformImageManager : MaterialImageManager
     {
         private ImageLoader m_platformImage;
-        private string m_platformFileName; 
-        private int m_platformVariants;
+        private readonly int m_platformVariants;
 
         private ImageLoader m_stairImage;
-        private string m_stairFileName;
         private int m_stairVariants;
 
         // Internal frames definition
@@ -29,12 +22,10 @@ namespace DungeonEditor.StarboundObjects.Tiles
         public PlatformImageManager(string platformName, int platformVariants, string stairsName, int stairVariants, string framesDir)
         {
             // Get the image file
-            m_platformFileName = Editor.EditorHelpers.FindAsset(framesDir, platformName);
-            m_platformImage = new ImageLoader(m_platformFileName);
+            m_platformImage = new ImageLoader(Editor.EditorHelpers.FindAsset(framesDir, platformName));
             m_platformVariants = platformVariants;
 
-            m_stairFileName = Editor.EditorHelpers.FindAsset(framesDir, stairsName);
-            m_stairImage = new ImageLoader(m_stairFileName);
+            m_stairImage = new ImageLoader(Editor.EditorHelpers.FindAsset(framesDir, stairsName));
             m_stairVariants = stairVariants;
         }
 
@@ -53,11 +44,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
         public Bitmap GetImageFrameBitmap(int variant = 1, int colour = 0)
         {
             Rectangle? frameRect = GetImageFrame(variant, colour);
-
-            if (frameRect == null)
-                return null;
-
-            return m_platformImage.ImageFile.Clone(frameRect.Value, m_platformImage.ImageFile.PixelFormat);
+            return frameRect == null ? null : m_platformImage.ImageFile.Clone(frameRect.Value, m_platformImage.ImageFile.PixelFormat);
         }
 
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
@@ -86,10 +73,10 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 new[] {-0.25f, -0.25f, -0.25f, 1, 1}
             };
 
-            var colourMatrix = background ? new ColorMatrix(floatColourMatrx) : new ColorMatrix();
+            ColorMatrix colourMatrix = background ? new ColorMatrix(floatColourMatrx) : new ColorMatrix();
             colourMatrix.Matrix33 = opacity;
 
-            var attributes = new ImageAttributes();
+            ImageAttributes attributes = new ImageAttributes();
             attributes.SetColorMatrix(colourMatrix);
 
             // Fix this, scaling on colour map
@@ -112,6 +99,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 m_platformImage.Dispose();
                 m_platformImage = null;
             }
+
             if ( m_stairImage != null )
             {
                 m_stairImage.Dispose();

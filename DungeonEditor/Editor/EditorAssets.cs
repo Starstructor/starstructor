@@ -14,8 +14,8 @@ namespace DungeonEditor.Editor
         private static readonly Dictionary<string, StarboundObject> m_objectMap
             = new Dictionary<string, StarboundObject>();
 
-        private static readonly Dictionary<string, StarboundTile> m_materialMap
-            = new Dictionary<string, StarboundTile>();
+        private static readonly Dictionary<string, StarboundMaterial> m_materialMap
+            = new Dictionary<string, StarboundMaterial>();
 
         private static Thread m_worker = null;
 
@@ -26,8 +26,10 @@ namespace DungeonEditor.Editor
                 if (m_worker != null)
                     m_worker.Abort();
             }
-            catch   // Abort() threw an exception, in which case it's probably already terminated
-            { }
+            catch (Exception e)// Abort() threw an exception, in which case it's probably already terminated
+            {
+                Editor.Log.Write(e.Message);
+            }
 
             // Check for asset path
             if (Editor.Settings.AssetDirPath == null)
@@ -57,7 +59,7 @@ namespace DungeonEditor.Editor
             return null;
         }
 
-        public static StarboundTile GetMaterial(string name)
+        public static StarboundMaterial GetMaterial(string name)
         {
             // Block until assets fully loaded
             if (m_worker != null)
@@ -80,7 +82,7 @@ namespace DungeonEditor.Editor
             {
                 foreach (var file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
                 {
-                    StarboundObject sbObject = new JsonParser(file).ParseJson<StarboundObject>();
+                    StarboundObject sbObject = JsonParser.ParseJson<StarboundObject>(file);
                     if (m_objectMap.ContainsKey(sbObject.ObjectName))
                         continue;
 
@@ -91,7 +93,7 @@ namespace DungeonEditor.Editor
 
                 foreach (var file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
                 {
-                    StarboundTile sbMaterial = new JsonParser(file).ParseJson<StarboundTile>();
+                    StarboundMaterial sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
                     if (m_materialMap.ContainsKey(sbMaterial.MaterialName))
                         continue;
 

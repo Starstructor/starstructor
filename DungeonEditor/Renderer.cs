@@ -63,10 +63,10 @@ namespace DungeonEditor
 
                         // Don't draw this brush if it isn't flagged as a back brush, or if it
                         // is also flagged as a front brush.
-                        if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front") && brush.BackAsset is StarboundTile )
+                        if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front") && brush.BackAsset is StarboundMaterial )
                         {
-                            ((StarboundTile)brush.BackAsset).DrawTile(gfx, x, y, gridFactor, true);
-                            //DrawBackgroundTile((StarboundTile) brush.BackAsset, x, y, gridFactor, gfx);
+                            ((StarboundMaterial)brush.BackAsset).DrawTile(gfx, x, y, gridFactor, true);
+                            //DrawBackgroundTile((StarboundMaterial) brush.BackAsset, x, y, gridFactor, gfx);
                         }
                     }
                 }
@@ -108,10 +108,10 @@ namespace DungeonEditor
                                 System.Windows.Forms.MessageBox.Show("DrawForeground failed for " + obj.ObjectName);
                             //DrawObject(obj, x, y, orientation, brush.Direction, gridFactor, gfx, 1.0f);
                         }
-                        else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundTile)
+                        else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundMaterial)
                         {
-                            ((StarboundTile)brush.FrontAsset).DrawTile(gfx, x, y, gridFactor);
-                            //DrawForegroundTile((StarboundTile) brush.FrontAsset, x, y, gridFactor, gfx, 1.0f);
+                            ((StarboundMaterial)brush.FrontAsset).DrawTile(gfx, x, y, gridFactor);
+                            //DrawForegroundTile((StarboundMaterial) brush.FrontAsset, x, y, gridFactor, gfx, 1.0f);
                         }
                     }
                 }

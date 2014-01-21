@@ -21,8 +21,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using DungeonEditor.EditorTypes;
@@ -31,8 +33,7 @@ namespace DungeonEditor
 {
     public class JsonParser
     {
-        private readonly string m_path;
-        private JsonSerializerSettings settings = new JsonSerializerSettings()
+        private readonly static JsonSerializerSettings settings = new JsonSerializerSettings()
         {
             NullValueHandling = NullValueHandling.Ignore,
             //DefaultValueHandling = DefaultValueHandling.Ignore,
@@ -44,31 +45,40 @@ namespace DungeonEditor
                 new Vec2I.Serializer(),
                 new RectI.Serializer()
             }
-        };
-            
-        public JsonParser(string path)
+        }; 
+
+        public static T ParseJson<T>(string path)
         {
-            m_path = path;
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(GetFormattedJson(path), settings);
+            }
+            catch (Exception e)
+            {
+                Editor.Editor.Log.Write(e.Message);
+                return default(T);
+            }
         }
 
-        public T ParseJson<T>()
+        public static void SerializeJson<T>(string path, T obj)
         {
-            return JsonConvert.DeserializeObject<T>(GetFormattedJson(), settings);
+            try
+            {
+                File.WriteAllText(path, JsonConvert.SerializeObject(obj, settings));
+            }
+            catch (Exception e)
+            {
+                Editor.Editor.Log.Write(e.Message);
+                MessageBox.Show("Failed to save file " + path + ", please try again! Consult the log file for more information.");
+            }
         }
 
-        // todo
-        public bool SerializeJson<T>(T obj)
+        private static string GetFormattedJson(string path)
         {
-            File.AppendAllText(m_path, JsonConvert.SerializeObject(obj, settings));
-            return false;
-        }
-
-        private string GetFormattedJson()
-        {
-            if (m_path == null)
+            if (path == null)
                 return null;
 
-            var file = new StreamReader(m_path);
+            var file = new StreamReader(path);
             string rawJson = file.ReadToEnd();
             file.Close();
 

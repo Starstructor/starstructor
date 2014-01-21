@@ -131,13 +131,13 @@ namespace DungeonEditor.Editor
             if ( !File.Exists(path) )
             {
                 m_log.Write("File " + path + " does not exist!");
-                Editor.Settings.RecentFiles.Remove(path);
+                Settings.RecentFiles.Remove(path);
                 return false;
             }
 
             if (Path.GetExtension(path) == ".dungeon")
             {
-                m_activeFile = new JsonParser(path).ParseJson<StarboundDungeon>();
+                m_activeFile = JsonParser.ParseJson<StarboundDungeon>(path);
 
                 m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Parts.Count + " parts");
                 m_activeFile.ReadableParts.AddRange(((StarboundDungeon)m_activeFile).Parts);
@@ -147,7 +147,7 @@ namespace DungeonEditor.Editor
             }
             else if (Path.GetExtension(path) == ".structure")
             {
-                m_activeFile = new JsonParser(path).ParseJson<StarboundShip>();
+                m_activeFile = JsonParser.ParseJson<StarboundShip>(path);
 
                 m_log.Write("  Parsing " + ((StarboundShip)m_activeFile).Brushes.Count + " brushes");
                 m_activeFile.BlockMap.AddRange(((StarboundShip) m_activeFile).Brushes);
@@ -179,23 +179,15 @@ namespace DungeonEditor.Editor
         public void SaveFile(string path)
         {
             // Leave, until ship serialization is fixed
-            return;
-
             m_log.Write("Saving " + path);
 
             ActiveFile.FilePath = path;
-            File.Delete(path);
 
             if (ActiveFile is StarboundDungeon)
-            {
-                JsonParser parser = new JsonParser(path);
-                parser.SerializeJson<StarboundDungeon>((StarboundDungeon)ActiveFile);
-            }
+                JsonParser.SerializeJson(path, (StarboundDungeon)ActiveFile);
+
             else if (ActiveFile is StarboundShip)
-            {
-                JsonParser parser = new JsonParser(path);
-                parser.SerializeJson<StarboundShip>((StarboundShip)ActiveFile);
-            }
+                JsonParser.SerializeJson(path, (StarboundShip)ActiveFile);
         }
 
         // clean up all resources

@@ -201,11 +201,11 @@ namespace DungeonEditor.GUI
 
                     orientation.DrawObject(e.Graphics, m_mouseGridX, m_mouseGridY, m_selectedBrush.Direction, m_gridFactor, 0.5f);
                 }
-                else if (m_selectedAsset is StarboundTile )
+                else if (m_selectedAsset is StarboundMaterial )
                 {
-                    StarboundTile sbTile = m_selectedAsset as StarboundTile;
+                    StarboundMaterial sbMaterial = m_selectedAsset as StarboundMaterial;
 
-                    sbTile.DrawTile(e.Graphics, m_mouseGridX, m_mouseGridY, m_gridFactor, false, 0.5f);
+                    sbMaterial.DrawTile(e.Graphics, m_mouseGridX, m_mouseGridY, m_gridFactor, false, 0.5f);
                 }
                 else if ( m_selectedAsset.Image != null )
                 {
