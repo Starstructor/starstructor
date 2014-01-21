@@ -158,6 +158,11 @@ namespace DungeonEditor
 
             foreach (EditorMapLayer layer in layers)
             {
+                float opacity = 1.0f;
+
+                if (!layer.Selected)
+                    opacity = 0.25f;
+
                 for (int x = xmin; x < xmax; ++x)
                 {
                     for (int y = ymin; y < ymax; ++y)
@@ -169,11 +174,18 @@ namespace DungeonEditor
                         if (brush == null || !brush.IsSpecial || brush.FrontAsset == null)
                             continue;
 
+                        ColorMatrix colourMatrix = new ColorMatrix();
+                        colourMatrix.Matrix33 = opacity;
+
+                        ImageAttributes attributes = new ImageAttributes();
+                        attributes.SetColorMatrix(colourMatrix);
+
+                        // Fix this, scaling on colour map
                         gfx.DrawImage(brush.FrontAsset.Image,
-                            x*gridFactor,
-                            y*gridFactor,
-                            brush.FrontAsset.Image.Width,
-                            brush.FrontAsset.Image.Height);
+                            new Rectangle(x * gridFactor, y * gridFactor, brush.FrontAsset.Image.Width, brush.FrontAsset.Image.Height),
+                            0, 0, brush.FrontAsset.Image.Width, brush.FrontAsset.Image.Height,
+                            GraphicsUnit.Pixel,
+                            attributes);
                     }
                 }
             }
