@@ -121,33 +121,11 @@ namespace DungeonEditor.GUI
 
             viewCollisionsToolStripMenuItem.Checked = Editor.Editor.Settings.ViewCollisionGrid;
             BottomBarGfxCombo.SelectedIndex = Editor.Editor.Settings.GraphicalDisplay ? 0 : 1;
-            UpdateRecentHistoryList();
-        }
-
-        private void UpdateRecentHistoryList()
-        {
-            recentFilesToolStripMenuItem.DropDownItems.Clear();
-            recentFilesToolStripMenuItem.Enabled = Editor.Editor.Settings.RecentFiles.Count > 0;
-
-            foreach (var newItem in Editor.Editor.Settings.RecentFiles.Select(file => recentFilesToolStripMenuItem.DropDownItems.Add(file)))
-            {
-                newItem.Click += recentFileHistory_Click;
-            }
-        }
-        private void recentFileHistory_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
-
-            if (item == null)
-                return;
-
-            OpenFile(item.Text);
-        }
-
-        private void MainWindow_Shown(object sender, EventArgs e)
-        {
             Text = m_parent.Name + " v" + m_parent.Version;
+            OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
+            UpdateRecentHistoryList();
 
+            // Find the asset path
             if (Editor.Editor.Settings.AssetDirPath == null)
             {
                 // Try to auto-find directory
@@ -172,8 +150,33 @@ namespace DungeonEditor.GUI
                     guiPopup.ShowDialog();
                 }
             }
-    
-            OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
+
+            // Start loading assets in background thread
+            EditorAssets.RefreshAssets();
+        }
+
+        private void UpdateRecentHistoryList()
+        {
+            recentFilesToolStripMenuItem.DropDownItems.Clear();
+            recentFilesToolStripMenuItem.Enabled = Editor.Editor.Settings.RecentFiles.Count > 0;
+
+            foreach (var newItem in Editor.Editor.Settings.RecentFiles.Select(file => recentFilesToolStripMenuItem.DropDownItems.Add(file)))
+            {
+                newItem.Click += recentFileHistory_Click;
+            }
+        }
+        private void recentFileHistory_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+
+            if (item == null)
+                return;
+
+            OpenFile(item.Text);
+        }
+
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
             MainPictureBox.Focus();
         }
 

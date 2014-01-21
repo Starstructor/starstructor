@@ -105,7 +105,6 @@ namespace DungeonEditor.Editor
                     sr.Close();
                 }
 
-                EditorAssets.RefreshAssets();
                 return m_settings;
             }
         }
