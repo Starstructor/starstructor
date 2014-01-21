@@ -31,8 +31,10 @@ namespace Starstructor.StarboundObjects.Ships
 {
     public class ShipBrush : EditorBrush
     {
-        [JsonIgnore]
-        [ReadOnly(true)]
+        [ReadOnly(false)]
+        [JsonProperty("comment")]
+        [DefaultValue("")]
+        [Description("A user-defined comment. This is only used for the editor.")]
         public override string Comment { get; set; }
 
         [JsonProperty("foregroundBlock"), Category("Graphic")]

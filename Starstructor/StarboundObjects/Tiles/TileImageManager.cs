@@ -90,9 +90,9 @@ namespace Starstructor.StarboundObjects.Tiles
             if (background)
             {
                 // Darken
-                colourMatrix.Matrix40 = -0.25f;
-                colourMatrix.Matrix41 = -0.25f;
-                colourMatrix.Matrix42 = -0.25f;
+                colourMatrix.Matrix40 = -0.3f;
+                colourMatrix.Matrix41 = -0.3f;
+                colourMatrix.Matrix42 = -0.3f;
             }
 
             ImageAttributes attributes = new ImageAttributes();

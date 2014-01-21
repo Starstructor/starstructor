@@ -39,7 +39,7 @@ namespace Starstructor.StarboundObjects.Dungeons
         public override Color Colour { get; set; }
 
         // Override base comment field
-        [ReadOnly(true)]
+        [ReadOnly(false)]
         [JsonProperty("comment")]
         [DefaultValue("")]
         [Description("A user-defined comment. This is only used for the editor.")]

@@ -101,12 +101,17 @@ namespace Starstructor.StarboundObjects.Ships
                 string foregroundName = null;
                 string backgroundName = null;
 
-                brush.Comment = "";
+                bool needsComment = brush.Comment == null;
+
+                if (needsComment)
+                    brush.Comment = "";
 
                 // The thing occupying the background layer
                 if (brush.BackgroundMat != null)
                 {
-                    brush.Comment += brush.BackgroundMat + "  ";
+                    if (needsComment)
+                        brush.Comment += brush.BackgroundMat + "  ";
+
                     backgroundType = "back";
                     backgroundName = brush.BackgroundMat;
                     brush.BrushTypes.Add(backgroundType);
@@ -116,7 +121,9 @@ namespace Starstructor.StarboundObjects.Ships
                 // The thing occupying the foreground layer
                 if (brush.ForegroundMat != null)
                 {
-                    brush.Comment += brush.ForegroundMat;
+                    if (needsComment)
+                        brush.Comment += brush.ForegroundMat;
+
                     foregroundType = "front";
                     foregroundName = brush.ForegroundMat;
                     brush.BrushTypes.Add(foregroundType);
@@ -124,7 +131,9 @@ namespace Starstructor.StarboundObjects.Ships
                 }
                 else if (brush.Object != null)
                 {
-                    brush.Comment += brush.Object;
+                    if (needsComment)
+                        brush.Comment += brush.Object;
+
                     foregroundType = "object";
                     foregroundName = brush.Object;
 

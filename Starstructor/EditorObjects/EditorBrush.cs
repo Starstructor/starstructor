@@ -87,27 +87,26 @@ namespace Starstructor.EditorObjects
             set { m_backAsset = value; }
         }
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore, Browsable(false)]
         public bool NeedsFrontAsset
         {
             get { return m_needsFrontAsset; }
             set { m_needsFrontAsset = value; }
         }
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore, Browsable(false)]
         public bool NeedsBackAsset
         {
             get { return m_needsBackAsset; }
             set { m_needsBackAsset = value; }
         }
 
-        [JsonIgnore, ReadOnly(true)]
+        [JsonIgnore, Browsable(false)]
         public bool IsSpecial
         {
             get { return m_isSpecial; }
             set { m_isSpecial = value; }
         }
-
 
         [JsonIgnore, Category("Orientation"), ReadOnly(true)]
         public ObjectDirection Direction
@@ -115,7 +114,6 @@ namespace Starstructor.EditorObjects
             get { return m_direction; }
             set { m_direction = value; }
         }
-
 
         [JsonIgnore, Browsable(false)]
         public BindingList<string> BrushTypes
@@ -131,7 +129,7 @@ namespace Starstructor.EditorObjects
             set { m_brushRules = value; }
         }
 
-        [ReadOnly(true)]
+        [ReadOnly(false)]
         public virtual string Comment
         {
             get { return m_comment; }

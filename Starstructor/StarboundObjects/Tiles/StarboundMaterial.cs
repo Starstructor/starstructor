@@ -147,7 +147,7 @@ namespace Starstructor.StarboundObjects.Tiles
 
         public override string ToString()
         {
-            return ShortDescription ?? MaterialName ?? base.ToString();
+            return MaterialName ?? ShortDescription ?? base.ToString();
         }
 
         public void InitializeAssets()
