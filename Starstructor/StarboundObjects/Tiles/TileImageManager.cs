@@ -42,10 +42,10 @@ namespace Starstructor.StarboundObjects.Tiles
         public TileImageManager(string name, string framesDir)
         {
             // Get the image file
-            m_fileName = Editor.EditorHelpers.FindAsset(framesDir, name);
+            m_fileName = EditorHelpers.FindAsset(framesDir, name);
 
             if ( m_fileName == null )
-                Editor.Editor.Log.Write("Failed asset acquisition of " + framesDir + " " + name);
+                Editor.Log.Write("Failed asset acquisition of " + framesDir + " " + name);
 
             m_image = new ImageLoader(m_fileName);
         }
@@ -68,7 +68,7 @@ namespace Starstructor.StarboundObjects.Tiles
             return frameRect == null ? null : m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
         }
 
-        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
             if (m_image == null || m_image.ImageFile == null)

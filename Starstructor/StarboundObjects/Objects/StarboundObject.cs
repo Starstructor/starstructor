@@ -204,8 +204,8 @@ namespace Starstructor.StarboundObjects.Objects
 
             // Get the inventory icon
             string iconStr = InventoryIconStr ?? "/interface/inventory/x.png";
-            string inventoryPath = Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), iconStr) ??
-                                   Editor.EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), "/interface/inventory/x.png");
+            string inventoryPath = EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), iconStr) ??
+                                   EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), "/interface/inventory/x.png");
 
             InventoryIcon = new ImageLoader(inventoryPath);
         }

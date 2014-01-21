@@ -180,21 +180,21 @@ namespace Starstructor.StarboundObjects.Objects
             return manager;
         }
 
-        public int GetWidth(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var manager = GetImageManager(direction);
             return manager != null && manager.Frames != null ? manager.Frames.FrameGrid.GetWidth(gridFactor) : 0;
         }
 
-        public int GetHeight(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetHeight(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var manager = GetImageManager(direction);
             return manager != null && manager.Frames != null ? manager.Frames.FrameGrid.GetHeight(gridFactor) : 0;
         }
 
-        public int GetOriginX(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetOriginX(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
+            var sizeScaleFactor = Editor.GetSizeScaleFactor(gridFactor);
 
             int originX = 0;
             originX += (int) Math.Floor(ImagePosition.x/sizeScaleFactor);
@@ -202,9 +202,9 @@ namespace Starstructor.StarboundObjects.Objects
             return originX;
         }
 
-        public int GetOriginY(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        public int GetOriginY(int gridFactor = Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
-            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
+            var sizeScaleFactor = Editor.GetSizeScaleFactor(gridFactor);
 
             int originY = -GetHeight(gridFactor, direction) + gridFactor;
             originY -= (int) Math.Floor(ImagePosition.y/sizeScaleFactor);
@@ -215,7 +215,7 @@ namespace Starstructor.StarboundObjects.Objects
         //public static bool DrawObject(StarboundObject obj, int x, int y, ObjectOrientation orientation,
           //  ObjectDirection direction, int gridFactor, Graphics gfx, float opacity)
         public bool DrawObject(Graphics gfx, int x, int y, ObjectDirection direction, 
-            int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, float opacity = 1.0f)
+            int gridFactor = Editor.DEFAULT_GRID_FACTOR, float opacity = 1.0f)
         {
             var manager = GetImageManager(direction);
             if (manager == null)

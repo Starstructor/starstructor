@@ -89,14 +89,14 @@
     <Compile Include="EditorTypes\RectI.cs" />
     <Compile Include="EditorTypes\Vec2I.cs" />
     <Compile Include="EditorTypes\Vec2F.cs" />
-    <Compile Include="Editor\EditorAssets.cs" />
+    <Compile Include="EditorAssets.cs" />
     <Compile Include="External Helpers\ColorSerializer.cs" />
-    <Compile Include="Editor\Editor.cs" />
-    <Compile Include="Editor\EditorHelpers.cs" />
+    <Compile Include="Editor.cs" />
+    <Compile Include="EditorHelpers.cs" />
     <Compile Include="EditorObjects\EditorFile.cs" />
     <Compile Include="EditorObjects\EditorMap.cs" />
     <Compile Include="EditorObjects\EditorMapPart.cs" />
-    <Compile Include="Editor\EditorSettings.cs" />
+    <Compile Include="EditorSettings.cs" />
     <Compile Include="EditorObjects\EditorBrush.cs" />
     <Compile Include="GUI\DirPopup.cs">
       <SubType>Form</SubType>

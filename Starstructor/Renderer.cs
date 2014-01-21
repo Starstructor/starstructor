@@ -38,7 +38,7 @@ namespace Starstructor
         public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            return DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawBackgroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -81,7 +81,7 @@ namespace Starstructor
         public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            return DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawForegroundBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -113,7 +113,7 @@ namespace Starstructor
                             var obj = brush.FrontAsset as StarboundObject;
                             ObjectOrientation orientation = obj.GetCorrectOrientation(layers[0].Parent, x, y, brush.Direction);
                             if (!orientation.DrawObject(gfx, x, y, brush.Direction, gridFactor, opacity))
-                                Editor.Editor.Log.Write("DrawForeground failed for " + obj.ObjectName);
+                                Editor.Log.Write("DrawForeground failed for " + obj.ObjectName);
                         }
                         else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundMaterial)
                         {
@@ -129,7 +129,7 @@ namespace Starstructor
 
         public static bool DrawSpecial(List<EditorMapLayer> layers, Graphics gfx)
         {
-            return DrawSpecial(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawSpecial(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawSpecial(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
@@ -146,7 +146,7 @@ namespace Starstructor
         public static bool DrawSpecialBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            return DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
+            return DrawSpecialBetween(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static bool DrawSpecialBetween(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -195,7 +195,7 @@ namespace Starstructor
 
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, Graphics gfx)
         {
-            DrawObjectCollisions(layers, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
+            DrawObjectCollisions(layers, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, int gridFactor, Graphics gfx)
@@ -212,7 +212,7 @@ namespace Starstructor
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
             Graphics gfx)
         {
-            DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, Editor.Editor.DEFAULT_GRID_FACTOR, gfx);
+            DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, Editor.DEFAULT_GRID_FACTOR, gfx);
         }
 
         public static void DrawObjectCollisions(List<EditorMapLayer> layers, int xmin, int ymin, int xmax, int ymax,
@@ -236,35 +236,35 @@ namespace Starstructor
                         {
                             var bluePen = new Pen(Color.Blue);
                             bluePen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(bluePen, x*Editor.Editor.DEFAULT_GRID_FACTOR, y*Editor.Editor.DEFAULT_GRID_FACTOR,
-                                Editor.Editor.DEFAULT_GRID_FACTOR, Editor.Editor.DEFAULT_GRID_FACTOR);
+                            gfx.DrawRectangle(bluePen, x*Editor.DEFAULT_GRID_FACTOR, y*Editor.DEFAULT_GRID_FACTOR,
+                                Editor.DEFAULT_GRID_FACTOR, Editor.DEFAULT_GRID_FACTOR);
                             bluePen.Dispose();
                         }
                         else if (i == 1)
                         {
                             var greenPen = new Pen(Color.Green);
                             greenPen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(greenPen, x*Editor.Editor.DEFAULT_GRID_FACTOR + 1,
-                                y*Editor.Editor.DEFAULT_GRID_FACTOR + 1, Editor.Editor.DEFAULT_GRID_FACTOR - 2,
-                                Editor.Editor.DEFAULT_GRID_FACTOR - 2);
+                            gfx.DrawRectangle(greenPen, x*Editor.DEFAULT_GRID_FACTOR + 1,
+                                y*Editor.DEFAULT_GRID_FACTOR + 1, Editor.DEFAULT_GRID_FACTOR - 2,
+                                Editor.DEFAULT_GRID_FACTOR - 2);
                             greenPen.Dispose();
                         }
                         else if (i == 2)
                         {
                             var crimsonPen = new Pen(Color.Crimson);
                             crimsonPen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(crimsonPen, x*Editor.Editor.DEFAULT_GRID_FACTOR + 2,
-                                y*Editor.Editor.DEFAULT_GRID_FACTOR + 2, Editor.Editor.DEFAULT_GRID_FACTOR - 4,
-                                Editor.Editor.DEFAULT_GRID_FACTOR - 4);
+                            gfx.DrawRectangle(crimsonPen, x*Editor.DEFAULT_GRID_FACTOR + 2,
+                                y*Editor.DEFAULT_GRID_FACTOR + 2, Editor.DEFAULT_GRID_FACTOR - 4,
+                                Editor.DEFAULT_GRID_FACTOR - 4);
                             crimsonPen.Dispose();
                         }
                         else if (i == 3)
                         {
                             var yellowPen = new Pen(Color.Yellow);
                             yellowPen.Alignment = PenAlignment.Inset;
-                            gfx.DrawRectangle(yellowPen, x*Editor.Editor.DEFAULT_GRID_FACTOR + 3,
-                                y*Editor.Editor.DEFAULT_GRID_FACTOR + 3, Editor.Editor.DEFAULT_GRID_FACTOR - 6,
-                                Editor.Editor.DEFAULT_GRID_FACTOR - 6);
+                            gfx.DrawRectangle(yellowPen, x*Editor.DEFAULT_GRID_FACTOR + 3,
+                                y*Editor.DEFAULT_GRID_FACTOR + 3, Editor.DEFAULT_GRID_FACTOR - 6,
+                                Editor.DEFAULT_GRID_FACTOR - 6);
                             yellowPen.Dispose();
                         }
                     }

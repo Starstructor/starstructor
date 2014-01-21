@@ -169,15 +169,15 @@ namespace Starstructor.StarboundObjects.Tiles
             Image = Frames.GetImageFrameBitmap();
         }
 
-        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
             if (Frames == null)
             {
                 if (MaterialName != null)
-                    Editor.Editor.Log.Write("Failed to draw tile for material" + MaterialName);
+                    Editor.Log.Write("Failed to draw tile for material" + MaterialName);
                 else
-                    Editor.Editor.Log.Write("Failed to draw tile for unknown material");
+                    Editor.Log.Write("Failed to draw tile for unknown material");
 
                 return false;
             }

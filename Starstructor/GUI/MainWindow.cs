@@ -29,7 +29,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Starstructor.Editor;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundObjects.Dungeons;
 using Starstructor.StarboundObjects.Ships;
@@ -46,7 +45,7 @@ namespace Starstructor.GUI
             = new Dictionary<TreeNode, EditorMap>();
 
         private int m_gridFactor;
-        public Editor.Editor m_parent;
+        public Editor m_parent;
         private EditorBrush m_selectedBrush;
         private EditorMap m_pselectedMap;
 
@@ -86,7 +85,7 @@ namespace Starstructor.GUI
                     }
                     catch (Exception ex)
                     {
-                        Editor.Editor.Log.Write(ex.ToString());
+                        Editor.Log.Write(ex.ToString());
                         MessageBox.Show("Something bad happened. Consult log file for more information. Report this on the forums.");
                     }
                 }
@@ -95,7 +94,7 @@ namespace Starstructor.GUI
             }
         }
 
-        public MainWindow(Editor.Editor parent)
+        public MainWindow(Editor parent)
         {
             m_parent = parent;
 
@@ -111,21 +110,21 @@ namespace Starstructor.GUI
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            WindowState = Editor.Editor.Settings.WindowState;
-            Left = Editor.Editor.Settings.WindowX;
-            Top = Editor.Editor.Settings.WindowY;
-            Width = Editor.Editor.Settings.WindowWidth;
-            Height = Editor.Editor.Settings.WindowHeight;
+            WindowState = Editor.Settings.WindowState;
+            Left = Editor.Settings.WindowX;
+            Top = Editor.Settings.WindowY;
+            Width = Editor.Settings.WindowWidth;
+            Height = Editor.Settings.WindowHeight;
             MainPictureBox.m_parent = this;
 
-            viewCollisionsToolStripMenuItem.Checked = Editor.Editor.Settings.ViewCollisionGrid;
-            BottomBarGfxCombo.SelectedIndex = Editor.Editor.Settings.GraphicalDisplay ? 0 : 1;
+            viewCollisionsToolStripMenuItem.Checked = Editor.Settings.ViewCollisionGrid;
+            BottomBarGfxCombo.SelectedIndex = Editor.Settings.GraphicalDisplay ? 0 : 1;
             Text = m_parent.Name + " v" + m_parent.Version;
-            OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
+            OpenFileDlg.InitialDirectory = Editor.Settings.AssetDirPath;
             UpdateRecentHistoryList();
 
             // Find the asset path
-            if (Editor.Editor.Settings.AssetDirPath == null)
+            if (Editor.Settings.AssetDirPath == null)
             {
                 // Try to auto-find directory
                 string path = (string)Registry.GetValue(
@@ -136,7 +135,7 @@ namespace Starstructor.GUI
                 if (path != null)
                 {
                     path = Path.Combine(path, "assets");
-                    Editor.Editor.Settings.AssetDirPath = path;
+                    Editor.Settings.AssetDirPath = path;
                     m_parent.SaveSettings();
                 }
                 // Otherwise prompt the user
@@ -157,9 +156,9 @@ namespace Starstructor.GUI
         private void UpdateRecentHistoryList()
         {
             recentFilesToolStripMenuItem.DropDownItems.Clear();
-            recentFilesToolStripMenuItem.Enabled = Editor.Editor.Settings.RecentFiles.Count > 0;
+            recentFilesToolStripMenuItem.Enabled = Editor.Settings.RecentFiles.Count > 0;
 
-            foreach (var newItem in Editor.Editor.Settings.RecentFiles.Select(file => recentFilesToolStripMenuItem.DropDownItems.Add(file)))
+            foreach (var newItem in Editor.Settings.RecentFiles.Select(file => recentFilesToolStripMenuItem.DropDownItems.Add(file)))
             {
                 newItem.Click += recentFileHistory_Click;
             }
@@ -187,12 +186,12 @@ namespace Starstructor.GUI
                 return;
             }
 
-            Editor.Editor.Settings.WindowState = WindowState;
-            Editor.Editor.Settings.WindowX = Left;
-            Editor.Editor.Settings.WindowY = Top;
-            Editor.Editor.Settings.WindowWidth = Width;
-            Editor.Editor.Settings.WindowHeight = Height;
-            Editor.Editor.Settings.GraphicalDisplay = BottomBarGfxCombo.SelectedIndex == 0;
+            Editor.Settings.WindowState = WindowState;
+            Editor.Settings.WindowX = Left;
+            Editor.Settings.WindowY = Top;
+            Editor.Settings.WindowWidth = Width;
+            Editor.Settings.WindowHeight = Height;
+            Editor.Settings.GraphicalDisplay = BottomBarGfxCombo.SelectedIndex == 0;
 
             m_parent.SaveSettings();
         }
@@ -616,7 +615,7 @@ namespace Starstructor.GUI
 
             CleanUp();
 
-            if (!Directory.Exists(Editor.Editor.Settings.AssetDirPath))
+            if (!Directory.Exists(Editor.Settings.AssetDirPath))
             {
                 MessageBox.Show("Invalid asset directory set. Please choose a valid asset directory " +
                                 "from the Starbound menu in the toolset.", "Error", MessageBoxButtons.OK);
@@ -715,7 +714,7 @@ namespace Starstructor.GUI
         {
             DirPopup guiPopup = new DirPopup();
             guiPopup.ShowDialog();      // What is going on here???
-            OpenFileDlg.InitialDirectory = Editor.Editor.Settings.AssetDirPath;
+            OpenFileDlg.InitialDirectory = Editor.Settings.AssetDirPath;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -769,7 +768,7 @@ namespace Starstructor.GUI
                     }
                     catch (Exception e)
                     {
-                        Editor.Editor.Log.Write(e.Message);
+                        Editor.Log.Write(e.Message);
                         MessageBox.Show("Failed to save image " + layerPath + ", please try again");
                     }
                 }
@@ -788,7 +787,7 @@ namespace Starstructor.GUI
                     }
                     catch (Exception e)
                     {
-                        Editor.Editor.Log.Write(e.Message);
+                        Editor.Log.Write(e.Message);
                         MessageBox.Show("Failed to save image " + overlayPath + ", please try again");
                     }
                 }
@@ -810,7 +809,7 @@ namespace Starstructor.GUI
         private void viewCollisionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             viewCollisionsToolStripMenuItem.Checked = !viewCollisionsToolStripMenuItem.Checked;
-            Editor.Editor.Settings.ViewCollisionGrid = viewCollisionsToolStripMenuItem.Checked;
+            Editor.Settings.ViewCollisionGrid = viewCollisionsToolStripMenuItem.Checked;
             
             if (SelectedMap != null)
                 GetSelectedPart().UpdateLayerImage();

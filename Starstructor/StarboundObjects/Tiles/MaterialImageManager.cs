@@ -33,7 +33,7 @@ namespace Starstructor.StarboundObjects.Tiles
 
         Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0);
 
-        bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR,
+        bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR,
             bool background = false, float opacity = 1.0f);
     }
 }

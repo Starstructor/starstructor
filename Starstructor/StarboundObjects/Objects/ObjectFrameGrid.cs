@@ -73,14 +73,14 @@ namespace Starstructor.StarboundObjects.Objects
             return null;
         }
 
-        public int GetWidth(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR)
+        public int GetWidth(int gridFactor = Editor.DEFAULT_GRID_FACTOR)
         {
-            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
+            var sizeScaleFactor = Editor.GetSizeScaleFactor(gridFactor);
             return (int)Math.Ceiling(Size.x / sizeScaleFactor);
         }
-        public int GetHeight(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR)
+        public int GetHeight(int gridFactor = Editor.DEFAULT_GRID_FACTOR)
         {
-            var sizeScaleFactor = Editor.Editor.GetSizeScaleFactor(gridFactor);
+            var sizeScaleFactor = Editor.GetSizeScaleFactor(gridFactor);
             return (int)Math.Ceiling(Size.y / sizeScaleFactor);
         }
 

@@ -73,16 +73,16 @@ namespace Starstructor.StarboundObjects.Objects
                 m_parseName = name.Substring(idx+1);
 
             // Get the image file
-            string imagePath = Editor.EditorHelpers.FindAsset(framesDir, m_fileName);
+            string imagePath = EditorHelpers.FindAsset(framesDir, m_fileName);
 
             if ( imagePath == null )
-                Editor.Editor.Log.Write("Asset " + m_fileName + " not found in active directory: " + framesDir);
+                Editor.Log.Write("Asset " + m_fileName + " not found in active directory: " + framesDir);
 
             m_image = imagePath != null ? new ImageLoader(imagePath) : null;
 
             // Get frames file
-            string framePath = Editor.EditorHelpers.FindAsset(framesDir, Path.GetFileNameWithoutExtension(m_fileName) + ".frames") ??
-                               Editor.EditorHelpers.FindAsset(framesDir, "default.frames");
+            string framePath = EditorHelpers.FindAsset(framesDir, Path.GetFileNameWithoutExtension(m_fileName) + ".frames") ??
+                               EditorHelpers.FindAsset(framesDir, "default.frames");
 
             m_frames = framePath != null ? JsonParser.ParseJson<ObjectFrames>(framePath) : null;
         }
@@ -125,7 +125,7 @@ namespace Starstructor.StarboundObjects.Objects
         }
 
         public bool DrawObject(Graphics gfx, int x, int y, int originX, int originY, int sizeX, int sizeY, 
-            int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, float opacity = 1.0f)
+            int gridFactor = Editor.DEFAULT_GRID_FACTOR, float opacity = 1.0f)
         {
             if (m_image == null || m_image.ImageFile == null || m_frames == null)
                 return false;

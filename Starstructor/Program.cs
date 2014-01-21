@@ -33,7 +33,7 @@ namespace Starstructor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow(new Editor.Editor()));
+            Application.Run(new MainWindow(new Editor()));
         }
     }
 }

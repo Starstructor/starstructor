@@ -46,11 +46,11 @@ namespace Starstructor.StarboundObjects.Ships
                 // Draw background overlays
                 foreach (ShipOverlay overlay in parentShip.BackgroundOverlays)
                 {
-                    double originX = overlay.Position.x*Editor.Editor.DEFAULT_GRID_FACTOR;
+                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
 
                     // Translate to the bottom, then offset by provided value
                     double originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position.y*Editor.Editor.DEFAULT_GRID_FACTOR);
+                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image,
                         (float)originX,
@@ -67,10 +67,10 @@ namespace Starstructor.StarboundObjects.Ships
                 // Draw foreground overlays
                 foreach (ShipOverlay overlay in parentShip.ForegroundOverlays)
                 {
-                    double originX = overlay.Position.x*Editor.Editor.DEFAULT_GRID_FACTOR;
+                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
                     // Translate to the bottom-left, then offset by provided value
                     double originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position.y*Editor.Editor.DEFAULT_GRID_FACTOR);
+                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
 
                     gfx.DrawImage(overlay.Image, 
                         (float)originX, (float)originY, 

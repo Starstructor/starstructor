@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Starstructor.Editor;
 using Starstructor.EditorObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -44,11 +43,11 @@ namespace Starstructor.StarboundObjects.Dungeons
         [JsonProperty("parts", Required = Required.Always), Browsable(false)]
         public List<DungeonPart> Parts { get; set; }
 
-        public override void LoadParts(Editor.Editor parent)
+        public override void LoadParts(Editor parent)
         {
             foreach (DungeonPart part in Parts)
             {
-                Editor.Editor.Log.Write("Loading part " + part.Name);
+                Editor.Log.Write("Loading part " + part.Name);
 
                 object imageList = part.Definition[1];
 
@@ -68,7 +67,7 @@ namespace Starstructor.StarboundObjects.Dungeons
 
                     if (!File.Exists(path))
                     {
-                        Editor.Editor.Log.Write("  Layer image " + fileName + "does not exist");
+                        Editor.Log.Write("  Layer image " + fileName + "does not exist");
                         continue;
                     }
 
@@ -79,22 +78,22 @@ namespace Starstructor.StarboundObjects.Dungeons
                     part.Height = layerImg.Height;
 
                     part.Layers.Add(new EditorMapLayer(fileName, (Bitmap) layerImg, parent.BrushMap, part));
-                    Editor.Editor.Log.Write("  Layer image " + fileName + " loaded");
+                    Editor.Log.Write("  Layer image " + fileName + " loaded");
                 }
 
                 // Create the graphics image
-                part.GraphicsMap = new Bitmap(part.Width*Editor.Editor.DEFAULT_GRID_FACTOR,
-                    part.Height*Editor.Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
+                    part.Height*Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
                 
                 // Update the composite collision map, now that all layers have been loaded
                 part.UpdateCompositeCollisionMap();
 
                 part.Parent = this;
-                Editor.Editor.Log.Write("Completed loading part " + part.Name);
+                Editor.Log.Write("Completed loading part " + part.Name);
             }
         }
 
-        public override void GenerateBrushAndAssetMaps(Editor.Editor parent)
+        public override void GenerateBrushAndAssetMaps(Editor parent)
         {
             Dictionary<Color, EditorBrush> map = parent.BrushMap;
 
@@ -194,7 +193,7 @@ namespace Starstructor.StarboundObjects.Dungeons
 
         // This function is one big wall of useless repeated code
         // Fix it at some point
-        private void LoadSpecialBrushes(Editor.Editor parent)
+        private void LoadSpecialBrushes(Editor parent)
         {
             // Get all collision blocks
             foreach (DungeonBrush brush in BlockMap)
@@ -225,7 +224,7 @@ namespace Starstructor.StarboundObjects.Dungeons
                 // If this brush is surface foreground
                 else if (brush.BrushTypes.Contains("surface"))
                 {
-                    string assetName = Editor.Editor.Settings.SurfaceForegroundTile;
+                    string assetName = Editor.Settings.SurfaceForegroundTile;
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "surface");
                     if (asset == null && assetName.Contains("INTERNAL"))
@@ -245,7 +244,7 @@ namespace Starstructor.StarboundObjects.Dungeons
                 // If this brush is surface background
                 else if (brush.BrushTypes.Contains("surfacebackground"))
                 {
-                    string assetName = Editor.Editor.Settings.SurfaceBackgroundTile;
+                    string assetName = Editor.Settings.SurfaceBackgroundTile;
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "surfacebackground");
                     if (asset == null && assetName.Contains("INTERNAL"))

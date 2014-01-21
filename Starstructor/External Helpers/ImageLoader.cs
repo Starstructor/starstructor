@@ -57,13 +57,13 @@ namespace Starstructor
                             pGraphics.Dispose();
                         }
 
-                        Editor.Editor.Log.Write("Loaded image " + m_imageFileName);
+                        Editor.Log.Write("Loaded image " + m_imageFileName);
                     }
                 }
 
                 else if (m_imageFileName != null)
                 {
-                    Editor.Editor.Log.Write("Image not found " + m_imageFileName);
+                    Editor.Log.Write("Image not found " + m_imageFileName);
                 }
 
                 return m_image;

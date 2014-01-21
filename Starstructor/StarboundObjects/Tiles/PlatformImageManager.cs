@@ -47,11 +47,11 @@ namespace Starstructor.StarboundObjects.Tiles
         public PlatformImageManager(string platformName, int platformVariants, string stairsName, int stairVariants, string framesDir)
         {
             // Get the image file
-            m_platformImage = new ImageLoader(Editor.EditorHelpers.FindAsset(framesDir, platformName));
+            m_platformImage = new ImageLoader(EditorHelpers.FindAsset(framesDir, platformName));
             m_platformFileName = platformName;
             m_platformVariants = platformVariants;
 
-            m_stairImage = new ImageLoader(Editor.EditorHelpers.FindAsset(framesDir, stairsName));
+            m_stairImage = new ImageLoader(EditorHelpers.FindAsset(framesDir, stairsName));
             m_stairsFileName = stairsName;
             m_stairVariants = stairVariants;
         }
@@ -74,7 +74,7 @@ namespace Starstructor.StarboundObjects.Tiles
             return frameRect == null ? null : m_platformImage.ImageFile.Clone(frameRect.Value, m_platformImage.ImageFile.PixelFormat);
         }
 
-        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
             if (m_platformImage == null || m_platformImage.ImageFile == null)

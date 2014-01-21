@@ -22,7 +22,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
-using Starstructor.Editor;
 using Starstructor.StarboundObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
@@ -66,15 +65,15 @@ namespace Starstructor.EditorObjects
             return m_readableParts.Find(x => x.Name == name);
         }
 
-        public virtual void LoadParts(Editor.Editor parent)
+        public virtual void LoadParts(Editor parent)
         {
         }
 
-        public virtual void GenerateBrushAndAssetMaps(Editor.Editor parent)
+        public virtual void GenerateBrushAndAssetMaps(Editor parent)
         {
         }
 
-        public virtual void LoadBrushWithBackAsset(EditorBrush brush, Editor.Editor parent, string name, string type)
+        public virtual void LoadBrushWithBackAsset(EditorBrush brush, Editor parent, string name, string type)
         {
             string extension = EditorHelpers.GetExtensionFromBrushType(type);
 
@@ -120,7 +119,7 @@ namespace Starstructor.EditorObjects
                 brush.BackAsset = asset;
         }
 
-        public virtual void LoadBrushWithFrontAsset(EditorBrush brush, Editor.Editor parent, string name, string type)
+        public virtual void LoadBrushWithFrontAsset(EditorBrush brush, Editor parent, string name, string type)
         {
             string extension = EditorHelpers.GetExtensionFromBrushType(type);
 

@@ -24,7 +24,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Drawing;
 using System.IO;
-using Starstructor.Editor;
 using Starstructor.EditorObjects;
 using Newtonsoft.Json;
 using System.ComponentModel;
@@ -60,15 +59,15 @@ namespace Starstructor.StarboundObjects.Ships
         [JsonProperty("blockImage")]
         public string PartImage { get; set; }
 
-        public override void LoadParts(Editor.Editor parent)
+        public override void LoadParts(Editor parent)
         {
-            Editor.Editor.Log.Write("Loading part " + PartImage);
+            Editor.Log.Write("Loading part " + PartImage);
 
             string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), PartImage);
 
             if (!File.Exists(path))
             {
-                Editor.Editor.Log.Write("  Part image " + PartImage + "does not exist");
+                Editor.Log.Write("  Part image " + PartImage + "does not exist");
                 return;
             }
 
@@ -82,18 +81,18 @@ namespace Starstructor.StarboundObjects.Ships
             part.Height = layerImg.Height;
             
             part.Layers.Add(new EditorMapLayer(PartImage, (Bitmap) layerImg, parent.BrushMap, part));
-            part.GraphicsMap = new Bitmap(part.Width*Editor.Editor.DEFAULT_GRID_FACTOR,
-                part.Height*Editor.Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
+                part.Height*Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
             part.UpdateCompositeCollisionMap();
 
             ReadableParts.Add(part);
             LoadOverlays();
 
-            Editor.Editor.Log.Write("Completed loading part " + PartImage);
+            Editor.Log.Write("Completed loading part " + PartImage);
         }
 
-        public override void GenerateBrushAndAssetMaps(Editor.Editor parent)
+        public override void GenerateBrushAndAssetMaps(Editor parent)
         {
             foreach (ShipBrush brush in BlockMap)
             {
@@ -176,13 +175,13 @@ namespace Starstructor.StarboundObjects.Ships
             {
                 foreach (ShipOverlay overlay in BackgroundOverlays)
                 {
-                    Editor.Editor.Log.Write("  Loading background overlay " + overlay.ImageName);
+                    Editor.Log.Write("  Loading background overlay " + overlay.ImageName);
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
 
                     if (File.Exists(path))
                     {
                         overlay.Image = EditorHelpers.LoadImageFromFile(path);
-                        Editor.Editor.Log.Write("  Completed loading background overlay " + overlay.ImageName);
+                        Editor.Log.Write("  Completed loading background overlay " + overlay.ImageName);
                     }
                 }
             }
@@ -191,19 +190,19 @@ namespace Starstructor.StarboundObjects.Ships
             {
                 foreach (ShipOverlay overlay in ForegroundOverlays)
                 {
-                    Editor.Editor.Log.Write("  Loading foreground overlay " + overlay.ImageName);
+                    Editor.Log.Write("  Loading foreground overlay " + overlay.ImageName);
                     string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
 
                     if (File.Exists(path))
                     {
                         overlay.Image = EditorHelpers.LoadImageFromFile(path);
-                        Editor.Editor.Log.Write("  Completed loading foreground overlay " + overlay.ImageName);
+                        Editor.Log.Write("  Completed loading foreground overlay " + overlay.ImageName);
                     }
                 }
             }
         }
 
-        private void LoadSpecialBrushes(Editor.Editor parent)
+        private void LoadSpecialBrushes(Editor parent)
         {
         }
     }

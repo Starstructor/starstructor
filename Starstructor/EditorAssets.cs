@@ -23,12 +23,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System;
 using System.Collections.Generic;
-using Starstructor.StarboundObjects.Objects;
-using Starstructor.StarboundObjects.Tiles;
 using System.IO;
 using System.Threading;
+using Starstructor.StarboundObjects.Objects;
+using Starstructor.StarboundObjects.Tiles;
 
-namespace Starstructor.Editor
+namespace Starstructor
 {
     public static class EditorAssets
     {

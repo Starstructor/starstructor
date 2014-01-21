@@ -43,7 +43,7 @@ namespace Starstructor.GUI
                 return;
             }
 
-            Editor.Editor.Settings.AssetDirPath = FolderTextbox.Text;
+            Editor.Settings.AssetDirPath = FolderTextbox.Text;
             m_pathSet = true;
 
             Close();
@@ -51,7 +51,7 @@ namespace Starstructor.GUI
 
         private void DirPopup_Load(object sender, EventArgs e)
         {
-            FolderTextbox.Text = Editor.Editor.Settings.AssetDirPath;
+            FolderTextbox.Text = Editor.Settings.AssetDirPath;
         }
 
         private void ButtonBrowse_Click(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace Starstructor.GUI
 
         private void DirPopup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (m_pathSet || Editor.Editor.Settings.AssetDirPath != null)
+            if (m_pathSet || Editor.Settings.AssetDirPath != null)
                 return;
 
             DialogResult confirmation = 

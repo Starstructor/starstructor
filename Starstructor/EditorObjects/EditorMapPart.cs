@@ -195,10 +195,10 @@ namespace Starstructor.EditorObjects
         {
             if (!noClear)
                 m_graphicsContext.FillRectangle(SystemBrushes.ControlDark,
-                    xmin*Editor.Editor.DEFAULT_GRID_FACTOR,
-                    ymin*Editor.Editor.DEFAULT_GRID_FACTOR,
-                    (xmax - xmin)*Editor.Editor.DEFAULT_GRID_FACTOR,
-                    (ymax - ymin)*Editor.Editor.DEFAULT_GRID_FACTOR);
+                    xmin*Editor.DEFAULT_GRID_FACTOR,
+                    ymin*Editor.DEFAULT_GRID_FACTOR,
+                    (xmax - xmin)*Editor.DEFAULT_GRID_FACTOR,
+                    (ymax - ymin)*Editor.DEFAULT_GRID_FACTOR);
 
             if (!noBack)
                 DrawBackgroundBetween(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
@@ -209,7 +209,7 @@ namespace Starstructor.EditorObjects
             if (!noSpecial)
                 DrawSpecialBrushesBetween(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
 
-            if (Editor.Editor.Settings.ViewCollisionGrid)
+            if (Editor.Settings.ViewCollisionGrid)
                 Renderer.DrawObjectCollisions(layers, xmin, ymin, xmax, ymax, m_graphicsContext);
         }
 

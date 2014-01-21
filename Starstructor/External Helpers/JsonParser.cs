@@ -55,7 +55,7 @@ namespace Starstructor
             }
             catch (Exception e)
             {
-                Editor.Editor.Log.Write(e.Message);
+                Editor.Log.Write(e.Message);
                 return default(T);
             }
         }
@@ -68,7 +68,7 @@ namespace Starstructor
             }
             catch (Exception e)
             {
-                Editor.Editor.Log.Write(e.Message);
+                Editor.Log.Write(e.Message);
                 MessageBox.Show("Failed to save file " + path + ", please try again! Consult the log file for more information.");
             }
         }

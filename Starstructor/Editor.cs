@@ -27,13 +27,13 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundObjects;
 using Starstructor.StarboundObjects.Dungeons;
 using Starstructor.StarboundObjects.Ships;
-using Newtonsoft.Json;
 
-namespace Starstructor.Editor
+namespace Starstructor
 {
     public class Editor
     {
@@ -96,7 +96,7 @@ namespace Starstructor.Editor
 
                 if (!File.Exists(path))
                 {
-                    File.AppendAllText(path, JsonConvert.SerializeObject(m_settings, Formatting.Indented));
+                    File.AppendAllText(path, JsonConvert.SerializeObject((object) m_settings, Formatting.Indented));
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace Starstructor.Editor
             string path = AppDomain.CurrentDomain.BaseDirectory + "settings.json";
 
             StreamWriter sw = new StreamWriter(path);
-            sw.Write(JsonConvert.SerializeObject(m_settings, Formatting.Indented));
+            sw.Write(JsonConvert.SerializeObject((object) m_settings, Formatting.Indented));
             sw.Close();
         }
 

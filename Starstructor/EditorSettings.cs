@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Starstructor.Editor
+namespace Starstructor
 {
     public class EditorSettings
     {

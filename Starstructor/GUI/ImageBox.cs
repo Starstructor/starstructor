@@ -24,7 +24,6 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using Starstructor.Editor;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundObjects;
 using Starstructor.StarboundObjects.Objects;
