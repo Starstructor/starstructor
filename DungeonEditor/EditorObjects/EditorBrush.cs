@@ -27,7 +27,6 @@ using System.ComponentModel;
 using System.Drawing;
 using DungeonEditor.StarboundObjects.Objects;
 using System;
-using System.Windows.Forms;
 
 namespace DungeonEditor.EditorObjects
 {

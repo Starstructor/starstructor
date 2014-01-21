@@ -24,7 +24,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using DungeonEditor.Editor;
 using DungeonEditor.StarboundObjects;
-using DungeonEditor.StarboundObjects.Tiles;
 using Newtonsoft.Json;
 using System.ComponentModel;
 

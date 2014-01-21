@@ -4,6 +4,7 @@ Contact: cstamford@gmail.com
 
 Source file contributers:
  Chris Stamford     contact: cstamford@gmail.com
+ Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,13 +43,16 @@ namespace DungeonEditor.Editor
 
             // Get the initial asset path
             string assetPath = Path.Combine(activeDirectory, fileName);
+
             if (!File.Exists(assetPath))
             {
                 // Try the mods directory
                 assetPath = Path.Combine(Editor.Settings.ModsDirPath, fileName);
+
                 if (!File.Exists(assetPath))
                 {
                     assetPath = Path.Combine(Editor.Settings.AssetDirPath, fileName);
+
                     if (!File.Exists(assetPath))
                     {
                         //MessageBox.Show("Failed to locate " + imagePath + "\n" + baseDir + " | " + m_fileName);
@@ -56,17 +60,16 @@ namespace DungeonEditor.Editor
                     }
                 }
             }
+
             return assetPath;
         }
         public static string ParsePath(string activeDirectory, string path)
         {
             // This is a file name without any directories
             if (Path.GetFileName(path) == path)
-            {
                 return Path.Combine(activeDirectory, path);
-            }
 
-            return DungeonEditor.Editor.Editor.Settings.AssetDirPath + path;
+            return Editor.Settings.AssetDirPath + path;
         }
 
         public static string GetExtensionFromBrushType(string type)
@@ -99,7 +102,7 @@ namespace DungeonEditor.Editor
         {
             Image rect = new Bitmap(width, height);
             Graphics gfx = Graphics.FromImage(rect);
-            var gfxBrush = new SolidBrush(Color.FromArgb(
+            SolidBrush gfxBrush = new SolidBrush(Color.FromArgb(
                 a,
                 r,
                 g,
@@ -114,7 +117,7 @@ namespace DungeonEditor.Editor
 
         public static Image LoadImageFromFile(string path)
         {
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 return Image.FromStream(stream);
             }

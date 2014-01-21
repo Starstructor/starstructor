@@ -49,6 +49,7 @@ namespace DungeonEditor.EditorTypes
             {
                 return objectType == typeof(Vec2F);
             }
+
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 List<double> result = serializer.Deserialize<List<double>>(reader);
@@ -57,6 +58,7 @@ namespace DungeonEditor.EditorTypes
 
                 return new Vec2F(result[0], result[1]);
             }
+
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
                 List<double> output = new List<double> { 0, 0 };

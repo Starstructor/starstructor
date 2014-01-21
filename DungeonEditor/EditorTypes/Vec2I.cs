@@ -37,6 +37,7 @@ namespace DungeonEditor.EditorTypes
             this.x = x;
             this.y = y;
         }
+
         public override string ToString()
         {
             return "(" + x + ", " + y + ")";
@@ -48,6 +49,7 @@ namespace DungeonEditor.EditorTypes
             {
                 return objectType == typeof(Vec2I);
             }
+
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 List<int> result = serializer.Deserialize<List<int>>(reader);
@@ -56,6 +58,7 @@ namespace DungeonEditor.EditorTypes
 
                 return new Vec2I(result[0], result[1]);
             }
+
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
                 List<int> output = new List<int> { 0, 0 };

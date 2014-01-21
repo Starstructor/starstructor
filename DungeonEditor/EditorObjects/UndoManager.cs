@@ -4,6 +4,7 @@ Contact: cstamford@gmail.com
 
 Source file contributers:
  Adam Heinermann    contact: aheinerm@gmail.com
+ Chris Stamford     contact: cstamford@gmail.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,9 +33,9 @@ namespace DungeonEditor.EditorObjects
 
     public class UndoManager
     {
-        private List<BrushChangeInfo> m_undoBuffer = new List<BrushChangeInfo>();
+        private readonly List<BrushChangeInfo> m_undoBuffer = new List<BrushChangeInfo>();
+        private readonly EditorMapLayer m_mapLayer;
         private int m_undoIndex = 0;
-        private EditorMapLayer m_mapLayer;
         
         // Expected ctor
         public UndoManager(EditorMapLayer layer)

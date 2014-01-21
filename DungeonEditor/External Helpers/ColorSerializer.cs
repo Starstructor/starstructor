@@ -33,6 +33,7 @@ namespace DungeonEditor
         {
             return objectType == typeof(Color);
         }
+
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             List<byte> result = serializer.Deserialize< List<byte> >(reader);
@@ -50,6 +51,7 @@ namespace DungeonEditor
             }
             return Color.FromArgb(a, r, g, b);
         }
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             List<byte> output = new List<byte>{ 0, 0, 0, 255 };
