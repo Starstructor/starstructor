@@ -353,9 +353,11 @@ namespace Starstructor.GUI
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditorMapLayer activeLayer = GetSelectedLayer();
+
             if (activeLayer != null)
             {
-                var lastChange = activeLayer.UndoManager.Undo();
+                BrushChangeInfo? lastChange = activeLayer.UndoManager.Undo();
+
                 if (lastChange != null)
                 {
                     SelectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
@@ -365,15 +367,18 @@ namespace Starstructor.GUI
                     MainPictureBox.Refresh();
                 }
             }
+
             UpdateUndoRedoItems();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditorMapLayer activeLayer = GetSelectedLayer();
+
             if (activeLayer != null)
             {
-                var lastChange = activeLayer.UndoManager.Redo();
+                BrushChangeInfo? lastChange = activeLayer.UndoManager.Redo();
+
                 if (lastChange != null)
                 {
                     SelectedMap.RedrawCanvasFromBrush(lastChange.Value.m_brushAfter,
@@ -383,6 +388,7 @@ namespace Starstructor.GUI
                     MainPictureBox.Refresh();
                 }
             }
+
             UpdateUndoRedoItems();
         }
 
@@ -393,27 +399,17 @@ namespace Starstructor.GUI
             if (activeLayer == null)
                 return;
 
-            // eyedropper tool
-
             EditorBrush brush = activeLayer.GetBrushAt(gridX, gridY);
 
-            if (brush != null)
-            {
-                SetSelectedBrush(brush);
+            if (brush == null) 
+                return;
 
-                // Select the brush in the treeview
-                TreeNode brushNode = null;
-                foreach ( var m in m_brushNodeMap )
-                {
-                    if ( m.Value == brush )
-                    {
-                        brushNode = m.Key;
-                        break;
-                    }
-                    
-                }
-                BrushesTreeView.SelectedNode = brushNode;
-            }
+            SetSelectedBrush(brush);
+
+            // Select the brush in the treeview
+            TreeNode brushNode = (from m in m_brushNodeMap where m.Value == brush select m.Key).FirstOrDefault();
+
+            BrushesTreeView.SelectedNode = brushNode;
         }
 
         // Populate the part list

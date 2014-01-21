@@ -35,6 +35,7 @@ namespace Starstructor.EditorObjects
     {
         [JsonIgnore] 
         protected HashSet<Vec2I>[,] m_collisionMap;
+
         [JsonIgnore] 
         protected int m_height;
 
