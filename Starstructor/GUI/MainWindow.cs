@@ -519,12 +519,14 @@ namespace Starstructor.GUI
                     comment = "NO COMMENT DEFINED";
 
                 TreeNode parentNode = new TreeNode(comment);
+
                 if (brush.GetAssetPreview() != null)
                 {
                     BrushesTreeView.ImageList.Images.Add(brush.GetKey(), brush.GetAssetPreview());
                     parentNode.ImageKey = brush.GetKey();
                     parentNode.SelectedImageKey = brush.GetKey();
                 }
+
                 baseNodes.Add(parentNode);
                                 
                 // Add this node to the brush -> node map
