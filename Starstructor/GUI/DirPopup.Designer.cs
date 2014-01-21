@@ -47,6 +47,7 @@ namespace Starstructor.GUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DirPopup));
             this.ButtonAccept = new System.Windows.Forms.Button();
             this.ButtonBrowse = new System.Windows.Forms.Button();
             this.LabelDirectoryInfo = new System.Windows.Forms.Label();
@@ -104,6 +105,7 @@ namespace Starstructor.GUI
             this.Controls.Add(this.ButtonBrowse);
             this.Controls.Add(this.ButtonAccept);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DirPopup";
