@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Windows.Forms;
+using Starstructor.StarboundObjects;
 
 namespace Starstructor.GUI
 {
@@ -29,6 +30,14 @@ namespace Starstructor.GUI
         public ImportBrush()
         {
             InitializeComponent();
+        }
+
+        private void ImportBrush_Load(object sender, System.EventArgs e)
+        {
+            foreach (StarboundAsset asset in EditorAssets.getAllAssets())
+            {
+                listBox1.Items.Add(asset);
+            }
         }
     }
 }

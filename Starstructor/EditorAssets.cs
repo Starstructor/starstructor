@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Starstructor.StarboundObjects;
 using Starstructor.StarboundObjects.Objects;
 using Starstructor.StarboundObjects.Tiles;
 
@@ -79,6 +80,19 @@ namespace Starstructor
 
             Editor.Log.Write("Unable to retrieve object " + name);
             return null;
+        }
+
+        public static List<StarboundAsset> getAllAssets()
+        {
+            // Block until assets fully loaded
+            if (m_worker != null)
+                m_worker.Join();
+
+            List<StarboundAsset> assets = new List<StarboundAsset>();
+            assets.AddRange(m_materialMap.Values);
+            assets.AddRange(m_objectMap.Values);
+
+            return assets;
         }
 
         public static StarboundMaterial GetMaterial(string name)
