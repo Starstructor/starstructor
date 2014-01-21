@@ -11,10 +11,10 @@ namespace DungeonEditor.Editor
 {
     public static class EditorAssets
     {
-        private static Dictionary<string, StarboundObject> g_ObjectMap
+        private static readonly Dictionary<string, StarboundObject> m_objectMap
             = new Dictionary<string, StarboundObject>();
 
-        private static Dictionary<string, StarboundTile> g_MaterialMap
+        private static readonly Dictionary<string, StarboundTile> m_materialMap
             = new Dictionary<string, StarboundTile>();
 
         private static Thread m_worker = null;
@@ -38,12 +38,39 @@ namespace DungeonEditor.Editor
 
             m_worker = new Thread(RefreshAssetsBackground);
             
-            g_ObjectMap.Clear();
-            g_MaterialMap.Clear();
+            m_objectMap.Clear();
+            m_materialMap.Clear();
 
             m_worker.Start();
         }
-        public static void RefreshAssetsBackground()
+
+        public static StarboundObject GetObject(string name)
+        {
+            // Block until assets fully loaded
+            if (m_worker != null)
+                m_worker.Join();
+
+            if (m_objectMap.ContainsKey(name))
+                return m_objectMap[name];
+
+            Editor.Log.Write("Unable to retrieve object " + name);
+            return null;
+        }
+
+        public static StarboundTile GetMaterial(string name)
+        {
+            // Block until assets fully loaded
+            if (m_worker != null)
+                m_worker.Join();
+
+            if (m_materialMap.ContainsKey(name))
+                return m_materialMap[name];
+
+            Editor.Log.Write("Unable to retrieve material " + name);
+            return null;
+        }
+
+        private static void RefreshAssetsBackground()
         {
             // Scan directory based on path
             // Update this to include any mod folders
@@ -54,10 +81,10 @@ namespace DungeonEditor.Editor
                 foreach (var file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
                 {
                     StarboundObject sbObject = new JsonParser(file).ParseJson<StarboundObject>();
-                    if (g_ObjectMap.ContainsKey(sbObject.ObjectName))
+                    if (m_objectMap.ContainsKey(sbObject.ObjectName))
                         continue;
 
-                    g_ObjectMap[sbObject.ObjectName] = sbObject;
+                    m_objectMap[sbObject.ObjectName] = sbObject;
                     sbObject.FullPath = file;
                     sbObject.InitializeAssets();
                 }
@@ -65,50 +92,14 @@ namespace DungeonEditor.Editor
                 foreach (var file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
                 {
                     StarboundTile sbMaterial = new JsonParser(file).ParseJson<StarboundTile>();
-                    if (g_MaterialMap.ContainsKey(sbMaterial.MaterialName))
+                    if (m_materialMap.ContainsKey(sbMaterial.MaterialName))
                         continue;
 
-                    g_MaterialMap[sbMaterial.MaterialName] = sbMaterial;
+                    m_materialMap[sbMaterial.MaterialName] = sbMaterial;
                     sbMaterial.FullPath = file;
                     sbMaterial.InitializeAssets();
                 }
             }
         }
-
-
-        public static StarboundObject GetObject(string name)
-        {
-            if (m_worker != null)
-                m_worker.Join();
-
-            if ( !g_ObjectMap.ContainsKey(name) )
-            {
-                RefreshAssets();
-                if (!g_ObjectMap.ContainsKey(name))
-                {
-                    System.Windows.Forms.MessageBox.Show("There was a problem retrieving an object called " + name);
-                    return null;
-                }
-            }
-            return g_ObjectMap[name];
-        }
-
-        public static StarboundTile GetMaterial(string name)
-        {
-            if (m_worker != null)
-                m_worker.Join();
-
-            if ( !g_MaterialMap.ContainsKey(name) )
-            {
-                RefreshAssets();
-                if (!g_MaterialMap.ContainsKey(name))
-                {
-                    System.Windows.Forms.MessageBox.Show("There was a problem retrieving a material called " + name);
-                    return null;
-                }
-            }
-            return g_MaterialMap[name];
-        }
-
     }
 }

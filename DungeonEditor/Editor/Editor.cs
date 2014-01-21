@@ -25,15 +25,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using DungeonEditor.EditorObjects;
 using DungeonEditor.StarboundObjects;
 using DungeonEditor.StarboundObjects.Dungeons;
-using DungeonEditor.StarboundObjects.Objects;
 using DungeonEditor.StarboundObjects.Ships;
-using DungeonEditor.StarboundObjects.Tiles;
 using Newtonsoft.Json;
 
 namespace DungeonEditor.Editor
@@ -42,6 +39,7 @@ namespace DungeonEditor.Editor
     {
         // Editor variables
         public const int DEFAULT_GRID_FACTOR = 8;
+
         private static EditorSettings m_settings;
 
         private readonly Dictionary<Color, EditorBrush> m_brushMap
@@ -56,7 +54,7 @@ namespace DungeonEditor.Editor
         private readonly Version m_version = Assembly.GetExecutingAssembly().GetName().Version;
         private EditorFile m_activeFile;
 
-        // Public variables
+        // Public fields
         public string Name
         {
             get { return m_name; }
@@ -72,7 +70,6 @@ namespace DungeonEditor.Editor
             get { return m_log; }
         }
 
-        // Maps from RGBA to a specific Tile
         public Dictionary<Color, EditorBrush> BrushMap
         {
             get { return m_brushMap; }
@@ -167,10 +164,10 @@ namespace DungeonEditor.Editor
             ActiveFile.LoadParts(this);
 
             m_log.Write("Completed parsing " + path);
-            Editor.Settings.RecentFiles.Remove(path);
-            Editor.Settings.RecentFiles.Insert(0, path);    // Insert the newest element at the beginning
-            while (Editor.Settings.RecentFiles.Count > 10)  // Remove last elements over the max number of recent files
-                Editor.Settings.RecentFiles.RemoveAt(Editor.Settings.RecentFiles.Count - 1);
+            Settings.RecentFiles.Remove(path);
+            Settings.RecentFiles.Insert(0, path);    // Insert the newest element at the beginning
+            while (Settings.RecentFiles.Count > 10)  // Remove last elements over the max number of recent files
+                Settings.RecentFiles.RemoveAt(Settings.RecentFiles.Count - 1);
             return true;
         }
 

@@ -33,9 +33,6 @@ namespace DungeonEditor.StarboundObjects
         [JsonIgnore]
         public Image Image { get; set; }
 
-        //[JsonIgnore]
-        //public string AssetName { get; set; }
-
         [JsonIgnore]
         public string FullPath { get; set; }
 

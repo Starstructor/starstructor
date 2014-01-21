@@ -166,7 +166,8 @@ namespace DungeonEditor.StarboundObjects.Tiles
             {
                 Frames = new TileImageManager(FramesString, Path.GetDirectoryName(FullPath));
             }
-            this.Image = Frames.GetImageFrameBitmap();
+
+            Image = Frames.GetImageFrameBitmap();
         }
 
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 

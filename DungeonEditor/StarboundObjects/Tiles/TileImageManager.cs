@@ -47,11 +47,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
         public Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0)
         {
             Rectangle? frameRect = GetImageFrame(variant, colour);
-
-            if (frameRect == null)
-                return null;
-
-            return m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
+            return frameRect == null ? null : m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
         }
 
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, 

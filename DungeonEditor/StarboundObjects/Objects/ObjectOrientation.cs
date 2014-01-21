@@ -183,13 +183,13 @@ namespace DungeonEditor.StarboundObjects.Objects
         public int GetWidth(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var manager = GetImageManager(direction);
-            return manager != null ? manager.Frames.FrameGrid.GetWidth(gridFactor) : 0;
+            return manager != null && manager.Frames != null ? manager.Frames.FrameGrid.GetWidth(gridFactor) : 0;
         }
 
         public int GetHeight(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             var manager = GetImageManager(direction);
-            return manager != null ? manager.Frames.FrameGrid.GetHeight(gridFactor) : 0;
+            return manager != null && manager.Frames != null ? manager.Frames.FrameGrid.GetHeight(gridFactor) : 0;
         }
 
         public int GetOriginX(int gridFactor = Editor.Editor.DEFAULT_GRID_FACTOR, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
