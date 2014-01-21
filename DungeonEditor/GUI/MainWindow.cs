@@ -592,46 +592,6 @@ namespace DungeonEditor.GUI
             MainPictureBox.Invalidate();
         }
 
-        // Recursively generate a list of TreeNodes
-        // This needs to be improved in the future
-        private List<TreeNode> AddNodes_r(object element)
-        {
-            List<TreeNode> nodes = new List<TreeNode>();
-
-            if (element is JObject)
-            {
-                foreach (KeyValuePair<string, JToken> deepElem in (JObject) element)
-                {
-                    nodes.AddRange(AddNodes_r(deepElem));
-                }
-            }
-
-            else if (element is JArray)
-            {
-                nodes.AddRange(((JArray)element).Cast<object>().SelectMany(AddNodes_r));
-            }
-
-            else if (element is JValue)
-            {
-                nodes.Add(new TreeNode(element.ToString()));
-            }
-
-            else if (element is KeyValuePair<string, JToken>)
-            {
-                KeyValuePair<string, JToken> deepElem = (KeyValuePair<string, JToken>)element;
-                List<TreeNode> tokenChildren = AddNodes_r(deepElem.Value);
-
-                nodes.Add(new TreeNode(deepElem.Key, tokenChildren.ToArray<TreeNode>()));
-            }
-
-            else
-            {
-                nodes.Add(new TreeNode(element.ToString()));
-            }
-
-            return nodes;
-        }
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDlg.ShowDialog();
