@@ -185,7 +185,7 @@ namespace Starstructor.StarboundObjects.Objects
         public string Description { get; set; }
 
         [JsonProperty("shortdescription"), Category("Description")]
-        public string Shortdescription { get; set; }
+        public string ShortDescription { get; set; }
 
         [JsonIgnore]
         public ImageLoader InventoryIcon { get; set; }
@@ -280,6 +280,11 @@ namespace Starstructor.StarboundObjects.Objects
                         brush != null && 
                         brush.FrontAsset != null && 
                         !(brush.FrontAsset is StarboundObject));
+        }
+
+        public override string ToString()
+        {
+            return ObjectName ?? ShortDescription ?? Description ?? base.ToString();
         }
     }
 }
