@@ -120,7 +120,7 @@ namespace Starstructor
             string path = AppDomain.CurrentDomain.BaseDirectory + "settings.json";
 
             StreamWriter sw = new StreamWriter(path);
-            sw.Write(JsonConvert.SerializeObject((object) m_settings, Formatting.Indented));
+            sw.Write(JsonConvert.SerializeObject(m_settings, Formatting.Indented));
             sw.Close();
         }
 
@@ -177,7 +177,6 @@ namespace Starstructor
 
         public void SaveFile(string path)
         {
-            // Leave, until ship serialization is fixed
             m_log.Write("Saving " + path);
 
             ActiveFile.FilePath = path;

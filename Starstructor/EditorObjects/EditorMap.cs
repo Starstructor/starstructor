@@ -93,6 +93,7 @@ namespace Starstructor.EditorObjects
             {
                 activeLayer = (EditorMapLayer)this;
             }
+
             return activeLayer;
         }
         public EditorMapPart GetActivePart()
@@ -159,6 +160,7 @@ namespace Starstructor.EditorObjects
                 for (int y = ymin; y < ymax; ++y)
                 {
                     HashSet<Vec2I> collisions = null;
+
                     if (this is EditorMapPart)
                     {
                         collisions = activeLayer.Parent.GetCollisionsAt(x, y);
@@ -171,7 +173,7 @@ namespace Starstructor.EditorObjects
                     if (collisions == null)
                         continue;
 
-                    foreach (var coords in collisions.Where(coords =>
+                    foreach (Vec2I coords in collisions.Where(coords =>
                         (coords.x != x || coords.y != y) &&
                         (coords.x != gridX || coords.y != gridY)))
                     {
@@ -180,33 +182,15 @@ namespace Starstructor.EditorObjects
                 }
             }
             
-            // Selectively redraw the composite image
-            if (this is EditorMapPart)
-            {
-                activeLayer.Parent.UpdateLayerImageBetween(xmin, ymin, xmax, ymax);
+            // Always redraw the composite image. Renderer will handle lowering opacity of
+            // the non-selected part.
+            activeLayer.Parent.UpdateLayerImageBetween(xmin, ymin, xmax, ymax);
 
-                foreach (var coords in additionalRedrawList)
-                {
-                    activeLayer.Parent.UpdateLayerImageBetween(
-                        coords.x, coords.y,
-                        coords.x + 1, coords.y + 1);
-                }
-            }
-
-            // Only selectively redraw the active layer
-            else if (this is EditorMapLayer)
+            foreach (Vec2I coords in additionalRedrawList)
             {
                 activeLayer.Parent.UpdateLayerImageBetween(
-                    new List<EditorMapLayer> { activeLayer },
-                    xmin, ymin, xmax, ymax);
-
-                foreach (var coords in additionalRedrawList)
-                {
-                    activeLayer.Parent.UpdateLayerImageBetween(
-                        new List<EditorMapLayer> { activeLayer },
-                        coords.x, coords.y,
-                        coords.x + 1, coords.y + 1);
-                }
+                    coords.x, coords.y,
+                    coords.x + 1, coords.y + 1);
             }
         }
     }
