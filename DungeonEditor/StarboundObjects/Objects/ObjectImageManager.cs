@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.IO;
 using System.Drawing;
 using DungeonEditor.EditorTypes;
-using System.Windows.Forms;
-using DungeonEditor.EditorObjects;
 using System.Drawing.Imaging;
 
 namespace DungeonEditor.StarboundObjects.Objects
@@ -58,9 +53,7 @@ namespace DungeonEditor.StarboundObjects.Objects
             string imagePath = Editor.EditorHelpers.FindAsset(framesDir, m_fileName);
 
             if ( imagePath == null )
-            {
-                MessageBox.Show("Asset not found.\n" + m_fileName + "\nIn active directory: " + framesDir);
-            }
+                Editor.Editor.Log.Write("Asset " + m_fileName + " not found in active directory: " + framesDir);
 
             m_image = imagePath != null ? new ImageLoader(imagePath) : null;
 
@@ -128,10 +121,10 @@ namespace DungeonEditor.StarboundObjects.Objects
                 sizeX,
                 sizeY);
 
-            var colourMatrix = new ColorMatrix();
+            ColorMatrix colourMatrix = new ColorMatrix();
             colourMatrix.Matrix33 = opacity;
 
-            var attributes = new ImageAttributes();
+            ImageAttributes attributes = new ImageAttributes();
             attributes.SetColorMatrix(colourMatrix);
             
             // Fix this, scaling on colour map

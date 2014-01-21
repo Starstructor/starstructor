@@ -43,6 +43,7 @@ namespace DungeonEditor.Editor
             m_objectMap.Clear();
             m_materialMap.Clear();
 
+            Editor.Log.Write("Asset loading thread started");
             m_worker.Start();
         }
 
@@ -112,6 +113,8 @@ namespace DungeonEditor.Editor
                     sbMaterial.InitializeAssets();
                 }
             }
+
+            Editor.Log.Write("Asset loading thread ended");
         }
     }
 }

@@ -25,10 +25,10 @@ namespace DungeonEditor.StarboundObjects.Tiles
         {
             // Get the image file
             m_fileName = Editor.EditorHelpers.FindAsset(framesDir, name);
+
             if ( m_fileName == null )
-            {
-                System.Windows.Forms.MessageBox.Show("Failed asset acquisition of " + framesDir + " " + name);
-            }
+                Editor.Editor.Log.Write("Failed asset acquisition of " + framesDir + " " + name);
+
             m_image = new ImageLoader(m_fileName);
         }
 
@@ -66,19 +66,18 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 gridFactor,
                 gridFactor);
 
-            float[][] floatColourMatrx =
-            {
-                new float[] {1, 0, 0, 0, 0},
-                new float[] {0, 1, 0, 0, 0},
-                new float[] {0, 0, 1, 0, 0},
-                new float[] {0, 0, 0, 1, 0},
-                new[] {-0.25f, -0.25f, -0.25f, 1, 1}
-            };
-
-            var colourMatrix = background ? new ColorMatrix(floatColourMatrx) : new ColorMatrix();
+            ColorMatrix colourMatrix = new ColorMatrix();
             colourMatrix.Matrix33 = opacity;
 
-            var attributes = new ImageAttributes();
+            if (background)
+            {
+                // Darken
+                colourMatrix.Matrix40 = -0.25f;
+                colourMatrix.Matrix41 = -0.25f;
+                colourMatrix.Matrix42 = -0.25f;
+            }
+
+            ImageAttributes attributes = new ImageAttributes();
             attributes.SetColorMatrix(colourMatrix);
 
             // Fix this, scaling on colour map
@@ -96,11 +95,11 @@ namespace DungeonEditor.StarboundObjects.Tiles
 
         public void Dispose()
         {
-            if ( m_image != null )
-            {
-                m_image.Dispose();
-                m_image = null;
-            }
+            if (m_image == null) 
+                return;
+
+            m_image.Dispose();
+            m_image = null;
         }
     }
 }

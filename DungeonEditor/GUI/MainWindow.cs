@@ -34,7 +34,6 @@ using DungeonEditor.EditorObjects;
 using DungeonEditor.StarboundObjects.Dungeons;
 using DungeonEditor.StarboundObjects.Ships;
 using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 
 namespace DungeonEditor.GUI
 {
@@ -56,43 +55,43 @@ namespace DungeonEditor.GUI
             get { return m_pselectedMap; }
             private set
             {
-                if (m_pselectedMap != value)
+                if (m_pselectedMap == value) 
+                    return;
+
+                EditorMap parentNext = value;
+                if (parentNext is EditorMapLayer)
+                    parentNext = (parentNext as EditorMapLayer).Parent;
+
+                EditorMap parentPrev = m_pselectedMap;
+                if (parentPrev is EditorMapLayer)
+                    parentPrev = (parentPrev as EditorMapLayer).Parent;
+
+                bool wantReset = parentNext != parentPrev;
+                m_pselectedMap = value;
+
+                // Update the work area
+                UpdateImageBox(wantReset, wantReset);
+
+                // Update menus/properties
+                takeScreenshotToolStripMenuItem.Enabled = (value != null);
+                UpdatePropertiesPanel();
+
+                TreeNode desiredNode = null;
+
+                if (value != null)
                 {
-                    EditorMap parentNext = value;
-                    if (parentNext is EditorMapLayer)
-                        parentNext = (parentNext as EditorMapLayer).Parent;
-
-                    EditorMap parentPrev = m_pselectedMap;
-                    if (parentPrev is EditorMapLayer)
-                        parentPrev = (parentPrev as EditorMapLayer).Parent;
-
-                    bool wantReset = parentNext != parentPrev;
-                    m_pselectedMap = value;
-
-                    // Update the work area
-                    UpdateImageBox(wantReset, wantReset);
-
-                    // Update menus/properties
-                    takeScreenshotToolStripMenuItem.Enabled = (value != null);
-                    UpdatePropertiesPanel();
-
-                    TreeNode desiredNode = null;
-
-                    if (value != null)
+                    try
                     {
-                        try
-                        {
-                            desiredNode = m_mapNodeMap.First(x => x.Value == value).Key;
-                        }
-                        catch (Exception ex)
-                        {
-                            Editor.Editor.Log.Write(ex.ToString());
-                            MessageBox.Show("Something bad happened. Consult log file for more information. Report this on the forums.");
-                        }
+                        desiredNode = m_mapNodeMap.First(x => x.Value == value).Key;
                     }
-
-                    PartTreeView.SelectedNode = desiredNode;
+                    catch (Exception ex)
+                    {
+                        Editor.Editor.Log.Write(ex.ToString());
+                        MessageBox.Show("Something bad happened. Consult log file for more information. Report this on the forums.");
+                    }
                 }
+
+                PartTreeView.SelectedNode = desiredNode;
             }
         }
 
@@ -564,13 +563,25 @@ namespace DungeonEditor.GUI
 
                 if (SelectedMap is EditorMapPart)
                 {
-                    part.UpdateLayerImage();
+                    foreach (EditorMapLayer layer in part.Layers)
+                    {
+                        layer.Selected = true;
+                    }
+
                 }
                 else if (SelectedMap is EditorMapLayer)
                 {
-                    part.UpdateLayerImage(new List<EditorMapLayer> { (EditorMapLayer)SelectedMap });
+                    foreach (EditorMapLayer layer in part.Layers)
+                    {
+                        layer.Selected = false;
+                    }
+
+                    EditorMapLayer selected = (EditorMapLayer) SelectedMap;
+                    selected.Selected = true;
                 }
 
+
+                part.UpdateLayerImage();
                 MainPictureBox.SetImage(part.GraphicsMap, resetZoom, resetCamera, m_gridFactor);
             }
 
@@ -661,6 +672,7 @@ namespace DungeonEditor.GUI
         {
             SelectedMap = m_parent.ActiveFile.FindPart(name);
         }
+
         private void SelectPartNode(TreeNode node)
         {
             if ( !m_mapNodeMap.ContainsKey(node) )

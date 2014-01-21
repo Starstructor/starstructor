@@ -42,8 +42,9 @@ namespace DungeonEditor.EditorObjects
     {
         private readonly EditorBrush[,] m_brushMap;
         private readonly EditorMapPart m_parent;
+        private readonly UndoManager m_undoManager;
+        private bool m_selected;
         private bool m_changed;
-        private UndoManager m_undoManager;
 
         [JsonIgnore, Browsable(false)]
         public EditorMapPart Parent
@@ -59,6 +60,13 @@ namespace DungeonEditor.EditorObjects
         {
             get { return m_changed; }
             set { m_changed = value; }
+        }
+
+        [JsonIgnore, Browsable(false)]
+        public bool Selected
+        {
+            get { return m_selected; }
+            set { m_selected = value; }
         }
 
         [JsonIgnore, Browsable(false)]

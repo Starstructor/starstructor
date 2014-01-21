@@ -50,6 +50,11 @@ namespace DungeonEditor
 
             foreach (EditorMapLayer layer in layers)
             {
+                float opacity = 1.0f;
+
+                if (!layer.Selected)
+                    opacity = 0.25f;
+
                 for (int x = xmin; x < xmax; ++x)
                 {
                     for (int y = ymin; y < ymax; ++y)
@@ -65,8 +70,7 @@ namespace DungeonEditor
                         // is also flagged as a front brush.
                         if (brush.BrushTypes.Contains("back") && !brush.BrushTypes.Contains("front") && brush.BackAsset is StarboundMaterial )
                         {
-                            ((StarboundMaterial)brush.BackAsset).DrawTile(gfx, x, y, gridFactor, true);
-                            //DrawBackgroundTile((StarboundMaterial) brush.BackAsset, x, y, gridFactor, gfx);
+                            ((StarboundMaterial)brush.BackAsset).DrawTile(gfx, x, y, gridFactor, true, opacity);
                         }
                     }
                 }
@@ -89,6 +93,11 @@ namespace DungeonEditor
 
             foreach (EditorMapLayer layer in layers)
             {
+                float opacity = 1.0f;
+
+                if (!layer.Selected)
+                    opacity = 0.25f;
+
                 for (int x = xmin; x < xmax; ++x)
                 {
                     for (int y = ymin; y < ymax; ++y)
@@ -104,14 +113,12 @@ namespace DungeonEditor
                         {
                             var obj = brush.FrontAsset as StarboundObject;
                             ObjectOrientation orientation = obj.GetCorrectOrientation(layers[0].Parent, x, y, brush.Direction);
-                            if (!orientation.DrawObject(gfx, x, y, brush.Direction, gridFactor))
-                                System.Windows.Forms.MessageBox.Show("DrawForeground failed for " + obj.ObjectName);
-                            //DrawObject(obj, x, y, orientation, brush.Direction, gridFactor, gfx, 1.0f);
+                            if (!orientation.DrawObject(gfx, x, y, brush.Direction, gridFactor, opacity))
+                                Editor.Editor.Log.Write("DrawForeground failed for " + obj.ObjectName);
                         }
                         else if (brush.BrushTypes.Contains("front") && brush.FrontAsset is StarboundMaterial)
                         {
-                            ((StarboundMaterial)brush.FrontAsset).DrawTile(gfx, x, y, gridFactor);
-                            //DrawForegroundTile((StarboundMaterial) brush.FrontAsset, x, y, gridFactor, gfx, 1.0f);
+                            ((StarboundMaterial)brush.FrontAsset).DrawTile(gfx, x, y, gridFactor, false, opacity);
                         }
                     }
                 }

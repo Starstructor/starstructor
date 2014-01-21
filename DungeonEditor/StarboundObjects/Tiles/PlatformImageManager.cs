@@ -67,17 +67,7 @@ namespace DungeonEditor.StarboundObjects.Tiles
                 gridFactor,
                 gridFactor);
 
-
-            float[][] floatColourMatrx =
-            {
-                new float[] {1, 0, 0, 0, 0},
-                new float[] {0, 1, 0, 0, 0},
-                new float[] {0, 0, 1, 0, 0},
-                new float[] {0, 0, 0, 1, 0},
-                new[] {-0.25f, -0.25f, -0.25f, 1, 1}
-            };
-
-            ColorMatrix colourMatrix = background ? new ColorMatrix(floatColourMatrx) : new ColorMatrix();
+            ColorMatrix colourMatrix = new ColorMatrix();
             colourMatrix.Matrix33 = opacity;
 
             ImageAttributes attributes = new ImageAttributes();
