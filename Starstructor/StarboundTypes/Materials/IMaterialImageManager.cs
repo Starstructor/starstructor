@@ -24,10 +24,10 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 
-namespace Starstructor.StarboundTypes.Tiles
+namespace Starstructor.StarboundTypes.Materials
 {
     [ReadOnly(true)]
-    public interface MaterialImageManager : IDisposable
+    public interface IMaterialImageManager : IDisposable
     {
         Rectangle? GetImageFrame(int variant = 0, int colour = 0);
 

@@ -168,12 +168,12 @@
     <Compile Include="StarboundTypes\StarboundObject.cs" />
     <Compile Include="StarboundTypes\StarboundAsset.cs" />
     <Compile Include="EditorObjects\EditorMapLayer.cs" />
-    <Compile Include="StarboundTypes\Tiles\MaterialImageManager.cs" />
+    <Compile Include="StarboundTypes\Materials\IMaterialImageManager.cs" />
     <Compile Include="StarboundTypes\StarboundLiquid.cs" />
     <Compile Include="StarboundTypes\StarboundMaterial.cs" />
     <Compile Include="EditorObjects\UndoManager.cs" />
-    <Compile Include="StarboundTypes\Tiles\PlatformImageManager.cs" />
-    <Compile Include="StarboundTypes\Tiles\TileImageManager.cs" />
+    <Compile Include="StarboundTypes\Materials\PlatformImageManager.cs" />
+    <Compile Include="StarboundTypes\Materials\MaterialImageManager.cs" />
     <EmbeddedResource Include="GUI\AssetGalleryComponent.resx">
       <DependentUpon>AssetGalleryComponent.cs</DependentUpon>
     </EmbeddedResource>

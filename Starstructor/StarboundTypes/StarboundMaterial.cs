@@ -26,7 +26,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
-using Starstructor.StarboundTypes.Tiles;
+using Starstructor.StarboundTypes.Materials;
 
 namespace Starstructor.StarboundTypes
 {
@@ -35,7 +35,7 @@ namespace Starstructor.StarboundTypes
     public class StarboundMaterial : StarboundAsset, IDisposable
     {
         [JsonIgnore]
-        public MaterialImageManager Frames;
+        public IMaterialImageManager Frames;
 
         [JsonProperty("description"), Category("Description")]
         [DefaultValue("")]
@@ -164,7 +164,7 @@ namespace Starstructor.StarboundTypes
             }
             else
             {
-                Frames = new TileImageManager(FramesString, Path.GetDirectoryName(FullPath));
+                Frames = new MaterialImageManager(FramesString, Path.GetDirectoryName(FullPath));
             }
 
             Image = Frames.GetImageFrameBitmap();
