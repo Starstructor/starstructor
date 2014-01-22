@@ -684,6 +684,7 @@ namespace Starstructor.GUI
             this.RightPanelProperties.Name = "RightPanelProperties";
             this.RightPanelProperties.Size = new System.Drawing.Size(238, 335);
             this.RightPanelProperties.TabIndex = 0;
+            this.RightPanelProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.RightPanelProperties_PropertyValueChanged);
             // 
             // SaveFileDlg
             // 

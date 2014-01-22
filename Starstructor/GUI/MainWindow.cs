@@ -24,16 +24,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
 using Microsoft.Win32;
 using Starstructor.StarboundTypes;
-using Starstructor.StarboundTypes.Dungeons;
 using Starstructor.StarboundTypes.Ships;
+using Image = System.Drawing.Image;
+using TreeNode = System.Windows.Forms.TreeNode;
 
 namespace Starstructor.GUI
 {
@@ -508,17 +509,15 @@ namespace Starstructor.GUI
         // Populate the brush list
         private void PopulateBrushList()
         {
+            BrushesTreeView.Nodes.Clear();
+
             List<TreeNode> baseNodes = new List<TreeNode>();
             BrushesTreeView.ImageList = new ImageList();
             BrushesTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8,8,255,255,255,255));
 
             foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
             {
-                string comment = brush.Comment;
-
-                if (String.IsNullOrWhiteSpace(comment))
-                    comment = "NO COMMENT DEFINED";
-
+                string comment = GetBrushComment(brush);
                 TreeNode parentNode = new TreeNode(comment);
 
                 if (brush.GetAssetPreview() != null)
@@ -535,6 +534,16 @@ namespace Starstructor.GUI
             }
 
             BrushesTreeView.Nodes.AddRange(baseNodes.ToArray());
+        }
+
+        private static string GetBrushComment(EditorBrush brush)
+        {
+            string comment = brush.Comment;
+
+            if (String.IsNullOrWhiteSpace(comment))
+                comment = "no comment defined";
+
+            return comment;
         }
 
         private void BrushesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -867,6 +876,34 @@ namespace Starstructor.GUI
         {
             ImportBrush brush = new ImportBrush();
             brush.ShowDialog();
+        }
+
+        private void RightPanelProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            GridItem item = e.ChangedItem;
+
+            // Get the underlying object that has been edited by this propertygrid
+            while (item.Parent != null)
+            {
+                item = item.Parent;
+            }
+
+            if (item.Value is EditorBrush && e.ChangedItem.Label == "Comment")
+            {
+                // Sanitize the new comment
+                m_selectedBrush.Comment = GetBrushComment(m_selectedBrush);
+
+                // Get the node associated with the selected brush
+                TreeNode node = m_brushNodeMap.FirstOrDefault(map => map.Value == m_selectedBrush).Key;
+
+                if (node != null)
+                {
+                    node.Text = (string) e.ChangedItem.Value;
+                }
+
+                // Update all other applicable things with the new brush info
+                SetSelectedBrush((EditorBrush) item.Value);
+            }
         }
     }
 }
