@@ -28,8 +28,9 @@ using System.IO;
 using Newtonsoft.Json;
 using Starstructor.EditorObjects;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes.Ships;
 
-namespace Starstructor.StarboundTypes.Ships
+namespace Starstructor.StarboundTypes
 {
     public class StarboundShip : EditorFile
     {

@@ -162,15 +162,15 @@
     <Compile Include="StarboundTypes\Ships\ShipOverlay.cs" />
     <Compile Include="StarboundTypes\Ships\ShipPart.cs" />
     <Compile Include="StarboundTypes\Ships\ShipBrush.cs" />
-    <Compile Include="StarboundTypes\Ships\StarboundShip.cs" />
-    <Compile Include="StarboundTypes\Dungeons\StarboundDungeon.cs" />
-    <Compile Include="StarboundTypes\Npcs\StarboundNpc.cs" />
-    <Compile Include="StarboundTypes\Objects\StarboundObject.cs" />
+    <Compile Include="StarboundTypes\StarboundShip.cs" />
+    <Compile Include="StarboundTypes\StarboundDungeon.cs" />
+    <Compile Include="StarboundTypes\StarboundNpc.cs" />
+    <Compile Include="StarboundTypes\StarboundObject.cs" />
     <Compile Include="StarboundTypes\StarboundAsset.cs" />
     <Compile Include="EditorObjects\EditorMapLayer.cs" />
     <Compile Include="StarboundTypes\Tiles\MaterialImageManager.cs" />
-    <Compile Include="StarboundTypes\Tiles\StarboundLiquid.cs" />
-    <Compile Include="StarboundTypes\Tiles\StarboundMaterial.cs" />
+    <Compile Include="StarboundTypes\StarboundLiquid.cs" />
+    <Compile Include="StarboundTypes\StarboundMaterial.cs" />
     <Compile Include="EditorObjects\UndoManager.cs" />
     <Compile Include="StarboundTypes\Tiles\PlatformImageManager.cs" />
     <Compile Include="StarboundTypes\Tiles\TileImageManager.cs" />
@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="StarboundTypes\Liquids\" />
+    <Folder Include="StarboundTypes\Npcs\" />
     <Folder Include="StarboundTypes\Platforms\" />
   </ItemGroup>
   <ItemGroup>

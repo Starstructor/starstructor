@@ -29,8 +29,9 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Starstructor.EditorObjects;
+using Starstructor.StarboundTypes.Dungeons;
 
-namespace Starstructor.StarboundTypes.Dungeons
+namespace Starstructor.StarboundTypes
 {
     public class StarboundDungeon : EditorFile
     {

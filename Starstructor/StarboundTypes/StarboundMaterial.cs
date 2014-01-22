@@ -26,8 +26,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
+using Starstructor.StarboundTypes.Tiles;
 
-namespace Starstructor.StarboundTypes.Tiles
+namespace Starstructor.StarboundTypes
 {
     // AKA material
     [ReadOnly(true)]

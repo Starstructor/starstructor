@@ -31,6 +31,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
 using Microsoft.Win32;
+using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Dungeons;
 using Starstructor.StarboundTypes.Ships;
 

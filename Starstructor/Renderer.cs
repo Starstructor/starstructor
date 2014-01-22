@@ -26,6 +26,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Starstructor.EditorObjects;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
 using Starstructor.StarboundTypes.Tiles;
 

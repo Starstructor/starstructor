@@ -27,6 +27,7 @@ using System.Linq;
 using System;
 using System.ComponentModel;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor.EditorObjects

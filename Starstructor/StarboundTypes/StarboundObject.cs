@@ -30,8 +30,9 @@ using System.Linq;
 using Newtonsoft.Json;
 using Starstructor.EditorObjects;
 using Starstructor.EditorTypes;
+using Starstructor.StarboundTypes.Objects;
 
-namespace Starstructor.StarboundTypes.Objects
+namespace Starstructor.StarboundTypes
 {
     [ReadOnly(true)]
     public class StarboundObject : StarboundAsset
