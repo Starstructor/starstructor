@@ -121,6 +121,12 @@ namespace Starstructor.StarboundTypes.Objects
             if ( frameRect == null )
                 return null;
 
+            if (frameRect.Value.Width > m_image.ImageFile.Width || frameRect.Value.Height > m_image.ImageFile.Height)
+            {
+                Editor.Log.Write("ERROR: Frame size greater than image size for " + m_fileName);
+                return null;
+            }
+
             Bitmap result = m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
             result.RotateFlip(m_flipped ? RotateFlipType.RotateNoneFlipX : RotateFlipType.RotateNoneFlipNone);
             return result;

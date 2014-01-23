@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundTypes;
-using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor.GUI
 {
