@@ -123,7 +123,10 @@ namespace Starstructor.StarboundTypes.Objects
 
             if (frameRect.Value.Width > m_image.ImageFile.Width || frameRect.Value.Height > m_image.ImageFile.Height)
             {
-                Editor.Log.Write("ERROR: Frame size greater than image size for " + m_fileName);
+                Editor.Log.Write("ERROR: Frame size greater than image size for " + m_fileName + 
+                    ", expected width: " + frameRect.Value.Width + " height: " + frameRect.Value.Height + 
+                    ", got width: " + m_image.ImageFile.Width + " height: " + m_image.ImageFile.Height);
+
                 return null;
             }
 
