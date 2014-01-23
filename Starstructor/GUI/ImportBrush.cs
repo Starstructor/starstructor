@@ -61,6 +61,7 @@ namespace Starstructor.GUI
             AssetSearchTreeView.Nodes.Clear();
 
             AssetSearchTreeView.ImageList = new ImageList();
+            AssetSearchTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8, 8, 255, 255, 255, 255));
             List<StarboundAsset> assets = EditorAssets.getAllAssets();
             List<TreeNode> nodes = new List<TreeNode>();
 
@@ -116,6 +117,9 @@ namespace Starstructor.GUI
                 StarboundMaterial sbMaterial = (StarboundMaterial) asset;
                 AssetGraphicalPreview.Image = sbMaterial.Image;
             }
+
+            if (AssetGraphicalPreview.Image == null)
+                AssetGraphicalPreview.Image = AssetSearchTreeView.ImageList.Images["default"];
 
             AssetPathLabel.Text = asset.FullPath;
             AssetTypeLabel.Text = asset.GetType().ToString();
