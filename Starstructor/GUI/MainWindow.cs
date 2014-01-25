@@ -874,8 +874,6 @@ namespace Starstructor.GUI
 
         private void addBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportBrush brush = new ImportBrush();
-            brush.ShowDialog();
         }
 
         private void RightPanelProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -904,6 +902,13 @@ namespace Starstructor.GUI
                 // Update all other applicable things with the new brush info
                 SetSelectedBrush((EditorBrush) item.Value);
             }
+        }
+
+        private void assetBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AssetBrowser brush = new AssetBrowser();
+            brush.ShowButtons(false);
+            brush.ShowDialog();
         }
     }
 }

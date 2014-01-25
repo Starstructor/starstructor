@@ -116,11 +116,11 @@
     <Compile Include="GUI\DirPopup.Designer.cs">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ImportBrush.cs">
+    <Compile Include="GUI\AssetBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ImportBrush.Designer.cs">
-      <DependentUpon>ImportBrush.cs</DependentUpon>
+    <Compile Include="GUI\AssetBrowser.Designer.cs">
+      <DependentUpon>AssetBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
@@ -180,8 +180,8 @@
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ImportBrush.resx">
-      <DependentUpon>ImportBrush.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\AssetBrowser.resx">
+      <DependentUpon>AssetBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

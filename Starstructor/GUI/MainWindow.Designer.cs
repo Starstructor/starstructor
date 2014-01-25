@@ -82,7 +82,10 @@ namespace Starstructor.GUI
             this.BottomBarBrushLabel = new System.Windows.Forms.Label();
             this.BottomBarZoomLabel = new System.Windows.Forms.Label();
             this.BottomBarPositionLabel = new System.Windows.Forms.Label();
+            this.VisualRgbaBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
+            this.VisualGraphicBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.MainPictureBox = new Starstructor.GUI.ImageBox();
             this.RightPanelSplit = new System.Windows.Forms.SplitContainer();
             this.RightPanelTabControl = new System.Windows.Forms.TabControl();
             this.MainTab = new System.Windows.Forms.TabPage();
@@ -93,13 +96,14 @@ namespace Starstructor.GUI
             this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
             this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
-            this.VisualRgbaBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
-            this.VisualGraphicBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
-            this.MainPictureBox = new Starstructor.GUI.ImageBox();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assetBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
             this.BottomBarGfxModePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,8 +115,6 @@ namespace Starstructor.GUI
             this.RightPanelTabControl.SuspendLayout();
             this.PartsTab.SuspendLayout();
             this.BrushesTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -123,6 +125,7 @@ namespace Starstructor.GUI
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.dungeonToolStripMenuItem1,
             this.starboundToolStripMenuItem});
             this.MainMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
@@ -153,7 +156,7 @@ namespace Starstructor.GUI
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -161,21 +164,21 @@ namespace Starstructor.GUI
             // 
             this.recentFilesToolStripMenuItem.Enabled = false;
             this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.recentFilesToolStripMenuItem.Text = "&Recent Files";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(135, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -183,7 +186,7 @@ namespace Starstructor.GUI
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -191,7 +194,7 @@ namespace Starstructor.GUI
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -199,7 +202,7 @@ namespace Starstructor.GUI
             // 
             this.saveAsToolStripMenuItem.Enabled = false;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -207,13 +210,13 @@ namespace Starstructor.GUI
             // 
             this.toolStripSeparator4.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(135, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -460,6 +463,30 @@ namespace Starstructor.GUI
             this.BottomBarPositionLabel.Text = "Grid: N/A";
             this.BottomBarPositionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // VisualRgbaBrushImageBox
+            // 
+            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(258, 5);
+            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
+            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(21, 21);
+            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualRgbaBrushImageBox.TabIndex = 6;
+            this.VisualRgbaBrushImageBox.TabStop = false;
+            // 
+            // VisualGraphicBrushImageBox
+            // 
+            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
+            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(227, 5);
+            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
+            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
+            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(21, 21);
+            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.VisualGraphicBrushImageBox.TabIndex = 7;
+            this.VisualGraphicBrushImageBox.TabStop = false;
+            // 
             // splitContainer1
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
@@ -480,6 +507,16 @@ namespace Starstructor.GUI
             this.splitContainer1.SplitterDistance = 1024;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 4;
+            // 
+            // MainPictureBox
+            // 
+            this.MainPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.MainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.MainPictureBox.Name = "MainPictureBox";
+            this.MainPictureBox.Size = new System.Drawing.Size(1024, 707);
+            this.MainPictureBox.TabIndex = 3;
             // 
             // RightPanelSplit
             // 
@@ -597,39 +634,20 @@ namespace Starstructor.GUI
             this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
             this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
             // 
-            // VisualRgbaBrushImageBox
+            // toolsToolStripMenuItem
             // 
-            this.VisualRgbaBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualRgbaBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualRgbaBrushImageBox.Location = new System.Drawing.Point(258, 5);
-            this.VisualRgbaBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualRgbaBrushImageBox.Name = "VisualRgbaBrushImageBox";
-            this.VisualRgbaBrushImageBox.Size = new System.Drawing.Size(21, 21);
-            this.VisualRgbaBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualRgbaBrushImageBox.TabIndex = 6;
-            this.VisualRgbaBrushImageBox.TabStop = false;
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assetBrowserToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // VisualGraphicBrushImageBox
+            // assetBrowserToolStripMenuItem
             // 
-            this.VisualGraphicBrushImageBox.BackColor = System.Drawing.SystemColors.Window;
-            this.VisualGraphicBrushImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VisualGraphicBrushImageBox.Location = new System.Drawing.Point(227, 5);
-            this.VisualGraphicBrushImageBox.Margin = new System.Windows.Forms.Padding(5);
-            this.VisualGraphicBrushImageBox.Name = "VisualGraphicBrushImageBox";
-            this.VisualGraphicBrushImageBox.Size = new System.Drawing.Size(21, 21);
-            this.VisualGraphicBrushImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.VisualGraphicBrushImageBox.TabIndex = 7;
-            this.VisualGraphicBrushImageBox.TabStop = false;
-            // 
-            // MainPictureBox
-            // 
-            this.MainPictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.MainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.MainPictureBox.Name = "MainPictureBox";
-            this.MainPictureBox.Size = new System.Drawing.Size(1024, 707);
-            this.MainPictureBox.TabIndex = 3;
+            this.assetBrowserToolStripMenuItem.Name = "assetBrowserToolStripMenuItem";
+            this.assetBrowserToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assetBrowserToolStripMenuItem.Text = "Asset Browser";
+            this.assetBrowserToolStripMenuItem.Click += new System.EventHandler(this.assetBrowserToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -653,6 +671,8 @@ namespace Starstructor.GUI
             this.BottomBarTable.ResumeLayout(false);
             this.BottomBarTable.PerformLayout();
             this.BottomBarGfxModePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -664,8 +684,6 @@ namespace Starstructor.GUI
             this.RightPanelTabControl.ResumeLayout(false);
             this.PartsTab.ResumeLayout(false);
             this.BrushesTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -721,6 +739,8 @@ namespace Starstructor.GUI
         private ToolStripMenuItem takeScreenshotToolStripMenuItem;
         private SaveFileDialog SaveScreenshotDlg;
         private ToolStripMenuItem recentFilesToolStripMenuItem;
+        private ToolStripMenuItem toolsToolStripMenuItem;
+        private ToolStripMenuItem assetBrowserToolStripMenuItem;
 
     }
 }
