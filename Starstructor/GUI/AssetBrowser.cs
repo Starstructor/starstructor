@@ -31,10 +31,14 @@ namespace Starstructor.GUI
 {
     public partial class AssetBrowser : Form
     {
+        public delegate void AssetSelectedFunc(StarboundAsset asset);
+
         private bool m_buttonsShown = true;
         private readonly Image m_notFoundImage = EditorHelpers.GetGeneratedRectangle(8, 8, 128, 128, 128, 255);
         private readonly Dictionary<TreeNode, StarboundAsset> m_assetNodeMap
             = new Dictionary<TreeNode, StarboundAsset>();
+
+        private AssetSelectedFunc m_callback;
 
         public AssetBrowser()
         {
@@ -53,6 +57,16 @@ namespace Starstructor.GUI
             AssetBrowserMainLayoutTable.RowCount = 1;
 
             m_buttonsShown = false;
+        }
+
+        public void SetAssetSelectedCallback(AssetSelectedFunc func)
+        {
+            m_callback = func;
+        }
+
+        public StarboundAsset GetSelectedAsset()
+        {
+            return m_assetNodeMap[AssetSearchTreeView.SelectedNode];
         }
 
         protected override void Dispose(bool disposing)
@@ -77,12 +91,16 @@ namespace Starstructor.GUI
             // If we haven't provided a list to work from, get the list from editor assets
             if (assets == null) assets = EditorAssets.GetAllAssets();
 
-            List<TreeNode> nodes = new List<TreeNode>();
+            AssetSearchTreeView.Nodes.Clear();
+
+            if (AssetSearchTreeView.ImageList == null)
+                AssetSearchTreeView.ImageList = new ImageList();
+
+            AssetSearchTreeView.ImageList.Images.Clear();
 
             ClearSelection();
 
-            AssetSearchTreeView.Nodes.Clear();
-            AssetSearchTreeView.ImageList = new ImageList();
+            List<TreeNode> nodes = new List<TreeNode>();
 
             for (int i = 0; i < assets.Count; ++i)
             {
@@ -188,7 +206,7 @@ namespace Starstructor.GUI
 
         private void AssetButtonSelect_Click(object sender, System.EventArgs e)
         {
-
+            if (m_callback != null) m_callback.Invoke(GetSelectedAsset());
         }
 
         private void AssetButtonRefresh_Click(object sender, System.EventArgs e)
@@ -203,8 +221,6 @@ namespace Starstructor.GUI
             while (EditorAssets.IsAssetThreadWorking())
             {
                 UpdateAssetTreeViewThreadSafe(AssetSearchTextBox.Text, EditorAssets.GetAllAssets(false));
-
-                // Wait 50 ms then repopulate list - don't block here
                 Thread.Sleep(50);
             }
         }
