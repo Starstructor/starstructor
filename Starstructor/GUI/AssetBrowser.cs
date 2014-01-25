@@ -41,21 +41,18 @@ namespace Starstructor.GUI
             InitializeComponent();
         }
 
-        public void ShowButtons(bool buttonState)
+        public void HideButtons()
         {
-            // If we're turning on buttons, and buttons are off
-            if (buttonState && !m_buttonsShown)
-            {
-                AssetBrowserMainLayoutTable.RowCount = 2;
-                m_buttonsShown = true;
-            }
+            if (!m_buttonsShown) return;
 
-            // If we're turning off buttons, and buttons are on
-            if (!buttonState && m_buttonsShown)
-            {
-                AssetBrowserMainLayoutTable.RowCount = 1;
-                m_buttonsShown = false;
-            }
+            // remove the buttons, remove the table row
+            Controls.Remove(AssetButtonSelect);
+            AssetButtonSelect.Dispose();
+            Controls.Remove(AssetButtonRefresh);
+            AssetButtonRefresh.Dispose();
+            AssetBrowserMainLayoutTable.RowCount = 1;
+
+            m_buttonsShown = false;
         }
 
         protected override void Dispose(bool disposing)

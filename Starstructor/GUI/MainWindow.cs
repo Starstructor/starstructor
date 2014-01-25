@@ -907,7 +907,7 @@ namespace Starstructor.GUI
         private void assetBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AssetBrowser brush = new AssetBrowser();
-            brush.ShowButtons(false);
+            brush.HideButtons();
             brush.ShowDialog();
         }
     }
