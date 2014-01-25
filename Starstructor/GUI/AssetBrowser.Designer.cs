@@ -44,8 +44,8 @@ namespace Starstructor.GUI
             this.AssetSearchTreeView = new System.Windows.Forms.TreeView();
             this.AssetButtonSelect = new System.Windows.Forms.Button();
             this.AssetButtonRefresh = new System.Windows.Forms.Button();
-            this.AssetGraphicalPreview = new Starstructor.GUI.NoAliasPictureBox();
             this.RefreshWorker = new System.ComponentModel.BackgroundWorker();
+            this.AssetGraphicalPreview = new Starstructor.GUI.NoAliasPictureBox();
             this.AssetBrowserMainLayoutTable.SuspendLayout();
             this.AssetPreviewLayoutTable.SuspendLayout();
             this.AssetSearchLayoutTable.SuspendLayout();
@@ -114,10 +114,11 @@ namespace Starstructor.GUI
             // AssetTypeLabel
             // 
             this.AssetTypeLabel.AutoSize = true;
+            this.AssetTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AssetTypeLabel.Location = new System.Drawing.Point(0, 134);
             this.AssetTypeLabel.Margin = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.AssetTypeLabel.Name = "AssetTypeLabel";
-            this.AssetTypeLabel.Size = new System.Drawing.Size(0, 13);
+            this.AssetTypeLabel.Size = new System.Drawing.Size(186, 33);
             this.AssetTypeLabel.TabIndex = 2;
             this.AssetTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -172,6 +173,10 @@ namespace Starstructor.GUI
             this.AssetButtonRefresh.UseVisualStyleBackColor = true;
             this.AssetButtonRefresh.Click += new System.EventHandler(this.AssetButtonRefresh_Click);
             // 
+            // RefreshWorker
+            // 
+            this.RefreshWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RefreshWorker_DoWork);
+            // 
             // AssetGraphicalPreview
             // 
             this.AssetGraphicalPreview.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -182,10 +187,6 @@ namespace Starstructor.GUI
             this.AssetGraphicalPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.AssetGraphicalPreview.TabIndex = 0;
             this.AssetGraphicalPreview.TabStop = false;
-            // 
-            // RefreshWorker
-            // 
-            this.RefreshWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RefreshWorker_DoWork);
             // 
             // AssetBrowser
             // 

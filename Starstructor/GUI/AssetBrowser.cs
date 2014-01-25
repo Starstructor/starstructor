@@ -20,10 +20,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
@@ -84,6 +82,8 @@ namespace Starstructor.GUI
 
             List<TreeNode> nodes = new List<TreeNode>();
 
+            ClearSelection();
+
             AssetSearchTreeView.Nodes.Clear();
             AssetSearchTreeView.ImageList = new ImageList();
 
@@ -117,7 +117,7 @@ namespace Starstructor.GUI
 
         private void UpdateAssetTreeViewThreadSafe(string filter = null, List<StarboundAsset> assets = null)
         {
-            Invoke((MethodInvoker) (() => UpdateAssetTreeView(filter, assets)));
+            AssetSearchTreeView.Invoke((MethodInvoker) (() => UpdateAssetTreeView(filter, assets)));
         }
 
         private void AssetSearchTextBox_TextChanged(object sender, System.EventArgs e)
@@ -180,6 +180,13 @@ namespace Starstructor.GUI
                 borderColor,
                 borderWidth,
                 bottomBorderStyle);
+        }
+
+        private void ClearSelection()
+        {
+            AssetGraphicalPreview.Image = m_notFoundImage;
+            AssetPathLabel.Text = "No asset selected";
+            AssetTypeLabel.Text = "No asset selected";
         }
 
         private void AssetButtonSelect_Click(object sender, System.EventArgs e)
