@@ -146,8 +146,8 @@ namespace Starstructor.GUI
             this.toolStripSeparator4,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.fileToolStripMenuItem.Text = "rem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
