@@ -24,6 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
@@ -38,16 +39,16 @@ namespace Starstructor
         private static readonly Dictionary<string, StarboundMaterial> m_materialMap
             = new Dictionary<string, StarboundMaterial>();
 
-        private static Thread m_worker = null;
+        private static Thread m_worker;
 
         public static void RefreshAssets()
         {
             try
             {
-                if (m_worker != null)
+                if (m_worker != null && m_worker.IsAlive)
                     m_worker.Abort();
             }
-            catch (Exception e)// Abort() threw an exception, in which case it's probably already terminated
+            catch (Exception e)
             {
                 Editor.Log.Write(e.Message);
             }
@@ -60,55 +61,81 @@ namespace Starstructor
             }
 
             m_worker = new Thread(RefreshAssetsBackground);
-            
-            m_objectMap.Clear();
-            m_materialMap.Clear();
 
-            Editor.Log.Write("Asset loading thread started");
+            lock (m_objectMap)
+            {
+                m_objectMap.Clear();
+            }
+
+            lock (m_materialMap)
+            {
+                m_materialMap.Clear();
+            }
+
             m_worker.Start();
         }
 
-        public static StarboundObject GetObject(string name)
+        public static StarboundObject GetObject(string name, bool block = true)
         {
             // Block until assets fully loaded
-            if (m_worker != null)
+            if (block && m_worker != null && m_worker.IsAlive)
                 m_worker.Join();
 
-            if (m_objectMap.ContainsKey(name))
-                return m_objectMap[name];
+            lock (m_objectMap)
+            {
+                if (m_objectMap.ContainsKey(name)) return m_objectMap[name];
+            }
 
             Editor.Log.Write("Unable to retrieve object " + name);
             return null;
         }
 
-        public static List<StarboundAsset> getAllAssets()
+        public static StarboundMaterial GetMaterial(string name, bool block = true)
         {
             // Block until assets fully loaded
-            if (m_worker != null)
+            if (block && m_worker != null && m_worker.IsAlive)
                 m_worker.Join();
 
-            List<StarboundAsset> assets = new List<StarboundAsset>();
-            assets.AddRange(m_materialMap.Values);
-            assets.AddRange(m_objectMap.Values);
-
-            return assets;
-        }
-
-        public static StarboundMaterial GetMaterial(string name)
-        {
-            // Block until assets fully loaded
-            if (m_worker != null)
-                m_worker.Join();
-
-            if (m_materialMap.ContainsKey(name))
-                return m_materialMap[name];
+            lock (m_materialMap)
+            {
+                if (m_materialMap.ContainsKey(name)) return m_materialMap[name];
+            }
 
             Editor.Log.Write("Unable to retrieve material " + name);
             return null;
         }
 
+
+        public static List<StarboundAsset> GetAllAssets(bool block = true)
+        {
+            // Block until assets fully loaded
+            if (block && m_worker != null && m_worker.IsAlive)
+                m_worker.Join();
+
+            List<StarboundAsset> assets = new List<StarboundAsset>();
+
+            lock (m_materialMap)
+            {
+                assets.AddRange(m_materialMap.Values);
+            }
+
+            lock (m_objectMap)
+            {
+                assets.AddRange(m_objectMap.Values);
+            }
+
+            return assets;
+        }
+
+        public static bool IsAssetThreadWorking()
+        {
+            return m_worker != null && m_worker.IsAlive;
+        }
+
         private static void RefreshAssetsBackground()
         {
+            Editor.Log.Write("Asset loading thread started");
+
             // Scan directory based on path
             // Update this to include any mod folders
             List<string> directories = new List<String>() { Editor.Settings.ModsDirPath, Editor.Settings.AssetDirPath };
@@ -116,8 +143,7 @@ namespace Starstructor
             // remove directories that do not exist
             for (int i = directories.Count; i != 0; --i)
             {
-                if (!Directory.Exists(directories[i - 1]))
-                    directories.RemoveAt(i - 1);
+                if (!Directory.Exists(directories[i - 1])) directories.RemoveAt(i - 1);
             }
 
             // Iterate through directories 
@@ -127,24 +153,29 @@ namespace Starstructor
                 {
                     StarboundObject sbObject = JsonParser.ParseJson<StarboundObject>(file);
 
-                    if (m_objectMap.ContainsKey(sbObject.ObjectName))
-                        continue;
+                    if (m_objectMap.ContainsKey(sbObject.ObjectName)) continue;
 
-                    m_objectMap[sbObject.ObjectName] = sbObject;
-                    sbObject.FullPath = file;
-                    sbObject.InitializeAssets();
+
+                    lock (m_objectMap)
+                    {
+                        m_objectMap[sbObject.ObjectName] = sbObject;
+                        sbObject.FullPath = file;
+                        sbObject.InitializeAssets();
+                    }
                 }
 
                 foreach (string file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
                 {
                     StarboundMaterial sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
 
-                    if (m_materialMap.ContainsKey(sbMaterial.MaterialName))
-                        continue;
+                    if (m_materialMap.ContainsKey(sbMaterial.MaterialName)) continue;
 
-                    m_materialMap[sbMaterial.MaterialName] = sbMaterial;
-                    sbMaterial.FullPath = file;
-                    sbMaterial.InitializeAssets();
+                    lock (m_materialMap)
+                    {
+                        m_materialMap[sbMaterial.MaterialName] = sbMaterial;
+                        sbMaterial.FullPath = file;
+                        sbMaterial.InitializeAssets();
+                    }
                 }
             }
 
