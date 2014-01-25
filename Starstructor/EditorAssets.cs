@@ -24,10 +24,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Starstructor.StarboundTypes;
-using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor
 {
@@ -46,7 +44,10 @@ namespace Starstructor
             try
             {
                 if (m_worker != null && m_worker.IsAlive)
+                {
                     m_worker.Abort();
+                    Editor.Log.Write("Asset loading thread aborted");
+                }
             }
             catch (Exception e)
             {
@@ -78,8 +79,7 @@ namespace Starstructor
         public static StarboundObject GetObject(string name, bool block = true)
         {
             // Block until assets fully loaded
-            if (block && m_worker != null && m_worker.IsAlive)
-                m_worker.Join();
+            if (block && m_worker != null && m_worker.IsAlive) m_worker.Join();
 
             lock (m_objectMap)
             {
@@ -93,8 +93,7 @@ namespace Starstructor
         public static StarboundMaterial GetMaterial(string name, bool block = true)
         {
             // Block until assets fully loaded
-            if (block && m_worker != null && m_worker.IsAlive)
-                m_worker.Join();
+            if (block && m_worker != null && m_worker.IsAlive) m_worker.Join();
 
             lock (m_materialMap)
             {
@@ -109,8 +108,7 @@ namespace Starstructor
         public static List<StarboundAsset> GetAllAssets(bool block = true)
         {
             // Block until assets fully loaded
-            if (block && m_worker != null && m_worker.IsAlive)
-                m_worker.Join();
+            if (block && m_worker != null && m_worker.IsAlive) m_worker.Join();
 
             List<StarboundAsset> assets = new List<StarboundAsset>();
 
