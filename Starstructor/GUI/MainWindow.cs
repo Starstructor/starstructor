@@ -5,6 +5,7 @@ Contact: cstamford@gmail.com
 Source file contributers:
  Chris Stamford     contact: cstamford@gmail.com
  Adam Heinermann    contact: aheinerm@gmail.com
+ Daniel Davison     contact: sircapsalot@gmail.com [github.com/ddavison]
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -231,21 +232,21 @@ namespace Starstructor.GUI
         {
             return MessageBox.Show(
                 "Are you sure you wish to close your current opened dungeon?",
-                "Exit", MessageBoxButtons.OKCancel);
+                "Exit", MessageBoxButtons.YesNo);
         }
 
         private static DialogResult PromptSaveWork()
         {
             return MessageBox.Show(
                 "Are you sure you would like to save all modified assets in this project?",
-                "Save", MessageBoxButtons.OKCancel);
+                "Save", MessageBoxButtons.YesNo);
         }
 
         private static DialogResult PromptSaveWorkWhenQuitting()
         {
             return MessageBox.Show(
                 "Your project has unsaved work. Are you sure you want to exit without saving? (you can save from the file menu.)",
-                "Unsaved work", MessageBoxButtons.OKCancel);
+                "Unsaved work", MessageBoxButtons.YesNo);
         }
 
         public void UpdateBottomBar(float zoom)
@@ -611,6 +612,7 @@ namespace Starstructor.GUI
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDlg.FileName = Editor.Settings.AssetDirPath;
             OpenFileDlg.ShowDialog();
         }
 
@@ -703,13 +705,13 @@ namespace Starstructor.GUI
             if (CheckForUnsavedWork())
             {
                 // If they change their mind at the prompt, leave
-                if (PromptSaveWorkWhenQuitting() == DialogResult.Cancel)
+                if (PromptSaveWorkWhenQuitting() == DialogResult.No)
                 {
                     return false;
                 }
             }
                 // If they change their mind at the prompt, leave
-            else if (PromptClosingProject() == DialogResult.Cancel)
+            else if (PromptClosingProject() == DialogResult.No)
             {
                 return false;
             }
@@ -804,7 +806,7 @@ namespace Starstructor.GUI
         // Time to save
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (PromptSaveWork() == DialogResult.OK)
+            if (PromptSaveWork() == DialogResult.Yes)
                 SaveWork();
         }
 
