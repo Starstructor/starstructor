@@ -158,7 +158,7 @@ namespace Starstructor.GUI
             e.Graphics.SmoothingMode = SmoothingMode.None;
 
             // Identity matrix
-            var trans = new Matrix();
+            Matrix trans = new Matrix();
 
             // Uniform scale by zoom factor
             trans.Scale(m_zoomFactor, m_zoomFactor, MatrixOrder.Append);

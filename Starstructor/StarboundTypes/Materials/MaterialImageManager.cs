@@ -32,13 +32,19 @@ namespace Starstructor.StarboundTypes.Materials
     public class MaterialImageManager : IMaterialImageManager
     {
         private ImageLoader m_image;
-        private string m_fileName;
+        private readonly string m_fileName;
 
         // Internal frames definition
         public static Vec2I FRAME_SIZE = new Vec2I(16,24);    // size of each frame
         public static Vec2I TILE_BASE = new Vec2I(4,12);      // offset to center of tile
         public static Vec2I TILE_SIZE = new Vec2I(8,8);       // size of a tile
-        
+
+        public MaterialImageManager(string name, Image image)
+        {
+            m_fileName = name;
+            m_image = new ImageLoader(image);
+        }
+
         public MaterialImageManager(string name, string framesDir)
         {
             // Get the image file
@@ -52,8 +58,7 @@ namespace Starstructor.StarboundTypes.Materials
 
         public Rectangle? GetImageFrame(int variant = 0, int colour = 0)
         {
-            if (m_image.ImageFile == null)
-                return null;
+            if (m_image.ImageFile == null) return null;
 
             return new Rectangle(
                 FRAME_SIZE.x * variant + TILE_BASE.x,
@@ -71,12 +76,16 @@ namespace Starstructor.StarboundTypes.Materials
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
-            if (m_image == null || m_image.ImageFile == null)
-                return false;
+            if (m_fileName.Contains(".internal"))
+            {
+                int a = 5 + 2;
+            }
+
+            if (m_image == null || m_image.ImageFile == null) return false;
 
             Rectangle? srcRect = GetImageFrame();
-            if (srcRect == null)
-                return false;
+
+            if (srcRect == null) return false;
 
             Rectangle dstRect = new Rectangle(
                 x * gridFactor,
@@ -113,9 +122,7 @@ namespace Starstructor.StarboundTypes.Materials
 
         public void Dispose()
         {
-            if (m_image == null) 
-                return;
-
+            if (m_image == null) return;
             m_image.Dispose();
             m_image = null;
         }

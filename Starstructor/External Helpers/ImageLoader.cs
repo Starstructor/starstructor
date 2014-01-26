@@ -32,6 +32,11 @@ namespace Starstructor
         private Bitmap m_image;
         private readonly string m_imageFileName;
 
+        public ImageLoader(Image image)
+        {
+            m_image = (Bitmap) image;
+        }
+
         public ImageLoader(string fileName)
         {
             m_imageFileName = fileName;

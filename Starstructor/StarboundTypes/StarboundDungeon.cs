@@ -164,8 +164,8 @@ namespace Starstructor.StarboundTypes
                             else if (type == "lava" || type == "water" || type == "acid" ||
                                      type == "liquidtar" || type == "tentaclejuice")
                             {
-                                brush.BrushTypes.Add("back");
-                                brush.NeedsBackAsset = true;
+                                brush.BrushTypes.Add("front");
+                                brush.NeedsFrontAsset = true;
                                 name = type;
                             }
 
@@ -202,19 +202,17 @@ namespace Starstructor.StarboundTypes
                 // If this brush is a connector
                 if (brush.Connector != null && (bool) brush.Connector)
                 {
-                    string assetName = brush.Comment + ".INTERNAL";
+                    string assetName = brush.Comment + ".internal";
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "brush");
                     if (asset == null )
                     {
                         asset = new StarboundAsset();
-                        //asset.AssetName = assetName;
                         asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
                             brush.Colour.R,
                             brush.Colour.G,
                             brush.Colour.B,
                             brush.Colour.A);
-                        //parent.RegisterAsset(assetName, "brush", asset);
                     }
 
                     brush.NeedsFrontAsset = true;
@@ -228,15 +226,6 @@ namespace Starstructor.StarboundTypes
                     string assetName = Editor.Settings.SurfaceForegroundTile;
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "surface");
-                    if (asset == null && assetName.Contains("INTERNAL"))
-                    {
-                        asset = new StarboundAsset();
-                        //asset.AssetName = assetName;
-                        asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                            87, 59, 12, 255);
-                        //parent.RegisterAsset(assetName, "surface", asset);
-                    }
-
                     brush.FrontAsset = asset;
                     brush.BrushTypes.Add("front");
                     brush.NeedsFrontAsset = true;
@@ -248,14 +237,6 @@ namespace Starstructor.StarboundTypes
                     string assetName = Editor.Settings.SurfaceBackgroundTile;
                     
                     StarboundAsset asset = parent.LoadAsset(assetName, "surfacebackground");
-                    if (asset == null && assetName.Contains("INTERNAL"))
-                    {
-                        asset = new StarboundAsset();
-                        //asset.AssetName = assetName;
-                        asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
-                            87, 59, 12, 255);
-                        //parent.RegisterAsset(assetName, "surfacebackground", asset);
-                    }
                     brush.BackAsset = asset;
                     brush.BrushTypes.Add("back");
                     brush.NeedsBackAsset = true;

@@ -88,7 +88,7 @@ namespace Starstructor
             }
             else if (type == "lava" || type == "water" || type == "tar" || type == "acid" || type == "tentaclejuice" || type == "brush" )
             {
-                type = ".INTERNAL";
+                type = ".internal";
             }
             else
             {
@@ -108,7 +108,7 @@ namespace Starstructor
                 g,
                 b));
 
-            gfx.FillRectangle(gfxBrush, new Rectangle(0, 0, 8, 8));
+            gfx.FillRectangle(gfxBrush, new Rectangle(0, 0, width, height));
             gfxBrush.Dispose();
             gfx.Dispose();
 

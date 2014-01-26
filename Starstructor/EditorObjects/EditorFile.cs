@@ -22,9 +22,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
+using System.Drawing;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Materials;
 
 namespace Starstructor.EditorObjects
 {
@@ -83,40 +85,8 @@ namespace Starstructor.EditorObjects
 
             // Load the background tile
             StarboundAsset asset = parent.LoadAsset(name, type);
-            if ( asset == null )
-            {
-                // If this is an internal asset - liquids, etc
-                // This is a hack to display liquids until liquid parsing has been implemented
-                // (low priority)
-                if (name == "lava")
-                {
-                    asset = new StarboundAsset();
-                    //asset.AssetName = name;
-                    asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 207, 16, 32, 255);
-                }
-                else if (name == "acid")
-                {
-                    asset = new StarboundAsset();
-                    //asset.AssetName = name;
-                    asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 107, 141, 63, 255);
-                }
-                else if (name == "water")
-                {
-                    asset = new StarboundAsset();
-                    //asset.AssetName = name;
-                    asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 0, 78, 111, 255);
-                }
-                else if (name == "liquidtar" || name == "tentaclejuice")
-                {
-                    asset = new StarboundAsset();
-                    //asset.AssetName = name;
-                    asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 200, 191, 231, 255);
-                }
-                //parent.RegisterAsset(name, type, asset);
-            }
 
-            if (asset != null)
-                brush.BackAsset = asset;
+            if (asset != null) brush.BackAsset = asset;
         }
 
         public virtual void LoadBrushWithFrontAsset(EditorBrush brush, Editor parent, string name, string type)
@@ -128,8 +98,46 @@ namespace Starstructor.EditorObjects
 
             // Load the foreground tile
             StarboundAsset asset = parent.LoadAsset(name, type);
-            if (asset != null)
-                brush.FrontAsset = asset;
+
+            if (asset == null)
+            {
+                Image image = null;
+
+                // If this is an internal asset - liquids, etc
+                // This is a hack to display liquids until liquid parsing has been implemented
+                // (low priority)
+                if (name == "lava")
+                {
+                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
+                        MaterialImageManager.FRAME_SIZE.y, 207, 16, 32, 255);
+                }
+                else if (name == "acid")
+                {
+                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
+                        MaterialImageManager.FRAME_SIZE.y, 107, 141, 63, 255);
+                }
+                else if (name == "water")
+                {
+                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
+                        MaterialImageManager.FRAME_SIZE.y, 0, 78, 111, 255);
+                }
+                else if (name == "liquidtar" || name == "tentaclejuice")
+                {
+                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
+                        MaterialImageManager.FRAME_SIZE.y, 200, 191, 231, 255);
+                }
+
+                if (image != null)
+                {
+                    StarboundMaterial newAsset = new StarboundMaterial();
+                    newAsset.MaterialName = name;
+                    newAsset.Image = image;
+                    newAsset.Frames = new MaterialImageManager(name + ".internal", newAsset.Image);
+                    asset = newAsset;
+                }
+            }
+
+            if (asset != null) brush.FrontAsset = asset;
         }
     }
 }
