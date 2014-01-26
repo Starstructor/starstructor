@@ -36,7 +36,7 @@ namespace Starstructor.GUI
         public delegate void AssetSelectedFunc(StarboundAsset asset);
 
         private bool m_buttonsShown = true;
-        private readonly Image m_notFoundImage = EditorHelpers.GetGeneratedRectangle(8, 8, 255, 105, 180, 255);
+        private readonly Image m_notFoundImage = EditorHelpers.GetGeneratedRectangle(8, 8, 128, 128, 128, 255);
         private readonly List<TreeNode> m_nodeList = new List<TreeNode>();
         private readonly Dictionary<int, Image> m_imageList = new Dictionary<int, Image>();
         private readonly Dictionary<TreeNode, StarboundAsset> m_assetNodeMap

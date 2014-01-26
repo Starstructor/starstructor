@@ -27,7 +27,6 @@ using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
 using Microsoft.Win32;
@@ -874,6 +873,8 @@ namespace Starstructor.GUI
 
         private void addBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ImportDungeonBrush dungeonBrush = new ImportDungeonBrush();
+            dungeonBrush.ShowDialog();
         }
 
         private void RightPanelProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -906,9 +907,9 @@ namespace Starstructor.GUI
 
         private void assetBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AssetBrowser brush = new AssetBrowser();
-            //brush.HideButtons();
-            brush.ShowDialog();
+            AssetBrowser assetBrowser = new AssetBrowser();
+            assetBrowser.HideButtons();
+            assetBrowser.ShowDialog();
         }
     }
 }
