@@ -275,7 +275,7 @@ namespace Starstructor.GUI
             closeToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Enabled = false;
             saveAsToolStripMenuItem.Enabled = false;
-            //addBrushToolStripMenuItem.Enabled = false;
+            addBrushToolStripMenuItem.Enabled = false;
 
             // Force the garbage collector to clean up
             // But it won't do it until next file load because that would be too easy
@@ -741,7 +741,7 @@ namespace Starstructor.GUI
             closeToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
-            //addBrushToolStripMenuItem.Enabled = true;
+            addBrushToolStripMenuItem.Enabled = true;
             MainPictureBox.Focus();
 
             UpdatePropertiesPanel();
