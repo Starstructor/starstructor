@@ -229,11 +229,9 @@ namespace Starstructor.GUI
             UpdateAssetTreeView(AssetSearchTextBox.Text, EditorAssets.GetAllAssets());
         }
 
-        private void StartTreeViewThread(bool refreshAssets = false, bool abortCurrent = true)
+        private void StartTreeViewThread(bool refreshAssets = false)
         {
             if (m_worker == null) m_worker = new Thread(() => RefreshTreeView(refreshAssets));
-
-            if (!abortCurrent && m_worker.IsAlive) return;
 
             if (m_worker.IsAlive)
             {
