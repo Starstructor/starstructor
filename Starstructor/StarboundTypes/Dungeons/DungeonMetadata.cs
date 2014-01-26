@@ -46,7 +46,6 @@ namespace Starstructor.StarboundTypes.Dungeons
         [DefaultValue(100)]
         public int? MaxRadius { get; set; }
 
-        [ReadOnly(true)]
         [JsonProperty("maxParts")]
         [DefaultValue(100)]
         public int? MaxParts { get; set; }

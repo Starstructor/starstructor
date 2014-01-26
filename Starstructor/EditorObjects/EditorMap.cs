@@ -62,7 +62,6 @@ namespace Starstructor.EditorObjects
             set { m_height = value; }
         }
 
-        [ReadOnly(true)]
         [JsonProperty("name", Required = Required.Always)]
         public string Name
         {
