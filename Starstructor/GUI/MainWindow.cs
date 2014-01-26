@@ -108,6 +108,60 @@ namespace Starstructor.GUI
             RightPanelTabControl.Selected += RightPanelTabControl_Selected;
             PartTreeView.AfterSelect += PartTreeView_AfterSelect;
             BrushesTreeView.AfterSelect += BrushesTreeView_AfterSelect;
+
+            // Set selected node when right clicking for context menu
+            PartTreeView.NodeMouseClick += (sender, args) => PartTreeView.SelectedNode = args.Node;
+            BrushesTreeView.NodeMouseClick += (sender, args) => BrushesTreeView.SelectedNode = args.Node;
+
+            PartTreeView.BeforeLabelEdit += PartTreeView_BeforeLabelEdit;
+            BrushesTreeView.BeforeLabelEdit += BrushesTreeView_BeforeLabelEdit;
+
+            PartTreeView.AfterLabelEdit += PartTreeView_AfterLabelEdit;
+            BrushesTreeView.AfterLabelEdit += BrushesTreeView_AfterLabelEdit;
+        }
+
+        public void PartTreeView_AfterLabelEdit(Object sender, NodeLabelEditEventArgs args)
+        {
+            if (!String.IsNullOrWhiteSpace(args.Label))
+            {
+                if (m_mapNodeMap.ContainsKey(args.Node))
+                    m_mapNodeMap[args.Node].Name = args.Label;
+                UpdatePropertiesPanel();
+            }
+            else
+            {
+                args.CancelEdit = true;
+            }
+        }
+
+        public void BrushesTreeView_AfterLabelEdit(Object sender, NodeLabelEditEventArgs args)
+        {
+            if (!String.IsNullOrWhiteSpace(args.Label))
+            {
+                if (m_brushNodeMap.ContainsKey(args.Node))
+                    m_brushNodeMap[args.Node].Comment = args.Label;
+                UpdatePropertiesPanel();
+            }
+            else
+            {
+                args.CancelEdit = true;
+            }
+        }
+
+        public void PartTreeView_BeforeLabelEdit(Object sender, NodeLabelEditEventArgs args)
+        {
+            args.CancelEdit = true;
+            if ( m_mapNodeMap.ContainsKey(PartTreeView.SelectedNode) )
+            {
+                var map = m_mapNodeMap[PartTreeView.SelectedNode];
+                if ( map is EditorMapPart )
+                    args.CancelEdit = false;
+            }
+        }
+
+        public void BrushesTreeView_BeforeLabelEdit(Object sender, NodeLabelEditEventArgs args)
+        {
+            // This should be ok
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -470,6 +524,23 @@ namespace Starstructor.GUI
         private void PartTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             SelectPartNode(e.Node);
+
+            // The conditions for allowing the user to edit the selected part, must be a base part
+            bool allowEdit = false;
+            if (m_mapNodeMap.ContainsKey(PartTreeView.SelectedNode))
+            {
+                var map = m_mapNodeMap[PartTreeView.SelectedNode];
+                if (map is EditorMapPart)
+                    allowEdit = true;
+            }
+
+            // The context menu for editing currently selected part
+            newPartToolStripMenuItem.Enabled    = false;
+            renamePartToolStripMenuItem.Enabled = allowEdit;
+            clonePartToolStripMenuItem.Enabled  = false;
+            deletePartToolStripMenuItem.Enabled = false;
+
+
         }
 
         private void UpdatePropertiesPanel()
@@ -548,8 +619,15 @@ namespace Starstructor.GUI
 
         private void BrushesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            bool isValidNode = m_brushNodeMap.ContainsKey(e.Node);
+
+            newBrushToolStripMenuItem.Enabled    = false;
+            renameBrushToolStripMenuItem.Enabled = isValidNode;
+            cloneBrushToolStripMenuItem.Enabled  = false;
+            deleteBrushToolStripMenuItem.Enabled = false;
+
             // If the node is in the map
-            if (m_brushNodeMap.ContainsKey(e.Node))
+            if (isValidNode )
             {
                 SetSelectedBrush(m_brushNodeMap[e.Node]);
             }
@@ -654,7 +732,7 @@ namespace Starstructor.GUI
                 {
                     TreeNode node = m_mapNodeMap.First().Key;
                     SelectPartNode(node);
-                    PartTreeView.SelectedNode = node;
+                    //PartTreeView.SelectedNode = node;
                 }
             }
 
@@ -891,19 +969,35 @@ namespace Starstructor.GUI
 
             if (item.Value is EditorBrush && e.ChangedItem.Label == "Comment")
             {
+                var value = item.Value as EditorBrush;
+                
                 // Sanitize the new comment
-                m_selectedBrush.Comment = GetBrushComment(m_selectedBrush);
+                value.Comment = GetBrushComment(value);
 
                 // Get the node associated with the selected brush
-                TreeNode node = m_brushNodeMap.FirstOrDefault(map => map.Value == m_selectedBrush).Key;
+                TreeNode node = m_brushNodeMap.FirstOrDefault(map => map.Value == value).Key;
 
                 if (node != null)
-                {
                     node.Text = (string) e.ChangedItem.Value;
-                }
 
                 // Update all other applicable things with the new brush info
-                SetSelectedBrush((EditorBrush) item.Value);
+                SetSelectedBrush(value);
+            }
+            else if ( item.Value is EditorMapPart && e.ChangedItem.Label == "Name" )
+            {
+                var value = item.Value as EditorMapPart;
+
+                // Sanitize the new comment
+                if (String.IsNullOrWhiteSpace(value.Name))
+                    value.Name = "Untitled";
+
+                // Get the node associated with the selected brush
+                TreeNode node = m_mapNodeMap.FirstOrDefault(map => map.Value == value).Key;
+
+                if (node != null)
+                    node.Text = (string)e.ChangedItem.Value;
+
+                //
             }
         }
 
@@ -912,6 +1006,18 @@ namespace Starstructor.GUI
             AssetBrowser assetBrowser = new AssetBrowser();
             assetBrowser.HideButtons();
             assetBrowser.ShowDialog();
+        }
+
+        private void renamePartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ( PartTreeView.SelectedNode != null )
+                PartTreeView.SelectedNode.BeginEdit();
+        }
+
+        private void renameBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BrushesTreeView.SelectedNode != null)
+                BrushesTreeView.SelectedNode.BeginEdit();
         }
     }
 }
