@@ -98,18 +98,6 @@
     <Compile Include="EditorObjects\EditorMapPart.cs" />
     <Compile Include="EditorSettings.cs" />
     <Compile Include="EditorObjects\EditorBrush.cs" />
-    <Compile Include="GUI\AssetGallery.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\AssetGallery.Designer.cs">
-      <DependentUpon>AssetGallery.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\AssetGalleryComponent.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\AssetGalleryComponent.Designer.cs">
-      <DependentUpon>AssetGalleryComponent.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\DirPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +109,12 @@
     </Compile>
     <Compile Include="GUI\AssetBrowser.Designer.cs">
       <DependentUpon>AssetBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ImportDungeonBrush.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ImportDungeonBrush.Designer.cs">
+      <DependentUpon>ImportDungeonBrush.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
@@ -174,14 +168,14 @@
     <Compile Include="EditorObjects\UndoManager.cs" />
     <Compile Include="StarboundTypes\Materials\PlatformImageManager.cs" />
     <Compile Include="StarboundTypes\Materials\MaterialImageManager.cs" />
-    <EmbeddedResource Include="GUI\AssetGalleryComponent.resx">
-      <DependentUpon>AssetGalleryComponent.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\DirPopup.resx">
       <DependentUpon>DirPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\AssetBrowser.resx">
       <DependentUpon>AssetBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ImportDungeonBrush.resx">
+      <DependentUpon>ImportDungeonBrush.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

@@ -22,8 +22,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundTypes;
 
@@ -34,11 +36,12 @@ namespace Starstructor.GUI
         public delegate void AssetSelectedFunc(StarboundAsset asset);
 
         private bool m_buttonsShown = true;
-        private readonly Image m_notFoundImage = EditorHelpers.GetGeneratedRectangle(8, 8, 128, 128, 128, 255);
+        private readonly Image m_notFoundImage = EditorHelpers.GetGeneratedRectangle(8, 8, 255, 105, 180, 255);
         private readonly Dictionary<TreeNode, StarboundAsset> m_assetNodeMap
             = new Dictionary<TreeNode, StarboundAsset>();
 
         private AssetSelectedFunc m_callback;
+        private Thread m_worker;
 
         public AssetBrowser()
         {
@@ -83,7 +86,7 @@ namespace Starstructor.GUI
 
         private void ImportBrush_Load(object sender, System.EventArgs e)
         {
-            UpdateAssetTreeView();
+            StartTreeViewThread();
         }
 
         private void UpdateAssetTreeView(string filter = null, List<StarboundAsset> assets = null)
@@ -100,8 +103,6 @@ namespace Starstructor.GUI
 
             ClearSelection();
 
-            List<TreeNode> nodes = new List<TreeNode>();
-
             for (int i = 0; i < assets.Count; ++i)
             {
                 StarboundAsset asset = assets[i];
@@ -113,10 +114,17 @@ namespace Starstructor.GUI
                 if (asset is StarboundObject)
                 {
                     StarboundObject sbObject = (StarboundObject)asset;
-                    assetImage = sbObject.InventoryIcon.ImageFile;
+
+                    // Use inventory icon, if it exists
+                    if (assetImage == null && sbObject.InventoryIcon.ImageFile != null) 
+                        assetImage = sbObject.InventoryIcon.ImageFile;
                 }
 
-                if (assetImage == null) assetImage = asset.Image;
+                // Otherwise, use main image
+                if (assetImage == null && asset.Image != null) assetImage = asset.Image;
+
+                // Otherwise, use the not found image
+                if (assetImage == null) assetImage = m_notFoundImage;
 
                 AssetSearchTreeView.ImageList.Images.Add(i.ToString(), assetImage);
 
@@ -124,15 +132,15 @@ namespace Starstructor.GUI
                 node.ImageKey = i.ToString();
                 node.SelectedImageKey = i.ToString();
                 m_assetNodeMap[node] = asset;
-                nodes.Add(node);
             }
 
-            AssetSearchTreeView.Nodes.AddRange(nodes.ToArray());
+            AssetSearchTreeView.Nodes.AddRange(m_assetNodeMap.Keys.ToArray());
         }
 
         private void UpdateAssetTreeViewThreadSafe(string filter = null, List<StarboundAsset> assets = null)
         {
-            AssetSearchTreeView.Invoke((MethodInvoker) (() => UpdateAssetTreeView(filter, assets)));
+            if (!IsDisposed)
+                AssetSearchTreeView.Invoke((MethodInvoker) (() => UpdateAssetTreeView(filter, assets)));
         }
 
         private void AssetSearchTextBox_TextChanged(object sender, System.EventArgs e)
@@ -204,6 +212,23 @@ namespace Starstructor.GUI
             AssetTypeLabel.Text = "No asset selected";
         }
 
+        private void RefreshTreeView()
+        {
+            EditorAssets.RefreshAssets();
+
+            while (EditorAssets.IsAssetThreadWorking())
+            {
+                Thread.Sleep(50);
+                UpdateAssetTreeViewThreadSafe(AssetSearchTextBox.Text, EditorAssets.GetAllAssets(false));
+            }
+        }
+
+        private void StartTreeViewThread()
+        {
+            m_worker = new Thread(RefreshTreeView);
+            m_worker.Start();
+        }
+
         private void AssetButtonSelect_Click(object sender, System.EventArgs e)
         {
             if (m_callback != null) m_callback.Invoke(GetSelectedAsset());
@@ -211,18 +236,7 @@ namespace Starstructor.GUI
 
         private void AssetButtonRefresh_Click(object sender, System.EventArgs e)
         {
-            EditorAssets.RefreshAssets();
-
-            if (!RefreshWorker.IsBusy) RefreshWorker.RunWorkerAsync();
-        }
-
-        private void RefreshWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            while (EditorAssets.IsAssetThreadWorking())
-            {
-                UpdateAssetTreeViewThreadSafe(AssetSearchTextBox.Text, EditorAssets.GetAllAssets(false));
-                Thread.Sleep(50);
-            }
+            if (!m_worker.IsAlive) StartTreeViewThread();
         }
     }
 }

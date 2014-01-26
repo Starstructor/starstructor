@@ -24,6 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Starstructor.StarboundTypes;
 
@@ -62,16 +63,6 @@ namespace Starstructor
             }
 
             m_worker = new Thread(RefreshAssetsBackground);
-
-            lock (m_objectMap)
-            {
-                m_objectMap.Clear();
-            }
-
-            lock (m_materialMap)
-            {
-                m_materialMap.Clear();
-            }
 
             m_worker.Start();
         }
@@ -149,10 +140,12 @@ namespace Starstructor
             {
                 foreach (string file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
                 {
-                    StarboundObject sbObject = JsonParser.ParseJson<StarboundObject>(file);
+                    StarboundObject sbObject =
+                        m_objectMap.FirstOrDefault(json => String.Equals(json.Value.FullPath, file)).Value;
 
-                    if (m_objectMap.ContainsKey(sbObject.ObjectName)) continue;
-
+                   // if (sbObject != null) continue;
+                                               
+                    sbObject = JsonParser.ParseJson<StarboundObject>(file);
 
                     lock (m_objectMap)
                     {
@@ -164,9 +157,12 @@ namespace Starstructor
 
                 foreach (string file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
                 {
-                    StarboundMaterial sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
+                    StarboundMaterial sbMaterial =
+                        m_materialMap.FirstOrDefault(json => String.Equals(json.Value.FullPath, file)).Value;
 
-                    if (m_materialMap.ContainsKey(sbMaterial.MaterialName)) continue;
+                   // if (sbMaterial != null) continue;
+
+                    sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
 
                     lock (m_materialMap)
                     {

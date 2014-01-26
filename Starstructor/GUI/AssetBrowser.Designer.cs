@@ -38,18 +38,17 @@ namespace Starstructor.GUI
             this.AssetSearchTextBox = new System.Windows.Forms.TextBox();
             this.AssetBrowserMainLayoutTable = new System.Windows.Forms.TableLayoutPanel();
             this.AssetPreviewLayoutTable = new System.Windows.Forms.TableLayoutPanel();
+            this.AssetGraphicalPreview = new Starstructor.GUI.NoAliasPictureBox();
             this.AssetPathLabel = new System.Windows.Forms.Label();
             this.AssetTypeLabel = new System.Windows.Forms.Label();
             this.AssetSearchLayoutTable = new System.Windows.Forms.TableLayoutPanel();
             this.AssetSearchTreeView = new System.Windows.Forms.TreeView();
             this.AssetButtonSelect = new System.Windows.Forms.Button();
             this.AssetButtonRefresh = new System.Windows.Forms.Button();
-            this.RefreshWorker = new System.ComponentModel.BackgroundWorker();
-            this.AssetGraphicalPreview = new Starstructor.GUI.NoAliasPictureBox();
             this.AssetBrowserMainLayoutTable.SuspendLayout();
             this.AssetPreviewLayoutTable.SuspendLayout();
-            this.AssetSearchLayoutTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).BeginInit();
+            this.AssetSearchLayoutTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // AssetSearchTextBox
@@ -99,6 +98,17 @@ namespace Starstructor.GUI
             this.AssetPreviewLayoutTable.Size = new System.Drawing.Size(186, 356);
             this.AssetPreviewLayoutTable.TabIndex = 1;
             this.AssetPreviewLayoutTable.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.AssetPreviewLayoutTable_CellPaint);
+            // 
+            // AssetGraphicalPreview
+            // 
+            this.AssetGraphicalPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AssetGraphicalPreview.Location = new System.Drawing.Point(0, 187);
+            this.AssetGraphicalPreview.Margin = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.AssetGraphicalPreview.Name = "AssetGraphicalPreview";
+            this.AssetGraphicalPreview.Size = new System.Drawing.Size(186, 159);
+            this.AssetGraphicalPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.AssetGraphicalPreview.TabIndex = 0;
+            this.AssetGraphicalPreview.TabStop = false;
             // 
             // AssetPathLabel
             // 
@@ -173,21 +183,6 @@ namespace Starstructor.GUI
             this.AssetButtonRefresh.UseVisualStyleBackColor = true;
             this.AssetButtonRefresh.Click += new System.EventHandler(this.AssetButtonRefresh_Click);
             // 
-            // RefreshWorker
-            // 
-            this.RefreshWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RefreshWorker_DoWork);
-            // 
-            // AssetGraphicalPreview
-            // 
-            this.AssetGraphicalPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AssetGraphicalPreview.Location = new System.Drawing.Point(0, 187);
-            this.AssetGraphicalPreview.Margin = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.AssetGraphicalPreview.Name = "AssetGraphicalPreview";
-            this.AssetGraphicalPreview.Size = new System.Drawing.Size(186, 159);
-            this.AssetGraphicalPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.AssetGraphicalPreview.TabIndex = 0;
-            this.AssetGraphicalPreview.TabStop = false;
-            // 
             // AssetBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,9 +201,9 @@ namespace Starstructor.GUI
             this.AssetBrowserMainLayoutTable.PerformLayout();
             this.AssetPreviewLayoutTable.ResumeLayout(false);
             this.AssetPreviewLayoutTable.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).EndInit();
             this.AssetSearchLayoutTable.ResumeLayout(false);
             this.AssetSearchLayoutTable.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -225,7 +220,6 @@ namespace Starstructor.GUI
         private System.Windows.Forms.Label AssetTypeLabel;
         private System.Windows.Forms.Button AssetButtonSelect;
         private System.Windows.Forms.Button AssetButtonRefresh;
-        private System.ComponentModel.BackgroundWorker RefreshWorker;
 
     }
 }
