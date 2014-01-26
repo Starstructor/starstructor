@@ -40,7 +40,7 @@ namespace Starstructor
 
         private static Thread m_worker;
 
-        public static void RefreshAssets()
+        public static void RefreshAssets(bool clearMap = true)
         {
             try
             {
@@ -62,8 +62,20 @@ namespace Starstructor
                 return;
             }
 
-            m_worker = new Thread(RefreshAssetsBackground);
+            if (clearMap)
+            {
+                lock (m_objectMap)
+                {
+                    m_objectMap.Clear();
+                }
 
+                lock (m_materialMap)
+                {
+                    m_materialMap.Clear();
+                }
+            }
+
+            m_worker = new Thread(() => RefreshAssetsBackground(clearMap));
             m_worker.Start();
         }
 
@@ -121,7 +133,7 @@ namespace Starstructor
             return m_worker != null && m_worker.IsAlive;
         }
 
-        private static void RefreshAssetsBackground()
+        private static void RefreshAssetsBackground(bool clearMap = true)
         {
             Editor.Log.Write("Asset loading thread started");
 
@@ -140,12 +152,10 @@ namespace Starstructor
             {
                 foreach (string file in Directory.EnumerateFiles(path, "*.object", SearchOption.AllDirectories))
                 {
-                    StarboundObject sbObject =
-                        m_objectMap.FirstOrDefault(json => String.Equals(json.Value.FullPath, file)).Value;
+                    if (!clearMap && m_objectMap.FirstOrDefault(json => String.Equals(json.Value.FullPath, file)).Value != null)
+                        continue;
 
-                   // if (sbObject != null) continue;
-                                               
-                    sbObject = JsonParser.ParseJson<StarboundObject>(file);
+                    StarboundObject sbObject = JsonParser.ParseJson<StarboundObject>(file);
 
                     lock (m_objectMap)
                     {
@@ -157,12 +167,10 @@ namespace Starstructor
 
                 foreach (string file in Directory.EnumerateFiles(path, "*.material", SearchOption.AllDirectories))
                 {
-                    StarboundMaterial sbMaterial =
-                        m_materialMap.FirstOrDefault(json => String.Equals(json.Value.FullPath, file)).Value;
+                    if (!clearMap && m_materialMap.FirstOrDefault(json => String.Equals(json.Value.FullPath, file)).Value != null) 
+                        continue;
 
-                   // if (sbMaterial != null) continue;
-
-                    sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
+                    StarboundMaterial sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
 
                     lock (m_materialMap)
                     {

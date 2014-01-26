@@ -28,6 +28,17 @@ namespace Starstructor.GUI
 
         #region Windows Form Designer generated code
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Release resources
+                if (components != null) components.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -196,6 +207,7 @@ namespace Starstructor.GUI
             this.Name = "AssetBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset Browser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AssetBrowser_FormClosing);
             this.Load += new System.EventHandler(this.ImportBrush_Load);
             this.AssetBrowserMainLayoutTable.ResumeLayout(false);
             this.AssetBrowserMainLayoutTable.PerformLayout();
