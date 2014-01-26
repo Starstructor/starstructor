@@ -43,11 +43,9 @@ namespace Starstructor
         private readonly Dictionary<Color, EditorBrush> m_brushMap
             = new Dictionary<Color, EditorBrush>();
 
-        private static readonly Logger m_log
-            = new Logger(Path.Combine(
-                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                "log.txt"));
-
+        private static readonly Logger m_log = new Logger(Path.Combine(Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "log"),
+                DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + "_starstructor.txt"));
         private readonly string m_name = Application.ProductName;
         private readonly Version m_version = Assembly.GetExecutingAssembly().GetName().Version;
         private EditorFile m_activeFile;

@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Starstructor
 {
@@ -31,7 +32,20 @@ namespace Starstructor
 
         public Logger(string path)
         {
-            m_file = new StreamWriter(path, true) {AutoFlush = true};
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    string dir = Path.GetDirectoryName(path);
+                    Directory.CreateDirectory(dir);
+                }
+
+                m_file = new StreamWriter(path, true) { AutoFlush = true };
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to create log file. Report this on the forums.\n\n" + e.ToString());
+            }
         }
 
         public void Write(string text)
