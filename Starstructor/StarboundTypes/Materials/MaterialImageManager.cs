@@ -76,11 +76,6 @@ namespace Starstructor.StarboundTypes.Materials
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR, 
             bool background = false, float opacity = 1.0f)
         {
-            if (m_fileName.Contains(".internal"))
-            {
-                int a = 5 + 2;
-            }
-
             if (m_image == null || m_image.ImageFile == null) return false;
 
             Rectangle? srcRect = GetImageFrame();
