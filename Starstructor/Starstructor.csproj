@@ -110,11 +110,11 @@
     <Compile Include="GUI\AssetBrowser.Designer.cs">
       <DependentUpon>AssetBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ImportDungeonBrush.cs">
+    <Compile Include="GUI\ImportBrush.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ImportDungeonBrush.Designer.cs">
-      <DependentUpon>ImportDungeonBrush.cs</DependentUpon>
+    <Compile Include="GUI\ImportBrush.Designer.cs">
+      <DependentUpon>ImportBrush.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\MainWindow.cs">
       <SubType>Form</SubType>
@@ -174,8 +174,8 @@
     <EmbeddedResource Include="GUI\AssetBrowser.resx">
       <DependentUpon>AssetBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ImportDungeonBrush.resx">
-      <DependentUpon>ImportDungeonBrush.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\ImportBrush.resx">
+      <DependentUpon>ImportBrush.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

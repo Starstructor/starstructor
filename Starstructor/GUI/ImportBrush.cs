@@ -25,9 +25,9 @@ using System.Windows.Forms;
 
 namespace Starstructor.GUI
 {
-    public partial class ImportDungeonBrush : Form
+    public partial class ImportBrush : Form
     {
-        public ImportDungeonBrush()
+        public ImportBrush()
         {
             InitializeComponent();
         }

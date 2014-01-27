@@ -951,7 +951,7 @@ namespace Starstructor.GUI
 
         private void addBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportDungeonBrush dungeonBrush = new ImportDungeonBrush();
+            ImportBrush dungeonBrush = new ImportBrush();
             dungeonBrush.ShowDialog();
         }
 
@@ -1020,7 +1020,7 @@ namespace Starstructor.GUI
         {
             if (m_parent.ActiveFile is StarboundDungeon)
             {
-                ImportDungeonBrush dungeonBrushGui = new ImportDungeonBrush();
+                ImportBrush dungeonBrushGui = new ImportBrush();
                 dungeonBrushGui.ShowDialog();
             }
             else if (m_parent.ActiveFile is StarboundShip)
