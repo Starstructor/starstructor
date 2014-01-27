@@ -56,9 +56,9 @@ namespace Starstructor.GUI
             this.ButtonPrev = new System.Windows.Forms.Button();
             this.WizardTabs = new Starstructor.GUI.WizardTabControl();
             this.TabGeneralDungeon = new System.Windows.Forms.TabPage();
-            this.MainTableLayoutDungeon = new System.Windows.Forms.TableLayoutPanel();
+            this.MainTableLayoutGeneralDungeon = new System.Windows.Forms.TableLayoutPanel();
             this.LabelInformation = new System.Windows.Forms.Label();
-            this.MainLayoutTableGeneralDungeon = new System.Windows.Forms.TableLayoutPanel();
+            this.MainTableLayoutGeneralDungeonBrushInfo = new System.Windows.Forms.TableLayoutPanel();
             this.LabelComment = new System.Windows.Forms.Label();
             this.TextBoxComment = new System.Windows.Forms.TextBox();
             this.ColourInfoTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -78,20 +78,35 @@ namespace Starstructor.GUI
             this.LabelGeneralDungeon = new System.Windows.Forms.Label();
             this.LabelColour = new System.Windows.Forms.Label();
             this.TabFrontAssetDungeon = new System.Windows.Forms.TabPage();
+            this.MainTableLayoutFrontAssetDungeon = new System.Windows.Forms.TableLayoutPanel();
             this.TabBackAssetDungeon = new System.Windows.Forms.TabPage();
             this.TabRulesDungeon = new System.Windows.Forms.TabPage();
             this.TabGeneralShip = new System.Windows.Forms.TabPage();
             this.TabFrontAssetShip = new System.Windows.Forms.TabPage();
             this.TabBackAssetShip = new System.Windows.Forms.TabPage();
             this.TabRulesShip = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LabelFrontAsset = new System.Windows.Forms.Label();
+            this.MainTableLayoutFrontAssetDungeonBrushInfo = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.MainTableLayoutPanel.SuspendLayout();
             this.NavigationTableLayoutPanel.SuspendLayout();
             this.WizardTabs.SuspendLayout();
             this.TabGeneralDungeon.SuspendLayout();
-            this.MainTableLayoutDungeon.SuspendLayout();
-            this.MainLayoutTableGeneralDungeon.SuspendLayout();
+            this.MainTableLayoutGeneralDungeon.SuspendLayout();
+            this.MainTableLayoutGeneralDungeonBrushInfo.SuspendLayout();
             this.ColourInfoTableLayoutPanel.SuspendLayout();
             this.ConnectorDirectionTableLayoutPanel.SuspendLayout();
+            this.TabFrontAssetDungeon.SuspendLayout();
+            this.MainTableLayoutFrontAssetDungeon.SuspendLayout();
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTableLayoutPanel
@@ -189,7 +204,7 @@ namespace Starstructor.GUI
             // 
             // TabGeneralDungeon
             // 
-            this.TabGeneralDungeon.Controls.Add(this.MainTableLayoutDungeon);
+            this.TabGeneralDungeon.Controls.Add(this.MainTableLayoutGeneralDungeon);
             this.TabGeneralDungeon.Location = new System.Drawing.Point(4, 22);
             this.TabGeneralDungeon.Name = "TabGeneralDungeon";
             this.TabGeneralDungeon.Padding = new System.Windows.Forms.Padding(3);
@@ -198,21 +213,21 @@ namespace Starstructor.GUI
             this.TabGeneralDungeon.Text = "d1";
             this.TabGeneralDungeon.UseVisualStyleBackColor = true;
             // 
-            // MainTableLayoutDungeon
+            // MainTableLayoutGeneralDungeon
             // 
-            this.MainTableLayoutDungeon.ColumnCount = 2;
-            this.MainTableLayoutDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.MainTableLayoutDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.MainTableLayoutDungeon.Controls.Add(this.LabelInformation, 1, 0);
-            this.MainTableLayoutDungeon.Controls.Add(this.MainLayoutTableGeneralDungeon, 0, 0);
-            this.MainTableLayoutDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTableLayoutDungeon.Location = new System.Drawing.Point(3, 3);
-            this.MainTableLayoutDungeon.Name = "MainTableLayoutDungeon";
-            this.MainTableLayoutDungeon.RowCount = 1;
-            this.MainTableLayoutDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
-            this.MainTableLayoutDungeon.Size = new System.Drawing.Size(604, 369);
-            this.MainTableLayoutDungeon.TabIndex = 0;
+            this.MainTableLayoutGeneralDungeon.ColumnCount = 2;
+            this.MainTableLayoutGeneralDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.MainTableLayoutGeneralDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.MainTableLayoutGeneralDungeon.Controls.Add(this.LabelInformation, 1, 0);
+            this.MainTableLayoutGeneralDungeon.Controls.Add(this.MainTableLayoutGeneralDungeonBrushInfo, 0, 0);
+            this.MainTableLayoutGeneralDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTableLayoutGeneralDungeon.Location = new System.Drawing.Point(3, 3);
+            this.MainTableLayoutGeneralDungeon.Name = "MainTableLayoutGeneralDungeon";
+            this.MainTableLayoutGeneralDungeon.RowCount = 1;
+            this.MainTableLayoutGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MainTableLayoutGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
+            this.MainTableLayoutGeneralDungeon.Size = new System.Drawing.Size(604, 369);
+            this.MainTableLayoutGeneralDungeon.TabIndex = 0;
             // 
             // LabelInformation
             // 
@@ -225,34 +240,34 @@ namespace Starstructor.GUI
             this.LabelInformation.Text = resources.GetString("LabelInformation.Text");
             this.LabelInformation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // MainLayoutTableGeneralDungeon
+            // MainTableLayoutGeneralDungeonBrushInfo
             // 
-            this.MainLayoutTableGeneralDungeon.ColumnCount = 1;
-            this.MainLayoutTableGeneralDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.LabelComment, 0, 1);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.TextBoxComment, 0, 2);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.ColourInfoTableLayoutPanel, 0, 4);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.LabelConnector, 0, 5);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.CheckBoxConnector, 0, 6);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.ConnectorDirectionTableLayoutPanel, 0, 7);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.LabelGeneralDungeon, 0, 0);
-            this.MainLayoutTableGeneralDungeon.Controls.Add(this.LabelColour, 0, 3);
-            this.MainLayoutTableGeneralDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainLayoutTableGeneralDungeon.Location = new System.Drawing.Point(0, 0);
-            this.MainLayoutTableGeneralDungeon.Margin = new System.Windows.Forms.Padding(0);
-            this.MainLayoutTableGeneralDungeon.Name = "MainLayoutTableGeneralDungeon";
-            this.MainLayoutTableGeneralDungeon.RowCount = 9;
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainLayoutTableGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainLayoutTableGeneralDungeon.Size = new System.Drawing.Size(362, 369);
-            this.MainLayoutTableGeneralDungeon.TabIndex = 1;
+            this.MainTableLayoutGeneralDungeonBrushInfo.ColumnCount = 1;
+            this.MainTableLayoutGeneralDungeonBrushInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelComment, 0, 1);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.TextBoxComment, 0, 2);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.ColourInfoTableLayoutPanel, 0, 4);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelConnector, 0, 5);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.CheckBoxConnector, 0, 6);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.ConnectorDirectionTableLayoutPanel, 0, 7);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelGeneralDungeon, 0, 0);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelColour, 0, 3);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTableLayoutGeneralDungeonBrushInfo.Location = new System.Drawing.Point(0, 0);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.MainTableLayoutGeneralDungeonBrushInfo.Name = "MainTableLayoutGeneralDungeonBrushInfo";
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowCount = 9;
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.MainTableLayoutGeneralDungeonBrushInfo.Size = new System.Drawing.Size(362, 369);
+            this.MainTableLayoutGeneralDungeonBrushInfo.TabIndex = 1;
             // 
             // LabelComment
             // 
@@ -471,6 +486,7 @@ namespace Starstructor.GUI
             // 
             // TabFrontAssetDungeon
             // 
+            this.TabFrontAssetDungeon.Controls.Add(this.MainTableLayoutFrontAssetDungeon);
             this.TabFrontAssetDungeon.Location = new System.Drawing.Point(4, 22);
             this.TabFrontAssetDungeon.Name = "TabFrontAssetDungeon";
             this.TabFrontAssetDungeon.Padding = new System.Windows.Forms.Padding(3);
@@ -478,6 +494,21 @@ namespace Starstructor.GUI
             this.TabFrontAssetDungeon.TabIndex = 1;
             this.TabFrontAssetDungeon.Text = "d2";
             this.TabFrontAssetDungeon.UseVisualStyleBackColor = true;
+            // 
+            // MainTableLayoutFrontAssetDungeon
+            // 
+            this.MainTableLayoutFrontAssetDungeon.ColumnCount = 2;
+            this.MainTableLayoutFrontAssetDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.MainTableLayoutFrontAssetDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.MainTableLayoutFrontAssetDungeon.Controls.Add(this.MainTableLayoutFrontAssetDungeonBrushInfo, 0, 0);
+            this.MainTableLayoutFrontAssetDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTableLayoutFrontAssetDungeon.Location = new System.Drawing.Point(3, 3);
+            this.MainTableLayoutFrontAssetDungeon.Name = "MainTableLayoutFrontAssetDungeon";
+            this.MainTableLayoutFrontAssetDungeon.RowCount = 1;
+            this.MainTableLayoutFrontAssetDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MainTableLayoutFrontAssetDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
+            this.MainTableLayoutFrontAssetDungeon.Size = new System.Drawing.Size(604, 369);
+            this.MainTableLayoutFrontAssetDungeon.TabIndex = 1;
             // 
             // TabBackAssetDungeon
             // 
@@ -533,6 +564,126 @@ namespace Starstructor.GUI
             this.TabRulesShip.Text = "s4";
             this.TabRulesShip.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 245);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 46);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "label1";
+            // 
+            // LabelFrontAsset
+            // 
+            this.LabelFrontAsset.AutoSize = true;
+            this.LabelFrontAsset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelFrontAsset.Location = new System.Drawing.Point(3, 3);
+            this.LabelFrontAsset.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelFrontAsset.Name = "LabelFrontAsset";
+            this.LabelFrontAsset.Size = new System.Drawing.Size(92, 20);
+            this.LabelFrontAsset.TabIndex = 7;
+            this.LabelFrontAsset.Text = "Front Asset";
+            // 
+            // MainTableLayoutFrontAssetDungeonBrushInfo
+            // 
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.ColumnCount = 1;
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.LabelFrontAsset, 0, 0);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.label1, 0, 1);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.label2, 0, 5);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.comboBox1, 0, 2);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.comboBox2, 0, 6);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.label3, 0, 3);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.tableLayoutPanel1, 0, 4);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Location = new System.Drawing.Point(0, 0);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Name = "MainTableLayoutFrontAssetDungeonBrushInfo";
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowCount = 9;
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.Size = new System.Drawing.Size(362, 369);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.TabIndex = 1;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Object",
+            "Material"});
+            this.comboBox1.Location = new System.Drawing.Point(3, 65);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 10;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(3, 264);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 109);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "label3";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 125);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutPanel1.TabIndex = 13;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(94, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(103, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // ImportBrush
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -549,14 +700,20 @@ namespace Starstructor.GUI
             this.NavigationTableLayoutPanel.ResumeLayout(false);
             this.WizardTabs.ResumeLayout(false);
             this.TabGeneralDungeon.ResumeLayout(false);
-            this.MainTableLayoutDungeon.ResumeLayout(false);
-            this.MainTableLayoutDungeon.PerformLayout();
-            this.MainLayoutTableGeneralDungeon.ResumeLayout(false);
-            this.MainLayoutTableGeneralDungeon.PerformLayout();
+            this.MainTableLayoutGeneralDungeon.ResumeLayout(false);
+            this.MainTableLayoutGeneralDungeon.PerformLayout();
+            this.MainTableLayoutGeneralDungeonBrushInfo.ResumeLayout(false);
+            this.MainTableLayoutGeneralDungeonBrushInfo.PerformLayout();
             this.ColourInfoTableLayoutPanel.ResumeLayout(false);
             this.ColourInfoTableLayoutPanel.PerformLayout();
             this.ConnectorDirectionTableLayoutPanel.ResumeLayout(false);
             this.ConnectorDirectionTableLayoutPanel.PerformLayout();
+            this.TabFrontAssetDungeon.ResumeLayout(false);
+            this.MainTableLayoutFrontAssetDungeon.ResumeLayout(false);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.ResumeLayout(false);
+            this.MainTableLayoutFrontAssetDungeonBrushInfo.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -578,9 +735,9 @@ namespace Starstructor.GUI
         private System.Windows.Forms.TabPage TabFrontAssetShip;
         private System.Windows.Forms.TabPage TabBackAssetShip;
         private System.Windows.Forms.TabPage TabRulesShip;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutDungeon;
+        private System.Windows.Forms.TableLayoutPanel MainTableLayoutGeneralDungeon;
         private System.Windows.Forms.Label LabelInformation;
-        private System.Windows.Forms.TableLayoutPanel MainLayoutTableGeneralDungeon;
+        private System.Windows.Forms.TableLayoutPanel MainTableLayoutGeneralDungeonBrushInfo;
         private System.Windows.Forms.Label LabelComment;
         private System.Windows.Forms.TextBox TextBoxComment;
         private System.Windows.Forms.Label LabelColour;
@@ -599,6 +756,17 @@ namespace Starstructor.GUI
         private System.Windows.Forms.Label LabelConnectorDirection;
         private System.Windows.Forms.TextBox TextBoxConnectorDirection;
         private System.Windows.Forms.Label LabelGeneralDungeon;
+        private System.Windows.Forms.TableLayoutPanel MainTableLayoutFrontAssetDungeon;
+        private System.Windows.Forms.TableLayoutPanel MainTableLayoutFrontAssetDungeonBrushInfo;
+        private System.Windows.Forms.Label LabelFrontAsset;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
 
 
     }
