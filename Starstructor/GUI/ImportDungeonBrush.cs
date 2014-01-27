@@ -20,6 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Starstructor.GUI
@@ -29,6 +30,36 @@ namespace Starstructor.GUI
         public ImportDungeonBrush()
         {
             InitializeComponent();
+        }
+
+        private void ImportMainLayoutTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            Color borderColor = SystemColors.ControlDarkDark;
+            const int borderWidth = 1;
+
+            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
+            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
+
+            if (e.Row == 0) bottomBorderStyle = ButtonBorderStyle.Dotted;
+            if (e.Column == 0 || e.Column == 1 || e.Column == 2) rightBorderStyle = ButtonBorderStyle.Dotted;
+
+            ControlPaint.DrawBorder(
+                e.Graphics,
+                e.CellBounds,
+                borderColor,
+                borderWidth,
+                leftBorderStyle,
+                borderColor,
+                borderWidth,
+                topBorderStyle,
+                borderColor,
+                borderWidth,
+                rightBorderStyle,
+                borderColor,
+                borderWidth,
+                bottomBorderStyle);
         }
     }
 }

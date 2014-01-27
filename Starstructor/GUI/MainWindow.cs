@@ -49,26 +49,26 @@ namespace Starstructor.GUI
         private int m_gridFactor;
         public Editor m_parent;
         private EditorBrush m_selectedBrush;
-        private EditorMap m_pselectedMap;
+        private EditorMap m_selectedMap;
 
         public EditorMap SelectedMap
         {
-            get { return m_pselectedMap; }
+            get { return m_selectedMap; }
             private set
             {
-                if (m_pselectedMap == value) 
+                if (m_selectedMap == value) 
                     return;
 
                 EditorMap parentNext = value;
                 if (parentNext is EditorMapLayer)
                     parentNext = (parentNext as EditorMapLayer).Parent;
 
-                EditorMap parentPrev = m_pselectedMap;
+                EditorMap parentPrev = m_selectedMap;
                 if (parentPrev is EditorMapLayer)
                     parentPrev = (parentPrev as EditorMapLayer).Parent;
 
                 bool wantReset = parentNext != parentPrev;
-                m_pselectedMap = value;
+                m_selectedMap = value;
 
                 // Update the work area
                 UpdateImageBox(wantReset, wantReset);
@@ -275,7 +275,6 @@ namespace Starstructor.GUI
             closeToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Enabled = false;
             saveAsToolStripMenuItem.Enabled = false;
-            addBrushToolStripMenuItem.Enabled = false;
 
             // Force the garbage collector to clean up
             // But it won't do it until next file load because that would be too easy
@@ -621,7 +620,7 @@ namespace Starstructor.GUI
         {
             bool isValidNode = m_brushNodeMap.ContainsKey(e.Node);
 
-            newBrushToolStripMenuItem.Enabled    = false;
+            newBrushToolStripMenuItem.Enabled    = true;
             renameBrushToolStripMenuItem.Enabled = isValidNode;
             cloneBrushToolStripMenuItem.Enabled  = false;
             deleteBrushToolStripMenuItem.Enabled = false;
@@ -741,7 +740,6 @@ namespace Starstructor.GUI
             closeToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
-            addBrushToolStripMenuItem.Enabled = true;
             MainPictureBox.Focus();
 
             UpdatePropertiesPanel();
@@ -996,8 +994,6 @@ namespace Starstructor.GUI
 
                 if (node != null)
                     node.Text = (string)e.ChangedItem.Value;
-
-                //
             }
         }
 
@@ -1018,6 +1014,19 @@ namespace Starstructor.GUI
         {
             if (BrushesTreeView.SelectedNode != null)
                 BrushesTreeView.SelectedNode.BeginEdit();
+        }
+
+        private void newBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_parent.ActiveFile is StarboundDungeon)
+            {
+                ImportDungeonBrush dungeonBrushGui = new ImportDungeonBrush();
+                dungeonBrushGui.ShowDialog();
+            }
+            else if (m_parent.ActiveFile is StarboundShip)
+            {
+
+            }
         }
     }
 }

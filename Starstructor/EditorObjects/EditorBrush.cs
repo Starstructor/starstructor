@@ -25,6 +25,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Drawing;
 using System;
+using System.Collections.Generic;
 using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
 
@@ -44,10 +45,10 @@ namespace Starstructor.EditorObjects
         protected StarboundAsset m_backAsset;
 
         [JsonIgnore]
-        protected BindingList<string> m_brushRules = new BindingList<string>();
+        protected List<string> m_brushRules = new List<string>();
 
         [JsonIgnore]
-        protected BindingList<string> m_brushTypes = new BindingList<string>();
+        protected List<string> m_brushTypes = new List<string>();
 
         [JsonIgnore] 
         protected Color m_colourKey;
@@ -70,7 +71,10 @@ namespace Starstructor.EditorObjects
         [JsonIgnore] 
         protected bool m_needsFrontAsset;
 
+        [JsonIgnore] 
         private string m_brushKey;
+
+        [JsonIgnore] 
         private static Random g_randKey = new Random();
 
         [JsonIgnore, ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
@@ -116,14 +120,14 @@ namespace Starstructor.EditorObjects
         }
 
         [JsonIgnore, Browsable(false)]
-        public BindingList<string> BrushTypes
+        public List<string> BrushTypes
         {
             get { return m_brushTypes; }
             set { m_brushTypes = value; }
         }
-        
+
         [JsonIgnore, Browsable(false)]
-        public BindingList<string> BrushRules
+        public List<string> BrushRules
         {
             get { return m_brushRules; }
             set { m_brushRules = value; }

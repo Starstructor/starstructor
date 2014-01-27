@@ -71,8 +71,6 @@ namespace Starstructor.GUI
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.assetBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dungeonToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileDlg = new System.Windows.Forms.OpenFileDialog();
             this.SaveActive = new System.Windows.Forms.SaveFileDialog();
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -90,23 +88,23 @@ namespace Starstructor.GUI
             this.MainTab = new System.Windows.Forms.TabPage();
             this.PartsTab = new System.Windows.Forms.TabPage();
             this.PartTreeView = new System.Windows.Forms.TreeView();
-            this.BrushesTab = new System.Windows.Forms.TabPage();
-            this.BrushesTreeView = new System.Windows.Forms.TreeView();
-            this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
-            this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
-            this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuPartsList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuBrushesList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clonePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deletePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renamePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.renamePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BrushesTab = new System.Windows.Forms.TabPage();
+            this.BrushesTreeView = new System.Windows.Forms.TreeView();
+            this.contextMenuBrushesList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.renameBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
+            this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
+            this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
             this.VisualRgbaBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.VisualGraphicBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.MainPictureBox = new Starstructor.GUI.ImageBox();
@@ -124,8 +122,8 @@ namespace Starstructor.GUI
             this.RightPanelSplit.SuspendLayout();
             this.RightPanelTabControl.SuspendLayout();
             this.PartsTab.SuspendLayout();
-            this.BrushesTab.SuspendLayout();
             this.contextMenuPartsList.SuspendLayout();
+            this.BrushesTab.SuspendLayout();
             this.contextMenuBrushesList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
@@ -139,8 +137,7 @@ namespace Starstructor.GUI
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.dungeonToolStripMenuItem1});
+            this.toolsToolStripMenuItem});
             this.MainMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
@@ -323,22 +320,6 @@ namespace Starstructor.GUI
             this.setDirectoryToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.setDirectoryToolStripMenuItem.Text = "Set Directory";
             this.setDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setDirectoryToolStripMenuItem_Click);
-            // 
-            // dungeonToolStripMenuItem1
-            // 
-            this.dungeonToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addBrushToolStripMenuItem});
-            this.dungeonToolStripMenuItem1.Name = "dungeonToolStripMenuItem1";
-            this.dungeonToolStripMenuItem1.Size = new System.Drawing.Size(68, 20);
-            this.dungeonToolStripMenuItem1.Text = "&Dungeon";
-            // 
-            // addBrushToolStripMenuItem
-            // 
-            this.addBrushToolStripMenuItem.Enabled = false;
-            this.addBrushToolStripMenuItem.Name = "addBrushToolStripMenuItem";
-            this.addBrushToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.addBrushToolStripMenuItem.Text = "Add &Brush";
-            this.addBrushToolStripMenuItem.Click += new System.EventHandler(this.addBrushToolStripMenuItem_Click);
             // 
             // OpenFileDlg
             // 
@@ -574,6 +555,51 @@ namespace Starstructor.GUI
             this.PartTreeView.Size = new System.Drawing.Size(224, 338);
             this.PartTreeView.TabIndex = 5;
             // 
+            // contextMenuPartsList
+            // 
+            this.contextMenuPartsList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newPartToolStripMenuItem,
+            this.clonePartToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.renamePartToolStripMenuItem,
+            this.deletePartToolStripMenuItem});
+            this.contextMenuPartsList.Name = "contextMenuPartsList";
+            this.contextMenuPartsList.Size = new System.Drawing.Size(142, 98);
+            // 
+            // newPartToolStripMenuItem
+            // 
+            this.newPartToolStripMenuItem.Enabled = false;
+            this.newPartToolStripMenuItem.Name = "newPartToolStripMenuItem";
+            this.newPartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.newPartToolStripMenuItem.Text = "&New Part";
+            // 
+            // clonePartToolStripMenuItem
+            // 
+            this.clonePartToolStripMenuItem.Enabled = false;
+            this.clonePartToolStripMenuItem.Name = "clonePartToolStripMenuItem";
+            this.clonePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.clonePartToolStripMenuItem.Text = "&Clone Part";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(138, 6);
+            // 
+            // renamePartToolStripMenuItem
+            // 
+            this.renamePartToolStripMenuItem.Enabled = false;
+            this.renamePartToolStripMenuItem.Name = "renamePartToolStripMenuItem";
+            this.renamePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.renamePartToolStripMenuItem.Text = "&Rename Part";
+            this.renamePartToolStripMenuItem.Click += new System.EventHandler(this.renamePartToolStripMenuItem_Click);
+            // 
+            // deletePartToolStripMenuItem
+            // 
+            this.deletePartToolStripMenuItem.Enabled = false;
+            this.deletePartToolStripMenuItem.Name = "deletePartToolStripMenuItem";
+            this.deletePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.deletePartToolStripMenuItem.Text = "&Delete Part";
+            // 
             // BrushesTab
             // 
             this.BrushesTab.Controls.Add(this.BrushesTreeView);
@@ -605,37 +631,6 @@ namespace Starstructor.GUI
             this.BrushesTreeView.Size = new System.Drawing.Size(224, 338);
             this.BrushesTreeView.TabIndex = 6;
             // 
-            // RightPanelProperties
-            // 
-            this.RightPanelProperties.BackColor = System.Drawing.SystemColors.Control;
-            this.RightPanelProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RightPanelProperties.Location = new System.Drawing.Point(0, 0);
-            this.RightPanelProperties.Name = "RightPanelProperties";
-            this.RightPanelProperties.Size = new System.Drawing.Size(238, 335);
-            this.RightPanelProperties.TabIndex = 0;
-            this.RightPanelProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.RightPanelProperties_PropertyValueChanged);
-            // 
-            // SaveFileDlg
-            // 
-            this.SaveFileDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFile_FileOk);
-            // 
-            // SaveScreenshotDlg
-            // 
-            this.SaveScreenshotDlg.DefaultExt = "png";
-            this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
-            this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
-            // 
-            // contextMenuPartsList
-            // 
-            this.contextMenuPartsList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newPartToolStripMenuItem,
-            this.clonePartToolStripMenuItem,
-            this.toolStripSeparator5,
-            this.renamePartToolStripMenuItem,
-            this.deletePartToolStripMenuItem});
-            this.contextMenuPartsList.Name = "contextMenuPartsList";
-            this.contextMenuPartsList.Size = new System.Drawing.Size(142, 98);
-            // 
             // contextMenuBrushesList
             // 
             this.contextMenuBrushesList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -647,46 +642,13 @@ namespace Starstructor.GUI
             this.contextMenuBrushesList.Name = "contextMenuBrushesList";
             this.contextMenuBrushesList.Size = new System.Drawing.Size(153, 120);
             // 
-            // newPartToolStripMenuItem
-            // 
-            this.newPartToolStripMenuItem.Enabled = false;
-            this.newPartToolStripMenuItem.Name = "newPartToolStripMenuItem";
-            this.newPartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.newPartToolStripMenuItem.Text = "&New Part";
-            // 
-            // clonePartToolStripMenuItem
-            // 
-            this.clonePartToolStripMenuItem.Enabled = false;
-            this.clonePartToolStripMenuItem.Name = "clonePartToolStripMenuItem";
-            this.clonePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.clonePartToolStripMenuItem.Text = "&Clone Part";
-            // 
-            // deletePartToolStripMenuItem
-            // 
-            this.deletePartToolStripMenuItem.Enabled = false;
-            this.deletePartToolStripMenuItem.Name = "deletePartToolStripMenuItem";
-            this.deletePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.deletePartToolStripMenuItem.Text = "&Delete Part";
-            // 
-            // renamePartToolStripMenuItem
-            // 
-            this.renamePartToolStripMenuItem.Enabled = false;
-            this.renamePartToolStripMenuItem.Name = "renamePartToolStripMenuItem";
-            this.renamePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.renamePartToolStripMenuItem.Text = "&Rename Part";
-            this.renamePartToolStripMenuItem.Click += new System.EventHandler(this.renamePartToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(138, 6);
-            // 
             // newBrushToolStripMenuItem
             // 
             this.newBrushToolStripMenuItem.Enabled = false;
             this.newBrushToolStripMenuItem.Name = "newBrushToolStripMenuItem";
             this.newBrushToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newBrushToolStripMenuItem.Text = "&New Brush";
+            this.newBrushToolStripMenuItem.Click += new System.EventHandler(this.newBrushToolStripMenuItem_Click);
             // 
             // cloneBrushToolStripMenuItem
             // 
@@ -714,6 +676,26 @@ namespace Starstructor.GUI
             this.deleteBrushToolStripMenuItem.Name = "deleteBrushToolStripMenuItem";
             this.deleteBrushToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteBrushToolStripMenuItem.Text = "&Delete Brush";
+            // 
+            // RightPanelProperties
+            // 
+            this.RightPanelProperties.BackColor = System.Drawing.SystemColors.Control;
+            this.RightPanelProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RightPanelProperties.Location = new System.Drawing.Point(0, 0);
+            this.RightPanelProperties.Name = "RightPanelProperties";
+            this.RightPanelProperties.Size = new System.Drawing.Size(238, 335);
+            this.RightPanelProperties.TabIndex = 0;
+            this.RightPanelProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.RightPanelProperties_PropertyValueChanged);
+            // 
+            // SaveFileDlg
+            // 
+            this.SaveFileDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFile_FileOk);
+            // 
+            // SaveScreenshotDlg
+            // 
+            this.SaveScreenshotDlg.DefaultExt = "png";
+            this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
+            this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
             // 
             // VisualRgbaBrushImageBox
             // 
@@ -781,8 +763,8 @@ namespace Starstructor.GUI
             this.RightPanelSplit.ResumeLayout(false);
             this.RightPanelTabControl.ResumeLayout(false);
             this.PartsTab.ResumeLayout(false);
-            this.BrushesTab.ResumeLayout(false);
             this.contextMenuPartsList.ResumeLayout(false);
+            this.BrushesTab.ResumeLayout(false);
             this.contextMenuBrushesList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
@@ -798,7 +780,6 @@ namespace Starstructor.GUI
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog OpenFileDlg;
         private System.Windows.Forms.SaveFileDialog SaveActive;
-        private System.Windows.Forms.ToolStripMenuItem dungeonToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -807,7 +788,6 @@ namespace Starstructor.GUI
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addBrushToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem viewCollisionsToolStripMenuItem;
         private ToolStripMenuItem undoToolStripMenuItem;

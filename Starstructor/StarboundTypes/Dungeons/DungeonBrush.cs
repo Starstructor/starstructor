@@ -45,11 +45,11 @@ namespace Starstructor.StarboundTypes.Dungeons
         [Description("A user-defined comment. This is only used for the editor.")]
         public override string Comment { get; set; }
 
-        [Browsable(false)]  // brushes currently not viewable in property grid
+        [Browsable(false)]
         [JsonProperty("brush")]
         public List<List<object>> Brushes { get; set; }
 
-        [Browsable(false)] // rules currently not viewable in propertygrid
+        [Browsable(false)]
         [JsonProperty("rules")]
         public List<List<string>> Rules { get; set; }
 

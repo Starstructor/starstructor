@@ -209,6 +209,7 @@
     <Content Include="Resources\starstructor.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\" />
     <Folder Include="StarboundTypes\Liquids\" />
     <Folder Include="StarboundTypes\Npcs\" />
     <Folder Include="StarboundTypes\Platforms\" />
