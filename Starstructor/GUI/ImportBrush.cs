@@ -44,34 +44,26 @@ namespace Starstructor.GUI
             else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
             else Close();
 
-            WizardTabs.SelectedIndex = GetTabOffset();
+            WizardTabs.SelectedIndex = 0;
             FrontAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
             BackAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
             ComboBoxFrontAssetDirectionDungeon.SelectedIndex = 0;
             ComboBoxFrontAssetTypeDungeon.SelectedIndex = 0;
         }
 
-        private int GetTabOffset()
-        {
-            return m_newBrush is DungeonBrush ? 0 : 4;
-        }
 
         private void ButtonPrev_Click(object sender, System.EventArgs e)
         {
-            int offset = GetTabOffset();
-
-            if (WizardTabs.SelectedIndex >= offset) WizardTabs.SelectedIndex--;
-            if (WizardTabs.SelectedIndex == offset) ButtonPrev.Enabled = false;
-            if (WizardTabs.SelectedIndex < offset + 3) ButtonNext.Enabled = true;
+            if (WizardTabs.SelectedIndex >= 0) WizardTabs.SelectedIndex--;
+            if (WizardTabs.SelectedIndex == 0) ButtonPrev.Enabled = false;
+            if (WizardTabs.SelectedIndex < 3) ButtonNext.Enabled = true;
         }
 
         private void ButtonNext_Click(object sender, System.EventArgs e)
         {
-            int offset = GetTabOffset();
-
-            if (WizardTabs.SelectedIndex <= offset + 3) WizardTabs.SelectedIndex++;
-            if (WizardTabs.SelectedIndex > offset) ButtonPrev.Enabled = true;
-            if (WizardTabs.SelectedIndex == offset + 3) ButtonNext.Enabled = false;
+            if (WizardTabs.SelectedIndex <= 3) WizardTabs.SelectedIndex++;
+            if (WizardTabs.SelectedIndex > 0) ButtonPrev.Enabled = true;
+            if (WizardTabs.SelectedIndex == 3) ButtonNext.Enabled = false;
         }
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)
