@@ -31,11 +31,14 @@ namespace Starstructor.GUI
 {
     public partial class ImportBrush : Form
     {
-        private EditorBrush m_newBrush;
+        private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
+        private readonly EditorBrush m_newBrush;
 
         public ImportBrush(Type type)
         {
             InitializeComponent();
+
+            m_assetBrowser.SetAssetSelectedCallback(AssetSelectedCallback);
 
             if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
             else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
@@ -68,7 +71,7 @@ namespace Starstructor.GUI
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)
         {
-
+            m_assetBrowser.ShowDialog();
         }
 
         private void ButtonCancel_Click(object sender, System.EventArgs e)
@@ -78,7 +81,9 @@ namespace Starstructor.GUI
 
         private void AssetSelectedCallback(StarboundAsset selected)
         {
-            
+            if (selected == null) return;
+
+            Text = selected.FullPath;
         }
     }
 }

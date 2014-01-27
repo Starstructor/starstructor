@@ -71,7 +71,7 @@ namespace Starstructor.GUI
 
         public StarboundAsset GetSelectedAsset()
         {
-            return m_assetNodeMap[AssetSearchTreeView.SelectedNode];
+            return AssetSearchTreeView.SelectedNode != null ? m_assetNodeMap[AssetSearchTreeView.SelectedNode] : null;
         }
 
         private void ImportBrush_Load(object sender, System.EventArgs e)
