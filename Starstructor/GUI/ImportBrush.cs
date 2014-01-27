@@ -20,46 +20,65 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using System.Drawing;
+using System;
 using System.Windows.Forms;
+using Starstructor.EditorObjects;
+using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Dungeons;
+using Starstructor.StarboundTypes.Ships;
 
 namespace Starstructor.GUI
 {
     public partial class ImportBrush : Form
     {
-        public ImportBrush()
+        private EditorBrush m_newBrush;
+
+        public ImportBrush(Type type)
         {
             InitializeComponent();
+
+            if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
+            else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
+
+            WizardTabs.TabIndex = GetTabOffset() + 1;
         }
 
-        private void ImportMainLayoutTable_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        private int GetTabOffset()
         {
-            Color borderColor = SystemColors.ControlDarkDark;
-            const int borderWidth = 1;
+            return m_newBrush is DungeonBrush ? 0 : 4;
+        }
 
-            ButtonBorderStyle leftBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle topBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle rightBorderStyle = ButtonBorderStyle.None;
-            ButtonBorderStyle bottomBorderStyle = ButtonBorderStyle.None;
+        private void ButtonPrev_Click(object sender, System.EventArgs e)
+        {
+            int offset = GetTabOffset();
 
-            if (e.Row == 0) bottomBorderStyle = ButtonBorderStyle.Dotted;
-            if (e.Column == 0 || e.Column == 1 || e.Column == 2) rightBorderStyle = ButtonBorderStyle.Dotted;
+            if (WizardTabs.TabIndex >= offset + 1) WizardTabs.TabIndex--;
+            if (WizardTabs.TabIndex == offset + 1) ButtonPrev.Enabled = false;
+            if (WizardTabs.TabIndex < offset + 4) ButtonNext.Enabled = true;
+        }
 
-            ControlPaint.DrawBorder(
-                e.Graphics,
-                e.CellBounds,
-                borderColor,
-                borderWidth,
-                leftBorderStyle,
-                borderColor,
-                borderWidth,
-                topBorderStyle,
-                borderColor,
-                borderWidth,
-                rightBorderStyle,
-                borderColor,
-                borderWidth,
-                bottomBorderStyle);
+        private void ButtonNext_Click(object sender, System.EventArgs e)
+        {
+            int offset = GetTabOffset();
+
+            if (WizardTabs.TabIndex <= offset + 4) WizardTabs.TabIndex++;
+            if (WizardTabs.TabIndex > offset + 1) ButtonPrev.Enabled = true;
+            if (WizardTabs.TabIndex == offset + 4) ButtonNext.Enabled = false;
+        }
+
+        private void ButtonFinish_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void ButtonCancel_Click(object sender, System.EventArgs e)
+        {
+            Close();
+        }
+
+        private void AssetSelectedCallback(StarboundAsset selected)
+        {
+            
         }
     }
 }

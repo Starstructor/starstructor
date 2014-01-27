@@ -949,12 +949,6 @@ namespace Starstructor.GUI
             }
         }
 
-        private void addBrushToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ImportBrush dungeonBrush = new ImportBrush();
-            dungeonBrush.ShowDialog();
-        }
-
         private void RightPanelProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             GridItem item = e.ChangedItem;
@@ -1018,15 +1012,8 @@ namespace Starstructor.GUI
 
         private void newBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_parent.ActiveFile is StarboundDungeon)
-            {
-                ImportBrush dungeonBrushGui = new ImportBrush();
-                dungeonBrushGui.ShowDialog();
-            }
-            else if (m_parent.ActiveFile is StarboundShip)
-            {
-
-            }
+            ImportBrush dungeonBrushGui = new ImportBrush(m_parent.ActiveFile.GetType());
+            dungeonBrushGui.ShowDialog();
         }
     }
 }

@@ -55,10 +55,14 @@ namespace Starstructor.GUI
             this.ButtonNext = new System.Windows.Forms.Button();
             this.ButtonPrev = new System.Windows.Forms.Button();
             this.WizardTabs = new Starstructor.GUI.WizardTabControl();
-            this.TabGeneral = new System.Windows.Forms.TabPage();
-            this.TabFrontAsset = new System.Windows.Forms.TabPage();
-            this.TabBackAsset = new System.Windows.Forms.TabPage();
-            this.TabRules = new System.Windows.Forms.TabPage();
+            this.TabGeneralDungeon = new System.Windows.Forms.TabPage();
+            this.TabFrontAssetDungeon = new System.Windows.Forms.TabPage();
+            this.TabBackAssetDungeon = new System.Windows.Forms.TabPage();
+            this.TabRulesDungeon = new System.Windows.Forms.TabPage();
+            this.TabGeneralShip = new System.Windows.Forms.TabPage();
+            this.TabFrontAssetShip = new System.Windows.Forms.TabPage();
+            this.TabBackAssetShip = new System.Windows.Forms.TabPage();
+            this.TabRulesShip = new System.Windows.Forms.TabPage();
             this.MainTableLayoutPanel.SuspendLayout();
             this.NavigationTableLayoutPanel.SuspendLayout();
             this.WizardTabs.SuspendLayout();
@@ -107,6 +111,7 @@ namespace Starstructor.GUI
             this.ButtonCancel.TabIndex = 0;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // ButtonFinish
             // 
@@ -116,6 +121,7 @@ namespace Starstructor.GUI
             this.ButtonFinish.TabIndex = 1;
             this.ButtonFinish.Text = "Finish";
             this.ButtonFinish.UseVisualStyleBackColor = true;
+            this.ButtonFinish.Click += new System.EventHandler(this.ButtonFinish_Click);
             // 
             // ButtonNext
             // 
@@ -125,6 +131,7 @@ namespace Starstructor.GUI
             this.ButtonNext.TabIndex = 2;
             this.ButtonNext.Text = "Next >";
             this.ButtonNext.UseVisualStyleBackColor = true;
+            this.ButtonNext.Click += new System.EventHandler(this.ButtonNext_Click);
             // 
             // ButtonPrev
             // 
@@ -135,13 +142,18 @@ namespace Starstructor.GUI
             this.ButtonPrev.TabIndex = 3;
             this.ButtonPrev.Text = "< Previous";
             this.ButtonPrev.UseVisualStyleBackColor = true;
+            this.ButtonPrev.Click += new System.EventHandler(this.ButtonPrev_Click);
             // 
             // WizardTabs
             // 
-            this.WizardTabs.Controls.Add(this.TabGeneral);
-            this.WizardTabs.Controls.Add(this.TabFrontAsset);
-            this.WizardTabs.Controls.Add(this.TabBackAsset);
-            this.WizardTabs.Controls.Add(this.TabRules);
+            this.WizardTabs.Controls.Add(this.TabGeneralDungeon);
+            this.WizardTabs.Controls.Add(this.TabFrontAssetDungeon);
+            this.WizardTabs.Controls.Add(this.TabBackAssetDungeon);
+            this.WizardTabs.Controls.Add(this.TabRulesDungeon);
+            this.WizardTabs.Controls.Add(this.TabGeneralShip);
+            this.WizardTabs.Controls.Add(this.TabFrontAssetShip);
+            this.WizardTabs.Controls.Add(this.TabBackAssetShip);
+            this.WizardTabs.Controls.Add(this.TabRulesShip);
             this.WizardTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WizardTabs.Location = new System.Drawing.Point(3, 3);
             this.WizardTabs.Name = "WizardTabs";
@@ -149,43 +161,79 @@ namespace Starstructor.GUI
             this.WizardTabs.Size = new System.Drawing.Size(618, 401);
             this.WizardTabs.TabIndex = 1;
             // 
-            // TabGeneral
+            // TabGeneralDungeon
             // 
-            this.TabGeneral.Location = new System.Drawing.Point(4, 22);
-            this.TabGeneral.Name = "TabGeneral";
-            this.TabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.TabGeneral.Size = new System.Drawing.Size(610, 375);
-            this.TabGeneral.TabIndex = 0;
-            this.TabGeneral.Text = "TabGeneral";
-            this.TabGeneral.UseVisualStyleBackColor = true;
+            this.TabGeneralDungeon.Location = new System.Drawing.Point(4, 22);
+            this.TabGeneralDungeon.Name = "TabGeneralDungeon";
+            this.TabGeneralDungeon.Padding = new System.Windows.Forms.Padding(3);
+            this.TabGeneralDungeon.Size = new System.Drawing.Size(610, 375);
+            this.TabGeneralDungeon.TabIndex = 0;
+            this.TabGeneralDungeon.Text = "d1";
+            this.TabGeneralDungeon.UseVisualStyleBackColor = true;
             // 
-            // TabFrontAsset
+            // TabFrontAssetDungeon
             // 
-            this.TabFrontAsset.Location = new System.Drawing.Point(4, 22);
-            this.TabFrontAsset.Name = "TabFrontAsset";
-            this.TabFrontAsset.Padding = new System.Windows.Forms.Padding(3);
-            this.TabFrontAsset.Size = new System.Drawing.Size(610, 375);
-            this.TabFrontAsset.TabIndex = 1;
-            this.TabFrontAsset.Text = "TabFrontAsset";
-            this.TabFrontAsset.UseVisualStyleBackColor = true;
+            this.TabFrontAssetDungeon.Location = new System.Drawing.Point(4, 22);
+            this.TabFrontAssetDungeon.Name = "TabFrontAssetDungeon";
+            this.TabFrontAssetDungeon.Padding = new System.Windows.Forms.Padding(3);
+            this.TabFrontAssetDungeon.Size = new System.Drawing.Size(610, 375);
+            this.TabFrontAssetDungeon.TabIndex = 1;
+            this.TabFrontAssetDungeon.Text = "d2";
+            this.TabFrontAssetDungeon.UseVisualStyleBackColor = true;
             // 
-            // TabBackAsset
+            // TabBackAssetDungeon
             // 
-            this.TabBackAsset.Location = new System.Drawing.Point(4, 22);
-            this.TabBackAsset.Name = "TabBackAsset";
-            this.TabBackAsset.Size = new System.Drawing.Size(610, 375);
-            this.TabBackAsset.TabIndex = 2;
-            this.TabBackAsset.Text = "TabBackAsset";
-            this.TabBackAsset.UseVisualStyleBackColor = true;
+            this.TabBackAssetDungeon.Location = new System.Drawing.Point(4, 22);
+            this.TabBackAssetDungeon.Name = "TabBackAssetDungeon";
+            this.TabBackAssetDungeon.Size = new System.Drawing.Size(610, 375);
+            this.TabBackAssetDungeon.TabIndex = 2;
+            this.TabBackAssetDungeon.Text = "d3";
+            this.TabBackAssetDungeon.UseVisualStyleBackColor = true;
             // 
-            // TabRules
+            // TabRulesDungeon
             // 
-            this.TabRules.Location = new System.Drawing.Point(4, 22);
-            this.TabRules.Name = "TabRules";
-            this.TabRules.Size = new System.Drawing.Size(610, 375);
-            this.TabRules.TabIndex = 3;
-            this.TabRules.Text = "TabRules";
-            this.TabRules.UseVisualStyleBackColor = true;
+            this.TabRulesDungeon.Location = new System.Drawing.Point(4, 22);
+            this.TabRulesDungeon.Name = "TabRulesDungeon";
+            this.TabRulesDungeon.Size = new System.Drawing.Size(610, 375);
+            this.TabRulesDungeon.TabIndex = 3;
+            this.TabRulesDungeon.Text = "d4";
+            this.TabRulesDungeon.UseVisualStyleBackColor = true;
+            // 
+            // TabGeneralShip
+            // 
+            this.TabGeneralShip.Location = new System.Drawing.Point(4, 22);
+            this.TabGeneralShip.Name = "TabGeneralShip";
+            this.TabGeneralShip.Size = new System.Drawing.Size(610, 375);
+            this.TabGeneralShip.TabIndex = 5;
+            this.TabGeneralShip.Text = "s1";
+            this.TabGeneralShip.UseVisualStyleBackColor = true;
+            // 
+            // TabFrontAssetShip
+            // 
+            this.TabFrontAssetShip.Location = new System.Drawing.Point(4, 22);
+            this.TabFrontAssetShip.Name = "TabFrontAssetShip";
+            this.TabFrontAssetShip.Size = new System.Drawing.Size(610, 375);
+            this.TabFrontAssetShip.TabIndex = 6;
+            this.TabFrontAssetShip.Text = "s2";
+            this.TabFrontAssetShip.UseVisualStyleBackColor = true;
+            // 
+            // TabBackAssetShip
+            // 
+            this.TabBackAssetShip.Location = new System.Drawing.Point(4, 22);
+            this.TabBackAssetShip.Name = "TabBackAssetShip";
+            this.TabBackAssetShip.Size = new System.Drawing.Size(610, 375);
+            this.TabBackAssetShip.TabIndex = 7;
+            this.TabBackAssetShip.Text = "s3";
+            this.TabBackAssetShip.UseVisualStyleBackColor = true;
+            // 
+            // TabRulesShip
+            // 
+            this.TabRulesShip.Location = new System.Drawing.Point(4, 22);
+            this.TabRulesShip.Name = "TabRulesShip";
+            this.TabRulesShip.Size = new System.Drawing.Size(610, 375);
+            this.TabRulesShip.TabIndex = 8;
+            this.TabRulesShip.Text = "s4";
+            this.TabRulesShip.UseVisualStyleBackColor = true;
             // 
             // ImportBrush
             // 
@@ -215,10 +263,14 @@ namespace Starstructor.GUI
         private System.Windows.Forms.Button ButtonNext;
         private System.Windows.Forms.Button ButtonPrev;
         private WizardTabControl WizardTabs;
-        private System.Windows.Forms.TabPage TabGeneral;
-        private System.Windows.Forms.TabPage TabFrontAsset;
-        private System.Windows.Forms.TabPage TabBackAsset;
-        private System.Windows.Forms.TabPage TabRules;
+        private System.Windows.Forms.TabPage TabGeneralDungeon;
+        private System.Windows.Forms.TabPage TabFrontAssetDungeon;
+        private System.Windows.Forms.TabPage TabBackAssetDungeon;
+        private System.Windows.Forms.TabPage TabRulesDungeon;
+        private System.Windows.Forms.TabPage TabGeneralShip;
+        private System.Windows.Forms.TabPage TabFrontAssetShip;
+        private System.Windows.Forms.TabPage TabBackAssetShip;
+        private System.Windows.Forms.TabPage TabRulesShip;
 
 
     }
