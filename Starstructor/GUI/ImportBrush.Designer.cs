@@ -200,6 +200,7 @@ namespace Starstructor.GUI
             this.LabelInformation.Size = new System.Drawing.Size(236, 369);
             this.LabelInformation.TabIndex = 0;
             this.LabelInformation.Text = resources.GetString("LabelInformation.Text");
+            this.LabelInformation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TabFrontAssetDungeon
             // 
