@@ -93,11 +93,11 @@ namespace Starstructor
 
                 if (!File.Exists(path))
                 {
-                    File.AppendAllText(path, JsonConvert.SerializeObject((object) m_settings, Formatting.Indented));
+                    File.AppendAllText(path, JsonConvert.SerializeObject(m_settings, Formatting.Indented));
                 }
                 else
                 {
-                    var sr = new StreamReader(path);
+                    StreamReader sr = new StreamReader(path);
                     m_settings = JsonConvert.DeserializeObject<EditorSettings>(sr.ReadToEnd());
                     sr.Close();
                 }
@@ -176,13 +176,11 @@ namespace Starstructor
         {
             m_log.Write("Saving " + path);
 
+            Type activeFileType = ActiveFile.GetType();
             ActiveFile.FilePath = path;
 
-            if (ActiveFile is StarboundDungeon)
-                JsonParser.SerializeJson(path, (StarboundDungeon)ActiveFile);
-
-            else if (ActiveFile is StarboundShip)
-                JsonParser.SerializeJson(path, (StarboundShip)ActiveFile);
+            if (activeFileType == typeof(StarboundDungeon)) JsonParser.SerializeJson(path, (StarboundDungeon)ActiveFile);
+            else if (activeFileType == typeof(StarboundShip)) JsonParser.SerializeJson(path, (StarboundShip)ActiveFile);
         }
 
         // clean up all resources
