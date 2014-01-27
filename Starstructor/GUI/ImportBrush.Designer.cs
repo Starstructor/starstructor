@@ -56,6 +56,8 @@ namespace Starstructor.GUI
             this.ButtonPrev = new System.Windows.Forms.Button();
             this.WizardTabs = new Starstructor.GUI.WizardTabControl();
             this.TabGeneralDungeon = new System.Windows.Forms.TabPage();
+            this.MainTableLayoutDungeon = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelInformation = new System.Windows.Forms.Label();
             this.TabFrontAssetDungeon = new System.Windows.Forms.TabPage();
             this.TabBackAssetDungeon = new System.Windows.Forms.TabPage();
             this.TabRulesDungeon = new System.Windows.Forms.TabPage();
@@ -66,6 +68,8 @@ namespace Starstructor.GUI
             this.MainTableLayoutPanel.SuspendLayout();
             this.NavigationTableLayoutPanel.SuspendLayout();
             this.WizardTabs.SuspendLayout();
+            this.TabGeneralDungeon.SuspendLayout();
+            this.MainTableLayoutDungeon.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTableLayoutPanel
@@ -163,6 +167,7 @@ namespace Starstructor.GUI
             // 
             // TabGeneralDungeon
             // 
+            this.TabGeneralDungeon.Controls.Add(this.MainTableLayoutDungeon);
             this.TabGeneralDungeon.Location = new System.Drawing.Point(4, 22);
             this.TabGeneralDungeon.Name = "TabGeneralDungeon";
             this.TabGeneralDungeon.Padding = new System.Windows.Forms.Padding(3);
@@ -170,6 +175,31 @@ namespace Starstructor.GUI
             this.TabGeneralDungeon.TabIndex = 0;
             this.TabGeneralDungeon.Text = "d1";
             this.TabGeneralDungeon.UseVisualStyleBackColor = true;
+            // 
+            // MainTableLayoutDungeon
+            // 
+            this.MainTableLayoutDungeon.ColumnCount = 2;
+            this.MainTableLayoutDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.MainTableLayoutDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.MainTableLayoutDungeon.Controls.Add(this.LabelInformation, 1, 0);
+            this.MainTableLayoutDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTableLayoutDungeon.Location = new System.Drawing.Point(3, 3);
+            this.MainTableLayoutDungeon.Name = "MainTableLayoutDungeon";
+            this.MainTableLayoutDungeon.RowCount = 1;
+            this.MainTableLayoutDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.MainTableLayoutDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
+            this.MainTableLayoutDungeon.Size = new System.Drawing.Size(604, 369);
+            this.MainTableLayoutDungeon.TabIndex = 0;
+            // 
+            // LabelInformation
+            // 
+            this.LabelInformation.AutoSize = true;
+            this.LabelInformation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LabelInformation.Location = new System.Drawing.Point(365, 0);
+            this.LabelInformation.Name = "LabelInformation";
+            this.LabelInformation.Size = new System.Drawing.Size(236, 369);
+            this.LabelInformation.TabIndex = 0;
+            this.LabelInformation.Text = resources.GetString("LabelInformation.Text");
             // 
             // TabFrontAssetDungeon
             // 
@@ -250,6 +280,9 @@ namespace Starstructor.GUI
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.NavigationTableLayoutPanel.ResumeLayout(false);
             this.WizardTabs.ResumeLayout(false);
+            this.TabGeneralDungeon.ResumeLayout(false);
+            this.MainTableLayoutDungeon.ResumeLayout(false);
+            this.MainTableLayoutDungeon.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -271,6 +304,8 @@ namespace Starstructor.GUI
         private System.Windows.Forms.TabPage TabFrontAssetShip;
         private System.Windows.Forms.TabPage TabBackAssetShip;
         private System.Windows.Forms.TabPage TabRulesShip;
+        private System.Windows.Forms.TableLayoutPanel MainTableLayoutDungeon;
+        private System.Windows.Forms.Label LabelInformation;
 
 
     }

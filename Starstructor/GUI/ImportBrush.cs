@@ -42,8 +42,9 @@ namespace Starstructor.GUI
 
             if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
             else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
+            else Close();
 
-            WizardTabs.TabIndex = GetTabOffset() + 1;
+            WizardTabs.SelectedIndex = GetTabOffset();
         }
 
         private int GetTabOffset()
@@ -55,18 +56,18 @@ namespace Starstructor.GUI
         {
             int offset = GetTabOffset();
 
-            if (WizardTabs.TabIndex >= offset + 1) WizardTabs.TabIndex--;
-            if (WizardTabs.TabIndex == offset + 1) ButtonPrev.Enabled = false;
-            if (WizardTabs.TabIndex < offset + 4) ButtonNext.Enabled = true;
+            if (WizardTabs.SelectedIndex >= offset) WizardTabs.SelectedIndex--;
+            if (WizardTabs.SelectedIndex == offset) ButtonPrev.Enabled = false;
+            if (WizardTabs.SelectedIndex < offset + 3) ButtonNext.Enabled = true;
         }
 
         private void ButtonNext_Click(object sender, System.EventArgs e)
         {
             int offset = GetTabOffset();
 
-            if (WizardTabs.TabIndex <= offset + 4) WizardTabs.TabIndex++;
-            if (WizardTabs.TabIndex > offset + 1) ButtonPrev.Enabled = true;
-            if (WizardTabs.TabIndex == offset + 4) ButtonNext.Enabled = false;
+            if (WizardTabs.SelectedIndex <= offset + 3) WizardTabs.SelectedIndex++;
+            if (WizardTabs.SelectedIndex > offset) ButtonPrev.Enabled = true;
+            if (WizardTabs.SelectedIndex == offset + 3) ButtonNext.Enabled = false;
         }
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)
