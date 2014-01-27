@@ -54,9 +54,14 @@ namespace Starstructor.GUI
             this.ButtonFinish = new System.Windows.Forms.Button();
             this.ButtonNext = new System.Windows.Forms.Button();
             this.ButtonPrev = new System.Windows.Forms.Button();
-            this.MainWizardPanel = new System.Windows.Forms.Panel();
+            this.WizardTabs = new Starstructor.GUI.WizardTabControl();
+            this.TabGeneral = new System.Windows.Forms.TabPage();
+            this.TabFrontAsset = new System.Windows.Forms.TabPage();
+            this.TabBackAsset = new System.Windows.Forms.TabPage();
+            this.TabRules = new System.Windows.Forms.TabPage();
             this.MainTableLayoutPanel.SuspendLayout();
             this.NavigationTableLayoutPanel.SuspendLayout();
+            this.WizardTabs.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTableLayoutPanel
@@ -64,7 +69,7 @@ namespace Starstructor.GUI
             this.MainTableLayoutPanel.ColumnCount = 1;
             this.MainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MainTableLayoutPanel.Controls.Add(this.NavigationTableLayoutPanel, 0, 1);
-            this.MainTableLayoutPanel.Controls.Add(this.MainWizardPanel, 0, 0);
+            this.MainTableLayoutPanel.Controls.Add(this.WizardTabs, 0, 0);
             this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
@@ -131,13 +136,56 @@ namespace Starstructor.GUI
             this.ButtonPrev.Text = "< Previous";
             this.ButtonPrev.UseVisualStyleBackColor = true;
             // 
-            // MainWizardPanel
+            // WizardTabs
             // 
-            this.MainWizardPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainWizardPanel.Location = new System.Drawing.Point(3, 3);
-            this.MainWizardPanel.Name = "MainWizardPanel";
-            this.MainWizardPanel.Size = new System.Drawing.Size(618, 401);
-            this.MainWizardPanel.TabIndex = 1;
+            this.WizardTabs.Controls.Add(this.TabGeneral);
+            this.WizardTabs.Controls.Add(this.TabFrontAsset);
+            this.WizardTabs.Controls.Add(this.TabBackAsset);
+            this.WizardTabs.Controls.Add(this.TabRules);
+            this.WizardTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WizardTabs.Location = new System.Drawing.Point(3, 3);
+            this.WizardTabs.Name = "WizardTabs";
+            this.WizardTabs.SelectedIndex = 0;
+            this.WizardTabs.Size = new System.Drawing.Size(618, 401);
+            this.WizardTabs.TabIndex = 1;
+            // 
+            // TabGeneral
+            // 
+            this.TabGeneral.Location = new System.Drawing.Point(4, 22);
+            this.TabGeneral.Name = "TabGeneral";
+            this.TabGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.TabGeneral.Size = new System.Drawing.Size(610, 375);
+            this.TabGeneral.TabIndex = 0;
+            this.TabGeneral.Text = "TabGeneral";
+            this.TabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // TabFrontAsset
+            // 
+            this.TabFrontAsset.Location = new System.Drawing.Point(4, 22);
+            this.TabFrontAsset.Name = "TabFrontAsset";
+            this.TabFrontAsset.Padding = new System.Windows.Forms.Padding(3);
+            this.TabFrontAsset.Size = new System.Drawing.Size(610, 375);
+            this.TabFrontAsset.TabIndex = 1;
+            this.TabFrontAsset.Text = "TabFrontAsset";
+            this.TabFrontAsset.UseVisualStyleBackColor = true;
+            // 
+            // TabBackAsset
+            // 
+            this.TabBackAsset.Location = new System.Drawing.Point(4, 22);
+            this.TabBackAsset.Name = "TabBackAsset";
+            this.TabBackAsset.Size = new System.Drawing.Size(610, 375);
+            this.TabBackAsset.TabIndex = 2;
+            this.TabBackAsset.Text = "TabBackAsset";
+            this.TabBackAsset.UseVisualStyleBackColor = true;
+            // 
+            // TabRules
+            // 
+            this.TabRules.Location = new System.Drawing.Point(4, 22);
+            this.TabRules.Name = "TabRules";
+            this.TabRules.Size = new System.Drawing.Size(610, 375);
+            this.TabRules.TabIndex = 3;
+            this.TabRules.Text = "TabRules";
+            this.TabRules.UseVisualStyleBackColor = true;
             // 
             // ImportBrush
             // 
@@ -153,6 +201,7 @@ namespace Starstructor.GUI
             this.Text = "Import a brush";
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.NavigationTableLayoutPanel.ResumeLayout(false);
+            this.WizardTabs.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -165,7 +214,11 @@ namespace Starstructor.GUI
         private System.Windows.Forms.Button ButtonFinish;
         private System.Windows.Forms.Button ButtonNext;
         private System.Windows.Forms.Button ButtonPrev;
-        private System.Windows.Forms.Panel MainWizardPanel;
+        private WizardTabControl WizardTabs;
+        private System.Windows.Forms.TabPage TabGeneral;
+        private System.Windows.Forms.TabPage TabFrontAsset;
+        private System.Windows.Forms.TabPage TabBackAsset;
+        private System.Windows.Forms.TabPage TabRules;
 
 
     }
