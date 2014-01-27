@@ -33,6 +33,8 @@ namespace Starstructor.GUI
     {
         private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
         private readonly EditorBrush m_newBrush;
+        private StarboundAsset m_frontAsset;
+        private StarboundAsset m_backAsset;
 
         public ImportBrush(Type type)
         {
@@ -43,6 +45,8 @@ namespace Starstructor.GUI
             else Close();
 
             WizardTabs.SelectedIndex = GetTabOffset();
+            FrontAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
+            BackAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
             ComboBoxFrontAssetDirectionDungeon.SelectedIndex = 0;
             ComboBoxFrontAssetTypeDungeon.SelectedIndex = 0;
         }
@@ -84,24 +88,6 @@ namespace Starstructor.GUI
             if (selected == null) return;
 
             TextBoxFrontAssetNameDungeon.Text = selected.ToString();
-
-            /*
-            if (selected is StarboundObject)
-            {
-                StarboundObject sbObject = (StarboundObject)selected;
-                FrontAssetDungeonPictureBox.Image =
-                    sbObject.GetDefaultOrientation()
-                        .GetImageManager(ObjectDirection.DIRECTION_NONE)
-                        .GetImageFrameBitmap();
-            }
-            else if (selected is StarboundMaterial)
-            {
-                StarboundMaterial sbMaterial = (StarboundMaterial)selected;
-                FrontAssetDungeonPictureBox.Image = sbMaterial.Image;
-            }
-
-            if (FrontAssetDungeonPictureBox.Image == null)
-                FrontAssetDungeonPictureBox.Image = m_assetBrowser.NotFoundImage;*/
         }
 
         private void BackAssetSelectedCallback(StarboundAsset selected)
@@ -121,6 +107,82 @@ namespace Starstructor.GUI
         {
             m_assetBrowser.SetAssetSelectedCallback(BackAssetSelectedCallback);
             m_assetBrowser.ShowDialog();
+        }
+
+        private void ComboBoxFrontAssetTypeDungeon_SelectedValueChanged(object sender, EventArgs e)
+        {
+            HandleChangedFrontAssetType((string)ComboBoxFrontAssetTypeDungeon.SelectedItem);
+        }
+
+        private void ComboBoxFrontAssetDirectionDungeon_SelectedValueChanged(object sender, EventArgs e)
+        {
+            HandleFrontAssetUpdated(m_frontAsset, GetFrontAssetDirection());
+        }
+
+        private void TextBoxFrontAssetNameDungeon_TextChanged(object sender, EventArgs e)
+        {
+            HandleFrontAssetUpdated(EditorAssets.GetAsset(TextBoxFrontAssetNameDungeon.Text), GetFrontAssetDirection());
+        }
+
+        private void TextBoxBackAssetNameDungeon_TextChanged(object sender, EventArgs e)
+        {
+            HandleBackAssetUpdated(EditorAssets.GetMaterial(TextBoxBackAssetNameDungeon.Text));
+        }
+
+        private ObjectDirection GetFrontAssetDirection()
+        {
+            string value = (string)ComboBoxFrontAssetDirectionDungeon.SelectedItem;
+
+            if (value == "Left") return ObjectDirection.DIRECTION_LEFT;
+            if (value == "Right") return ObjectDirection.DIRECTION_RIGHT;
+
+            return ObjectDirection.DIRECTION_NONE;
+        }
+
+        private void HandleChangedFrontAssetType(string newType)
+        {
+        }
+
+        private void HandleFrontAssetUpdated(StarboundAsset newAsset, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
+        {
+            m_frontAsset = newAsset;
+
+            if (m_frontAsset != null)
+            {
+                Type newAssetType = newAsset.GetType();
+
+                if (newAssetType == typeof (StarboundObject))
+                {
+                    StarboundObject sbObject = (StarboundObject)m_frontAsset;
+                    FrontAssetPictureBox.Image =
+                        sbObject.GetDefaultOrientation()
+                            .GetImageManager(direction)
+                            .GetImageFrameBitmap();
+                }
+                else if (newAssetType == typeof (StarboundMaterial))
+                {
+                    StarboundMaterial sbMaterial = (StarboundMaterial)m_frontAsset;
+                    FrontAssetPictureBox.Image = sbMaterial.Image;
+                }
+            }
+
+            if (m_frontAsset == null || FrontAssetPictureBox.Image == null)
+                FrontAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
+            
+        }
+
+        private void HandleBackAssetUpdated(StarboundAsset newAsset)
+        {
+            m_backAsset = newAsset;
+
+            if (m_backAsset != null)
+            {
+                StarboundMaterial sbMaterial = (StarboundMaterial)m_backAsset;
+                BackAssetPictureBox.Image = sbMaterial.Image;
+            }
+
+            if (m_backAsset == null || BackAssetPictureBox.Image == null)
+                BackAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
         }
     }
 }

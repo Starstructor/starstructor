@@ -79,6 +79,24 @@ namespace Starstructor
             m_worker.Start();
         }
 
+        public static StarboundAsset GetAsset(string name, bool block = true)
+        {
+            // Block until assets fully loaded
+            if (block && m_worker != null && m_worker.IsAlive) m_worker.Join();
+
+            lock (m_objectMap)
+            {
+                if (m_objectMap.ContainsKey(name)) return m_objectMap[name];
+            }
+
+            lock (m_materialMap)
+            {
+                if (m_materialMap.ContainsKey(name)) return m_materialMap[name];
+            }
+
+            return null;
+        }
+
         public static StarboundObject GetObject(string name, bool block = true)
         {
             // Block until assets fully loaded
