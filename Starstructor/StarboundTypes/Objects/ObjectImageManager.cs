@@ -26,7 +26,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using Starstructor.EditorTypes;
+using Starstructor.Data;
 
 namespace Starstructor.StarboundTypes.Objects
 {

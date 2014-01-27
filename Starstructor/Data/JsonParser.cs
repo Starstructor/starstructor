@@ -22,14 +22,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using Starstructor.EditorTypes;
 
-namespace Starstructor
+namespace Starstructor.Data
 {
     public class JsonParser
     {

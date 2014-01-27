@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Newtonsoft.Json;
 
-namespace Starstructor
+namespace Starstructor.Data
 {
     public class ColorSerializer : JsonConverter
     {

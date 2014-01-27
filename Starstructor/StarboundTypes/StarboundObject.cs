@@ -28,8 +28,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using Starstructor.Data;
 using Starstructor.EditorObjects;
-using Starstructor.EditorTypes;
 using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor.StarboundTypes

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using Newtonsoft.Json;
-using Starstructor.EditorTypes;
+using Starstructor.Data;
 
 namespace Starstructor.StarboundTypes.Objects
 {

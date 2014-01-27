@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using Starstructor.Data;
 using Starstructor.EditorObjects;
-using Starstructor.EditorTypes;
 using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
 

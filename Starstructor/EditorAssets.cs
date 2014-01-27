@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Starstructor.Data;
 using Starstructor.StarboundTypes;
 
 namespace Starstructor
@@ -94,6 +95,7 @@ namespace Starstructor
                 if (m_materialMap.ContainsKey(name)) return m_materialMap[name];
             }
 
+            Editor.Log.Write("Unable to retrieve asset " + name);
             return null;
         }
 

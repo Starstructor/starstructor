@@ -26,7 +26,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System;
 using System.ComponentModel;
-using Starstructor.EditorTypes;
+using Starstructor.Data;
 using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
 

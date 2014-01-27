@@ -28,6 +28,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Starstructor.Data;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundTypes;
 
@@ -43,7 +44,7 @@ namespace Starstructor
         private readonly Dictionary<Color, EditorBrush> m_brushMap
             = new Dictionary<Color, EditorBrush>();
 
-        private static readonly Logger m_log = new Logger(Path.Combine(Path.Combine(
+        private static readonly EditorLogger m_log = new EditorLogger(Path.Combine(Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "log"),
                 DateTime.Now.ToString("MM_dd_yyyy_hh_mm_ss") + "_starstructor.txt"));
         private readonly string m_name = Application.ProductName;
@@ -61,7 +62,7 @@ namespace Starstructor
             get { return m_version; }
         }
 
-        public static Logger Log
+        public static EditorLogger Log
         {
             get { return m_log; }
         }

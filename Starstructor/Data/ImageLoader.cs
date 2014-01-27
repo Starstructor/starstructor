@@ -25,7 +25,7 @@ using System;
 using System.Drawing;
 using System.IO;
 
-namespace Starstructor
+namespace Starstructor.Data
 {
     public class ImageLoader : IDisposable
     {
@@ -46,8 +46,7 @@ namespace Starstructor
         {
             get
             {
-                if (m_image != null) 
-                    return m_image;
+                if (m_image != null) return m_image;
 
                 if (m_imageFileName != null && File.Exists(m_imageFileName))
                 {

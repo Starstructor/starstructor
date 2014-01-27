@@ -51,7 +51,6 @@ namespace Starstructor.GUI
             ComboBoxFrontAssetTypeDungeon.SelectedIndex = 0;
         }
 
-
         private void ButtonPrev_Click(object sender, System.EventArgs e)
         {
             if (WizardTabs.SelectedIndex >= 0) WizardTabs.SelectedIndex--;
@@ -66,8 +65,27 @@ namespace Starstructor.GUI
             if (WizardTabs.SelectedIndex == 3) ButtonNext.Enabled = false;
         }
 
+        private void BuildBrushFromUserInput()
+        {
+            Type brushType = m_newBrush.GetType();
+
+            if (brushType == typeof (DungeonBrush)) BuildDungeonBrushFromUserInput();
+            else if (brushType == typeof (ShipBrush)) BuildShioBrushFromUserInput();
+        }
+
+        private void BuildDungeonBrushFromUserInput()
+        {
+            
+        }
+
+        private void BuildShioBrushFromUserInput()
+        {
+            
+        }
+
         private void ButtonFinish_Click(object sender, System.EventArgs e)
         {
+            BuildBrushFromUserInput();
         }
 
         private void ButtonCancel_Click(object sender, System.EventArgs e)

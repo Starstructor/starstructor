@@ -26,6 +26,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System;
 using System.Collections.Generic;
+using Starstructor.Data;
 using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Objects;
 

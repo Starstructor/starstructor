@@ -26,8 +26,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
+using Starstructor.Data;
 using Starstructor.EditorObjects;
-using Starstructor.EditorTypes;
 using Starstructor.StarboundTypes.Ships;
 
 namespace Starstructor.StarboundTypes

@@ -24,7 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Starstructor.EditorTypes;
+using Starstructor.Data;
 
 namespace Starstructor.StarboundTypes.Materials
 {

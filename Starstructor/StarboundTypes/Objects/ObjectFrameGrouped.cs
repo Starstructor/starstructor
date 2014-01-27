@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
-using Starstructor.EditorTypes;
+using Starstructor.Data;
 
 namespace Starstructor.StarboundTypes.Objects
 {

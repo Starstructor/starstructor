@@ -86,11 +86,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditorTypes\RectI.cs" />
-    <Compile Include="EditorTypes\Vec2I.cs" />
-    <Compile Include="EditorTypes\Vec2F.cs" />
+    <Compile Include="Data\RectI.cs" />
+    <Compile Include="Data\Vec2I.cs" />
+    <Compile Include="Data\Vec2F.cs" />
     <Compile Include="EditorAssets.cs" />
-    <Compile Include="External Helpers\ColorSerializer.cs" />
+    <Compile Include="Data\ColorSerializer.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="EditorHelpers.cs" />
     <Compile Include="EditorObjects\EditorFile.cs" />
@@ -131,8 +131,8 @@
     <Compile Include="GUI\ImageBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="External Helpers\JsonParser.cs" />
-    <Compile Include="External Helpers\Logger.cs" />
+    <Compile Include="Data\JsonParser.cs" />
+    <Compile Include="EditorLogger.cs" />
     <Compile Include="GUI\WizardTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -153,7 +153,7 @@
     <Compile Include="StarboundTypes\Objects\ObjectImageLayer.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectImageManager.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectOrientation.cs" />
-    <Compile Include="External Helpers\ImageLoader.cs" />
+    <Compile Include="Data\ImageLoader.cs" />
     <Compile Include="StarboundTypes\Ships\ShipConfig.cs" />
     <Compile Include="StarboundTypes\Ships\ShipObjectParams.cs" />
     <Compile Include="StarboundTypes\Ships\ShipOverlay.cs" />
@@ -212,7 +212,6 @@
     <Content Include="Resources\starstructor.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="StarboundTypes\Liquids\" />
     <Folder Include="StarboundTypes\Npcs\" />
     <Folder Include="StarboundTypes\Platforms\" />

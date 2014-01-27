@@ -26,11 +26,11 @@ using System.Windows.Forms;
 
 namespace Starstructor
 {
-    public class Logger
+    public class EditorLogger
     {
         private readonly StreamWriter m_file;
 
-        public Logger(string path)
+        public EditorLogger(string path)
         {
             try
             {

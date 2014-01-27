@@ -26,6 +26,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
+using Starstructor.Data;
 using Starstructor.StarboundTypes.Materials;
 
 namespace Starstructor.StarboundTypes

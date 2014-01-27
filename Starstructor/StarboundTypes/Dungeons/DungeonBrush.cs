@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using Newtonsoft.Json;
+using Starstructor.Data;
 using Starstructor.EditorObjects;
 
 namespace Starstructor.StarboundTypes.Dungeons

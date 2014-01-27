@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
 
-namespace Starstructor.EditorTypes
+namespace Starstructor.Data
 {
     [ReadOnly(true)]
     public struct Vec2I

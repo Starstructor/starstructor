@@ -27,8 +27,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Starstructor.Data;
 using Starstructor.EditorObjects;
-using Starstructor.EditorTypes;
 
 namespace Starstructor.StarboundTypes.Objects
 {

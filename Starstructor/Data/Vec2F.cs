@@ -22,53 +22,51 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
-namespace Starstructor.EditorTypes
+namespace Starstructor.Data
 {
-    public struct RectI
+    [ReadOnly(true)]
+    public struct Vec2F
     {
-        public int left, top, right, bottom;
+        public double x, y;
 
-        public RectI(int left = 0, int top = 0, int right = 0, int bottom = 0)
+        public Vec2F(double x = 0, double y = 0)
         {
-            this.left = left;
-            this.top = top;
-            this.right = right;
-            this.bottom = bottom;
+            this.x = x;
+            this.y = y;
         }
 
         public override string ToString()
         {
-            return "(" + left + ", " + top + ", " + right + ", " + bottom + ")";
+            return "(" + x + ", " + y + ")";
         }
 
         public class Serializer : JsonConverter
         {
             public override bool CanConvert(Type objectType)
             {
-                return objectType == typeof(RectI);
+                return objectType == typeof(Vec2F);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
-                List<int> result = serializer.Deserialize<List<int>>(reader);
-                if (result == null || result.Count != 4)
+                List<double> result = serializer.Deserialize<List<double>>(reader);
+                if (result == null || result.Count != 2)
                     return null;
 
-                return new RectI(result[0], result[1], result[2], result[3]);
+                return new Vec2F(result[0], result[1]);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                List<int> output = new List<int> { 0, 0, 0, 0 };
-                if (value is RectI)
+                List<double> output = new List<double> { 0, 0 };
+                if ( value is Vec2F )
                 {
-                    RectI vec = (RectI)value;
-                    output[0] = vec.left;
-                    output[1] = vec.top;
-                    output[2] = vec.right;
-                    output[3] = vec.bottom;
+                    Vec2F vec = (Vec2F)value;
+                    output[0] = vec.x;
+                    output[1] = vec.y;
                 }
                 serializer.Serialize(writer, output);
             }
