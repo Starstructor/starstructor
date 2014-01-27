@@ -33,6 +33,11 @@ namespace Starstructor.GUI
 {
     public partial class AssetBrowser : Form
     {
+        public Image NotFoundImage
+        {
+            get { return m_notFoundImage; }
+        }
+
         public delegate void AssetSelectedFunc(StarboundAsset asset);
 
         private bool m_buttonsShown = true;

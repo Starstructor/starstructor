@@ -38,13 +38,13 @@ namespace Starstructor.GUI
         {
             InitializeComponent();
 
-            m_assetBrowser.SetAssetSelectedCallback(AssetSelectedCallback);
-
             if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
             else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
             else Close();
 
             WizardTabs.SelectedIndex = GetTabOffset();
+            ComboBoxFrontAssetDirectionDungeon.SelectedIndex = 0;
+            ComboBoxFrontAssetTypeDungeon.SelectedIndex = 0;
         }
 
         private int GetTabOffset()
@@ -72,7 +72,6 @@ namespace Starstructor.GUI
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)
         {
-            m_assetBrowser.ShowDialog();
         }
 
         private void ButtonCancel_Click(object sender, System.EventArgs e)
@@ -80,11 +79,48 @@ namespace Starstructor.GUI
             Close();
         }
 
-        private void AssetSelectedCallback(StarboundAsset selected)
+        private void FrontAssetSelectedCallback(StarboundAsset selected)
         {
             if (selected == null) return;
 
-            Text = selected.FullPath;
+            TextBoxFrontAssetNameDungeon.Text = selected.ToString();
+
+            /*
+            if (selected is StarboundObject)
+            {
+                StarboundObject sbObject = (StarboundObject)selected;
+                FrontAssetDungeonPictureBox.Image =
+                    sbObject.GetDefaultOrientation()
+                        .GetImageManager(ObjectDirection.DIRECTION_NONE)
+                        .GetImageFrameBitmap();
+            }
+            else if (selected is StarboundMaterial)
+            {
+                StarboundMaterial sbMaterial = (StarboundMaterial)selected;
+                FrontAssetDungeonPictureBox.Image = sbMaterial.Image;
+            }
+
+            if (FrontAssetDungeonPictureBox.Image == null)
+                FrontAssetDungeonPictureBox.Image = m_assetBrowser.NotFoundImage;*/
+        }
+
+        private void BackAssetSelectedCallback(StarboundAsset selected)
+        {
+            if (selected == null) return;
+
+            TextBoxBackAssetNameDungeon.Text = selected.ToString();
+        }
+
+        private void ButtonFrontAssetBrowseDungeon_Click(object sender, EventArgs e)
+        {
+            m_assetBrowser.SetAssetSelectedCallback(FrontAssetSelectedCallback);
+            m_assetBrowser.ShowDialog();
+        }
+
+        private void ButtonBackAssetBrowseDungeon_Click(object sender, EventArgs e)
+        {
+            m_assetBrowser.SetAssetSelectedCallback(BackAssetSelectedCallback);
+            m_assetBrowser.ShowDialog();
         }
     }
 }
