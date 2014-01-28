@@ -214,5 +214,47 @@ namespace Starstructor.GUI
                 PictureBoxBackAsset.Image = m_assetBrowser.NotFoundImage;
         }
 
+        private void CheckboxConnectorGeneralTab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckboxConnectorGeneralTab.Checked)
+            {
+                if (CheckboxBackAssetAssetTab.Checked) CheckboxBackAssetAssetTab.Checked = false;
+                if (CheckboxFrontAssetAssetTab.Checked) CheckboxFrontAssetAssetTab.Checked = false;
+            }
+        }
+
+        private void CheckboxBackAssetAssetTab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckboxConnectorGeneralTab.Checked && CheckboxBackAssetAssetTab.Checked)
+            {
+                MessageBox.Show("This brush is a connector, it cannot have a back asset.");
+                CheckboxBackAssetAssetTab.Checked = false;
+            }
+            else
+            {
+                bool enable = CheckboxBackAssetAssetTab.Checked;
+
+                TextBoxBackAssetNameAssetTab.Enabled = enable;
+                ButtonBackAssetBrowseAssetTab.Enabled = enable;
+            }
+        }
+
+        private void CheckboxFrontAssetAssetTab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckboxConnectorGeneralTab.Checked && CheckboxFrontAssetAssetTab.Checked)
+            {
+                MessageBox.Show("This brush is a connector, it cannot have a front asset.");
+                CheckboxFrontAssetAssetTab.Checked = false;
+            }
+            else
+            {
+                bool enable = CheckboxFrontAssetAssetTab.Checked;
+
+                TextBoxFrontAssetNameAssetTab.Enabled = enable;
+                ButtonFrontAssetBrowseAssetTab.Enabled = enable;
+                ComboboxFrontAssetDirectionAssetTab.Enabled = enable;
+                ComboboxFrontAssetTypeAssetTab.Enabled = enable;
+            }
+        }
     }
 }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LabelInformationGeneralTab.Text" xml:space="preserve">
-    <value>Welcome to the import dungeon brush wizard.
+    <value>Welcome to the import brush wizard.
 
 The next few screens will guide you through importing a new brush into your dungeon or ship, thus allowing you to paint your dungeon or ship using this new brush.
 

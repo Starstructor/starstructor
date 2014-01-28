@@ -96,10 +96,10 @@ namespace Starstructor.GUI
             this.ButtonFrontAssetBrowseAssetTab = new System.Windows.Forms.Button();
             this.PictureBoxFrontAsset = new Starstructor.GUI.NoAliasPictureBox();
             this.TabRules = new System.Windows.Forms.TabPage();
-            this.TabOverview = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.TabOverview = new System.Windows.Forms.TabPage();
             this.TableLayoutPanelMain.SuspendLayout();
             this.TableLayoutPanelNavigation.SuspendLayout();
             this.TabControlWizard.SuspendLayout();
@@ -419,6 +419,7 @@ namespace Starstructor.GUI
             this.CheckboxConnectorGeneralTab.TabIndex = 5;
             this.CheckboxConnectorGeneralTab.Text = "Is a connector";
             this.CheckboxConnectorGeneralTab.UseVisualStyleBackColor = true;
+            this.CheckboxConnectorGeneralTab.CheckedChanged += new System.EventHandler(this.CheckboxConnectorGeneralTab_CheckedChanged);
             // 
             // LabelGeneralGeneralTab
             // 
@@ -518,6 +519,7 @@ namespace Starstructor.GUI
             this.CheckboxBackAssetAssetTab.TabIndex = 2;
             this.CheckboxBackAssetAssetTab.Text = "Back Asset";
             this.CheckboxBackAssetAssetTab.UseVisualStyleBackColor = true;
+            this.CheckboxBackAssetAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxBackAssetAssetTab_CheckedChanged);
             // 
             // LabelBackAssetAssetAssetTab
             // 
@@ -620,6 +622,7 @@ namespace Starstructor.GUI
             this.CheckboxFrontAssetAssetTab.TabIndex = 14;
             this.CheckboxFrontAssetAssetTab.Text = "Front Asset";
             this.CheckboxFrontAssetAssetTab.UseVisualStyleBackColor = true;
+            this.CheckboxFrontAssetAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxFrontAssetAssetTab_CheckedChanged);
             // 
             // TableLayoutPanelFrontAssetOptionsAssetTab
             // 
@@ -771,15 +774,6 @@ namespace Starstructor.GUI
             this.TabRules.Text = "TabRules";
             this.TabRules.UseVisualStyleBackColor = true;
             // 
-            // TabOverview
-            // 
-            this.TabOverview.Location = new System.Drawing.Point(4, 22);
-            this.TabOverview.Name = "TabOverview";
-            this.TabOverview.Size = new System.Drawing.Size(610, 375);
-            this.TabOverview.TabIndex = 3;
-            this.TabOverview.Text = "TabOverview";
-            this.TabOverview.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoScroll = true;
@@ -830,6 +824,15 @@ namespace Starstructor.GUI
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(362, 369);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // TabOverview
+            // 
+            this.TabOverview.Location = new System.Drawing.Point(4, 22);
+            this.TabOverview.Name = "TabOverview";
+            this.TabOverview.Size = new System.Drawing.Size(610, 375);
+            this.TabOverview.TabIndex = 3;
+            this.TabOverview.Text = "TabOverview";
+            this.TabOverview.UseVisualStyleBackColor = true;
             // 
             // ImportBrush
             // 
