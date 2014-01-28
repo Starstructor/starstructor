@@ -54,11 +54,10 @@ namespace Starstructor.Data
                     {
                         m_image = new Bitmap(loadBmp.Width, loadBmp.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
-                        using (Graphics pGraphics = Graphics.FromImage(m_image))
+                        using (Graphics gfx = Graphics.FromImage(m_image))
                         {
                             Rectangle rct = new Rectangle(0, 0, loadBmp.Width, loadBmp.Height);
-                            pGraphics.DrawImage(loadBmp, rct, rct, GraphicsUnit.Pixel);
-                            pGraphics.Dispose();
+                            gfx.DrawImage(loadBmp, rct, rct, GraphicsUnit.Pixel);
                         }
 
                         Editor.Log.Write("Loaded image " + m_imageFileName);
