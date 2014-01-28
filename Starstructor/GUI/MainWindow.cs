@@ -994,7 +994,7 @@ namespace Starstructor.GUI
         private void assetBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AssetBrowser assetBrowser = new AssetBrowser();
-            assetBrowser.HideButtons();
+            assetBrowser.HideSelectButton(true);
             assetBrowser.ShowDialog();
         }
 
@@ -1012,8 +1012,13 @@ namespace Starstructor.GUI
 
         private void newBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportBrush dungeonBrushGui = new ImportBrush(m_parent.ActiveFile.GetType());
-            dungeonBrushGui.ShowDialog();
+            ImportBrush importBrush = new ImportBrush(m_parent.ActiveFile.GetType(), BrushImportedCallback);
+            importBrush.ShowDialog();
+        }
+
+        private void BrushImportedCallback(EditorBrush brush)
+        {
+            
         }
     }
 }

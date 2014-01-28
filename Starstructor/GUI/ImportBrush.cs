@@ -31,13 +31,19 @@ namespace Starstructor.GUI
 {
     public partial class ImportBrush : Form
     {
+        public delegate void BrushImportedFunc(EditorBrush brush);
+
         private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
         private readonly EditorBrush m_newBrush;
         private StarboundAsset m_frontAsset;
         private StarboundAsset m_backAsset;
 
-        public ImportBrush(Type type)
+        private BrushImportedFunc m_callback;
+
+        public ImportBrush(Type type, BrushImportedFunc func = null)
         {
+            m_callback = func;
+
             InitializeComponent();
 
             if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
@@ -49,6 +55,11 @@ namespace Starstructor.GUI
             BackAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
             ComboBoxFrontAssetDirectionDungeon.SelectedIndex = 0;
             ComboBoxFrontAssetTypeDungeon.SelectedIndex = 0;
+        }
+
+        public void SetBrushImportedCallback(BrushImportedFunc func)
+        {
+            m_callback = func;
         }
 
         private void ButtonPrev_Click(object sender, System.EventArgs e)
@@ -75,12 +86,20 @@ namespace Starstructor.GUI
 
         private void BuildDungeonBrushFromUserInput()
         {
-            
+
+            DispatchBrush();
         }
 
         private void BuildShioBrushFromUserInput()
         {
-            
+
+
+            DispatchBrush();
+        }
+
+        private void DispatchBrush()
+        {
+            if (m_callback != null) m_callback.Invoke(m_newBrush);
         }
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)

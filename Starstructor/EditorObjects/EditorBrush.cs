@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using Starstructor.Data;
 using Starstructor.StarboundTypes;
-using Starstructor.StarboundTypes.Objects;
 
 namespace Starstructor.EditorObjects
 {

@@ -40,7 +40,6 @@ namespace Starstructor.GUI
 
         public delegate void AssetSelectedFunc(StarboundAsset asset);
 
-        private bool m_buttonsShown = true;
         private readonly Image m_notFoundImage = EditorHelpers.GetGeneratedRectangle(8, 8, 128, 128, 128, 255);
         private readonly List<TreeNode> m_nodeList = new List<TreeNode>();
         private readonly Dictionary<int, Image> m_imageList = new Dictionary<int, Image>();
@@ -50,23 +49,15 @@ namespace Starstructor.GUI
         private AssetSelectedFunc m_callback;
         private Thread m_worker;
 
-        public AssetBrowser()
+        public AssetBrowser(AssetSelectedFunc func = null)
         {
+            m_callback = func;
             InitializeComponent();
         }
 
-        public void HideButtons()
+        public void HideSelectButton(bool hidden)
         {
-            if (!m_buttonsShown) return;
-
-            // remove the buttons, remove the table row
-            Controls.Remove(AssetButtonSelect);
-            AssetButtonSelect.Dispose();
-            Controls.Remove(AssetButtonRefresh);
-            AssetButtonRefresh.Dispose();
-            AssetBrowserMainLayoutTable.RowCount = 1;
-
-            m_buttonsShown = false;
+            AssetButtonSelect.Visible = !hidden;
         }
 
         public void SetAssetSelectedCallback(AssetSelectedFunc func)
