@@ -125,14 +125,12 @@ The next few screens will guide you through importing a new brush into your dung
 There are three screens that can be navigated by using the previous and next buttons on the navigation bar at the bottom. They are as follows:
 
 General: Provide general information about the brush.
-Asset: Provide information about the front asset and back asset of the brush. Use the built-in asset browser to locate an asset of your choice, or just type the name in.
-Rules: Provide rules for the brush. Dungeon and ship brushes have different rules.
+Asset: Provide information about the front asset and back asset of the brush. Use the built-in asset browser to locate an asset of your choice.
+Rules: Provide rules for the brush. If you are importing a brush to a ship, this screen will not show up, as there are no rules for ship brushes.
 
 You may exit the wizard at any time by pressing cancel.
 
-You may add your brush at any time by pressing finish. Be warned: if you do not fill out all of the information for your brush, you may have to edit the dungeon file manually to complete it.
-
-</value>
+You may add your brush at any time by pressing finish. Be warned: if you do not fill out all of the information for your brush, you may have to edit the dungeon file manually to complete it.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

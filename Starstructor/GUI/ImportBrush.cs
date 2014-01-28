@@ -33,21 +33,31 @@ namespace Starstructor.GUI
     {
         public delegate void BrushImportedFunc(EditorBrush brush);
 
+        private int m_tabCount;
         private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
         private readonly EditorBrush m_newBrush;
         private StarboundAsset m_frontAsset;
         private StarboundAsset m_backAsset;
-
         private BrushImportedFunc m_callback;
 
         public ImportBrush(Type type, BrushImportedFunc func = null)
         {
-            m_callback = func;
-
             InitializeComponent();
+            m_callback = func;
+            m_tabCount = TabControlWizard.TabCount;
 
             if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
-            else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
+            else if (type == typeof (StarboundShip))
+            {
+                m_newBrush = new ShipBrush();
+
+                // Hide dungeon things
+                CheckboxConnectorGeneralTab.Visible = false;
+                CheckboxBackAssetSurfaceAssetTab.Visible = false;
+                CheckboxFrontAssetSurfaceAssetTab.Visible = false;
+                m_tabCount--;
+            }
+
             else Close();
 
             TabControlWizard.SelectedIndex = 0;
@@ -66,14 +76,14 @@ namespace Starstructor.GUI
         {
             if (TabControlWizard.SelectedIndex >= 0) TabControlWizard.SelectedIndex--;
             if (TabControlWizard.SelectedIndex == 0) ButtonPrev.Enabled = false;
-            if (TabControlWizard.SelectedIndex < 3) ButtonNext.Enabled = true;
+            if (TabControlWizard.SelectedIndex < m_tabCount - 1) ButtonNext.Enabled = true;
         }
 
         private void ButtonNext_Click(object sender, System.EventArgs e)
         {
-            if (TabControlWizard.SelectedIndex <= 3) TabControlWizard.SelectedIndex++;
+            if (TabControlWizard.SelectedIndex <= m_tabCount - 1) TabControlWizard.SelectedIndex++;
             if (TabControlWizard.SelectedIndex > 0) ButtonPrev.Enabled = true;
-            if (TabControlWizard.SelectedIndex == 3) ButtonNext.Enabled = false;
+            if (TabControlWizard.SelectedIndex == m_tabCount - 1) ButtonNext.Enabled = false;
         }
 
         private void BuildBrushFromUserInput()
@@ -219,7 +229,9 @@ namespace Starstructor.GUI
             if (CheckboxConnectorGeneralTab.Checked)
             {
                 if (CheckboxBackAssetAssetTab.Checked) CheckboxBackAssetAssetTab.Checked = false;
+                if (CheckboxBackAssetSurfaceAssetTab.Checked) CheckboxBackAssetSurfaceAssetTab.Checked = false;
                 if (CheckboxFrontAssetAssetTab.Checked) CheckboxFrontAssetAssetTab.Checked = false;
+                if (CheckboxFrontAssetSurfaceAssetTab.Checked) CheckboxFrontAssetSurfaceAssetTab.Checked = false;
             }
         }
 
@@ -233,6 +245,9 @@ namespace Starstructor.GUI
             else
             {
                 bool enable = CheckboxBackAssetAssetTab.Checked;
+
+                if (enable && CheckboxBackAssetSurfaceAssetTab.Checked)
+                    CheckboxBackAssetSurfaceAssetTab.Checked = false;
 
                 TextBoxBackAssetNameAssetTab.Enabled = enable;
                 ButtonBackAssetBrowseAssetTab.Enabled = enable;
@@ -250,10 +265,46 @@ namespace Starstructor.GUI
             {
                 bool enable = CheckboxFrontAssetAssetTab.Checked;
 
+                if (enable && CheckboxFrontAssetSurfaceAssetTab.Checked)
+                    CheckboxFrontAssetSurfaceAssetTab.Checked = false;
+
                 TextBoxFrontAssetNameAssetTab.Enabled = enable;
                 ButtonFrontAssetBrowseAssetTab.Enabled = enable;
                 ComboboxFrontAssetDirectionAssetTab.Enabled = enable;
                 ComboboxFrontAssetTypeAssetTab.Enabled = enable;
+            }
+        }
+
+
+        private void CheckboxBackAssetSurfaceAssetTab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckboxConnectorGeneralTab.Checked && CheckboxBackAssetSurfaceAssetTab.Checked)
+            {
+                MessageBox.Show("This brush is a connector, it cannot have a back asset.");
+                CheckboxBackAssetSurfaceAssetTab.Checked = false;
+            }
+            else
+            {
+                if (CheckboxBackAssetSurfaceAssetTab.Checked && CheckboxBackAssetAssetTab.Checked)
+                {
+                    CheckboxBackAssetAssetTab.Checked = false;
+                }
+            }
+        }
+
+        private void CheckboxFrontAssetSurfaceAssetTab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckboxConnectorGeneralTab.Checked && CheckboxFrontAssetSurfaceAssetTab.Checked)
+            {
+                MessageBox.Show("This brush is a connector, it cannot have a front asset.");
+                CheckboxFrontAssetSurfaceAssetTab.Checked = false;
+            }
+            else
+            {
+                if (CheckboxFrontAssetSurfaceAssetTab.Checked && CheckboxFrontAssetAssetTab.Checked)
+                {
+                    CheckboxFrontAssetAssetTab.Checked = false;
+                }
             }
         }
     }

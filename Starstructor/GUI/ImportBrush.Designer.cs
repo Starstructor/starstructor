@@ -77,14 +77,15 @@ namespace Starstructor.GUI
             this.TableLayoutPanelMainAssetTab = new System.Windows.Forms.TableLayoutPanel();
             this.PictureBoxBackAsset = new Starstructor.GUI.NoAliasPictureBox();
             this.TableLayoutPanelMainBackAssetAssetTab = new System.Windows.Forms.TableLayoutPanel();
-            this.CheckboxBackAssetAssetTab = new System.Windows.Forms.CheckBox();
             this.LabelBackAssetAssetAssetTab = new System.Windows.Forms.Label();
             this.TableLayoutPanelBackAssetBrowseAssetTab = new System.Windows.Forms.TableLayoutPanel();
             this.TextBoxBackAssetNameAssetTab = new System.Windows.Forms.TextBox();
             this.ButtonBackAssetBrowseAssetTab = new System.Windows.Forms.Button();
             this.LabelAssetsAssetTable = new System.Windows.Forms.Label();
+            this.TableLayoutPanelBackAssetTypeAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.CheckboxBackAssetSurfaceAssetTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxBackAssetAssetTab = new System.Windows.Forms.CheckBox();
             this.TableLayoutPanelMainFrontAssetAssetTab = new System.Windows.Forms.TableLayoutPanel();
-            this.CheckboxFrontAssetAssetTab = new System.Windows.Forms.CheckBox();
             this.TableLayoutPanelFrontAssetOptionsAssetTab = new System.Windows.Forms.TableLayoutPanel();
             this.LabelFrontAssetTypeAssetTab = new System.Windows.Forms.Label();
             this.ComboboxFrontAssetTypeAssetTab = new System.Windows.Forms.ComboBox();
@@ -94,12 +95,21 @@ namespace Starstructor.GUI
             this.TableLayoutPanelFrontAssetBrowseAssetTab = new System.Windows.Forms.TableLayoutPanel();
             this.TextBoxFrontAssetNameAssetTab = new System.Windows.Forms.TextBox();
             this.ButtonFrontAssetBrowseAssetTab = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.CheckboxFrontAssetSurfaceAssetTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxFrontAssetAssetTab = new System.Windows.Forms.CheckBox();
             this.PictureBoxFrontAsset = new Starstructor.GUI.NoAliasPictureBox();
             this.TabRules = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.TabOverview = new System.Windows.Forms.TabPage();
+            this.TableLayoutPanelMainRulesTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelInformationRulesTab = new System.Windows.Forms.Label();
+            this.TableLayoutPanelBrushRulesRulesTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelBrushRulesRulesTab = new System.Windows.Forms.Label();
+            this.CheckboxClearRulesTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxWorldGenSolidRulesTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxWorldGenAirRulesTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxWorldGenSolidBackgroundRulesTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxWorldGenAirBackgroundRulesTab = new System.Windows.Forms.CheckBox();
+            this.CheckboxOverdrawingRulesTab = new System.Windows.Forms.CheckBox();
             this.TableLayoutPanelMain.SuspendLayout();
             this.TableLayoutPanelNavigation.SuspendLayout();
             this.TabControlWizard.SuspendLayout();
@@ -112,12 +122,15 @@ namespace Starstructor.GUI
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).BeginInit();
             this.TableLayoutPanelMainBackAssetAssetTab.SuspendLayout();
             this.TableLayoutPanelBackAssetBrowseAssetTab.SuspendLayout();
+            this.TableLayoutPanelBackAssetTypeAssetTab.SuspendLayout();
             this.TableLayoutPanelMainFrontAssetAssetTab.SuspendLayout();
             this.TableLayoutPanelFrontAssetOptionsAssetTab.SuspendLayout();
             this.TableLayoutPanelFrontAssetBrowseAssetTab.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).BeginInit();
             this.TabRules.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.TableLayoutPanelMainRulesTab.SuspendLayout();
+            this.TableLayoutPanelBrushRulesRulesTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableLayoutPanelMain
@@ -201,7 +214,6 @@ namespace Starstructor.GUI
             this.TabControlWizard.Controls.Add(this.TabGeneral);
             this.TabControlWizard.Controls.Add(this.TabAssets);
             this.TabControlWizard.Controls.Add(this.TabRules);
-            this.TabControlWizard.Controls.Add(this.TabOverview);
             this.TabControlWizard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControlWizard.Location = new System.Drawing.Point(3, 3);
             this.TabControlWizard.Name = "TabControlWizard";
@@ -492,10 +504,10 @@ namespace Starstructor.GUI
             this.TableLayoutPanelMainBackAssetAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.TableLayoutPanelMainBackAssetAssetTab.ColumnCount = 1;
             this.TableLayoutPanelMainBackAssetAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.CheckboxBackAssetAssetTab, 0, 1);
             this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.LabelBackAssetAssetAssetTab, 0, 2);
             this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.TableLayoutPanelBackAssetBrowseAssetTab, 0, 3);
             this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.LabelAssetsAssetTable, 0, 0);
+            this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.TableLayoutPanelBackAssetTypeAssetTab, 0, 2);
             this.TableLayoutPanelMainBackAssetAssetTab.Location = new System.Drawing.Point(0, 0);
             this.TableLayoutPanelMainBackAssetAssetTab.Margin = new System.Windows.Forms.Padding(0);
             this.TableLayoutPanelMainBackAssetAssetTab.Name = "TableLayoutPanelMainBackAssetAssetTab";
@@ -507,19 +519,6 @@ namespace Starstructor.GUI
             this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.TableLayoutPanelMainBackAssetAssetTab.Size = new System.Drawing.Size(362, 174);
             this.TableLayoutPanelMainBackAssetAssetTab.TabIndex = 2;
-            // 
-            // CheckboxBackAssetAssetTab
-            // 
-            this.CheckboxBackAssetAssetTab.AutoSize = true;
-            this.CheckboxBackAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckboxBackAssetAssetTab.Location = new System.Drawing.Point(3, 41);
-            this.CheckboxBackAssetAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.CheckboxBackAssetAssetTab.Name = "CheckboxBackAssetAssetTab";
-            this.CheckboxBackAssetAssetTab.Size = new System.Drawing.Size(95, 20);
-            this.CheckboxBackAssetAssetTab.TabIndex = 2;
-            this.CheckboxBackAssetAssetTab.Text = "Back Asset";
-            this.CheckboxBackAssetAssetTab.UseVisualStyleBackColor = true;
-            this.CheckboxBackAssetAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxBackAssetAssetTab_CheckedChanged);
             // 
             // LabelBackAssetAssetAssetTab
             // 
@@ -587,6 +586,49 @@ namespace Starstructor.GUI
             this.LabelAssetsAssetTable.TabIndex = 14;
             this.LabelAssetsAssetTable.Text = "Brush Assets";
             // 
+            // TableLayoutPanelBackAssetTypeAssetTab
+            // 
+            this.TableLayoutPanelBackAssetTypeAssetTab.AutoSize = true;
+            this.TableLayoutPanelBackAssetTypeAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelBackAssetTypeAssetTab.ColumnCount = 2;
+            this.TableLayoutPanelBackAssetTypeAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelBackAssetTypeAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelBackAssetTypeAssetTab.Controls.Add(this.CheckboxBackAssetSurfaceAssetTab, 1, 0);
+            this.TableLayoutPanelBackAssetTypeAssetTab.Controls.Add(this.CheckboxBackAssetAssetTab, 0, 0);
+            this.TableLayoutPanelBackAssetTypeAssetTab.Location = new System.Drawing.Point(0, 26);
+            this.TableLayoutPanelBackAssetTypeAssetTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelBackAssetTypeAssetTab.Name = "TableLayoutPanelBackAssetTypeAssetTab";
+            this.TableLayoutPanelBackAssetTypeAssetTab.RowCount = 1;
+            this.TableLayoutPanelBackAssetTypeAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBackAssetTypeAssetTab.Size = new System.Drawing.Size(249, 38);
+            this.TableLayoutPanelBackAssetTypeAssetTab.TabIndex = 15;
+            // 
+            // CheckboxBackAssetSurfaceAssetTab
+            // 
+            this.CheckboxBackAssetSurfaceAssetTab.AutoSize = true;
+            this.CheckboxBackAssetSurfaceAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxBackAssetSurfaceAssetTab.Location = new System.Drawing.Point(104, 15);
+            this.CheckboxBackAssetSurfaceAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.CheckboxBackAssetSurfaceAssetTab.Name = "CheckboxBackAssetSurfaceAssetTab";
+            this.CheckboxBackAssetSurfaceAssetTab.Size = new System.Drawing.Size(142, 20);
+            this.CheckboxBackAssetSurfaceAssetTab.TabIndex = 3;
+            this.CheckboxBackAssetSurfaceAssetTab.Text = "Biome Background";
+            this.CheckboxBackAssetSurfaceAssetTab.UseVisualStyleBackColor = true;
+            this.CheckboxBackAssetSurfaceAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxBackAssetSurfaceAssetTab_CheckedChanged);
+            // 
+            // CheckboxBackAssetAssetTab
+            // 
+            this.CheckboxBackAssetAssetTab.AutoSize = true;
+            this.CheckboxBackAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxBackAssetAssetTab.Location = new System.Drawing.Point(3, 15);
+            this.CheckboxBackAssetAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.CheckboxBackAssetAssetTab.Name = "CheckboxBackAssetAssetTab";
+            this.CheckboxBackAssetAssetTab.Size = new System.Drawing.Size(95, 20);
+            this.CheckboxBackAssetAssetTab.TabIndex = 2;
+            this.CheckboxBackAssetAssetTab.Text = "Back Asset";
+            this.CheckboxBackAssetAssetTab.UseVisualStyleBackColor = true;
+            this.CheckboxBackAssetAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxBackAssetAssetTab_CheckedChanged);
+            // 
             // TableLayoutPanelMainFrontAssetAssetTab
             // 
             this.TableLayoutPanelMainFrontAssetAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -595,10 +637,10 @@ namespace Starstructor.GUI
             this.TableLayoutPanelMainFrontAssetAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.TableLayoutPanelMainFrontAssetAssetTab.ColumnCount = 1;
             this.TableLayoutPanelMainFrontAssetAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.CheckboxFrontAssetAssetTab, 0, 0);
             this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.TableLayoutPanelFrontAssetOptionsAssetTab, 0, 3);
             this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.LabelFrontAssetAssetAssetTab, 0, 1);
             this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.TableLayoutPanelFrontAssetBrowseAssetTab, 0, 2);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.TableLayoutPanelMainFrontAssetAssetTab.Location = new System.Drawing.Point(0, 174);
             this.TableLayoutPanelMainFrontAssetAssetTab.Margin = new System.Windows.Forms.Padding(0);
             this.TableLayoutPanelMainFrontAssetAssetTab.Name = "TableLayoutPanelMainFrontAssetAssetTab";
@@ -610,19 +652,6 @@ namespace Starstructor.GUI
             this.TableLayoutPanelMainFrontAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TableLayoutPanelMainFrontAssetAssetTab.Size = new System.Drawing.Size(362, 174);
             this.TableLayoutPanelMainFrontAssetAssetTab.TabIndex = 1;
-            // 
-            // CheckboxFrontAssetAssetTab
-            // 
-            this.CheckboxFrontAssetAssetTab.AutoSize = true;
-            this.CheckboxFrontAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckboxFrontAssetAssetTab.Location = new System.Drawing.Point(3, 15);
-            this.CheckboxFrontAssetAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.CheckboxFrontAssetAssetTab.Name = "CheckboxFrontAssetAssetTab";
-            this.CheckboxFrontAssetAssetTab.Size = new System.Drawing.Size(94, 20);
-            this.CheckboxFrontAssetAssetTab.TabIndex = 14;
-            this.CheckboxFrontAssetAssetTab.Text = "Front Asset";
-            this.CheckboxFrontAssetAssetTab.UseVisualStyleBackColor = true;
-            this.CheckboxFrontAssetAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxFrontAssetAssetTab_CheckedChanged);
             // 
             // TableLayoutPanelFrontAssetOptionsAssetTab
             // 
@@ -638,12 +667,13 @@ namespace Starstructor.GUI
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetTypeAssetTab, 0, 1);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.LabelFrontAssetDirectionAssetTab, 1, 0);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetDirectionAssetTab, 1, 1);
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.Location = new System.Drawing.Point(3, 92);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Location = new System.Drawing.Point(0, 89);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Margin = new System.Windows.Forms.Padding(0);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Name = "TableLayoutPanelFrontAssetOptionsAssetTab";
             this.TableLayoutPanelFrontAssetOptionsAssetTab.RowCount = 2;
             this.TableLayoutPanelFrontAssetOptionsAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.TableLayoutPanelFrontAssetOptionsAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.Size = new System.Drawing.Size(356, 51);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Size = new System.Drawing.Size(362, 51);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.TabIndex = 4;
             // 
             // LabelFrontAssetTypeAssetTab
@@ -752,6 +782,49 @@ namespace Starstructor.GUI
             this.ButtonFrontAssetBrowseAssetTab.UseVisualStyleBackColor = true;
             this.ButtonFrontAssetBrowseAssetTab.Click += new System.EventHandler(this.ButtonFrontAssetBrowseDungeon_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.CheckboxFrontAssetSurfaceAssetTab, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.CheckboxFrontAssetAssetTab, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(245, 38);
+            this.tableLayoutPanel1.TabIndex = 15;
+            // 
+            // CheckboxFrontAssetSurfaceAssetTab
+            // 
+            this.CheckboxFrontAssetSurfaceAssetTab.AutoSize = true;
+            this.CheckboxFrontAssetSurfaceAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxFrontAssetSurfaceAssetTab.Location = new System.Drawing.Point(103, 15);
+            this.CheckboxFrontAssetSurfaceAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.CheckboxFrontAssetSurfaceAssetTab.Name = "CheckboxFrontAssetSurfaceAssetTab";
+            this.CheckboxFrontAssetSurfaceAssetTab.Size = new System.Drawing.Size(139, 20);
+            this.CheckboxFrontAssetSurfaceAssetTab.TabIndex = 15;
+            this.CheckboxFrontAssetSurfaceAssetTab.Text = "Biome Foreground";
+            this.CheckboxFrontAssetSurfaceAssetTab.UseVisualStyleBackColor = true;
+            this.CheckboxFrontAssetSurfaceAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxFrontAssetSurfaceAssetTab_CheckedChanged);
+            // 
+            // CheckboxFrontAssetAssetTab
+            // 
+            this.CheckboxFrontAssetAssetTab.AutoSize = true;
+            this.CheckboxFrontAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxFrontAssetAssetTab.Location = new System.Drawing.Point(3, 15);
+            this.CheckboxFrontAssetAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.CheckboxFrontAssetAssetTab.Name = "CheckboxFrontAssetAssetTab";
+            this.CheckboxFrontAssetAssetTab.Size = new System.Drawing.Size(94, 20);
+            this.CheckboxFrontAssetAssetTab.TabIndex = 14;
+            this.CheckboxFrontAssetAssetTab.Text = "Front Asset";
+            this.CheckboxFrontAssetAssetTab.UseVisualStyleBackColor = true;
+            this.CheckboxFrontAssetAssetTab.CheckedChanged += new System.EventHandler(this.CheckboxFrontAssetAssetTab_CheckedChanged);
+            // 
             // PictureBoxFrontAsset
             // 
             this.PictureBoxFrontAsset.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -765,7 +838,7 @@ namespace Starstructor.GUI
             // 
             // TabRules
             // 
-            this.TabRules.Controls.Add(this.tableLayoutPanel1);
+            this.TabRules.Controls.Add(this.TableLayoutPanelMainRulesTab);
             this.TabRules.Location = new System.Drawing.Point(4, 22);
             this.TabRules.Name = "TabRules";
             this.TabRules.Padding = new System.Windows.Forms.Padding(3);
@@ -774,65 +847,147 @@ namespace Starstructor.GUI
             this.TabRules.Text = "TabRules";
             this.TabRules.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // TableLayoutPanelMainRulesTab
             // 
-            this.tableLayoutPanel1.AutoScroll = true;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(604, 369);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.TableLayoutPanelMainRulesTab.AutoScroll = true;
+            this.TableLayoutPanelMainRulesTab.ColumnCount = 2;
+            this.TableLayoutPanelMainRulesTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayoutPanelMainRulesTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.TableLayoutPanelMainRulesTab.Controls.Add(this.LabelInformationRulesTab, 1, 0);
+            this.TableLayoutPanelMainRulesTab.Controls.Add(this.TableLayoutPanelBrushRulesRulesTab, 0, 0);
+            this.TableLayoutPanelMainRulesTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelMainRulesTab.Location = new System.Drawing.Point(3, 3);
+            this.TableLayoutPanelMainRulesTab.Name = "TableLayoutPanelMainRulesTab";
+            this.TableLayoutPanelMainRulesTab.RowCount = 1;
+            this.TableLayoutPanelMainRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelMainRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
+            this.TableLayoutPanelMainRulesTab.Size = new System.Drawing.Size(604, 369);
+            this.TableLayoutPanelMainRulesTab.TabIndex = 1;
             // 
-            // label1
+            // LabelInformationRulesTab
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(365, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(236, 369);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "INFO GOES HERE!\r\n";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelInformationRulesTab.AutoSize = true;
+            this.LabelInformationRulesTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LabelInformationRulesTab.Location = new System.Drawing.Point(365, 0);
+            this.LabelInformationRulesTab.Name = "LabelInformationRulesTab";
+            this.LabelInformationRulesTab.Size = new System.Drawing.Size(236, 369);
+            this.LabelInformationRulesTab.TabIndex = 0;
+            this.LabelInformationRulesTab.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel2
+            // TableLayoutPanelBrushRulesRulesTab
             // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 6;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(362, 369);
-            this.tableLayoutPanel2.TabIndex = 1;
+            this.TableLayoutPanelBrushRulesRulesTab.AutoSize = true;
+            this.TableLayoutPanelBrushRulesRulesTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelBrushRulesRulesTab.ColumnCount = 1;
+            this.TableLayoutPanelBrushRulesRulesTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.LabelBrushRulesRulesTab, 0, 0);
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.CheckboxClearRulesTab, 0, 2);
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.CheckboxWorldGenSolidRulesTab, 0, 3);
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.CheckboxWorldGenAirRulesTab, 0, 4);
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.CheckboxWorldGenSolidBackgroundRulesTab, 0, 5);
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.CheckboxWorldGenAirBackgroundRulesTab, 0, 6);
+            this.TableLayoutPanelBrushRulesRulesTab.Controls.Add(this.CheckboxOverdrawingRulesTab, 0, 7);
+            this.TableLayoutPanelBrushRulesRulesTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelBrushRulesRulesTab.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanelBrushRulesRulesTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelBrushRulesRulesTab.Name = "TableLayoutPanelBrushRulesRulesTab";
+            this.TableLayoutPanelBrushRulesRulesTab.RowCount = 9;
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushRulesRulesTab.Size = new System.Drawing.Size(362, 369);
+            this.TableLayoutPanelBrushRulesRulesTab.TabIndex = 1;
             // 
-            // TabOverview
+            // LabelBrushRulesRulesTab
             // 
-            this.TabOverview.Location = new System.Drawing.Point(4, 22);
-            this.TabOverview.Name = "TabOverview";
-            this.TabOverview.Size = new System.Drawing.Size(610, 375);
-            this.TabOverview.TabIndex = 3;
-            this.TabOverview.Text = "TabOverview";
-            this.TabOverview.UseVisualStyleBackColor = true;
+            this.LabelBrushRulesRulesTab.AutoSize = true;
+            this.LabelBrushRulesRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelBrushRulesRulesTab.Location = new System.Drawing.Point(3, 3);
+            this.LabelBrushRulesRulesTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelBrushRulesRulesTab.Name = "LabelBrushRulesRulesTab";
+            this.LabelBrushRulesRulesTab.Size = new System.Drawing.Size(96, 20);
+            this.LabelBrushRulesRulesTab.TabIndex = 15;
+            this.LabelBrushRulesRulesTab.Text = "Brush Rules";
+            // 
+            // CheckboxClearRulesTab
+            // 
+            this.CheckboxClearRulesTab.AutoSize = true;
+            this.CheckboxClearRulesTab.Checked = true;
+            this.CheckboxClearRulesTab.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckboxClearRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxClearRulesTab.Location = new System.Drawing.Point(3, 41);
+            this.CheckboxClearRulesTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.CheckboxClearRulesTab.Name = "CheckboxClearRulesTab";
+            this.CheckboxClearRulesTab.Size = new System.Drawing.Size(57, 20);
+            this.CheckboxClearRulesTab.TabIndex = 16;
+            this.CheckboxClearRulesTab.Text = "clear";
+            this.CheckboxClearRulesTab.UseVisualStyleBackColor = true;
+            // 
+            // CheckboxWorldGenSolidRulesTab
+            // 
+            this.CheckboxWorldGenSolidRulesTab.AutoSize = true;
+            this.CheckboxWorldGenSolidRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxWorldGenSolidRulesTab.Location = new System.Drawing.Point(3, 69);
+            this.CheckboxWorldGenSolidRulesTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.CheckboxWorldGenSolidRulesTab.Name = "CheckboxWorldGenSolidRulesTab";
+            this.CheckboxWorldGenSolidRulesTab.Size = new System.Drawing.Size(188, 20);
+            this.CheckboxWorldGenSolidRulesTab.TabIndex = 17;
+            this.CheckboxWorldGenSolidRulesTab.Text = "worldGenMustContainSolid";
+            this.CheckboxWorldGenSolidRulesTab.UseVisualStyleBackColor = true;
+            // 
+            // CheckboxWorldGenAirRulesTab
+            // 
+            this.CheckboxWorldGenAirRulesTab.AutoSize = true;
+            this.CheckboxWorldGenAirRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxWorldGenAirRulesTab.Location = new System.Drawing.Point(3, 97);
+            this.CheckboxWorldGenAirRulesTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.CheckboxWorldGenAirRulesTab.Name = "CheckboxWorldGenAirRulesTab";
+            this.CheckboxWorldGenAirRulesTab.Size = new System.Drawing.Size(173, 20);
+            this.CheckboxWorldGenAirRulesTab.TabIndex = 18;
+            this.CheckboxWorldGenAirRulesTab.Text = "worldGenMustContainAir";
+            this.CheckboxWorldGenAirRulesTab.UseVisualStyleBackColor = true;
+            // 
+            // CheckboxWorldGenSolidBackgroundRulesTab
+            // 
+            this.CheckboxWorldGenSolidBackgroundRulesTab.AutoSize = true;
+            this.CheckboxWorldGenSolidBackgroundRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxWorldGenSolidBackgroundRulesTab.Location = new System.Drawing.Point(3, 125);
+            this.CheckboxWorldGenSolidBackgroundRulesTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.CheckboxWorldGenSolidBackgroundRulesTab.Name = "CheckboxWorldGenSolidBackgroundRulesTab";
+            this.CheckboxWorldGenSolidBackgroundRulesTab.Size = new System.Drawing.Size(261, 20);
+            this.CheckboxWorldGenSolidBackgroundRulesTab.TabIndex = 19;
+            this.CheckboxWorldGenSolidBackgroundRulesTab.Text = "worldGenMustContainSolidBackground";
+            this.CheckboxWorldGenSolidBackgroundRulesTab.UseVisualStyleBackColor = true;
+            // 
+            // CheckboxWorldGenAirBackgroundRulesTab
+            // 
+            this.CheckboxWorldGenAirBackgroundRulesTab.AutoSize = true;
+            this.CheckboxWorldGenAirBackgroundRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxWorldGenAirBackgroundRulesTab.Location = new System.Drawing.Point(3, 153);
+            this.CheckboxWorldGenAirBackgroundRulesTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.CheckboxWorldGenAirBackgroundRulesTab.Name = "CheckboxWorldGenAirBackgroundRulesTab";
+            this.CheckboxWorldGenAirBackgroundRulesTab.Size = new System.Drawing.Size(246, 20);
+            this.CheckboxWorldGenAirBackgroundRulesTab.TabIndex = 20;
+            this.CheckboxWorldGenAirBackgroundRulesTab.Text = "worldGenMustContainAirBackground";
+            this.CheckboxWorldGenAirBackgroundRulesTab.UseVisualStyleBackColor = true;
+            // 
+            // CheckboxOverdrawingRulesTab
+            // 
+            this.CheckboxOverdrawingRulesTab.AutoSize = true;
+            this.CheckboxOverdrawingRulesTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxOverdrawingRulesTab.Location = new System.Drawing.Point(3, 181);
+            this.CheckboxOverdrawingRulesTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.CheckboxOverdrawingRulesTab.Name = "CheckboxOverdrawingRulesTab";
+            this.CheckboxOverdrawingRulesTab.Size = new System.Drawing.Size(134, 20);
+            this.CheckboxOverdrawingRulesTab.TabIndex = 21;
+            this.CheckboxOverdrawingRulesTab.Text = "allowOverdrawing";
+            this.CheckboxOverdrawingRulesTab.UseVisualStyleBackColor = true;
             // 
             // ImportBrush
             // 
@@ -866,16 +1021,22 @@ namespace Starstructor.GUI
             this.TableLayoutPanelMainBackAssetAssetTab.PerformLayout();
             this.TableLayoutPanelBackAssetBrowseAssetTab.ResumeLayout(false);
             this.TableLayoutPanelBackAssetBrowseAssetTab.PerformLayout();
+            this.TableLayoutPanelBackAssetTypeAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelBackAssetTypeAssetTab.PerformLayout();
             this.TableLayoutPanelMainFrontAssetAssetTab.ResumeLayout(false);
             this.TableLayoutPanelMainFrontAssetAssetTab.PerformLayout();
             this.TableLayoutPanelFrontAssetOptionsAssetTab.ResumeLayout(false);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.PerformLayout();
             this.TableLayoutPanelFrontAssetBrowseAssetTab.ResumeLayout(false);
             this.TableLayoutPanelFrontAssetBrowseAssetTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).EndInit();
-            this.TabRules.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).EndInit();
+            this.TabRules.ResumeLayout(false);
+            this.TableLayoutPanelMainRulesTab.ResumeLayout(false);
+            this.TableLayoutPanelMainRulesTab.PerformLayout();
+            this.TableLayoutPanelBrushRulesRulesTab.ResumeLayout(false);
+            this.TableLayoutPanelBrushRulesRulesTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -892,7 +1053,6 @@ namespace Starstructor.GUI
         private System.Windows.Forms.TabPage TabGeneral;
         private System.Windows.Forms.TabPage TabAssets;
         private System.Windows.Forms.TabPage TabRules;
-        private System.Windows.Forms.TabPage TabOverview;
         private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainGeneralTab;
         private System.Windows.Forms.Label LabelInformationGeneralTab;
         private System.Windows.Forms.TableLayoutPanel TableLayoutPanelBrushInfoGeneralTab;
@@ -931,9 +1091,20 @@ namespace Starstructor.GUI
         private System.Windows.Forms.CheckBox CheckboxBackAssetAssetTab;
         private System.Windows.Forms.CheckBox CheckboxFrontAssetAssetTab;
         private System.Windows.Forms.Label LabelAssetsAssetTable;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainRulesTab;
+        private System.Windows.Forms.Label LabelInformationRulesTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelBrushRulesRulesTab;
+        private System.Windows.Forms.Label LabelBrushRulesRulesTab;
+        private System.Windows.Forms.CheckBox CheckboxClearRulesTab;
+        private System.Windows.Forms.CheckBox CheckboxWorldGenSolidRulesTab;
+        private System.Windows.Forms.CheckBox CheckboxWorldGenAirRulesTab;
+        private System.Windows.Forms.CheckBox CheckboxWorldGenSolidBackgroundRulesTab;
+        private System.Windows.Forms.CheckBox CheckboxWorldGenAirBackgroundRulesTab;
+        private System.Windows.Forms.CheckBox CheckboxOverdrawingRulesTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelBackAssetTypeAssetTab;
+        private System.Windows.Forms.CheckBox CheckboxBackAssetSurfaceAssetTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox CheckboxFrontAssetSurfaceAssetTab;
 
 
     }
