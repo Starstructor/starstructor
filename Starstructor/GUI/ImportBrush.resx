@@ -120,14 +120,13 @@
   <data name="LabelInformationGeneralTab.Text" xml:space="preserve">
     <value>Welcome to the import dungeon brush wizard.
 
-The next few screens will guide you through importing a new brush into your dungeon file, thus allowing you to paint your dungeon using this new brush.
+The next few screens will guide you through importing a new brush into your dungeon or ship, thus allowing you to paint your dungeon or ship using this new brush.
 
-There are four screens that can be navigated by using the previous and next buttons on the navigation bar at the bottom. They are as follows:
+There are three screens that can be navigated by using the previous and next buttons on the navigation bar at the bottom. They are as follows:
 
-General: Provide general information about the brush - comment, colour. 
-Front Asset: Provide information about the front asset of the brush - foreground tile or object.
-Back Asset: Provide information about the back asset of tbe hrush - background tile.
-Rules: Provide rules for the brush - surface, clear.
+General: Provide general information about the brush.
+Asset: Provide information about the front asset and back asset of the brush. Use the built-in asset browser to locate an asset of your choice, or just type the name in.
+Rules: Provide rules for the brush. Dungeon and ship brushes have different rules.
 
 You may exit the wizard at any time by pressing cancel.
 

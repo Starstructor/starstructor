@@ -213,5 +213,6 @@ namespace Starstructor.GUI
             if (m_backAsset == null || PictureBoxBackAsset.Image == null)
                 PictureBoxBackAsset.Image = m_assetBrowser.NotFoundImage;
         }
+
     }
 }
