@@ -50,11 +50,11 @@ namespace Starstructor.GUI
             else if (type == typeof(StarboundShip)) m_newBrush = new ShipBrush();
             else Close();
 
-            WizardTabs.SelectedIndex = 0;
-            FrontAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
-            BackAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
-            ComboBoxFrontAssetDirectionDungeon.SelectedIndex = 0;
-            ComboBoxFrontAssetTypeDungeon.SelectedIndex = 0;
+            TabControlWizard.SelectedIndex = 0;
+            PictureBoxFrontAsset.Image = m_assetBrowser.NotFoundImage;
+            PictureBoxBackAsset.Image = m_assetBrowser.NotFoundImage;
+            ComboboxFrontAssetDirectionAssetTab.SelectedIndex = 0;
+            ComboboxFrontAssetTypeAssetTab.SelectedIndex = 0;
         }
 
         public void SetBrushImportedCallback(BrushImportedFunc func)
@@ -64,16 +64,16 @@ namespace Starstructor.GUI
 
         private void ButtonPrev_Click(object sender, System.EventArgs e)
         {
-            if (WizardTabs.SelectedIndex >= 0) WizardTabs.SelectedIndex--;
-            if (WizardTabs.SelectedIndex == 0) ButtonPrev.Enabled = false;
-            if (WizardTabs.SelectedIndex < 3) ButtonNext.Enabled = true;
+            if (TabControlWizard.SelectedIndex >= 0) TabControlWizard.SelectedIndex--;
+            if (TabControlWizard.SelectedIndex == 0) ButtonPrev.Enabled = false;
+            if (TabControlWizard.SelectedIndex < 3) ButtonNext.Enabled = true;
         }
 
         private void ButtonNext_Click(object sender, System.EventArgs e)
         {
-            if (WizardTabs.SelectedIndex <= 3) WizardTabs.SelectedIndex++;
-            if (WizardTabs.SelectedIndex > 0) ButtonPrev.Enabled = true;
-            if (WizardTabs.SelectedIndex == 3) ButtonNext.Enabled = false;
+            if (TabControlWizard.SelectedIndex <= 3) TabControlWizard.SelectedIndex++;
+            if (TabControlWizard.SelectedIndex > 0) ButtonPrev.Enabled = true;
+            if (TabControlWizard.SelectedIndex == 3) ButtonNext.Enabled = false;
         }
 
         private void BuildBrushFromUserInput()
@@ -116,14 +116,14 @@ namespace Starstructor.GUI
         {
             if (selected == null) return;
 
-            TextBoxFrontAssetNameDungeon.Text = selected.ToString();
+            TextBoxFrontAssetNameAssetTab.Text = selected.ToString();
         }
 
         private void BackAssetSelectedCallback(StarboundAsset selected)
         {
             if (selected == null) return;
 
-            TextBoxBackAssetNameDungeon.Text = selected.ToString();
+            TextBoxBackAssetNameAssetTab.Text = selected.ToString();
         }
 
         private void ButtonFrontAssetBrowseDungeon_Click(object sender, EventArgs e)
@@ -140,7 +140,7 @@ namespace Starstructor.GUI
 
         private void ComboBoxFrontAssetTypeDungeon_SelectedValueChanged(object sender, EventArgs e)
         {
-            HandleChangedFrontAssetType((string)ComboBoxFrontAssetTypeDungeon.SelectedItem);
+            HandleChangedFrontAssetType((string)ComboboxFrontAssetTypeAssetTab.SelectedItem);
         }
 
         private void ComboBoxFrontAssetDirectionDungeon_SelectedValueChanged(object sender, EventArgs e)
@@ -150,17 +150,17 @@ namespace Starstructor.GUI
 
         private void TextBoxFrontAssetNameDungeon_TextChanged(object sender, EventArgs e)
         {
-            HandleFrontAssetUpdated(EditorAssets.GetAsset(TextBoxFrontAssetNameDungeon.Text), GetFrontAssetDirection());
+            HandleFrontAssetUpdated(EditorAssets.GetAsset(TextBoxFrontAssetNameAssetTab.Text), GetFrontAssetDirection());
         }
 
         private void TextBoxBackAssetNameDungeon_TextChanged(object sender, EventArgs e)
         {
-            HandleBackAssetUpdated(EditorAssets.GetMaterial(TextBoxBackAssetNameDungeon.Text));
+            HandleBackAssetUpdated(EditorAssets.GetMaterial(TextBoxBackAssetNameAssetTab.Text));
         }
 
         private ObjectDirection GetFrontAssetDirection()
         {
-            string value = (string)ComboBoxFrontAssetDirectionDungeon.SelectedItem;
+            string value = (string)ComboboxFrontAssetDirectionAssetTab.SelectedItem;
 
             if (value == "Left") return ObjectDirection.DIRECTION_LEFT;
             if (value == "Right") return ObjectDirection.DIRECTION_RIGHT;
@@ -183,7 +183,7 @@ namespace Starstructor.GUI
                 if (newAssetType == typeof (StarboundObject))
                 {
                     StarboundObject sbObject = (StarboundObject)m_frontAsset;
-                    FrontAssetPictureBox.Image =
+                    PictureBoxFrontAsset.Image =
                         sbObject.GetDefaultOrientation()
                             .GetImageManager(direction)
                             .GetImageFrameBitmap();
@@ -191,12 +191,12 @@ namespace Starstructor.GUI
                 else if (newAssetType == typeof (StarboundMaterial))
                 {
                     StarboundMaterial sbMaterial = (StarboundMaterial)m_frontAsset;
-                    FrontAssetPictureBox.Image = sbMaterial.Image;
+                    PictureBoxFrontAsset.Image = sbMaterial.Image;
                 }
             }
 
-            if (m_frontAsset == null || FrontAssetPictureBox.Image == null)
-                FrontAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
+            if (m_frontAsset == null || PictureBoxFrontAsset.Image == null)
+                PictureBoxFrontAsset.Image = m_assetBrowser.NotFoundImage;
             
         }
 
@@ -207,11 +207,11 @@ namespace Starstructor.GUI
             if (m_backAsset != null)
             {
                 StarboundMaterial sbMaterial = (StarboundMaterial)m_backAsset;
-                BackAssetPictureBox.Image = sbMaterial.Image;
+                PictureBoxBackAsset.Image = sbMaterial.Image;
             }
 
-            if (m_backAsset == null || BackAssetPictureBox.Image == null)
-                BackAssetPictureBox.Image = m_assetBrowser.NotFoundImage;
+            if (m_backAsset == null || PictureBoxBackAsset.Image == null)
+                PictureBoxBackAsset.Image = m_assetBrowser.NotFoundImage;
         }
     }
 }

@@ -48,106 +48,106 @@ namespace Starstructor.GUI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportBrush));
-            this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.NavigationTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.TableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.TableLayoutPanelNavigation = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonFinish = new System.Windows.Forms.Button();
             this.ButtonNext = new System.Windows.Forms.Button();
             this.ButtonPrev = new System.Windows.Forms.Button();
-            this.WizardTabs = new Starstructor.GUI.WizardTabControl();
+            this.TabControlWizard = new Starstructor.GUI.WizardTabControl();
             this.TabGeneral = new System.Windows.Forms.TabPage();
-            this.MainTableLayoutGeneralDungeon = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelInformation = new System.Windows.Forms.Label();
-            this.MainTableLayoutGeneralDungeonBrushInfo = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelComment = new System.Windows.Forms.Label();
-            this.TextBoxComment = new System.Windows.Forms.TextBox();
-            this.ColourInfoTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelRed = new System.Windows.Forms.Label();
-            this.LabelGreen = new System.Windows.Forms.Label();
-            this.LabelBlue = new System.Windows.Forms.Label();
-            this.LabelAlpha = new System.Windows.Forms.Label();
-            this.TextBoxRed = new System.Windows.Forms.TextBox();
-            this.TextBoxGreen = new System.Windows.Forms.TextBox();
-            this.TextBoxBlue = new System.Windows.Forms.TextBox();
-            this.TextBoxAlpha = new System.Windows.Forms.TextBox();
-            this.CheckBoxConnector = new System.Windows.Forms.CheckBox();
-            this.LabelGeneralDungeon = new System.Windows.Forms.Label();
-            this.LabelColour = new System.Windows.Forms.Label();
+            this.TableLayoutPanelMainGeneralTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelInformationGeneralTab = new System.Windows.Forms.Label();
+            this.TableLayoutPanelBrushInfoGeneralTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelCommentGeneralTab = new System.Windows.Forms.Label();
+            this.TextBoxCommentGeneralTab = new System.Windows.Forms.TextBox();
+            this.TableLayoutPanelColourInfoGeneralTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelRedGeneralTab = new System.Windows.Forms.Label();
+            this.LabelGreenGeneralTab = new System.Windows.Forms.Label();
+            this.LabelBlueGeneralTab = new System.Windows.Forms.Label();
+            this.LabelAlphaGeneralTab = new System.Windows.Forms.Label();
+            this.TextBoxRedGeneralTab = new System.Windows.Forms.TextBox();
+            this.TextBoxGreenGeneralTab = new System.Windows.Forms.TextBox();
+            this.TextBoxBlueGeneralTab = new System.Windows.Forms.TextBox();
+            this.TextBoxAlphaGeneralTab = new System.Windows.Forms.TextBox();
+            this.CheckboxConnectorGeneralTab = new System.Windows.Forms.CheckBox();
+            this.LabelGeneralGeneralTab = new System.Windows.Forms.Label();
+            this.LabelColourGeneralTab = new System.Windows.Forms.Label();
             this.TabAssets = new System.Windows.Forms.TabPage();
-            this.MainTableLayoutFrontAssetDungeon = new System.Windows.Forms.TableLayoutPanel();
-            this.BackAssetPictureBox = new Starstructor.GUI.NoAliasPictureBox();
-            this.MainTableLayoutBackAssetDungeonBrushInfo = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelBackAsset = new System.Windows.Forms.Label();
-            this.LabelBackAssetAsset = new System.Windows.Forms.Label();
-            this.TableLayoutBackAssetDungeonPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.TextBoxBackAssetNameDungeon = new System.Windows.Forms.TextBox();
-            this.ButtonBackAssetBrowseDungeon = new System.Windows.Forms.Button();
-            this.MainTableLayoutFrontAssetDungeonBrushInfo = new System.Windows.Forms.TableLayoutPanel();
-            this.TableLayoutFrontAssetOptionsDungeon = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelFrontAssetType = new System.Windows.Forms.Label();
-            this.ComboBoxFrontAssetTypeDungeon = new System.Windows.Forms.ComboBox();
-            this.LabelFrontAssetDirection = new System.Windows.Forms.Label();
-            this.ComboBoxFrontAssetDirectionDungeon = new System.Windows.Forms.ComboBox();
-            this.LabelFrontAsset = new System.Windows.Forms.Label();
-            this.LabelFrontAssetAsset = new System.Windows.Forms.Label();
-            this.TableLayoutFrontAssetDungeonPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.TextBoxFrontAssetNameDungeon = new System.Windows.Forms.TextBox();
-            this.ButtonFrontAssetBrowseDungeon = new System.Windows.Forms.Button();
-            this.FrontAssetPictureBox = new Starstructor.GUI.NoAliasPictureBox();
+            this.TableLayoutPanelMainAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.PictureBoxBackAsset = new Starstructor.GUI.NoAliasPictureBox();
+            this.TableLayoutPanelMainBackAssetAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelBackAssetAssetTab = new System.Windows.Forms.Label();
+            this.LabelBackAssetAssetAssetTab = new System.Windows.Forms.Label();
+            this.TableLayoutPanelBackAssetBrowseAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.TextBoxBackAssetNameAssetTab = new System.Windows.Forms.TextBox();
+            this.ButtonBackAssetBrowseAssetTab = new System.Windows.Forms.Button();
+            this.TableLayoutPanelMainFrontAssetAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.TableLayoutPanelFrontAssetOptionsAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelFrontAssetTypeAssetTab = new System.Windows.Forms.Label();
+            this.ComboboxFrontAssetTypeAssetTab = new System.Windows.Forms.ComboBox();
+            this.LabelFrontAssetDirectionAssetTab = new System.Windows.Forms.Label();
+            this.ComboboxFrontAssetDirectionAssetTab = new System.Windows.Forms.ComboBox();
+            this.LabelFrontAssetAssetTab = new System.Windows.Forms.Label();
+            this.LabelFrontAssetAssetAssetTab = new System.Windows.Forms.Label();
+            this.TableLayoutPanelFrontAssetBrowseAssetTab = new System.Windows.Forms.TableLayoutPanel();
+            this.TextBoxFrontAssetNameAssetTab = new System.Windows.Forms.TextBox();
+            this.ButtonFrontAssetBrowseAssetTab = new System.Windows.Forms.Button();
+            this.PictureBoxFrontAsset = new Starstructor.GUI.NoAliasPictureBox();
             this.TabRules = new System.Windows.Forms.TabPage();
             this.TabOverview = new System.Windows.Forms.TabPage();
-            this.MainTableLayoutPanel.SuspendLayout();
-            this.NavigationTableLayoutPanel.SuspendLayout();
-            this.WizardTabs.SuspendLayout();
+            this.TableLayoutPanelMain.SuspendLayout();
+            this.TableLayoutPanelNavigation.SuspendLayout();
+            this.TabControlWizard.SuspendLayout();
             this.TabGeneral.SuspendLayout();
-            this.MainTableLayoutGeneralDungeon.SuspendLayout();
-            this.MainTableLayoutGeneralDungeonBrushInfo.SuspendLayout();
-            this.ColourInfoTableLayoutPanel.SuspendLayout();
+            this.TableLayoutPanelMainGeneralTab.SuspendLayout();
+            this.TableLayoutPanelBrushInfoGeneralTab.SuspendLayout();
+            this.TableLayoutPanelColourInfoGeneralTab.SuspendLayout();
             this.TabAssets.SuspendLayout();
-            this.MainTableLayoutFrontAssetDungeon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BackAssetPictureBox)).BeginInit();
-            this.MainTableLayoutBackAssetDungeonBrushInfo.SuspendLayout();
-            this.TableLayoutBackAssetDungeonPanel.SuspendLayout();
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.SuspendLayout();
-            this.TableLayoutFrontAssetOptionsDungeon.SuspendLayout();
-            this.TableLayoutFrontAssetDungeonPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FrontAssetPictureBox)).BeginInit();
+            this.TableLayoutPanelMainAssetTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).BeginInit();
+            this.TableLayoutPanelMainBackAssetAssetTab.SuspendLayout();
+            this.TableLayoutPanelBackAssetBrowseAssetTab.SuspendLayout();
+            this.TableLayoutPanelMainFrontAssetAssetTab.SuspendLayout();
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.SuspendLayout();
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).BeginInit();
             this.SuspendLayout();
             // 
-            // MainTableLayoutPanel
+            // TableLayoutPanelMain
             // 
-            this.MainTableLayoutPanel.ColumnCount = 1;
-            this.MainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutPanel.Controls.Add(this.NavigationTableLayoutPanel, 0, 1);
-            this.MainTableLayoutPanel.Controls.Add(this.WizardTabs, 0, 0);
-            this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
-            this.MainTableLayoutPanel.RowCount = 2;
-            this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.MainTableLayoutPanel.Size = new System.Drawing.Size(624, 442);
-            this.MainTableLayoutPanel.TabIndex = 0;
+            this.TableLayoutPanelMain.ColumnCount = 1;
+            this.TableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelMain.Controls.Add(this.TableLayoutPanelNavigation, 0, 1);
+            this.TableLayoutPanelMain.Controls.Add(this.TabControlWizard, 0, 0);
+            this.TableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanelMain.Name = "TableLayoutPanelMain";
+            this.TableLayoutPanelMain.RowCount = 2;
+            this.TableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.TableLayoutPanelMain.Size = new System.Drawing.Size(624, 442);
+            this.TableLayoutPanelMain.TabIndex = 0;
             // 
-            // NavigationTableLayoutPanel
+            // TableLayoutPanelNavigation
             // 
-            this.NavigationTableLayoutPanel.ColumnCount = 5;
-            this.NavigationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.NavigationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.NavigationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.NavigationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.NavigationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.NavigationTableLayoutPanel.Controls.Add(this.ButtonCancel, 4, 0);
-            this.NavigationTableLayoutPanel.Controls.Add(this.ButtonFinish, 3, 0);
-            this.NavigationTableLayoutPanel.Controls.Add(this.ButtonNext, 2, 0);
-            this.NavigationTableLayoutPanel.Controls.Add(this.ButtonPrev, 1, 0);
-            this.NavigationTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NavigationTableLayoutPanel.Location = new System.Drawing.Point(3, 410);
-            this.NavigationTableLayoutPanel.Name = "NavigationTableLayoutPanel";
-            this.NavigationTableLayoutPanel.RowCount = 1;
-            this.NavigationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.NavigationTableLayoutPanel.Size = new System.Drawing.Size(618, 29);
-            this.NavigationTableLayoutPanel.TabIndex = 0;
+            this.TableLayoutPanelNavigation.ColumnCount = 5;
+            this.TableLayoutPanelNavigation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelNavigation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.TableLayoutPanelNavigation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.TableLayoutPanelNavigation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.TableLayoutPanelNavigation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.TableLayoutPanelNavigation.Controls.Add(this.ButtonCancel, 4, 0);
+            this.TableLayoutPanelNavigation.Controls.Add(this.ButtonFinish, 3, 0);
+            this.TableLayoutPanelNavigation.Controls.Add(this.ButtonNext, 2, 0);
+            this.TableLayoutPanelNavigation.Controls.Add(this.ButtonPrev, 1, 0);
+            this.TableLayoutPanelNavigation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelNavigation.Location = new System.Drawing.Point(3, 410);
+            this.TableLayoutPanelNavigation.Name = "TableLayoutPanelNavigation";
+            this.TableLayoutPanelNavigation.RowCount = 1;
+            this.TableLayoutPanelNavigation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelNavigation.Size = new System.Drawing.Size(618, 29);
+            this.TableLayoutPanelNavigation.TabIndex = 0;
             // 
             // ButtonCancel
             // 
@@ -190,22 +190,22 @@ namespace Starstructor.GUI
             this.ButtonPrev.UseVisualStyleBackColor = true;
             this.ButtonPrev.Click += new System.EventHandler(this.ButtonPrev_Click);
             // 
-            // WizardTabs
+            // TabControlWizard
             // 
-            this.WizardTabs.Controls.Add(this.TabGeneral);
-            this.WizardTabs.Controls.Add(this.TabAssets);
-            this.WizardTabs.Controls.Add(this.TabRules);
-            this.WizardTabs.Controls.Add(this.TabOverview);
-            this.WizardTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WizardTabs.Location = new System.Drawing.Point(3, 3);
-            this.WizardTabs.Name = "WizardTabs";
-            this.WizardTabs.SelectedIndex = 0;
-            this.WizardTabs.Size = new System.Drawing.Size(618, 401);
-            this.WizardTabs.TabIndex = 1;
+            this.TabControlWizard.Controls.Add(this.TabGeneral);
+            this.TabControlWizard.Controls.Add(this.TabAssets);
+            this.TabControlWizard.Controls.Add(this.TabRules);
+            this.TabControlWizard.Controls.Add(this.TabOverview);
+            this.TabControlWizard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControlWizard.Location = new System.Drawing.Point(3, 3);
+            this.TabControlWizard.Name = "TabControlWizard";
+            this.TabControlWizard.SelectedIndex = 0;
+            this.TabControlWizard.Size = new System.Drawing.Size(618, 401);
+            this.TabControlWizard.TabIndex = 1;
             // 
             // TabGeneral
             // 
-            this.TabGeneral.Controls.Add(this.MainTableLayoutGeneralDungeon);
+            this.TabGeneral.Controls.Add(this.TableLayoutPanelMainGeneralTab);
             this.TabGeneral.Location = new System.Drawing.Point(4, 22);
             this.TabGeneral.Name = "TabGeneral";
             this.TabGeneral.Padding = new System.Windows.Forms.Padding(3);
@@ -214,231 +214,231 @@ namespace Starstructor.GUI
             this.TabGeneral.Text = "TabGeneral";
             this.TabGeneral.UseVisualStyleBackColor = true;
             // 
-            // MainTableLayoutGeneralDungeon
+            // TableLayoutPanelMainGeneralTab
             // 
-            this.MainTableLayoutGeneralDungeon.AutoScroll = true;
-            this.MainTableLayoutGeneralDungeon.ColumnCount = 2;
-            this.MainTableLayoutGeneralDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.MainTableLayoutGeneralDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.MainTableLayoutGeneralDungeon.Controls.Add(this.LabelInformation, 1, 0);
-            this.MainTableLayoutGeneralDungeon.Controls.Add(this.MainTableLayoutGeneralDungeonBrushInfo, 0, 0);
-            this.MainTableLayoutGeneralDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTableLayoutGeneralDungeon.Location = new System.Drawing.Point(3, 3);
-            this.MainTableLayoutGeneralDungeon.Name = "MainTableLayoutGeneralDungeon";
-            this.MainTableLayoutGeneralDungeon.RowCount = 1;
-            this.MainTableLayoutGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutGeneralDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
-            this.MainTableLayoutGeneralDungeon.Size = new System.Drawing.Size(604, 369);
-            this.MainTableLayoutGeneralDungeon.TabIndex = 0;
+            this.TableLayoutPanelMainGeneralTab.AutoScroll = true;
+            this.TableLayoutPanelMainGeneralTab.ColumnCount = 2;
+            this.TableLayoutPanelMainGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayoutPanelMainGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.TableLayoutPanelMainGeneralTab.Controls.Add(this.LabelInformationGeneralTab, 1, 0);
+            this.TableLayoutPanelMainGeneralTab.Controls.Add(this.TableLayoutPanelBrushInfoGeneralTab, 0, 0);
+            this.TableLayoutPanelMainGeneralTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelMainGeneralTab.Location = new System.Drawing.Point(3, 3);
+            this.TableLayoutPanelMainGeneralTab.Name = "TableLayoutPanelMainGeneralTab";
+            this.TableLayoutPanelMainGeneralTab.RowCount = 1;
+            this.TableLayoutPanelMainGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelMainGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 369F));
+            this.TableLayoutPanelMainGeneralTab.Size = new System.Drawing.Size(604, 369);
+            this.TableLayoutPanelMainGeneralTab.TabIndex = 0;
             // 
-            // LabelInformation
+            // LabelInformationGeneralTab
             // 
-            this.LabelInformation.AutoSize = true;
-            this.LabelInformation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LabelInformation.Location = new System.Drawing.Point(365, 0);
-            this.LabelInformation.Name = "LabelInformation";
-            this.LabelInformation.Size = new System.Drawing.Size(236, 369);
-            this.LabelInformation.TabIndex = 0;
-            this.LabelInformation.Text = resources.GetString("LabelInformation.Text");
-            this.LabelInformation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelInformationGeneralTab.AutoSize = true;
+            this.LabelInformationGeneralTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LabelInformationGeneralTab.Location = new System.Drawing.Point(365, 0);
+            this.LabelInformationGeneralTab.Name = "LabelInformationGeneralTab";
+            this.LabelInformationGeneralTab.Size = new System.Drawing.Size(236, 369);
+            this.LabelInformationGeneralTab.TabIndex = 0;
+            this.LabelInformationGeneralTab.Text = resources.GetString("LabelInformationGeneralTab.Text");
+            this.LabelInformationGeneralTab.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // MainTableLayoutGeneralDungeonBrushInfo
+            // TableLayoutPanelBrushInfoGeneralTab
             // 
-            this.MainTableLayoutGeneralDungeonBrushInfo.AutoSize = true;
-            this.MainTableLayoutGeneralDungeonBrushInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.MainTableLayoutGeneralDungeonBrushInfo.ColumnCount = 1;
-            this.MainTableLayoutGeneralDungeonBrushInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelComment, 0, 1);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.TextBoxComment, 0, 2);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.ColourInfoTableLayoutPanel, 0, 4);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.CheckBoxConnector, 0, 5);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelGeneralDungeon, 0, 0);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Controls.Add(this.LabelColour, 0, 3);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTableLayoutGeneralDungeonBrushInfo.Location = new System.Drawing.Point(0, 0);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.MainTableLayoutGeneralDungeonBrushInfo.Name = "MainTableLayoutGeneralDungeonBrushInfo";
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowCount = 6;
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayoutGeneralDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayoutGeneralDungeonBrushInfo.Size = new System.Drawing.Size(362, 369);
-            this.MainTableLayoutGeneralDungeonBrushInfo.TabIndex = 1;
+            this.TableLayoutPanelBrushInfoGeneralTab.AutoSize = true;
+            this.TableLayoutPanelBrushInfoGeneralTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelBrushInfoGeneralTab.ColumnCount = 1;
+            this.TableLayoutPanelBrushInfoGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelBrushInfoGeneralTab.Controls.Add(this.LabelCommentGeneralTab, 0, 1);
+            this.TableLayoutPanelBrushInfoGeneralTab.Controls.Add(this.TextBoxCommentGeneralTab, 0, 2);
+            this.TableLayoutPanelBrushInfoGeneralTab.Controls.Add(this.TableLayoutPanelColourInfoGeneralTab, 0, 4);
+            this.TableLayoutPanelBrushInfoGeneralTab.Controls.Add(this.CheckboxConnectorGeneralTab, 0, 5);
+            this.TableLayoutPanelBrushInfoGeneralTab.Controls.Add(this.LabelGeneralGeneralTab, 0, 0);
+            this.TableLayoutPanelBrushInfoGeneralTab.Controls.Add(this.LabelColourGeneralTab, 0, 3);
+            this.TableLayoutPanelBrushInfoGeneralTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelBrushInfoGeneralTab.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanelBrushInfoGeneralTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelBrushInfoGeneralTab.Name = "TableLayoutPanelBrushInfoGeneralTab";
+            this.TableLayoutPanelBrushInfoGeneralTab.RowCount = 6;
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelBrushInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelBrushInfoGeneralTab.Size = new System.Drawing.Size(362, 369);
+            this.TableLayoutPanelBrushInfoGeneralTab.TabIndex = 1;
             // 
-            // LabelComment
+            // LabelCommentGeneralTab
             // 
-            this.LabelComment.AutoSize = true;
-            this.LabelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelComment.Location = new System.Drawing.Point(3, 41);
-            this.LabelComment.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.LabelComment.Name = "LabelComment";
-            this.LabelComment.Size = new System.Drawing.Size(65, 16);
-            this.LabelComment.TabIndex = 0;
-            this.LabelComment.Text = "Comment";
+            this.LabelCommentGeneralTab.AutoSize = true;
+            this.LabelCommentGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCommentGeneralTab.Location = new System.Drawing.Point(3, 41);
+            this.LabelCommentGeneralTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.LabelCommentGeneralTab.Name = "LabelCommentGeneralTab";
+            this.LabelCommentGeneralTab.Size = new System.Drawing.Size(65, 16);
+            this.LabelCommentGeneralTab.TabIndex = 0;
+            this.LabelCommentGeneralTab.Text = "Comment";
             // 
-            // TextBoxComment
+            // TextBoxCommentGeneralTab
             // 
-            this.TextBoxComment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextBoxComment.Location = new System.Drawing.Point(3, 63);
-            this.TextBoxComment.Name = "TextBoxComment";
-            this.TextBoxComment.Size = new System.Drawing.Size(356, 20);
-            this.TextBoxComment.TabIndex = 1;
+            this.TextBoxCommentGeneralTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextBoxCommentGeneralTab.Location = new System.Drawing.Point(3, 63);
+            this.TextBoxCommentGeneralTab.Name = "TextBoxCommentGeneralTab";
+            this.TextBoxCommentGeneralTab.Size = new System.Drawing.Size(356, 20);
+            this.TextBoxCommentGeneralTab.TabIndex = 1;
             // 
-            // ColourInfoTableLayoutPanel
+            // TableLayoutPanelColourInfoGeneralTab
             // 
-            this.ColourInfoTableLayoutPanel.AutoScroll = true;
-            this.ColourInfoTableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ColourInfoTableLayoutPanel.ColumnCount = 5;
-            this.ColourInfoTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.ColourInfoTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.ColourInfoTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.ColourInfoTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.ColourInfoTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.LabelRed, 0, 0);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.LabelGreen, 1, 0);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.LabelBlue, 2, 0);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.LabelAlpha, 3, 0);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.TextBoxRed, 0, 1);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.TextBoxGreen, 1, 1);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.TextBoxBlue, 2, 1);
-            this.ColourInfoTableLayoutPanel.Controls.Add(this.TextBoxAlpha, 3, 1);
-            this.ColourInfoTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ColourInfoTableLayoutPanel.Location = new System.Drawing.Point(0, 120);
-            this.ColourInfoTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.ColourInfoTableLayoutPanel.Name = "ColourInfoTableLayoutPanel";
-            this.ColourInfoTableLayoutPanel.RowCount = 2;
-            this.ColourInfoTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.ColourInfoTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.ColourInfoTableLayoutPanel.Size = new System.Drawing.Size(362, 45);
-            this.ColourInfoTableLayoutPanel.TabIndex = 3;
+            this.TableLayoutPanelColourInfoGeneralTab.AutoScroll = true;
+            this.TableLayoutPanelColourInfoGeneralTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelColourInfoGeneralTab.ColumnCount = 5;
+            this.TableLayoutPanelColourInfoGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.LabelRedGeneralTab, 0, 0);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.LabelGreenGeneralTab, 1, 0);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.LabelBlueGeneralTab, 2, 0);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.LabelAlphaGeneralTab, 3, 0);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.TextBoxRedGeneralTab, 0, 1);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.TextBoxGreenGeneralTab, 1, 1);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.TextBoxBlueGeneralTab, 2, 1);
+            this.TableLayoutPanelColourInfoGeneralTab.Controls.Add(this.TextBoxAlphaGeneralTab, 3, 1);
+            this.TableLayoutPanelColourInfoGeneralTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelColourInfoGeneralTab.Location = new System.Drawing.Point(0, 120);
+            this.TableLayoutPanelColourInfoGeneralTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelColourInfoGeneralTab.Name = "TableLayoutPanelColourInfoGeneralTab";
+            this.TableLayoutPanelColourInfoGeneralTab.RowCount = 2;
+            this.TableLayoutPanelColourInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelColourInfoGeneralTab.Size = new System.Drawing.Size(362, 45);
+            this.TableLayoutPanelColourInfoGeneralTab.TabIndex = 3;
             // 
-            // LabelRed
+            // LabelRedGeneralTab
             // 
-            this.LabelRed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LabelRedGeneralTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelRed.AutoSize = true;
-            this.LabelRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelRed.Location = new System.Drawing.Point(3, 3);
-            this.LabelRed.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelRed.Name = "LabelRed";
-            this.LabelRed.Size = new System.Drawing.Size(35, 13);
-            this.LabelRed.TabIndex = 0;
-            this.LabelRed.Text = "Red";
-            this.LabelRed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelRedGeneralTab.AutoSize = true;
+            this.LabelRedGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelRedGeneralTab.Location = new System.Drawing.Point(3, 3);
+            this.LabelRedGeneralTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelRedGeneralTab.Name = "LabelRedGeneralTab";
+            this.LabelRedGeneralTab.Size = new System.Drawing.Size(35, 13);
+            this.LabelRedGeneralTab.TabIndex = 0;
+            this.LabelRedGeneralTab.Text = "Red";
+            this.LabelRedGeneralTab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LabelGreen
+            // LabelGreenGeneralTab
             // 
-            this.LabelGreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LabelGreenGeneralTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelGreen.AutoSize = true;
-            this.LabelGreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelGreen.Location = new System.Drawing.Point(44, 3);
-            this.LabelGreen.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelGreen.Name = "LabelGreen";
-            this.LabelGreen.Size = new System.Drawing.Size(36, 13);
-            this.LabelGreen.TabIndex = 1;
-            this.LabelGreen.Text = "Green";
-            this.LabelGreen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelGreenGeneralTab.AutoSize = true;
+            this.LabelGreenGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelGreenGeneralTab.Location = new System.Drawing.Point(44, 3);
+            this.LabelGreenGeneralTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelGreenGeneralTab.Name = "LabelGreenGeneralTab";
+            this.LabelGreenGeneralTab.Size = new System.Drawing.Size(36, 13);
+            this.LabelGreenGeneralTab.TabIndex = 1;
+            this.LabelGreenGeneralTab.Text = "Green";
+            this.LabelGreenGeneralTab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LabelBlue
+            // LabelBlueGeneralTab
             // 
-            this.LabelBlue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LabelBlueGeneralTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelBlue.AutoSize = true;
-            this.LabelBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelBlue.Location = new System.Drawing.Point(86, 3);
-            this.LabelBlue.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelBlue.Name = "LabelBlue";
-            this.LabelBlue.Size = new System.Drawing.Size(35, 13);
-            this.LabelBlue.TabIndex = 2;
-            this.LabelBlue.Text = "Blue";
-            this.LabelBlue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelBlueGeneralTab.AutoSize = true;
+            this.LabelBlueGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelBlueGeneralTab.Location = new System.Drawing.Point(86, 3);
+            this.LabelBlueGeneralTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelBlueGeneralTab.Name = "LabelBlueGeneralTab";
+            this.LabelBlueGeneralTab.Size = new System.Drawing.Size(35, 13);
+            this.LabelBlueGeneralTab.TabIndex = 2;
+            this.LabelBlueGeneralTab.Text = "Blue";
+            this.LabelBlueGeneralTab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LabelAlpha
+            // LabelAlphaGeneralTab
             // 
-            this.LabelAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LabelAlphaGeneralTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelAlpha.AutoSize = true;
-            this.LabelAlpha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelAlpha.Location = new System.Drawing.Point(127, 3);
-            this.LabelAlpha.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelAlpha.Name = "LabelAlpha";
-            this.LabelAlpha.Size = new System.Drawing.Size(35, 13);
-            this.LabelAlpha.TabIndex = 3;
-            this.LabelAlpha.Text = "Alpha";
-            this.LabelAlpha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelAlphaGeneralTab.AutoSize = true;
+            this.LabelAlphaGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelAlphaGeneralTab.Location = new System.Drawing.Point(127, 3);
+            this.LabelAlphaGeneralTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelAlphaGeneralTab.Name = "LabelAlphaGeneralTab";
+            this.LabelAlphaGeneralTab.Size = new System.Drawing.Size(35, 13);
+            this.LabelAlphaGeneralTab.TabIndex = 3;
+            this.LabelAlphaGeneralTab.Text = "Alpha";
+            this.LabelAlphaGeneralTab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TextBoxRed
+            // TextBoxRedGeneralTab
             // 
-            this.TextBoxRed.Location = new System.Drawing.Point(3, 22);
-            this.TextBoxRed.Name = "TextBoxRed";
-            this.TextBoxRed.Size = new System.Drawing.Size(35, 20);
-            this.TextBoxRed.TabIndex = 4;
+            this.TextBoxRedGeneralTab.Location = new System.Drawing.Point(3, 22);
+            this.TextBoxRedGeneralTab.Name = "TextBoxRedGeneralTab";
+            this.TextBoxRedGeneralTab.Size = new System.Drawing.Size(35, 20);
+            this.TextBoxRedGeneralTab.TabIndex = 4;
             // 
-            // TextBoxGreen
+            // TextBoxGreenGeneralTab
             // 
-            this.TextBoxGreen.Location = new System.Drawing.Point(44, 22);
-            this.TextBoxGreen.Name = "TextBoxGreen";
-            this.TextBoxGreen.Size = new System.Drawing.Size(35, 20);
-            this.TextBoxGreen.TabIndex = 5;
+            this.TextBoxGreenGeneralTab.Location = new System.Drawing.Point(44, 22);
+            this.TextBoxGreenGeneralTab.Name = "TextBoxGreenGeneralTab";
+            this.TextBoxGreenGeneralTab.Size = new System.Drawing.Size(35, 20);
+            this.TextBoxGreenGeneralTab.TabIndex = 5;
             // 
-            // TextBoxBlue
+            // TextBoxBlueGeneralTab
             // 
-            this.TextBoxBlue.Location = new System.Drawing.Point(86, 22);
-            this.TextBoxBlue.Name = "TextBoxBlue";
-            this.TextBoxBlue.Size = new System.Drawing.Size(35, 20);
-            this.TextBoxBlue.TabIndex = 6;
+            this.TextBoxBlueGeneralTab.Location = new System.Drawing.Point(86, 22);
+            this.TextBoxBlueGeneralTab.Name = "TextBoxBlueGeneralTab";
+            this.TextBoxBlueGeneralTab.Size = new System.Drawing.Size(35, 20);
+            this.TextBoxBlueGeneralTab.TabIndex = 6;
             // 
-            // TextBoxAlpha
+            // TextBoxAlphaGeneralTab
             // 
-            this.TextBoxAlpha.Location = new System.Drawing.Point(127, 22);
-            this.TextBoxAlpha.Name = "TextBoxAlpha";
-            this.TextBoxAlpha.Size = new System.Drawing.Size(35, 20);
-            this.TextBoxAlpha.TabIndex = 7;
+            this.TextBoxAlphaGeneralTab.Location = new System.Drawing.Point(127, 22);
+            this.TextBoxAlphaGeneralTab.Name = "TextBoxAlphaGeneralTab";
+            this.TextBoxAlphaGeneralTab.Size = new System.Drawing.Size(35, 20);
+            this.TextBoxAlphaGeneralTab.TabIndex = 7;
             // 
-            // CheckBoxConnector
+            // CheckboxConnectorGeneralTab
             // 
-            this.CheckBoxConnector.AutoSize = true;
-            this.CheckBoxConnector.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckBoxConnector.Location = new System.Drawing.Point(3, 180);
-            this.CheckBoxConnector.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.CheckBoxConnector.Name = "CheckBoxConnector";
-            this.CheckBoxConnector.Size = new System.Drawing.Size(94, 17);
-            this.CheckBoxConnector.TabIndex = 5;
-            this.CheckBoxConnector.Text = "Is a connector";
-            this.CheckBoxConnector.UseVisualStyleBackColor = true;
+            this.CheckboxConnectorGeneralTab.AutoSize = true;
+            this.CheckboxConnectorGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckboxConnectorGeneralTab.Location = new System.Drawing.Point(3, 180);
+            this.CheckboxConnectorGeneralTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.CheckboxConnectorGeneralTab.Name = "CheckboxConnectorGeneralTab";
+            this.CheckboxConnectorGeneralTab.Size = new System.Drawing.Size(94, 17);
+            this.CheckboxConnectorGeneralTab.TabIndex = 5;
+            this.CheckboxConnectorGeneralTab.Text = "Is a connector";
+            this.CheckboxConnectorGeneralTab.UseVisualStyleBackColor = true;
             // 
-            // LabelGeneralDungeon
+            // LabelGeneralGeneralTab
             // 
-            this.LabelGeneralDungeon.AutoSize = true;
-            this.LabelGeneralDungeon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelGeneralDungeon.Location = new System.Drawing.Point(3, 3);
-            this.LabelGeneralDungeon.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelGeneralDungeon.Name = "LabelGeneralDungeon";
-            this.LabelGeneralDungeon.Size = new System.Drawing.Size(197, 20);
-            this.LabelGeneralDungeon.TabIndex = 7;
-            this.LabelGeneralDungeon.Text = "General Brush Information";
+            this.LabelGeneralGeneralTab.AutoSize = true;
+            this.LabelGeneralGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelGeneralGeneralTab.Location = new System.Drawing.Point(3, 3);
+            this.LabelGeneralGeneralTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelGeneralGeneralTab.Name = "LabelGeneralGeneralTab";
+            this.LabelGeneralGeneralTab.Size = new System.Drawing.Size(197, 20);
+            this.LabelGeneralGeneralTab.TabIndex = 7;
+            this.LabelGeneralGeneralTab.Text = "General Brush Information";
             // 
-            // LabelColour
+            // LabelColourGeneralTab
             // 
-            this.LabelColour.AutoSize = true;
-            this.LabelColour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelColour.Location = new System.Drawing.Point(3, 101);
-            this.LabelColour.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.LabelColour.Name = "LabelColour";
-            this.LabelColour.Size = new System.Drawing.Size(47, 16);
-            this.LabelColour.TabIndex = 0;
-            this.LabelColour.Text = "Colour";
+            this.LabelColourGeneralTab.AutoSize = true;
+            this.LabelColourGeneralTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelColourGeneralTab.Location = new System.Drawing.Point(3, 101);
+            this.LabelColourGeneralTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.LabelColourGeneralTab.Name = "LabelColourGeneralTab";
+            this.LabelColourGeneralTab.Size = new System.Drawing.Size(47, 16);
+            this.LabelColourGeneralTab.TabIndex = 0;
+            this.LabelColourGeneralTab.Text = "Colour";
             // 
             // TabAssets
             // 
-            this.TabAssets.Controls.Add(this.MainTableLayoutFrontAssetDungeon);
+            this.TabAssets.Controls.Add(this.TableLayoutPanelMainAssetTab);
             this.TabAssets.Location = new System.Drawing.Point(4, 22);
             this.TabAssets.Name = "TabAssets";
             this.TabAssets.Padding = new System.Windows.Forms.Padding(3);
@@ -447,288 +447,288 @@ namespace Starstructor.GUI
             this.TabAssets.Text = "TabAssets";
             this.TabAssets.UseVisualStyleBackColor = true;
             // 
-            // MainTableLayoutFrontAssetDungeon
+            // TableLayoutPanelMainAssetTab
             // 
-            this.MainTableLayoutFrontAssetDungeon.ColumnCount = 2;
-            this.MainTableLayoutFrontAssetDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.MainTableLayoutFrontAssetDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.MainTableLayoutFrontAssetDungeon.Controls.Add(this.BackAssetPictureBox, 1, 0);
-            this.MainTableLayoutFrontAssetDungeon.Controls.Add(this.MainTableLayoutBackAssetDungeonBrushInfo, 0, 0);
-            this.MainTableLayoutFrontAssetDungeon.Controls.Add(this.MainTableLayoutFrontAssetDungeonBrushInfo, 0, 1);
-            this.MainTableLayoutFrontAssetDungeon.Controls.Add(this.FrontAssetPictureBox, 1, 1);
-            this.MainTableLayoutFrontAssetDungeon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTableLayoutFrontAssetDungeon.Location = new System.Drawing.Point(3, 3);
-            this.MainTableLayoutFrontAssetDungeon.Name = "MainTableLayoutFrontAssetDungeon";
-            this.MainTableLayoutFrontAssetDungeon.RowCount = 2;
-            this.MainTableLayoutFrontAssetDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.MainTableLayoutFrontAssetDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.MainTableLayoutFrontAssetDungeon.Size = new System.Drawing.Size(604, 369);
-            this.MainTableLayoutFrontAssetDungeon.TabIndex = 1;
+            this.TableLayoutPanelMainAssetTab.ColumnCount = 2;
+            this.TableLayoutPanelMainAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.TableLayoutPanelMainAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.TableLayoutPanelMainAssetTab.Controls.Add(this.PictureBoxBackAsset, 1, 0);
+            this.TableLayoutPanelMainAssetTab.Controls.Add(this.TableLayoutPanelMainBackAssetAssetTab, 0, 0);
+            this.TableLayoutPanelMainAssetTab.Controls.Add(this.TableLayoutPanelMainFrontAssetAssetTab, 0, 1);
+            this.TableLayoutPanelMainAssetTab.Controls.Add(this.PictureBoxFrontAsset, 1, 1);
+            this.TableLayoutPanelMainAssetTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelMainAssetTab.Location = new System.Drawing.Point(3, 3);
+            this.TableLayoutPanelMainAssetTab.Name = "TableLayoutPanelMainAssetTab";
+            this.TableLayoutPanelMainAssetTab.RowCount = 2;
+            this.TableLayoutPanelMainAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelMainAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelMainAssetTab.Size = new System.Drawing.Size(604, 369);
+            this.TableLayoutPanelMainAssetTab.TabIndex = 1;
             // 
-            // BackAssetPictureBox
+            // PictureBoxBackAsset
             // 
-            this.BackAssetPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BackAssetPictureBox.Location = new System.Drawing.Point(377, 15);
-            this.BackAssetPictureBox.Margin = new System.Windows.Forms.Padding(15);
-            this.BackAssetPictureBox.Name = "BackAssetPictureBox";
-            this.BackAssetPictureBox.Size = new System.Drawing.Size(212, 154);
-            this.BackAssetPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BackAssetPictureBox.TabIndex = 4;
-            this.BackAssetPictureBox.TabStop = false;
+            this.PictureBoxBackAsset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PictureBoxBackAsset.Location = new System.Drawing.Point(377, 15);
+            this.PictureBoxBackAsset.Margin = new System.Windows.Forms.Padding(15);
+            this.PictureBoxBackAsset.Name = "PictureBoxBackAsset";
+            this.PictureBoxBackAsset.Size = new System.Drawing.Size(212, 154);
+            this.PictureBoxBackAsset.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureBoxBackAsset.TabIndex = 4;
+            this.PictureBoxBackAsset.TabStop = false;
             // 
-            // MainTableLayoutBackAssetDungeonBrushInfo
+            // TableLayoutPanelMainBackAssetAssetTab
             // 
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TableLayoutPanelMainBackAssetAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.MainTableLayoutBackAssetDungeonBrushInfo.AutoSize = true;
-            this.MainTableLayoutBackAssetDungeonBrushInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.MainTableLayoutBackAssetDungeonBrushInfo.ColumnCount = 1;
-            this.MainTableLayoutBackAssetDungeonBrushInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Controls.Add(this.LabelBackAsset, 0, 0);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Controls.Add(this.LabelBackAssetAsset, 0, 3);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Controls.Add(this.TableLayoutBackAssetDungeonPanel, 0, 4);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Location = new System.Drawing.Point(0, 0);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Name = "MainTableLayoutBackAssetDungeonBrushInfo";
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowCount = 7;
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayoutBackAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayoutBackAssetDungeonBrushInfo.Size = new System.Drawing.Size(362, 184);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.TabIndex = 2;
+            this.TableLayoutPanelMainBackAssetAssetTab.AutoSize = true;
+            this.TableLayoutPanelMainBackAssetAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelMainBackAssetAssetTab.ColumnCount = 1;
+            this.TableLayoutPanelMainBackAssetAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.LabelBackAssetAssetTab, 0, 0);
+            this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.LabelBackAssetAssetAssetTab, 0, 3);
+            this.TableLayoutPanelMainBackAssetAssetTab.Controls.Add(this.TableLayoutPanelBackAssetBrowseAssetTab, 0, 4);
+            this.TableLayoutPanelMainBackAssetAssetTab.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanelMainBackAssetAssetTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelMainBackAssetAssetTab.Name = "TableLayoutPanelMainBackAssetAssetTab";
+            this.TableLayoutPanelMainBackAssetAssetTab.RowCount = 7;
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelMainBackAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelMainBackAssetAssetTab.Size = new System.Drawing.Size(362, 184);
+            this.TableLayoutPanelMainBackAssetAssetTab.TabIndex = 2;
             // 
-            // LabelBackAsset
+            // LabelBackAssetAssetTab
             // 
-            this.LabelBackAsset.AutoSize = true;
-            this.LabelBackAsset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelBackAsset.Location = new System.Drawing.Point(3, 3);
-            this.LabelBackAsset.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelBackAsset.Name = "LabelBackAsset";
-            this.LabelBackAsset.Size = new System.Drawing.Size(90, 20);
-            this.LabelBackAsset.TabIndex = 7;
-            this.LabelBackAsset.Text = "Back Asset";
+            this.LabelBackAssetAssetTab.AutoSize = true;
+            this.LabelBackAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelBackAssetAssetTab.Location = new System.Drawing.Point(3, 3);
+            this.LabelBackAssetAssetTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelBackAssetAssetTab.Name = "LabelBackAssetAssetTab";
+            this.LabelBackAssetAssetTab.Size = new System.Drawing.Size(90, 20);
+            this.LabelBackAssetAssetTab.TabIndex = 7;
+            this.LabelBackAssetAssetTab.Text = "Back Asset";
             // 
-            // LabelBackAssetAsset
+            // LabelBackAssetAssetAssetTab
             // 
-            this.LabelBackAssetAsset.AutoSize = true;
-            this.LabelBackAssetAsset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelBackAssetAsset.Location = new System.Drawing.Point(3, 41);
-            this.LabelBackAssetAsset.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.LabelBackAssetAsset.Name = "LabelBackAssetAsset";
-            this.LabelBackAssetAsset.Size = new System.Drawing.Size(42, 16);
-            this.LabelBackAssetAsset.TabIndex = 12;
-            this.LabelBackAssetAsset.Text = "Asset";
+            this.LabelBackAssetAssetAssetTab.AutoSize = true;
+            this.LabelBackAssetAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelBackAssetAssetAssetTab.Location = new System.Drawing.Point(3, 41);
+            this.LabelBackAssetAssetAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.LabelBackAssetAssetAssetTab.Name = "LabelBackAssetAssetAssetTab";
+            this.LabelBackAssetAssetAssetTab.Size = new System.Drawing.Size(42, 16);
+            this.LabelBackAssetAssetAssetTab.TabIndex = 12;
+            this.LabelBackAssetAssetAssetTab.Text = "Asset";
             // 
-            // TableLayoutBackAssetDungeonPanel
+            // TableLayoutPanelBackAssetBrowseAssetTab
             // 
-            this.TableLayoutBackAssetDungeonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TableLayoutBackAssetDungeonPanel.AutoSize = true;
-            this.TableLayoutBackAssetDungeonPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.TableLayoutBackAssetDungeonPanel.ColumnCount = 2;
-            this.TableLayoutBackAssetDungeonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutBackAssetDungeonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutBackAssetDungeonPanel.Controls.Add(this.TextBoxBackAssetNameDungeon, 0, 0);
-            this.TableLayoutBackAssetDungeonPanel.Controls.Add(this.ButtonBackAssetBrowseDungeon, 1, 0);
-            this.TableLayoutBackAssetDungeonPanel.Location = new System.Drawing.Point(0, 60);
-            this.TableLayoutBackAssetDungeonPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.TableLayoutBackAssetDungeonPanel.Name = "TableLayoutBackAssetDungeonPanel";
-            this.TableLayoutBackAssetDungeonPanel.RowCount = 1;
-            this.TableLayoutBackAssetDungeonPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableLayoutBackAssetDungeonPanel.Size = new System.Drawing.Size(362, 29);
-            this.TableLayoutBackAssetDungeonPanel.TabIndex = 13;
+            this.TableLayoutPanelBackAssetBrowseAssetTab.AutoSize = true;
+            this.TableLayoutPanelBackAssetBrowseAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelBackAssetBrowseAssetTab.ColumnCount = 2;
+            this.TableLayoutPanelBackAssetBrowseAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelBackAssetBrowseAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Controls.Add(this.TextBoxBackAssetNameAssetTab, 0, 0);
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Controls.Add(this.ButtonBackAssetBrowseAssetTab, 1, 0);
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Location = new System.Drawing.Point(0, 60);
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Name = "TableLayoutPanelBackAssetBrowseAssetTab";
+            this.TableLayoutPanelBackAssetBrowseAssetTab.RowCount = 1;
+            this.TableLayoutPanelBackAssetBrowseAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBackAssetBrowseAssetTab.Size = new System.Drawing.Size(362, 29);
+            this.TableLayoutPanelBackAssetBrowseAssetTab.TabIndex = 13;
             // 
-            // TextBoxBackAssetNameDungeon
+            // TextBoxBackAssetNameAssetTab
             // 
-            this.TextBoxBackAssetNameDungeon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxBackAssetNameAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxBackAssetNameDungeon.Location = new System.Drawing.Point(3, 3);
-            this.TextBoxBackAssetNameDungeon.Name = "TextBoxBackAssetNameDungeon";
-            this.TextBoxBackAssetNameDungeon.Size = new System.Drawing.Size(275, 20);
-            this.TextBoxBackAssetNameDungeon.TabIndex = 0;
-            this.TextBoxBackAssetNameDungeon.TextChanged += new System.EventHandler(this.TextBoxBackAssetNameDungeon_TextChanged);
+            this.TextBoxBackAssetNameAssetTab.Location = new System.Drawing.Point(3, 3);
+            this.TextBoxBackAssetNameAssetTab.Name = "TextBoxBackAssetNameAssetTab";
+            this.TextBoxBackAssetNameAssetTab.Size = new System.Drawing.Size(275, 20);
+            this.TextBoxBackAssetNameAssetTab.TabIndex = 0;
+            this.TextBoxBackAssetNameAssetTab.TextChanged += new System.EventHandler(this.TextBoxBackAssetNameDungeon_TextChanged);
             // 
-            // ButtonBackAssetBrowseDungeon
+            // ButtonBackAssetBrowseAssetTab
             // 
-            this.ButtonBackAssetBrowseDungeon.Location = new System.Drawing.Point(284, 3);
-            this.ButtonBackAssetBrowseDungeon.Name = "ButtonBackAssetBrowseDungeon";
-            this.ButtonBackAssetBrowseDungeon.Size = new System.Drawing.Size(75, 23);
-            this.ButtonBackAssetBrowseDungeon.TabIndex = 1;
-            this.ButtonBackAssetBrowseDungeon.Text = "Browse";
-            this.ButtonBackAssetBrowseDungeon.UseVisualStyleBackColor = true;
-            this.ButtonBackAssetBrowseDungeon.Click += new System.EventHandler(this.ButtonBackAssetBrowseDungeon_Click);
+            this.ButtonBackAssetBrowseAssetTab.Location = new System.Drawing.Point(284, 3);
+            this.ButtonBackAssetBrowseAssetTab.Name = "ButtonBackAssetBrowseAssetTab";
+            this.ButtonBackAssetBrowseAssetTab.Size = new System.Drawing.Size(75, 23);
+            this.ButtonBackAssetBrowseAssetTab.TabIndex = 1;
+            this.ButtonBackAssetBrowseAssetTab.Text = "Browse";
+            this.ButtonBackAssetBrowseAssetTab.UseVisualStyleBackColor = true;
+            this.ButtonBackAssetBrowseAssetTab.Click += new System.EventHandler(this.ButtonBackAssetBrowseDungeon_Click);
             // 
-            // MainTableLayoutFrontAssetDungeonBrushInfo
+            // TableLayoutPanelMainFrontAssetAssetTab
             // 
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TableLayoutPanelMainFrontAssetAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.AutoSize = true;
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.ColumnCount = 1;
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.TableLayoutFrontAssetOptionsDungeon, 0, 3);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.LabelFrontAsset, 0, 0);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.LabelFrontAssetAsset, 0, 1);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Controls.Add(this.TableLayoutFrontAssetDungeonPanel, 0, 2);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Location = new System.Drawing.Point(0, 184);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Name = "MainTableLayoutFrontAssetDungeonBrushInfo";
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowCount = 4;
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.Size = new System.Drawing.Size(362, 185);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.TabIndex = 1;
+            this.TableLayoutPanelMainFrontAssetAssetTab.AutoSize = true;
+            this.TableLayoutPanelMainFrontAssetAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelMainFrontAssetAssetTab.ColumnCount = 1;
+            this.TableLayoutPanelMainFrontAssetAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.TableLayoutPanelFrontAssetOptionsAssetTab, 0, 3);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.LabelFrontAssetAssetTab, 0, 0);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.LabelFrontAssetAssetAssetTab, 0, 1);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Controls.Add(this.TableLayoutPanelFrontAssetBrowseAssetTab, 0, 2);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Location = new System.Drawing.Point(0, 184);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelMainFrontAssetAssetTab.Name = "TableLayoutPanelMainFrontAssetAssetTab";
+            this.TableLayoutPanelMainFrontAssetAssetTab.RowCount = 4;
+            this.TableLayoutPanelMainFrontAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainFrontAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainFrontAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainFrontAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelMainFrontAssetAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelMainFrontAssetAssetTab.Size = new System.Drawing.Size(362, 185);
+            this.TableLayoutPanelMainFrontAssetAssetTab.TabIndex = 1;
             // 
-            // TableLayoutFrontAssetOptionsDungeon
+            // TableLayoutPanelFrontAssetOptionsAssetTab
             // 
-            this.TableLayoutFrontAssetOptionsDungeon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TableLayoutFrontAssetOptionsDungeon.AutoSize = true;
-            this.TableLayoutFrontAssetOptionsDungeon.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.TableLayoutFrontAssetOptionsDungeon.ColumnCount = 3;
-            this.TableLayoutFrontAssetOptionsDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutFrontAssetOptionsDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutFrontAssetOptionsDungeon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutFrontAssetOptionsDungeon.Controls.Add(this.LabelFrontAssetType, 0, 0);
-            this.TableLayoutFrontAssetOptionsDungeon.Controls.Add(this.ComboBoxFrontAssetTypeDungeon, 0, 1);
-            this.TableLayoutFrontAssetOptionsDungeon.Controls.Add(this.LabelFrontAssetDirection, 1, 0);
-            this.TableLayoutFrontAssetOptionsDungeon.Controls.Add(this.ComboBoxFrontAssetDirectionDungeon, 1, 1);
-            this.TableLayoutFrontAssetOptionsDungeon.Location = new System.Drawing.Point(3, 92);
-            this.TableLayoutFrontAssetOptionsDungeon.Name = "TableLayoutFrontAssetOptionsDungeon";
-            this.TableLayoutFrontAssetOptionsDungeon.RowCount = 2;
-            this.TableLayoutFrontAssetOptionsDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableLayoutFrontAssetOptionsDungeon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableLayoutFrontAssetOptionsDungeon.Size = new System.Drawing.Size(356, 61);
-            this.TableLayoutFrontAssetOptionsDungeon.TabIndex = 4;
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.AutoSize = true;
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnCount = 3;
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.LabelFrontAssetTypeAssetTab, 0, 0);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetTypeAssetTab, 0, 1);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.LabelFrontAssetDirectionAssetTab, 1, 0);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetDirectionAssetTab, 1, 1);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Location = new System.Drawing.Point(3, 92);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Name = "TableLayoutPanelFrontAssetOptionsAssetTab";
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.RowCount = 2;
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Size = new System.Drawing.Size(356, 61);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.TabIndex = 4;
             // 
-            // LabelFrontAssetType
+            // LabelFrontAssetTypeAssetTab
             // 
-            this.LabelFrontAssetType.AutoSize = true;
-            this.LabelFrontAssetType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFrontAssetType.Location = new System.Drawing.Point(3, 15);
-            this.LabelFrontAssetType.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.LabelFrontAssetType.Name = "LabelFrontAssetType";
-            this.LabelFrontAssetType.Size = new System.Drawing.Size(40, 16);
-            this.LabelFrontAssetType.TabIndex = 8;
-            this.LabelFrontAssetType.Text = "Type";
+            this.LabelFrontAssetTypeAssetTab.AutoSize = true;
+            this.LabelFrontAssetTypeAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelFrontAssetTypeAssetTab.Location = new System.Drawing.Point(3, 15);
+            this.LabelFrontAssetTypeAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.LabelFrontAssetTypeAssetTab.Name = "LabelFrontAssetTypeAssetTab";
+            this.LabelFrontAssetTypeAssetTab.Size = new System.Drawing.Size(40, 16);
+            this.LabelFrontAssetTypeAssetTab.TabIndex = 8;
+            this.LabelFrontAssetTypeAssetTab.Text = "Type";
             // 
-            // ComboBoxFrontAssetTypeDungeon
+            // ComboboxFrontAssetTypeAssetTab
             // 
-            this.ComboBoxFrontAssetTypeDungeon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxFrontAssetTypeDungeon.FormattingEnabled = true;
-            this.ComboBoxFrontAssetTypeDungeon.Items.AddRange(new object[] {
+            this.ComboboxFrontAssetTypeAssetTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboboxFrontAssetTypeAssetTab.FormattingEnabled = true;
+            this.ComboboxFrontAssetTypeAssetTab.Items.AddRange(new object[] {
             "Object",
             "Material"});
-            this.ComboBoxFrontAssetTypeDungeon.Location = new System.Drawing.Point(3, 37);
-            this.ComboBoxFrontAssetTypeDungeon.Name = "ComboBoxFrontAssetTypeDungeon";
-            this.ComboBoxFrontAssetTypeDungeon.Size = new System.Drawing.Size(80, 21);
-            this.ComboBoxFrontAssetTypeDungeon.TabIndex = 10;
-            this.ComboBoxFrontAssetTypeDungeon.SelectedValueChanged += new System.EventHandler(this.ComboBoxFrontAssetTypeDungeon_SelectedValueChanged);
+            this.ComboboxFrontAssetTypeAssetTab.Location = new System.Drawing.Point(3, 37);
+            this.ComboboxFrontAssetTypeAssetTab.Name = "ComboboxFrontAssetTypeAssetTab";
+            this.ComboboxFrontAssetTypeAssetTab.Size = new System.Drawing.Size(80, 21);
+            this.ComboboxFrontAssetTypeAssetTab.TabIndex = 10;
+            this.ComboboxFrontAssetTypeAssetTab.SelectedValueChanged += new System.EventHandler(this.ComboBoxFrontAssetTypeDungeon_SelectedValueChanged);
             // 
-            // LabelFrontAssetDirection
+            // LabelFrontAssetDirectionAssetTab
             // 
-            this.LabelFrontAssetDirection.AutoSize = true;
-            this.LabelFrontAssetDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFrontAssetDirection.Location = new System.Drawing.Point(89, 15);
-            this.LabelFrontAssetDirection.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.LabelFrontAssetDirection.Name = "LabelFrontAssetDirection";
-            this.LabelFrontAssetDirection.Size = new System.Drawing.Size(61, 16);
-            this.LabelFrontAssetDirection.TabIndex = 9;
-            this.LabelFrontAssetDirection.Text = "Direction";
+            this.LabelFrontAssetDirectionAssetTab.AutoSize = true;
+            this.LabelFrontAssetDirectionAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelFrontAssetDirectionAssetTab.Location = new System.Drawing.Point(89, 15);
+            this.LabelFrontAssetDirectionAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.LabelFrontAssetDirectionAssetTab.Name = "LabelFrontAssetDirectionAssetTab";
+            this.LabelFrontAssetDirectionAssetTab.Size = new System.Drawing.Size(61, 16);
+            this.LabelFrontAssetDirectionAssetTab.TabIndex = 9;
+            this.LabelFrontAssetDirectionAssetTab.Text = "Direction";
             // 
-            // ComboBoxFrontAssetDirectionDungeon
+            // ComboboxFrontAssetDirectionAssetTab
             // 
-            this.ComboBoxFrontAssetDirectionDungeon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxFrontAssetDirectionDungeon.FormattingEnabled = true;
-            this.ComboBoxFrontAssetDirectionDungeon.Items.AddRange(new object[] {
+            this.ComboboxFrontAssetDirectionAssetTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboboxFrontAssetDirectionAssetTab.FormattingEnabled = true;
+            this.ComboboxFrontAssetDirectionAssetTab.Items.AddRange(new object[] {
             "None",
             "Left",
             "Right"});
-            this.ComboBoxFrontAssetDirectionDungeon.Location = new System.Drawing.Point(89, 37);
-            this.ComboBoxFrontAssetDirectionDungeon.Name = "ComboBoxFrontAssetDirectionDungeon";
-            this.ComboBoxFrontAssetDirectionDungeon.Size = new System.Drawing.Size(80, 21);
-            this.ComboBoxFrontAssetDirectionDungeon.TabIndex = 14;
-            this.ComboBoxFrontAssetDirectionDungeon.SelectedValueChanged += new System.EventHandler(this.ComboBoxFrontAssetDirectionDungeon_SelectedValueChanged);
+            this.ComboboxFrontAssetDirectionAssetTab.Location = new System.Drawing.Point(89, 37);
+            this.ComboboxFrontAssetDirectionAssetTab.Name = "ComboboxFrontAssetDirectionAssetTab";
+            this.ComboboxFrontAssetDirectionAssetTab.Size = new System.Drawing.Size(80, 21);
+            this.ComboboxFrontAssetDirectionAssetTab.TabIndex = 14;
+            this.ComboboxFrontAssetDirectionAssetTab.SelectedValueChanged += new System.EventHandler(this.ComboBoxFrontAssetDirectionDungeon_SelectedValueChanged);
             // 
-            // LabelFrontAsset
+            // LabelFrontAssetAssetTab
             // 
-            this.LabelFrontAsset.AutoSize = true;
-            this.LabelFrontAsset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFrontAsset.Location = new System.Drawing.Point(3, 3);
-            this.LabelFrontAsset.Margin = new System.Windows.Forms.Padding(3);
-            this.LabelFrontAsset.Name = "LabelFrontAsset";
-            this.LabelFrontAsset.Size = new System.Drawing.Size(92, 20);
-            this.LabelFrontAsset.TabIndex = 7;
-            this.LabelFrontAsset.Text = "Front Asset";
+            this.LabelFrontAssetAssetTab.AutoSize = true;
+            this.LabelFrontAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelFrontAssetAssetTab.Location = new System.Drawing.Point(3, 3);
+            this.LabelFrontAssetAssetTab.Margin = new System.Windows.Forms.Padding(3);
+            this.LabelFrontAssetAssetTab.Name = "LabelFrontAssetAssetTab";
+            this.LabelFrontAssetAssetTab.Size = new System.Drawing.Size(92, 20);
+            this.LabelFrontAssetAssetTab.TabIndex = 7;
+            this.LabelFrontAssetAssetTab.Text = "Front Asset";
             // 
-            // LabelFrontAssetAsset
+            // LabelFrontAssetAssetAssetTab
             // 
-            this.LabelFrontAssetAsset.AutoSize = true;
-            this.LabelFrontAssetAsset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFrontAssetAsset.Location = new System.Drawing.Point(3, 41);
-            this.LabelFrontAssetAsset.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.LabelFrontAssetAsset.Name = "LabelFrontAssetAsset";
-            this.LabelFrontAssetAsset.Size = new System.Drawing.Size(42, 16);
-            this.LabelFrontAssetAsset.TabIndex = 12;
-            this.LabelFrontAssetAsset.Text = "Asset";
+            this.LabelFrontAssetAssetAssetTab.AutoSize = true;
+            this.LabelFrontAssetAssetAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelFrontAssetAssetAssetTab.Location = new System.Drawing.Point(3, 41);
+            this.LabelFrontAssetAssetAssetTab.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.LabelFrontAssetAssetAssetTab.Name = "LabelFrontAssetAssetAssetTab";
+            this.LabelFrontAssetAssetAssetTab.Size = new System.Drawing.Size(42, 16);
+            this.LabelFrontAssetAssetAssetTab.TabIndex = 12;
+            this.LabelFrontAssetAssetAssetTab.Text = "Asset";
             // 
-            // TableLayoutFrontAssetDungeonPanel
+            // TableLayoutPanelFrontAssetBrowseAssetTab
             // 
-            this.TableLayoutFrontAssetDungeonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TableLayoutFrontAssetDungeonPanel.AutoSize = true;
-            this.TableLayoutFrontAssetDungeonPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.TableLayoutFrontAssetDungeonPanel.ColumnCount = 2;
-            this.TableLayoutFrontAssetDungeonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutFrontAssetDungeonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutFrontAssetDungeonPanel.Controls.Add(this.TextBoxFrontAssetNameDungeon, 0, 0);
-            this.TableLayoutFrontAssetDungeonPanel.Controls.Add(this.ButtonFrontAssetBrowseDungeon, 1, 0);
-            this.TableLayoutFrontAssetDungeonPanel.Location = new System.Drawing.Point(0, 60);
-            this.TableLayoutFrontAssetDungeonPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.TableLayoutFrontAssetDungeonPanel.Name = "TableLayoutFrontAssetDungeonPanel";
-            this.TableLayoutFrontAssetDungeonPanel.RowCount = 1;
-            this.TableLayoutFrontAssetDungeonPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableLayoutFrontAssetDungeonPanel.Size = new System.Drawing.Size(362, 29);
-            this.TableLayoutFrontAssetDungeonPanel.TabIndex = 13;
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.AutoSize = true;
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.ColumnCount = 2;
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Controls.Add(this.TextBoxFrontAssetNameAssetTab, 0, 0);
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Controls.Add(this.ButtonFrontAssetBrowseAssetTab, 1, 0);
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Location = new System.Drawing.Point(0, 60);
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Name = "TableLayoutPanelFrontAssetBrowseAssetTab";
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.RowCount = 1;
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.Size = new System.Drawing.Size(362, 29);
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.TabIndex = 13;
             // 
-            // TextBoxFrontAssetNameDungeon
+            // TextBoxFrontAssetNameAssetTab
             // 
-            this.TextBoxFrontAssetNameDungeon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxFrontAssetNameAssetTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxFrontAssetNameDungeon.Location = new System.Drawing.Point(3, 3);
-            this.TextBoxFrontAssetNameDungeon.Name = "TextBoxFrontAssetNameDungeon";
-            this.TextBoxFrontAssetNameDungeon.Size = new System.Drawing.Size(275, 20);
-            this.TextBoxFrontAssetNameDungeon.TabIndex = 0;
-            this.TextBoxFrontAssetNameDungeon.TextChanged += new System.EventHandler(this.TextBoxFrontAssetNameDungeon_TextChanged);
+            this.TextBoxFrontAssetNameAssetTab.Location = new System.Drawing.Point(3, 3);
+            this.TextBoxFrontAssetNameAssetTab.Name = "TextBoxFrontAssetNameAssetTab";
+            this.TextBoxFrontAssetNameAssetTab.Size = new System.Drawing.Size(275, 20);
+            this.TextBoxFrontAssetNameAssetTab.TabIndex = 0;
+            this.TextBoxFrontAssetNameAssetTab.TextChanged += new System.EventHandler(this.TextBoxFrontAssetNameDungeon_TextChanged);
             // 
-            // ButtonFrontAssetBrowseDungeon
+            // ButtonFrontAssetBrowseAssetTab
             // 
-            this.ButtonFrontAssetBrowseDungeon.Location = new System.Drawing.Point(284, 3);
-            this.ButtonFrontAssetBrowseDungeon.Name = "ButtonFrontAssetBrowseDungeon";
-            this.ButtonFrontAssetBrowseDungeon.Size = new System.Drawing.Size(75, 23);
-            this.ButtonFrontAssetBrowseDungeon.TabIndex = 1;
-            this.ButtonFrontAssetBrowseDungeon.Text = "Browse";
-            this.ButtonFrontAssetBrowseDungeon.UseVisualStyleBackColor = true;
-            this.ButtonFrontAssetBrowseDungeon.Click += new System.EventHandler(this.ButtonFrontAssetBrowseDungeon_Click);
+            this.ButtonFrontAssetBrowseAssetTab.Location = new System.Drawing.Point(284, 3);
+            this.ButtonFrontAssetBrowseAssetTab.Name = "ButtonFrontAssetBrowseAssetTab";
+            this.ButtonFrontAssetBrowseAssetTab.Size = new System.Drawing.Size(75, 23);
+            this.ButtonFrontAssetBrowseAssetTab.TabIndex = 1;
+            this.ButtonFrontAssetBrowseAssetTab.Text = "Browse";
+            this.ButtonFrontAssetBrowseAssetTab.UseVisualStyleBackColor = true;
+            this.ButtonFrontAssetBrowseAssetTab.Click += new System.EventHandler(this.ButtonFrontAssetBrowseDungeon_Click);
             // 
-            // FrontAssetPictureBox
+            // PictureBoxFrontAsset
             // 
-            this.FrontAssetPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FrontAssetPictureBox.Location = new System.Drawing.Point(377, 199);
-            this.FrontAssetPictureBox.Margin = new System.Windows.Forms.Padding(15);
-            this.FrontAssetPictureBox.Name = "FrontAssetPictureBox";
-            this.FrontAssetPictureBox.Size = new System.Drawing.Size(212, 155);
-            this.FrontAssetPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.FrontAssetPictureBox.TabIndex = 3;
-            this.FrontAssetPictureBox.TabStop = false;
+            this.PictureBoxFrontAsset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PictureBoxFrontAsset.Location = new System.Drawing.Point(377, 199);
+            this.PictureBoxFrontAsset.Margin = new System.Windows.Forms.Padding(15);
+            this.PictureBoxFrontAsset.Name = "PictureBoxFrontAsset";
+            this.PictureBoxFrontAsset.Size = new System.Drawing.Size(212, 155);
+            this.PictureBoxFrontAsset.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureBoxFrontAsset.TabIndex = 3;
+            this.PictureBoxFrontAsset.TabStop = false;
             // 
             // TabRules
             // 
@@ -753,92 +753,92 @@ namespace Starstructor.GUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 442);
-            this.Controls.Add(this.MainTableLayoutPanel);
+            this.Controls.Add(this.TableLayoutPanelMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "ImportBrush";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import a brush";
-            this.MainTableLayoutPanel.ResumeLayout(false);
-            this.NavigationTableLayoutPanel.ResumeLayout(false);
-            this.WizardTabs.ResumeLayout(false);
+            this.TableLayoutPanelMain.ResumeLayout(false);
+            this.TableLayoutPanelNavigation.ResumeLayout(false);
+            this.TabControlWizard.ResumeLayout(false);
             this.TabGeneral.ResumeLayout(false);
-            this.MainTableLayoutGeneralDungeon.ResumeLayout(false);
-            this.MainTableLayoutGeneralDungeon.PerformLayout();
-            this.MainTableLayoutGeneralDungeonBrushInfo.ResumeLayout(false);
-            this.MainTableLayoutGeneralDungeonBrushInfo.PerformLayout();
-            this.ColourInfoTableLayoutPanel.ResumeLayout(false);
-            this.ColourInfoTableLayoutPanel.PerformLayout();
+            this.TableLayoutPanelMainGeneralTab.ResumeLayout(false);
+            this.TableLayoutPanelMainGeneralTab.PerformLayout();
+            this.TableLayoutPanelBrushInfoGeneralTab.ResumeLayout(false);
+            this.TableLayoutPanelBrushInfoGeneralTab.PerformLayout();
+            this.TableLayoutPanelColourInfoGeneralTab.ResumeLayout(false);
+            this.TableLayoutPanelColourInfoGeneralTab.PerformLayout();
             this.TabAssets.ResumeLayout(false);
-            this.MainTableLayoutFrontAssetDungeon.ResumeLayout(false);
-            this.MainTableLayoutFrontAssetDungeon.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BackAssetPictureBox)).EndInit();
-            this.MainTableLayoutBackAssetDungeonBrushInfo.ResumeLayout(false);
-            this.MainTableLayoutBackAssetDungeonBrushInfo.PerformLayout();
-            this.TableLayoutBackAssetDungeonPanel.ResumeLayout(false);
-            this.TableLayoutBackAssetDungeonPanel.PerformLayout();
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.ResumeLayout(false);
-            this.MainTableLayoutFrontAssetDungeonBrushInfo.PerformLayout();
-            this.TableLayoutFrontAssetOptionsDungeon.ResumeLayout(false);
-            this.TableLayoutFrontAssetOptionsDungeon.PerformLayout();
-            this.TableLayoutFrontAssetDungeonPanel.ResumeLayout(false);
-            this.TableLayoutFrontAssetDungeonPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FrontAssetPictureBox)).EndInit();
+            this.TableLayoutPanelMainAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelMainAssetTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).EndInit();
+            this.TableLayoutPanelMainBackAssetAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelMainBackAssetAssetTab.PerformLayout();
+            this.TableLayoutPanelBackAssetBrowseAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelBackAssetBrowseAssetTab.PerformLayout();
+            this.TableLayoutPanelMainFrontAssetAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelMainFrontAssetAssetTab.PerformLayout();
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.PerformLayout();
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.ResumeLayout(false);
+            this.TableLayoutPanelFrontAssetBrowseAssetTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutPanel;
-        private System.Windows.Forms.TableLayoutPanel NavigationTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMain;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelNavigation;
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.Button ButtonFinish;
         private System.Windows.Forms.Button ButtonNext;
         private System.Windows.Forms.Button ButtonPrev;
-        private WizardTabControl WizardTabs;
+        private WizardTabControl TabControlWizard;
         private System.Windows.Forms.TabPage TabGeneral;
         private System.Windows.Forms.TabPage TabAssets;
         private System.Windows.Forms.TabPage TabRules;
         private System.Windows.Forms.TabPage TabOverview;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutGeneralDungeon;
-        private System.Windows.Forms.Label LabelInformation;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutGeneralDungeonBrushInfo;
-        private System.Windows.Forms.Label LabelComment;
-        private System.Windows.Forms.TextBox TextBoxComment;
-        private System.Windows.Forms.Label LabelColour;
-        private System.Windows.Forms.TableLayoutPanel ColourInfoTableLayoutPanel;
-        private System.Windows.Forms.Label LabelRed;
-        private System.Windows.Forms.Label LabelGreen;
-        private System.Windows.Forms.Label LabelBlue;
-        private System.Windows.Forms.Label LabelAlpha;
-        private System.Windows.Forms.TextBox TextBoxRed;
-        private System.Windows.Forms.TextBox TextBoxGreen;
-        private System.Windows.Forms.TextBox TextBoxBlue;
-        private System.Windows.Forms.TextBox TextBoxAlpha;
-        private System.Windows.Forms.CheckBox CheckBoxConnector;
-        private System.Windows.Forms.Label LabelGeneralDungeon;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutFrontAssetDungeon;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutFrontAssetDungeonBrushInfo;
-        private System.Windows.Forms.Label LabelFrontAsset;
-        private System.Windows.Forms.Label LabelFrontAssetType;
-        private System.Windows.Forms.Label LabelFrontAssetDirection;
-        private System.Windows.Forms.ComboBox ComboBoxFrontAssetTypeDungeon;
-        private System.Windows.Forms.Label LabelFrontAssetAsset;
-        private System.Windows.Forms.TableLayoutPanel TableLayoutFrontAssetDungeonPanel;
-        private System.Windows.Forms.TextBox TextBoxFrontAssetNameDungeon;
-        private System.Windows.Forms.Button ButtonFrontAssetBrowseDungeon;
-        private System.Windows.Forms.ComboBox ComboBoxFrontAssetDirectionDungeon;
-        private System.Windows.Forms.TableLayoutPanel TableLayoutFrontAssetOptionsDungeon;
-        private System.Windows.Forms.TableLayoutPanel MainTableLayoutBackAssetDungeonBrushInfo;
-        private System.Windows.Forms.Label LabelBackAsset;
-        private System.Windows.Forms.Label LabelBackAssetAsset;
-        private System.Windows.Forms.TableLayoutPanel TableLayoutBackAssetDungeonPanel;
-        private System.Windows.Forms.TextBox TextBoxBackAssetNameDungeon;
-        private System.Windows.Forms.Button ButtonBackAssetBrowseDungeon;
-        private NoAliasPictureBox BackAssetPictureBox;
-        private NoAliasPictureBox FrontAssetPictureBox;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainGeneralTab;
+        private System.Windows.Forms.Label LabelInformationGeneralTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelBrushInfoGeneralTab;
+        private System.Windows.Forms.Label LabelCommentGeneralTab;
+        private System.Windows.Forms.TextBox TextBoxCommentGeneralTab;
+        private System.Windows.Forms.Label LabelColourGeneralTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelColourInfoGeneralTab;
+        private System.Windows.Forms.Label LabelRedGeneralTab;
+        private System.Windows.Forms.Label LabelGreenGeneralTab;
+        private System.Windows.Forms.Label LabelBlueGeneralTab;
+        private System.Windows.Forms.Label LabelAlphaGeneralTab;
+        private System.Windows.Forms.TextBox TextBoxRedGeneralTab;
+        private System.Windows.Forms.TextBox TextBoxGreenGeneralTab;
+        private System.Windows.Forms.TextBox TextBoxBlueGeneralTab;
+        private System.Windows.Forms.TextBox TextBoxAlphaGeneralTab;
+        private System.Windows.Forms.CheckBox CheckboxConnectorGeneralTab;
+        private System.Windows.Forms.Label LabelGeneralGeneralTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainAssetTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainFrontAssetAssetTab;
+        private System.Windows.Forms.Label LabelFrontAssetAssetTab;
+        private System.Windows.Forms.Label LabelFrontAssetTypeAssetTab;
+        private System.Windows.Forms.Label LabelFrontAssetDirectionAssetTab;
+        private System.Windows.Forms.ComboBox ComboboxFrontAssetTypeAssetTab;
+        private System.Windows.Forms.Label LabelFrontAssetAssetAssetTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelFrontAssetBrowseAssetTab;
+        private System.Windows.Forms.TextBox TextBoxFrontAssetNameAssetTab;
+        private System.Windows.Forms.Button ButtonFrontAssetBrowseAssetTab;
+        private System.Windows.Forms.ComboBox ComboboxFrontAssetDirectionAssetTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelFrontAssetOptionsAssetTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainBackAssetAssetTab;
+        private System.Windows.Forms.Label LabelBackAssetAssetTab;
+        private System.Windows.Forms.Label LabelBackAssetAssetAssetTab;
+        private System.Windows.Forms.TableLayoutPanel TableLayoutPanelBackAssetBrowseAssetTab;
+        private System.Windows.Forms.TextBox TextBoxBackAssetNameAssetTab;
+        private System.Windows.Forms.Button ButtonBackAssetBrowseAssetTab;
+        private NoAliasPictureBox PictureBoxBackAsset;
+        private NoAliasPictureBox PictureBoxFrontAsset;
 
 
     }
