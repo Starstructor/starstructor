@@ -1056,27 +1056,6 @@ namespace Starstructor.GUI
                                                                            brush.Colour.A == colour.Value.A);
         }
 
-        private void BrushImportedCallback(EditorBrush brush)
-        {
-            m_parent.ActiveFile.BlockMap.Add(brush);
-
-            Type fileType = m_parent.ActiveFile.GetType();
-
-            if (fileType == typeof (StarboundDungeon))
-            {
-                StarboundDungeon dungeon = (StarboundDungeon) m_parent.ActiveFile;
-                dungeon.Tiles.Add((DungeonBrush) brush);
-            }
-            else if (fileType == typeof (StarboundShip))
-            {
-                StarboundShip ship = (StarboundShip) m_parent.ActiveFile;
-                ship.Brushes.Add((ShipBrush) brush);
-            }
-
-            // Update the brush list
-            PopulateBrushList();
-        }
-
         private void resizePartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditorMap part = m_mapNodeMap[PartTreeView.SelectedNode];
@@ -1143,12 +1122,46 @@ namespace Starstructor.GUI
             importBrush.ShowDialog();
         }
 
+        private void BrushImportedCallback(EditorBrush brush)
+        {
+            if (m_parent.BrushMap.ContainsKey(brush.Colour))
+            {
+                MessageBox.Show("Unable to add brush due to duplicate colour.");
+                return;
+            }
+
+            m_parent.BrushMap[brush.Colour] = brush;
+            m_parent.ActiveFile.BlockMap.Add(brush);
+
+            Type fileType = m_parent.ActiveFile.GetType();
+
+            if (fileType == typeof(StarboundDungeon))
+            {
+                StarboundDungeon dungeon = (StarboundDungeon)m_parent.ActiveFile;
+                dungeon.Tiles.Add((DungeonBrush)brush);
+            }
+            else if (fileType == typeof(StarboundShip))
+            {
+                StarboundShip ship = (StarboundShip)m_parent.ActiveFile;
+                ship.Brushes.Add((ShipBrush)brush);
+            }
+
+            // Update the brush list
+            PopulateBrushList();
+        }
+
         private void HandleNewPart(string type = null)
         {
             NewPart partDialog = new NewPart();
             partDialog.ShowDialog();
 
             if (partDialog.PartName == null || partDialog.Dimensions == null) return;
+
+            if (m_parent.ActiveFile.ReadableParts.Any(part => part.Name == partDialog.PartName))
+            {
+                MessageBox.Show("Unable to add part due to duplicate name.");
+                return;
+            }
 
             DungeonPart newPart = new DungeonPart();
 

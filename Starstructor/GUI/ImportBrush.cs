@@ -106,55 +106,55 @@ namespace Starstructor.GUI
             if (TabControlWizard.SelectedIndex == m_tabCount - 1) ButtonNext.Enabled = false;
         }
 
-        private void BuildBrushFromUserInput()
+        private EditorBrush BuildBrushFromUserInput()
         {
-
-            // Somebody is almost inevitably going to find a way to screw things up
-            // Let's preemptively catch bad things
-            try
-            {
-                if (m_brushType == typeof(DungeonBrush)) BuildDungeonBrushFromUserInput();
-                else if (m_brushType == typeof(ShipBrush)) BuildShipBrushFromUserInput();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Unable to create brush, please consult the log for more information. " + 
-                    "Make sure all of the information you have entered is correct.");
-
-                Editor.Log.Write(ex.ToString());
-            }
+            if (m_brushType == typeof(DungeonBrush)) return BuildDungeonBrushFromUserInput();
+            if (m_brushType == typeof(ShipBrush)) return BuildShipBrushFromUserInput();
+            return null;
         }
 
-        private void BuildDungeonBrushFromUserInput()
+        private DungeonBrush BuildDungeonBrushFromUserInput()
         {
             DungeonBrush brush = new DungeonBrush();
             brush.Comment = TextBoxCommentGeneralTab.Text;
             brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
                 int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
             brush.Connector = CheckboxConnectorGeneralTab.Checked;
-            
-            DispatchBrush(brush);
+            return brush;
         }
 
-        private void BuildShipBrushFromUserInput()
+        private ShipBrush BuildShipBrushFromUserInput()
         {
             ShipBrush brush = new ShipBrush();
             brush.Comment = TextBoxCommentGeneralTab.Text;
             brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
                 int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
-
-            DispatchBrush(brush);
+            return brush;
         }
 
         private void DispatchBrush(EditorBrush brush)
         {
-            if (m_callback != null) m_callback.Invoke(brush);
+            if (m_callback != null && brush != null) m_callback.Invoke(brush);
         }
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)
         {
-            BuildBrushFromUserInput();
+            // Somebody is almost inevitably going to find a way to screw things up
+            // Let's preemptively catch bad things
+            try
+            {  
+                DispatchBrush(BuildBrushFromUserInput());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to create brush, please consult the log for more information. " +
+                    "Make sure all of the information you have entered is correct.");
+
+                Editor.Log.Write(ex.ToString());
+            }
+
+            Close();
         }
 
         private void ButtonCancel_Click(object sender, System.EventArgs e)
