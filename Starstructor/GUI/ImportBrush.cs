@@ -36,7 +36,7 @@ namespace Starstructor.GUI
 
         private readonly int m_tabCount;
         private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
-        private Type m_brushType;
+        private readonly Type m_brushType;
         private StarboundAsset m_frontAsset;
         private StarboundAsset m_backAsset;
         private BrushImportedFunc m_callback;

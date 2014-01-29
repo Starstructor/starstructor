@@ -290,6 +290,8 @@ namespace Starstructor.GUI
             // Disable the wizard buttons
             ButtonImportBrush.Enabled = false;
             ButtonImportPart.Enabled = false;
+            newPartToolStripMenuItem1.Enabled = false;
+            newBrushToolStripMenuItem1.Enabled = false;
 
             // Disable the context menus
             newPartToolStripMenuItem.Enabled = false;
@@ -777,6 +779,8 @@ namespace Starstructor.GUI
             saveAsToolStripMenuItem.Enabled = true;
             ButtonImportBrush.Enabled = true;
             ButtonImportPart.Enabled = true;
+            newPartToolStripMenuItem1.Enabled = true;
+            newBrushToolStripMenuItem1.Enabled = true;
             MainPictureBox.Focus();
 
             UpdatePropertiesPanel();
@@ -1096,6 +1100,16 @@ namespace Starstructor.GUI
         }
 
         private void ButtonImportPart_Click(object sender, EventArgs e)
+        {
+            HandleNewPart();
+        }
+
+        private void newBrushToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            HandleNewBrush();
+        }
+
+        private void newPartToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             HandleNewPart();
         }
