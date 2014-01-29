@@ -87,8 +87,6 @@ namespace Starstructor.GUI
             this.CheckboxBackAssetAssetTab = new System.Windows.Forms.CheckBox();
             this.TableLayoutPanelMainFrontAssetAssetTab = new System.Windows.Forms.TableLayoutPanel();
             this.TableLayoutPanelFrontAssetOptionsAssetTab = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelFrontAssetTypeAssetTab = new System.Windows.Forms.Label();
-            this.ComboboxFrontAssetTypeAssetTab = new System.Windows.Forms.ComboBox();
             this.LabelFrontAssetDirectionAssetTab = new System.Windows.Forms.Label();
             this.ComboboxFrontAssetDirectionAssetTab = new System.Windows.Forms.ComboBox();
             this.LabelFrontAssetAssetAssetTab = new System.Windows.Forms.Label();
@@ -398,6 +396,7 @@ namespace Starstructor.GUI
             this.TextBoxRedGeneralTab.Name = "TextBoxRedGeneralTab";
             this.TextBoxRedGeneralTab.Size = new System.Drawing.Size(35, 20);
             this.TextBoxRedGeneralTab.TabIndex = 4;
+            this.TextBoxRedGeneralTab.TextChanged += new System.EventHandler(this.TextBoxRedGeneralTab_TextChanged);
             // 
             // TextBoxGreenGeneralTab
             // 
@@ -405,6 +404,7 @@ namespace Starstructor.GUI
             this.TextBoxGreenGeneralTab.Name = "TextBoxGreenGeneralTab";
             this.TextBoxGreenGeneralTab.Size = new System.Drawing.Size(35, 20);
             this.TextBoxGreenGeneralTab.TabIndex = 5;
+            this.TextBoxGreenGeneralTab.TextChanged += new System.EventHandler(this.TextBoxGreenGeneralTab_TextChanged);
             // 
             // TextBoxBlueGeneralTab
             // 
@@ -412,6 +412,7 @@ namespace Starstructor.GUI
             this.TextBoxBlueGeneralTab.Name = "TextBoxBlueGeneralTab";
             this.TextBoxBlueGeneralTab.Size = new System.Drawing.Size(35, 20);
             this.TextBoxBlueGeneralTab.TabIndex = 6;
+            this.TextBoxBlueGeneralTab.TextChanged += new System.EventHandler(this.TextBoxBlueGeneralTab_TextChanged);
             // 
             // TextBoxAlphaGeneralTab
             // 
@@ -419,6 +420,7 @@ namespace Starstructor.GUI
             this.TextBoxAlphaGeneralTab.Name = "TextBoxAlphaGeneralTab";
             this.TextBoxAlphaGeneralTab.Size = new System.Drawing.Size(35, 20);
             this.TextBoxAlphaGeneralTab.TabIndex = 7;
+            this.TextBoxAlphaGeneralTab.TextChanged += new System.EventHandler(this.TextBoxAlphaGeneralTab_TextChanged);
             // 
             // CheckboxConnectorGeneralTab
             // 
@@ -659,14 +661,12 @@ namespace Starstructor.GUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TableLayoutPanelFrontAssetOptionsAssetTab.AutoSize = true;
             this.TableLayoutPanelFrontAssetOptionsAssetTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnCount = 3;
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnCount = 2;
             this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.LabelFrontAssetTypeAssetTab, 0, 0);
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetTypeAssetTab, 0, 1);
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.LabelFrontAssetDirectionAssetTab, 1, 0);
-            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetDirectionAssetTab, 1, 1);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.LabelFrontAssetDirectionAssetTab, 0, 0);
+            this.TableLayoutPanelFrontAssetOptionsAssetTab.Controls.Add(this.ComboboxFrontAssetDirectionAssetTab, 0, 1);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Location = new System.Drawing.Point(0, 89);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Margin = new System.Windows.Forms.Padding(0);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Name = "TableLayoutPanelFrontAssetOptionsAssetTab";
@@ -676,41 +676,17 @@ namespace Starstructor.GUI
             this.TableLayoutPanelFrontAssetOptionsAssetTab.Size = new System.Drawing.Size(362, 51);
             this.TableLayoutPanelFrontAssetOptionsAssetTab.TabIndex = 4;
             // 
-            // LabelFrontAssetTypeAssetTab
-            // 
-            this.LabelFrontAssetTypeAssetTab.AutoSize = true;
-            this.LabelFrontAssetTypeAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFrontAssetTypeAssetTab.Location = new System.Drawing.Point(3, 5);
-            this.LabelFrontAssetTypeAssetTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.LabelFrontAssetTypeAssetTab.Name = "LabelFrontAssetTypeAssetTab";
-            this.LabelFrontAssetTypeAssetTab.Size = new System.Drawing.Size(40, 16);
-            this.LabelFrontAssetTypeAssetTab.TabIndex = 8;
-            this.LabelFrontAssetTypeAssetTab.Text = "Type";
-            // 
-            // ComboboxFrontAssetTypeAssetTab
-            // 
-            this.ComboboxFrontAssetTypeAssetTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboboxFrontAssetTypeAssetTab.Enabled = false;
-            this.ComboboxFrontAssetTypeAssetTab.FormattingEnabled = true;
-            this.ComboboxFrontAssetTypeAssetTab.Items.AddRange(new object[] {
-            "Object",
-            "Material"});
-            this.ComboboxFrontAssetTypeAssetTab.Location = new System.Drawing.Point(3, 27);
-            this.ComboboxFrontAssetTypeAssetTab.Name = "ComboboxFrontAssetTypeAssetTab";
-            this.ComboboxFrontAssetTypeAssetTab.Size = new System.Drawing.Size(80, 21);
-            this.ComboboxFrontAssetTypeAssetTab.TabIndex = 10;
-            this.ComboboxFrontAssetTypeAssetTab.SelectedValueChanged += new System.EventHandler(this.ComboBoxFrontAssetTypeDungeon_SelectedValueChanged);
-            // 
             // LabelFrontAssetDirectionAssetTab
             // 
             this.LabelFrontAssetDirectionAssetTab.AutoSize = true;
             this.LabelFrontAssetDirectionAssetTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFrontAssetDirectionAssetTab.Location = new System.Drawing.Point(89, 5);
+            this.LabelFrontAssetDirectionAssetTab.Location = new System.Drawing.Point(3, 5);
             this.LabelFrontAssetDirectionAssetTab.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.LabelFrontAssetDirectionAssetTab.Name = "LabelFrontAssetDirectionAssetTab";
             this.LabelFrontAssetDirectionAssetTab.Size = new System.Drawing.Size(61, 16);
             this.LabelFrontAssetDirectionAssetTab.TabIndex = 9;
             this.LabelFrontAssetDirectionAssetTab.Text = "Direction";
+            this.LabelFrontAssetDirectionAssetTab.Visible = false;
             // 
             // ComboboxFrontAssetDirectionAssetTab
             // 
@@ -721,10 +697,11 @@ namespace Starstructor.GUI
             "None",
             "Left",
             "Right"});
-            this.ComboboxFrontAssetDirectionAssetTab.Location = new System.Drawing.Point(89, 27);
+            this.ComboboxFrontAssetDirectionAssetTab.Location = new System.Drawing.Point(3, 27);
             this.ComboboxFrontAssetDirectionAssetTab.Name = "ComboboxFrontAssetDirectionAssetTab";
             this.ComboboxFrontAssetDirectionAssetTab.Size = new System.Drawing.Size(80, 21);
             this.ComboboxFrontAssetDirectionAssetTab.TabIndex = 14;
+            this.ComboboxFrontAssetDirectionAssetTab.Visible = false;
             this.ComboboxFrontAssetDirectionAssetTab.SelectedValueChanged += new System.EventHandler(this.ComboBoxFrontAssetDirectionDungeon_SelectedValueChanged);
             // 
             // LabelFrontAssetAssetAssetTab
@@ -1072,9 +1049,7 @@ namespace Starstructor.GUI
         private System.Windows.Forms.Label LabelGeneralGeneralTab;
         private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainAssetTab;
         private System.Windows.Forms.TableLayoutPanel TableLayoutPanelMainFrontAssetAssetTab;
-        private System.Windows.Forms.Label LabelFrontAssetTypeAssetTab;
         private System.Windows.Forms.Label LabelFrontAssetDirectionAssetTab;
-        private System.Windows.Forms.ComboBox ComboboxFrontAssetTypeAssetTab;
         private System.Windows.Forms.Label LabelFrontAssetAssetAssetTab;
         private System.Windows.Forms.TableLayoutPanel TableLayoutPanelFrontAssetBrowseAssetTab;
         private System.Windows.Forms.TextBox TextBoxFrontAssetNameAssetTab;

@@ -45,7 +45,7 @@ namespace Starstructor.GUI
         private readonly Dictionary<int, Image> m_imageList = new Dictionary<int, Image>();
         private readonly Dictionary<TreeNode, StarboundAsset> m_assetNodeMap
             = new Dictionary<TreeNode, StarboundAsset>();
-
+        private bool m_materialOnly = false;
         private AssetSelectedFunc m_callback;
         private Thread m_worker;
 
@@ -53,6 +53,11 @@ namespace Starstructor.GUI
         {
             m_callback = func;
             InitializeComponent();
+        }
+
+        public void SetMaterialOnly(bool material)
+        {
+            m_materialOnly = material;
         }
 
         public void HideSelectButton(bool hidden)
@@ -88,7 +93,11 @@ namespace Starstructor.GUI
             {
                 StarboundAsset asset = assets[i];
 
-                if (filter != null && !asset.ToString().Contains(filter)) continue;
+                if (asset == null || (filter != null && !asset.ToString().Contains(filter)) ||
+                    (m_materialOnly && asset.GetType() != typeof(StarboundMaterial)))
+                {
+                    continue;
+                }
 
                 Image assetImage = null;
 

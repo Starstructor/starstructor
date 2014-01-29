@@ -148,6 +148,20 @@ namespace Starstructor
             return assets;
         }
 
+        public static List<StarboundObject> GetAllObjects(bool block = true)
+        {
+            // Block until assets fully loaded
+            if (block && m_worker != null && m_worker.IsAlive) m_worker.Join();
+            return m_objectMap.Values.ToList();
+        }
+
+        public static List<StarboundMaterial> GetAllMaterials(bool block = true)
+        {
+            // Block until assets fully loaded
+            if (block && m_worker != null && m_worker.IsAlive) m_worker.Join();
+            return m_materialMap.Values.ToList();
+        }
+
         public static bool IsAssetThreadWorking()
         {
             return m_worker != null && m_worker.IsAlive;

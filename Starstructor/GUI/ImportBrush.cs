@@ -33,7 +33,7 @@ namespace Starstructor.GUI
     {
         public delegate void BrushImportedFunc(EditorBrush brush);
 
-        private int m_tabCount;
+        private readonly int m_tabCount;
         private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
         private readonly EditorBrush m_newBrush;
         private StarboundAsset m_frontAsset;
@@ -46,7 +46,10 @@ namespace Starstructor.GUI
             m_callback = func;
             m_tabCount = TabControlWizard.TabCount;
 
-            if (type == typeof(StarboundDungeon)) m_newBrush = new DungeonBrush();
+            if (type == typeof (StarboundDungeon))
+            {
+                m_newBrush = new DungeonBrush();
+            }
             else if (type == typeof (StarboundShip))
             {
                 m_newBrush = new ShipBrush();
@@ -57,14 +60,15 @@ namespace Starstructor.GUI
                 CheckboxFrontAssetSurfaceAssetTab.Visible = false;
                 m_tabCount--;
             }
-
-            else Close();
+            else
+            {
+                Close();
+            }
 
             TabControlWizard.SelectedIndex = 0;
             PictureBoxFrontAsset.Image = m_assetBrowser.NotFoundImage;
             PictureBoxBackAsset.Image = m_assetBrowser.NotFoundImage;
             ComboboxFrontAssetDirectionAssetTab.SelectedIndex = 0;
-            ComboboxFrontAssetTypeAssetTab.SelectedIndex = 0;
         }
 
         public void SetBrushImportedCallback(BrushImportedFunc func)
@@ -90,8 +94,21 @@ namespace Starstructor.GUI
         {
             Type brushType = m_newBrush.GetType();
 
-            if (brushType == typeof (DungeonBrush)) BuildDungeonBrushFromUserInput();
-            else if (brushType == typeof (ShipBrush)) BuildShioBrushFromUserInput();
+            // Somebody is almost inevitably going to find a way to screw things up
+            // Let's preemptively catch bad things
+            try
+            {
+                if (brushType == typeof(DungeonBrush)) BuildDungeonBrushFromUserInput();
+                else if (brushType == typeof(ShipBrush)) BuildShioBrushFromUserInput();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to create brush, please consult the log for more information. " + 
+                    "Make sure all of the information you have entered is correct.");
+
+                Editor.Log.Write(ex.ToString());
+            }
         }
 
         private void BuildDungeonBrushFromUserInput()
@@ -139,18 +156,15 @@ namespace Starstructor.GUI
         private void ButtonFrontAssetBrowseDungeon_Click(object sender, EventArgs e)
         {
             m_assetBrowser.SetAssetSelectedCallback(FrontAssetSelectedCallback);
+            m_assetBrowser.SetMaterialOnly(false);
             m_assetBrowser.ShowDialog();
         }
 
         private void ButtonBackAssetBrowseDungeon_Click(object sender, EventArgs e)
         {
             m_assetBrowser.SetAssetSelectedCallback(BackAssetSelectedCallback);
+            m_assetBrowser.SetMaterialOnly(true);
             m_assetBrowser.ShowDialog();
-        }
-
-        private void ComboBoxFrontAssetTypeDungeon_SelectedValueChanged(object sender, EventArgs e)
-        {
-            HandleChangedFrontAssetType((string)ComboboxFrontAssetTypeAssetTab.SelectedItem);
         }
 
         private void ComboBoxFrontAssetDirectionDungeon_SelectedValueChanged(object sender, EventArgs e)
@@ -178,16 +192,13 @@ namespace Starstructor.GUI
             return ObjectDirection.DIRECTION_NONE;
         }
 
-        private void HandleChangedFrontAssetType(string newType)
-        {
-        }
-
         private void HandleFrontAssetUpdated(StarboundAsset newAsset, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)
         {
             m_frontAsset = newAsset;
 
             if (m_frontAsset != null)
             {
+                bool visible = true;
                 Type newAssetType = newAsset.GetType();
 
                 if (newAssetType == typeof (StarboundObject))
@@ -202,7 +213,11 @@ namespace Starstructor.GUI
                 {
                     StarboundMaterial sbMaterial = (StarboundMaterial)m_frontAsset;
                     PictureBoxFrontAsset.Image = sbMaterial.Image;
+                    visible = false;
                 }
+
+                LabelFrontAssetDirectionAssetTab.Visible = visible;
+                ComboboxFrontAssetDirectionAssetTab.Visible = visible;
             }
 
             if (m_frontAsset == null || PictureBoxFrontAsset.Image == null)
@@ -237,6 +252,8 @@ namespace Starstructor.GUI
 
         private void CheckboxBackAssetAssetTab_CheckedChanged(object sender, EventArgs e)
         {
+            TextBoxBackAssetNameAssetTab.Text = "";
+
             if (CheckboxConnectorGeneralTab.Checked && CheckboxBackAssetAssetTab.Checked)
             {
                 MessageBox.Show("This brush is a connector, it cannot have a back asset.");
@@ -256,6 +273,8 @@ namespace Starstructor.GUI
 
         private void CheckboxFrontAssetAssetTab_CheckedChanged(object sender, EventArgs e)
         {
+            TextBoxFrontAssetNameAssetTab.Text = "";
+
             if (CheckboxConnectorGeneralTab.Checked && CheckboxFrontAssetAssetTab.Checked)
             {
                 MessageBox.Show("This brush is a connector, it cannot have a front asset.");
@@ -271,10 +290,8 @@ namespace Starstructor.GUI
                 TextBoxFrontAssetNameAssetTab.Enabled = enable;
                 ButtonFrontAssetBrowseAssetTab.Enabled = enable;
                 ComboboxFrontAssetDirectionAssetTab.Enabled = enable;
-                ComboboxFrontAssetTypeAssetTab.Enabled = enable;
             }
         }
-
 
         private void CheckboxBackAssetSurfaceAssetTab_CheckedChanged(object sender, EventArgs e)
         {
@@ -286,9 +303,12 @@ namespace Starstructor.GUI
             else
             {
                 if (CheckboxBackAssetSurfaceAssetTab.Checked && CheckboxBackAssetAssetTab.Checked)
-                {
                     CheckboxBackAssetAssetTab.Checked = false;
-                }
+
+                if (CheckboxBackAssetSurfaceAssetTab.Checked)
+                    TextBoxBackAssetNameAssetTab.Text = "surfacebackground";
+                else
+                    TextBoxBackAssetNameAssetTab.Text = "";
             }
         }
 
@@ -302,10 +322,49 @@ namespace Starstructor.GUI
             else
             {
                 if (CheckboxFrontAssetSurfaceAssetTab.Checked && CheckboxFrontAssetAssetTab.Checked)
-                {
                     CheckboxFrontAssetAssetTab.Checked = false;
-                }
+
+                if (CheckboxFrontAssetSurfaceAssetTab.Checked) 
+                    TextBoxFrontAssetNameAssetTab.Text = "surface";
+                else
+                    TextBoxFrontAssetNameAssetTab.Text = "";
             }
+        }
+
+        private void TextBoxRedGeneralTab_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxRedGeneralTab.Text = SanitizeRGBAInput(TextBoxRedGeneralTab.Text);
+        }
+
+        private void TextBoxGreenGeneralTab_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxGreenGeneralTab.Text = SanitizeRGBAInput(TextBoxGreenGeneralTab.Text);
+        }
+
+        private void TextBoxBlueGeneralTab_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxBlueGeneralTab.Text = SanitizeRGBAInput(TextBoxBlueGeneralTab.Text);
+        }
+
+        private void TextBoxAlphaGeneralTab_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxAlphaGeneralTab.Text = SanitizeRGBAInput(TextBoxAlphaGeneralTab.Text);
+        }
+
+        private string SanitizeRGBAInput(string input)
+        {
+            int value;
+
+            if (!int.TryParse(input, out value))
+                return "";
+
+            if (value > 255)
+                value = 255;
+
+            if (value < 0)
+                value = 0;
+
+            return value.ToString();
         }
     }
 }
