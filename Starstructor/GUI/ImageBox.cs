@@ -96,10 +96,6 @@ namespace Starstructor.GUI
                 return;
             }
 
-            // Just set the image DPI to match the image box DPI
-            // To much hassle to convert between DPIs otherwise
-            ((Bitmap) m_image).SetResolution(96, 96);
-
             if (resetZoom)
             {
                 // Scale the image so it fits the viewport

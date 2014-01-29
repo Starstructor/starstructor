@@ -119,7 +119,13 @@ namespace Starstructor
         {
             using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                return Image.FromStream(stream);
+                Image img = Image.FromStream(stream);
+
+                // Just set the image DPI to match the image box DPI
+                // To much hassle to convert between DPIs otherwise
+                ((Bitmap)img).SetResolution(96, 96);
+
+                return img;
             }
         }
     }

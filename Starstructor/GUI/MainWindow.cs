@@ -57,9 +57,6 @@ namespace Starstructor.GUI
             get { return m_selectedMap; }
             private set
             {
-                if (m_selectedMap == value) 
-                    return;
-
                 EditorMap parentNext = value;
                 if (parentNext is EditorMapLayer)
                     parentNext = (parentNext as EditorMapLayer).Parent;
@@ -527,6 +524,7 @@ namespace Starstructor.GUI
 
             // The conditions for allowing the user to edit the selected part, must be a base part
             bool allowEdit = false;
+
             if (m_mapNodeMap.ContainsKey(PartTreeView.SelectedNode))
             {
                 var map = m_mapNodeMap[PartTreeView.SelectedNode];
@@ -537,10 +535,9 @@ namespace Starstructor.GUI
             // The context menu for editing currently selected part
             newPartToolStripMenuItem.Enabled    = false;
             renamePartToolStripMenuItem.Enabled = allowEdit;
+            resizePartToolStripMenuItem.Enabled = allowEdit;
             clonePartToolStripMenuItem.Enabled  = false;
             deletePartToolStripMenuItem.Enabled = false;
-
-
         }
 
         private void UpdatePropertiesPanel()
@@ -952,7 +949,7 @@ namespace Starstructor.GUI
 
             if (item.Value is EditorBrush && e.ChangedItem.Label == "Comment")
             {
-                var value = item.Value as EditorBrush;
+                EditorBrush value = item.Value as EditorBrush;
                 
                 // Sanitize the new comment
                 value.Comment = GetBrushComment(value);
@@ -968,7 +965,7 @@ namespace Starstructor.GUI
             }
             else if ( item.Value is EditorMapPart && e.ChangedItem.Label == "Name" )
             {
-                var value = item.Value as EditorMapPart;
+                EditorMapPart value = item.Value as EditorMapPart;
 
                 // Sanitize the new comment
                 if (String.IsNullOrWhiteSpace(value.Name))
@@ -1035,6 +1032,18 @@ namespace Starstructor.GUI
         private void BrushImportedCallback(EditorBrush brush)
         {
             
+        }
+
+        private void resizePartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditorMap part = m_mapNodeMap[PartTreeView.SelectedNode];
+
+            ResizePart resize = new ResizePart(part.Width, part.Height);
+            resize.ShowDialog();
+
+            if (resize.Dimensions != null) part.Resize(resize.Dimensions.Value.x, resize.Dimensions.Value.y);
+
+            SelectedMap = part;
         }
     }
 }

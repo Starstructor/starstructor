@@ -97,21 +97,24 @@ namespace Starstructor.EditorObjects
 
             return activeLayer;
         }
+
+        public virtual void Resize(int width, int height)
+        {
+        }
+
         public EditorMapPart GetActivePart()
         {
             EditorMapLayer activeLayer = GetActiveLayer();
-            if ( activeLayer == null )
-                return null;
-            return activeLayer.Parent;
-        }
 
+            return activeLayer == null ? null : activeLayer.Parent;
+        }
 
         public void RedrawCanvasFromBrush(EditorBrush oldBrush, EditorBrush newBrush, int gridX, int gridY)
         {
             EditorMapLayer activeLayer = GetActiveLayer();
 
             // We need to selectively redraw here
-            var additionalRedrawList = new HashSet<Vec2I>();
+            HashSet<Vec2I> additionalRedrawList = new HashSet<Vec2I>();
 
             int xmin = gridX;
             int xmax = gridX+1;
@@ -171,8 +174,7 @@ namespace Starstructor.EditorObjects
                         collisions = activeLayer.GetCollisionsAt(x, y);
                     }
 
-                    if (collisions == null)
-                        continue;
+                    if (collisions == null) continue;
 
                     foreach (Vec2I coords in collisions.Where(coords =>
                         (coords.x != x || coords.y != y) &&

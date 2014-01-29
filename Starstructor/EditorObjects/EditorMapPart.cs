@@ -97,12 +97,7 @@ namespace Starstructor.EditorObjects
             {
                 EditorMapLayer firstLayer = m_partLayers.FirstOrDefault();
 
-                if (firstLayer != null)
-                {
-                    return firstLayer.ColourMap;
-                }
-
-                return null;
+                return firstLayer != null ? firstLayer.ColourMap : null;
             }
         }
 
@@ -141,7 +136,7 @@ namespace Starstructor.EditorObjects
                                 m_collisionMap[x, y] = new HashSet<Vec2I>();
                             }
 
-                            foreach (var element in layerCollisions[x, y])
+                            foreach (Vec2I element in layerCollisions[x, y])
                             {
                                 m_collisionMap[x, y].Add(element);
                             }
@@ -151,6 +146,22 @@ namespace Starstructor.EditorObjects
             }
         }
 
+        public override void Resize(int width, int height)
+        {
+            Width = width;
+            Height = height;
+
+            m_collisionMap = new HashSet<Vec2I>[m_width, m_height];
+
+            foreach (EditorMapLayer layer in m_partLayers)
+            {
+                layer.Resize(width, height);
+                layer.Changed = true;
+            }
+
+            GraphicsMap = new Bitmap(width * 8, height * 8);
+            UpdateCompositeCollisionMap();
+        }
 
         public virtual void UpdateLayerImage()
         {
@@ -224,7 +235,6 @@ namespace Starstructor.EditorObjects
         {
             Renderer.DrawForegroundBetween(layers, xmin, ymin, xmax, ymax, gfx);
         }
-
 
         protected virtual void DrawSpecialBrushes(List<EditorMapLayer> layers, Graphics gfx)
         {

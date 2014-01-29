@@ -41,11 +41,11 @@ namespace Starstructor.EditorObjects
 
     public class EditorMapLayer : EditorMap
     {
-        private readonly EditorBrush[,] m_brushMap;
         private readonly EditorMapPart m_parent;
-        private readonly UndoManager m_undoManager;
-        private bool m_selected;
+        private EditorBrush[,] m_brushes;
+        private UndoManager m_undoManager;
         private bool m_changed;
+        private Dictionary<Color, EditorBrush> m_brushMap;
 
         [JsonIgnore, Browsable(false)]
         public EditorMapPart Parent
@@ -64,11 +64,7 @@ namespace Starstructor.EditorObjects
         }
 
         [JsonIgnore, Browsable(false)]
-        public bool Selected
-        {
-            get { return m_selected; }
-            set { m_selected = value; }
-        }
+        public bool Selected { get; set; }
 
         [JsonIgnore, Browsable(false)]
         public UndoManager UndoManager
@@ -87,11 +83,19 @@ namespace Starstructor.EditorObjects
             m_parent = parent;
             ColourMap = colourMap;
             m_name = layerName;
-            m_width = colourMap.Width;
-            m_height = colourMap.Height;
-            m_brushMap = new EditorBrush[m_width, m_height];
+            m_brushMap = brushMap;
+            
+            BuildLayer();
+        }
+
+        public void BuildLayer(bool composite = true)
+        {
+            m_width = ColourMap.Width;
+            m_height = ColourMap.Height;
+            m_brushes = new EditorBrush[m_width, m_height];
             m_collisionMap = new HashSet<Vec2I>[m_width, m_height];
             m_undoManager = new UndoManager(this);
+            Bitmap colourMap = (Bitmap)ColourMap;
 
             List<CollisionObjectBrush> brushObjList = new List<CollisionObjectBrush>();
 
@@ -102,19 +106,16 @@ namespace Starstructor.EditorObjects
                     Color pixel = colourMap.GetPixel(x, y);
                     EditorBrush brush = null;
 
-                    //List<byte> rawPixelData
-                      //  = new List<byte> {pixel.R, pixel.G, pixel.B, pixel.A};
-
-                    if (brushMap.ContainsKey(pixel))
+                    if (m_brushMap.ContainsKey(pixel))
                     {
-                        brush = brushMap[pixel];
-                        m_brushMap[x, y] = brush;
+                        brush = m_brushMap[pixel];
+                        m_brushes[x, y] = brush;
                     }
 
                     if (brush != null && brush.FrontAsset != null && brush.FrontAsset is StarboundObject)
                     {
                         // Add the object brush to a list, to process after all other tiles
-                        var objBrush = new CollisionObjectBrush();
+                        CollisionObjectBrush objBrush = new CollisionObjectBrush();
                         objBrush.m_brush = brush;
                         objBrush.m_x = x;
                         objBrush.m_y = y;
@@ -128,7 +129,7 @@ namespace Starstructor.EditorObjects
                 }
             }
 
-            parent.UpdateCompositeCollisionMap();
+            if (composite) m_parent.UpdateCompositeCollisionMap();
 
             foreach (CollisionObjectBrush objBrush in brushObjList)
             {
@@ -143,7 +144,7 @@ namespace Starstructor.EditorObjects
             if (x >= m_width || x < 0 || y >= m_height || y < 0)
                 return null;
 
-            return m_brushMap[x, y];
+            return m_brushes[x, y];
         }
 
         // Sets the brush as per SetBrushAt but triggers an action that can be stored in the Undo/Redo system
@@ -161,11 +162,9 @@ namespace Starstructor.EditorObjects
                 return;
 
             SetCollisionAt(brush, x, y, updateComposite);
-            m_brushMap[x, y] = brush;
+            m_brushes[x, y] = brush;
 
-            var colourMapBmp = (Bitmap) ColourMap;
-            //Color newPixel = Color.FromArgb(brush.Colour[3], brush.Colour[0], brush.Colour[1], brush.Colour[2]);
-
+            Bitmap colourMapBmp = (Bitmap)ColourMap;
             colourMapBmp.SetPixel(x, y, brush.Colour);
             m_changed = true;
         }
@@ -192,7 +191,7 @@ namespace Starstructor.EditorObjects
                 {
                     for (int k = originY + y; k < sizeY + originY + y; ++k)
                     {
-                        var objAnchorSet = GetCollisionsAt(j, k);
+                        HashSet<Vec2I> objAnchorSet = GetCollisionsAt(j, k);
 
                         if (objAnchorSet != null)
                         {
@@ -202,10 +201,10 @@ namespace Starstructor.EditorObjects
                     }
                 }
             }
-                // Else just remove the tile we're at
+            // Else just remove the tile we're at
             else
             {
-                var tileAnchorSet = GetCollisionsAt(x, y);
+                HashSet<Vec2I> tileAnchorSet = GetCollisionsAt(x, y);
 
                 if (tileAnchorSet != null)
                 {
@@ -220,7 +219,7 @@ namespace Starstructor.EditorObjects
                 // Collisions for objects based on size
                 if (brush.FrontAsset is StarboundObject)
                 {
-                    var sbObject = (StarboundObject) brush.FrontAsset;
+                    StarboundObject sbObject = (StarboundObject)brush.FrontAsset;
                     ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent, x, y, brush.Direction);
 
                     int sizeX = orientation.GetWidth(1, brush.Direction);
@@ -259,6 +258,18 @@ namespace Starstructor.EditorObjects
             }
         }
 
+        public override void Resize(int width, int height)
+        {
+            Image newMap = new Bitmap(width, height);
+            Graphics gfx = Graphics.FromImage(newMap);
+            gfx.Clear(Color.Black);
+            gfx.DrawImage(ColourMap, 0, 0);
+            gfx.Dispose();
+            ColourMap.Dispose();
+            ColourMap = newMap;
+            BuildLayer(false);
+        }
+
         private void AddCollisionAt(Vec2I anchor, int x, int y)
         {
             if (x >= Width || x < 0 || y >= Height || y < 0)
@@ -271,6 +282,5 @@ namespace Starstructor.EditorObjects
 
             m_collisionMap[x, y].Add(anchor);
         }
-
     }
 }
