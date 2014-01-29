@@ -90,11 +90,13 @@ namespace Starstructor.GUI
             m_gridFactor = gridFactor;
             m_image = image;
 
-            if (m_image == null)
-            {
-                Invalidate();
-                return;
-            }
+            Invalidate();
+
+            if (m_image == null) return;
+
+            // Just set the image DPI to match the image box DPI
+            // To much hassle to convert between DPIs otherwise
+            ((Bitmap)m_image).SetResolution(96, 96);
 
             if (resetZoom)
             {
@@ -113,28 +115,34 @@ namespace Starstructor.GUI
                 m_imageX = 0;
                 m_imageY = 0;
             }
-
-            Invalidate();
         }
 
         public void SetSelectedBrush(EditorBrush brush)
         {
-            StarboundAsset asset = null;
+            StarboundAsset asset;
 
-            if (brush != null && brush.NeedsFrontAsset && brush.FrontAsset != null)
+            if (brush == null)
+            {
+                m_selectedAsset = null;
+                m_selectedBrush = null;
+                return;
+            }
+
+            if (brush.NeedsFrontAsset && brush.FrontAsset != null)
             {
                 asset = brush.FrontAsset;
             }
-            else if (brush != null && brush.NeedsBackAsset && brush.BackAsset != null)
+            else if (brush.NeedsBackAsset && brush.BackAsset != null)
             {
                 asset = brush.BackAsset;
             }
             else
             {
                 asset = new StarboundAsset();
-                //asset.AssetName = "gridAsset.INTERNAL";
-                asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, 255, 255, 255, 128);
             }
+
+            if (asset.Image == null)
+                asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8, brush.Colour.R, brush.Colour.G, brush.Colour.B, 128);
 
             m_selectedBrush = brush;
             m_selectedAsset = asset;
@@ -184,26 +192,40 @@ namespace Starstructor.GUI
 
             // Only proceed if the mouse is in bounds, and there is a selected asset
             // If so, draw the preview image of the currently selected brush
-            if (m_selectedAsset != null && 
-                m_mouseGridX != -1 && m_mouseGridY != -1)
+            if (m_mouseGridX != -1 && m_mouseGridY != -1)
             {
-                if (m_selectedAsset is StarboundObject)
-                {
-                    StarboundObject sbObject = m_selectedAsset as StarboundObject;
-                    ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap, m_mouseGridX, m_mouseGridY, 
-                                                                                        m_selectedBrush.Direction);
+                bool drawnPreview = false;
 
-                    orientation.DrawObject(e.Graphics, m_mouseGridX, m_mouseGridY, m_selectedBrush.Direction, m_gridFactor, 0.5f);
-                }
-                else if (m_selectedAsset is StarboundMaterial )
+                if (m_selectedAsset != null)
                 {
-                    StarboundMaterial sbMaterial = m_selectedAsset as StarboundMaterial;
+                    Type assetType = m_selectedAsset.GetType();
 
-                    sbMaterial.DrawTile(e.Graphics, m_mouseGridX, m_mouseGridY, m_gridFactor, false, 0.5f);
+                    if (assetType == typeof (StarboundObject))
+                    {
+                        StarboundObject sbObject = (StarboundObject) m_selectedAsset;
+                        ObjectOrientation orientation = sbObject.GetCorrectOrientation(m_parent.SelectedMap,
+                            m_mouseGridX, m_mouseGridY,
+                            m_selectedBrush.Direction);
+                        orientation.DrawObject(e.Graphics, m_mouseGridX, m_mouseGridY, m_selectedBrush.Direction,
+                            m_gridFactor, 0.5f);
+                        drawnPreview = true;
+                    }
+                    else if (assetType == typeof (StarboundMaterial))
+                    {
+                        StarboundMaterial sbMaterial = (StarboundMaterial) m_selectedAsset;
+                        sbMaterial.DrawTile(e.Graphics, m_mouseGridX, m_mouseGridY, m_gridFactor, false, 0.5f);
+                        drawnPreview = true;
+                    }
                 }
-                else if ( m_selectedAsset.Image != null )
+
+                if (!drawnPreview && m_selectedAsset != null)
                 {
-                    e.Graphics.DrawImage(m_selectedAsset.Image, m_mouseGridX*8, m_mouseGridY*8, 8, 8);
+                    e.Graphics.DrawImage(
+                        m_selectedAsset.Image,
+                        m_mouseGridX*m_gridFactor,
+                        m_mouseGridY*m_gridFactor,
+                        m_gridFactor,
+                        m_gridFactor);
                 }
             }
         }
