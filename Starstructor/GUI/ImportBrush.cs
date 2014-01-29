@@ -21,8 +21,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundTypes;
 using Starstructor.StarboundTypes.Dungeons;
@@ -116,19 +118,73 @@ namespace Starstructor.GUI
         private DungeonBrush BuildDungeonBrushFromUserInput()
         {
             DungeonBrush brush = new DungeonBrush();
-            brush.Comment = TextBoxCommentGeneralTab.Text;
-            brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
-                int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
+            brush = (DungeonBrush)BuildCommonBrush(brush);
             brush.Connector = CheckboxConnectorGeneralTab.Checked;
+
+            brush.Rules = new List<List<string>>();
+            brush.BrushRules = new List<string>();
+            brush.Brushes = new List<List<object>>();
+            brush.BrushTypes = new List<string>();
+
+            if (CheckboxClearRulesTab.Checked)
+            {
+                List<object> clearList = new List<object>();
+                clearList.Add("clear");
+                brush.Brushes.Add(clearList);
+            }
+
+            if (CheckboxBackAssetAssetTab.Checked && m_backAsset != null)
+            {
+                brush.Brushes.Add(new List<object> { "back", m_backAsset.ToString() });
+            }
+            else if (CheckboxBackAssetSurfaceAssetTab.Checked)
+            {
+                brush.Brushes.Add(new List<object> { "surfacebackground" });
+            }
+
+            if (CheckboxFrontAssetAssetTab.Checked && m_frontAsset != null)
+            {
+                Type frontAssetType = m_frontAsset.GetType();
+
+                if (frontAssetType == typeof(StarboundObject))
+                {
+                    List<object> frontObjlist = new List<object> { "object", m_frontAsset.ToString() };
+
+                    ObjectDirection dir = GetFrontAssetDirection();
+
+                    if (dir == ObjectDirection.DIRECTION_LEFT) frontObjlist.Add(new JObject(new JProperty("direction", "left")));
+                    else if (dir == ObjectDirection.DIRECTION_RIGHT) frontObjlist.Add(new JObject(new JProperty("direction", "right")));
+
+                    brush.Brushes.Add(frontObjlist);
+                }
+                else if (frontAssetType == typeof(StarboundMaterial))
+                {
+                    brush.Brushes.Add(new List<object> { "front", m_frontAsset.ToString() });
+                }
+            }
+            else if (CheckboxFrontAssetSurfaceAssetTab.Checked)
+            {
+                brush.Brushes.Add(new List<object> { "surface"});
+            }
+
             return brush;
         }
 
         private ShipBrush BuildShipBrushFromUserInput()
         {
             ShipBrush brush = new ShipBrush();
+            brush = (ShipBrush)BuildCommonBrush(brush);
+
+            return brush;
+        }
+
+
+        private EditorBrush BuildCommonBrush(EditorBrush brush)
+        {
             brush.Comment = TextBoxCommentGeneralTab.Text;
             brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
                 int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
+            
             return brush;
         }
 

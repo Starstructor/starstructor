@@ -319,14 +319,14 @@ namespace Starstructor.GUI
             // assetBrowserToolStripMenuItem
             // 
             this.assetBrowserToolStripMenuItem.Name = "assetBrowserToolStripMenuItem";
-            this.assetBrowserToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assetBrowserToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.assetBrowserToolStripMenuItem.Text = "Asset Browser";
             this.assetBrowserToolStripMenuItem.Click += new System.EventHandler(this.assetBrowserToolStripMenuItem_Click);
             // 
             // setDirectoryToolStripMenuItem
             // 
             this.setDirectoryToolStripMenuItem.Name = "setDirectoryToolStripMenuItem";
-            this.setDirectoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.setDirectoryToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.setDirectoryToolStripMenuItem.Text = "Set Directory";
             this.setDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setDirectoryToolStripMenuItem_Click);
             // 
@@ -757,7 +757,7 @@ namespace Starstructor.GUI
             // 
             this.newBrushToolStripMenuItem1.Enabled = false;
             this.newBrushToolStripMenuItem1.Name = "newBrushToolStripMenuItem1";
-            this.newBrushToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.newBrushToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.newBrushToolStripMenuItem1.Text = "New Brush";
             this.newBrushToolStripMenuItem1.Click += new System.EventHandler(this.newBrushToolStripMenuItem1_Click);
             // 
@@ -765,7 +765,7 @@ namespace Starstructor.GUI
             // 
             this.newPartToolStripMenuItem1.Enabled = false;
             this.newPartToolStripMenuItem1.Name = "newPartToolStripMenuItem1";
-            this.newPartToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.newPartToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.newPartToolStripMenuItem1.Text = "New Part";
             this.newPartToolStripMenuItem1.Click += new System.EventHandler(this.newPartToolStripMenuItem1_Click);
             // 
