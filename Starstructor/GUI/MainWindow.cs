@@ -319,6 +319,11 @@ namespace Starstructor.GUI
                 "Unsaved work", MessageBoxButtons.YesNo);
         }
 
+        private static DialogResult PromptGenericYesNo(string message, string title)
+        {
+            return MessageBox.Show(message, title, MessageBoxButtons.YesNo); 
+        }
+
         public void UpdateBottomBar(float zoom)
         {
             BottomBarZoomLabel.Text = "Zoom: " + Math.Round(zoom, 1) + "x";
@@ -1064,9 +1069,11 @@ namespace Starstructor.GUI
             ResizePart resize = new ResizePart(part.Width, part.Height);
             resize.ShowDialog();
 
-            if (resize.Dimensions != null) part.Resize(resize.Dimensions.Value.x, resize.Dimensions.Value.y);
-
-            SelectedMap = part;
+            if (resize.Dimensions != null && (resize.Dimensions.Value.x != part.Width || resize.Dimensions.Value.y != part.Height))
+            {
+                part.Resize(resize.Dimensions.Value.x, resize.Dimensions.Value.y);
+                SelectedMap = part;
+            }
         }
     }
 }

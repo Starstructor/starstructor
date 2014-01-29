@@ -34,6 +34,7 @@ namespace Starstructor.GUI
         }
 
         private Vec2I? m_dimensions;
+        private Vec2I m_baseDimensions;
 
         private const int MIN_WIDTH = 1;
         private const int MIN_HEIGHT = 1;
@@ -43,6 +44,8 @@ namespace Starstructor.GUI
         public ResizePart(int baseWidth, int baseHeight)
         {
             m_dimensions = new Vec2I(baseWidth, baseHeight);
+            m_baseDimensions = new Vec2I(baseWidth, baseHeight);
+
             InitializeComponent();
             textBox1.Text = m_dimensions.Value.x.ToString();
             textBox2.Text = m_dimensions.Value.y.ToString();
@@ -64,6 +67,19 @@ namespace Starstructor.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // If we're downsizing
+            if (m_dimensions.Value.x < m_baseDimensions.x || m_dimensions.Value.y < m_baseDimensions.y)
+            {
+                if (MessageBox.Show(
+                    "Warning: You are trying to resize a part to dimensions lower than its original dimensions. " +
+                    "This may result in lost data. Are you sure you wish to continue with this operation?",
+                    "Part resize warning",
+                    MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             Close();
         }
 
