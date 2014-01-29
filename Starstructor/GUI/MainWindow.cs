@@ -287,16 +287,18 @@ namespace Starstructor.GUI
             SelectedMap = null;
             RightPanelProperties.SelectedObject = null;
 
+            // Disable the wizard buttons
+            ButtonImportBrush.Enabled = false;
+            ButtonImportPart.Enabled = false;
+
             // Disable the context menus
             newPartToolStripMenuItem.Enabled = false;
             renamePartToolStripMenuItem.Enabled = false;
             resizePartToolStripMenuItem.Enabled = false;
-            clonePartToolStripMenuItem.Enabled = false;
             deletePartToolStripMenuItem.Enabled = false;
 
             newBrushToolStripMenuItem.Enabled = false;
             renameBrushToolStripMenuItem.Enabled = false;
-            cloneBrushToolStripMenuItem.Enabled = false;
             deleteBrushToolStripMenuItem.Enabled = false;
 
             // Update menu items, regardless of how we ended up here
@@ -574,8 +576,7 @@ namespace Starstructor.GUI
             newPartToolStripMenuItem.Enabled    = true;
             renamePartToolStripMenuItem.Enabled = allowEdit;
             resizePartToolStripMenuItem.Enabled = allowEdit;
-            clonePartToolStripMenuItem.Enabled  = false;
-            deletePartToolStripMenuItem.Enabled = false;
+            deletePartToolStripMenuItem.Enabled = allowEdit;
         }
 
         private void UpdatePropertiesPanel()
@@ -658,8 +659,7 @@ namespace Starstructor.GUI
 
             newBrushToolStripMenuItem.Enabled    = true;
             renameBrushToolStripMenuItem.Enabled = isValidNode;
-            cloneBrushToolStripMenuItem.Enabled  = false;
-            deleteBrushToolStripMenuItem.Enabled = false;
+            deleteBrushToolStripMenuItem.Enabled = isValidNode;
 
             // If the node is in the map
             if (isValidNode )
@@ -775,6 +775,8 @@ namespace Starstructor.GUI
             closeToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
+            ButtonImportBrush.Enabled = true;
+            ButtonImportPart.Enabled = true;
             MainPictureBox.Focus();
 
             UpdatePropertiesPanel();
@@ -1042,24 +1044,7 @@ namespace Starstructor.GUI
 
         private void newBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Random rng = new Random();
-
-            Color? defaultColour = null;
-
-            // Kinda hacky way to do this but whatever, it works
-            for (int attempts = 0; attempts <= 200; ++attempts)
-            {
-                Color temp = Color.FromArgb(255, rng.Next(255), rng.Next(255), rng.Next(255));
-
-                if (IsUniqueColour(temp))
-                {
-                    defaultColour = temp;
-                    break;
-                }
-            }
-
-            ImportBrush importBrush = new ImportBrush(m_parent.ActiveFile.GetType(), BrushImportedCallback, defaultColour);
-            importBrush.ShowDialog();
+            HandleNewBrush();
         }
 
         private bool IsUniqueColour(Color? colour)
@@ -1108,6 +1093,58 @@ namespace Starstructor.GUI
 
         private void newPartToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            HandleNewPart();
+        }
+
+        private void deletePartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cloneBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonImportBrush_Click(object sender, EventArgs e)
+        {
+            HandleNewBrush();
+        }
+
+        private void ButtonImportPart_Click(object sender, EventArgs e)
+        {
+            HandleNewPart();
+        }
+
+        private void HandleNewBrush()
+        {
+            Random rng = new Random();
+
+            Color? defaultColour = null;
+
+            // Kinda hacky way to do this but whatever, it works
+            for (int attempts = 0; attempts <= 200; ++attempts)
+            {
+                Color temp = Color.FromArgb(255, rng.Next(255), rng.Next(255), rng.Next(255));
+
+                if (IsUniqueColour(temp))
+                {
+                    defaultColour = temp;
+                    break;
+                }
+            }
+
+            ImportBrush importBrush = new ImportBrush(m_parent.ActiveFile.GetType(), BrushImportedCallback, defaultColour);
+            importBrush.ShowDialog();
+        }
+
+        private void HandleNewPart(string type = null)
+        {
             NewPart partDialog = new NewPart();
             partDialog.ShowDialog();
 
@@ -1141,37 +1178,17 @@ namespace Starstructor.GUI
             foreach (string newLayerName in layerNames)
             {
                 EditorMapLayer newLayer = new EditorMapLayer(newLayerName,
-                    (Bitmap) baseBitmap.Clone(), m_parent.BrushMap, newPart);
+                    (Bitmap)baseBitmap.Clone(), m_parent.BrushMap, newPart);
 
                 newLayer.Changed = true;
                 newPart.Layers.Add(newLayer);
             }
 
-            StarboundDungeon dungeon = (StarboundDungeon) m_parent.ActiveFile;
+            StarboundDungeon dungeon = (StarboundDungeon)m_parent.ActiveFile;
             dungeon.ReadableParts.Add(newPart);
             dungeon.Parts.Add(newPart);
 
             PopulatePartTreeView();
-        }
-
-        private void clonePartToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void deletePartToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cloneBrushToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void deleteBrushToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

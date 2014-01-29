@@ -126,6 +126,15 @@
   <metadata name="SaveActive.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>227, 17</value>
   </metadata>
+  <data name="LabelMainTabWelcome.Text" xml:space="preserve">
+    <value>Welcome to Starstructor!
+
+Navigate through dungeon or ship parts using  the parts tab.
+
+Navigate through brushes using the brushes tab.
+
+Various attributes of both parts and brushes can be edited below, or by right-clicking for a context menu.</value>
+  </data>
   <metadata name="contextMenuPartsList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>607, 17</value>
   </metadata>
