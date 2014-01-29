@@ -815,17 +815,7 @@ namespace Starstructor.GUI
 
         private bool CheckForUnsavedWork()
         {
-            bool workUnsaved = false;
-
-            foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
-            {
-                foreach (EditorMapLayer layer in part.Layers.Where(layer => layer.Changed))
-                {
-                    workUnsaved = true;
-                }
-            }
-
-            return workUnsaved;
+            return m_parent.ActiveFile.ReadableParts.Any(part => part.Layers.Any(layer => layer.Changed));
         }
 
         private void SaveWork(string path = null, bool overwrite = false)
