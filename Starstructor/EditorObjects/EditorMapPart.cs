@@ -159,7 +159,7 @@ namespace Starstructor.EditorObjects
                 layer.Changed = true;
             }
 
-            GraphicsMap = new Bitmap(width * 8, height * 8);
+            GraphicsMap = new Bitmap(width * Editor.DEFAULT_GRID_FACTOR, height * Editor.DEFAULT_GRID_FACTOR);
             UpdateCompositeCollisionMap();
         }
 

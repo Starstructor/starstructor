@@ -22,7 +22,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using Starstructor.EditorObjects;
@@ -37,12 +36,6 @@ namespace Starstructor.StarboundTypes.Dungeons
         [Browsable(false)]
         [JsonProperty("def", Required = Required.Always)]
         public List<object> Definition { get; set; }
-
-        [JsonIgnore, DisplayName("Definition"), ReadOnly(true)]
-        public ReadOnlyCollection<object> ReadOnlyDefinition
-        {
-            get { return Definition.AsReadOnly(); }
-        }
 
         [Browsable(false)]      // can't display in the property grid yet
         [JsonProperty("rules", Required = Required.Always)]

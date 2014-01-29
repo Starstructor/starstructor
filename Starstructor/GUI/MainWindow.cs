@@ -287,6 +287,18 @@ namespace Starstructor.GUI
             SelectedMap = null;
             RightPanelProperties.SelectedObject = null;
 
+            // Disable the context menus
+            newPartToolStripMenuItem.Enabled = false;
+            renamePartToolStripMenuItem.Enabled = false;
+            resizePartToolStripMenuItem.Enabled = false;
+            clonePartToolStripMenuItem.Enabled = false;
+            deletePartToolStripMenuItem.Enabled = false;
+
+            newBrushToolStripMenuItem.Enabled = false;
+            renameBrushToolStripMenuItem.Enabled = false;
+            cloneBrushToolStripMenuItem.Enabled = false;
+            deleteBrushToolStripMenuItem.Enabled = false;
+
             // Update menu items, regardless of how we ended up here
             UpdateUndoRedoItems();
             closeToolStripMenuItem.Enabled = false;
@@ -492,6 +504,8 @@ namespace Starstructor.GUI
         // Populate the part list
         private void PopulatePartTreeView()
         {
+            PartTreeView.Nodes.Clear();
+
             List<TreeNode> anchorNodes = new List<TreeNode>();
             List<TreeNode> extensionNodes = new List<TreeNode>();
             List<TreeNode> baseNodes = new List<TreeNode>();
@@ -551,13 +565,13 @@ namespace Starstructor.GUI
 
             if (m_mapNodeMap.ContainsKey(PartTreeView.SelectedNode))
             {
-                var map = m_mapNodeMap[PartTreeView.SelectedNode];
+                EditorMap map = m_mapNodeMap[PartTreeView.SelectedNode];
                 if (map is EditorMapPart)
                     allowEdit = true;
             }
 
             // The context menu for editing currently selected part
-            newPartToolStripMenuItem.Enabled    = false;
+            newPartToolStripMenuItem.Enabled    = true;
             renamePartToolStripMenuItem.Enabled = allowEdit;
             resizePartToolStripMenuItem.Enabled = allowEdit;
             clonePartToolStripMenuItem.Enabled  = false;
@@ -1090,6 +1104,74 @@ namespace Starstructor.GUI
                 part.Resize(resize.Dimensions.Value.x, resize.Dimensions.Value.y);
                 SelectedMap = part;
             }
+        }
+
+        private void newPartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewPart partDialog = new NewPart();
+            partDialog.ShowDialog();
+
+            if (partDialog.PartName == null || partDialog.Dimensions == null) return;
+
+            DungeonPart newPart = new DungeonPart();
+
+            newPart.Name = partDialog.PartName;
+            newPart.Width = partDialog.Dimensions.Value.x;
+            newPart.Height = partDialog.Dimensions.Value.y;
+            newPart.GraphicsMap = new Bitmap(newPart.Width * Editor.DEFAULT_GRID_FACTOR, newPart.Width * Editor.DEFAULT_GRID_FACTOR);
+            newPart.Definition = new List<object>();
+            newPart.Rules = new List<List<object>>();
+
+            Bitmap baseBitmap = new Bitmap(newPart.Width, newPart.Height);
+            Graphics gfx = Graphics.FromImage(baseBitmap);
+            gfx.Clear(Editor.Settings.ResizeBackgroundColour);
+            gfx.Dispose();
+
+            List<string> layerNames = new List<string>()
+            {
+                newPart.Name + "-backgroundtiles" + ".png",
+                newPart.Name + "-foregroundtiles" + ".png",
+                newPart.Name + "-objects" + ".png",
+                newPart.Name + "-wires" + ".png"
+            };
+
+            newPart.Definition.Add("image");
+            newPart.Definition.Add(layerNames);
+
+            foreach (string newLayerName in layerNames)
+            {
+                EditorMapLayer newLayer = new EditorMapLayer(newLayerName,
+                    (Bitmap) baseBitmap.Clone(), m_parent.BrushMap, newPart);
+
+                newLayer.Changed = true;
+                newPart.Layers.Add(newLayer);
+            }
+
+            StarboundDungeon dungeon = (StarboundDungeon) m_parent.ActiveFile;
+            dungeon.ReadableParts.Add(newPart);
+            dungeon.Parts.Add(newPart);
+
+            PopulatePartTreeView();
+        }
+
+        private void clonePartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deletePartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cloneBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

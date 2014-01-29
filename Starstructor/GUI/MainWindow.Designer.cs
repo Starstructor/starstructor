@@ -96,6 +96,7 @@ namespace Starstructor.GUI
             this.clonePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.renamePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resizePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deletePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BrushesTab = new System.Windows.Forms.TabPage();
             this.BrushesTreeView = new System.Windows.Forms.TreeView();
@@ -108,7 +109,6 @@ namespace Starstructor.GUI
             this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
             this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
-            this.resizePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
@@ -600,41 +600,52 @@ namespace Starstructor.GUI
             this.resizePartToolStripMenuItem,
             this.deletePartToolStripMenuItem});
             this.contextMenuPartsList.Name = "contextMenuPartsList";
-            this.contextMenuPartsList.Size = new System.Drawing.Size(153, 142);
+            this.contextMenuPartsList.Size = new System.Drawing.Size(142, 120);
             // 
             // newPartToolStripMenuItem
             // 
             this.newPartToolStripMenuItem.Enabled = false;
             this.newPartToolStripMenuItem.Name = "newPartToolStripMenuItem";
-            this.newPartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newPartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.newPartToolStripMenuItem.Text = "&New Part";
+            this.newPartToolStripMenuItem.Click += new System.EventHandler(this.newPartToolStripMenuItem_Click);
             // 
             // clonePartToolStripMenuItem
             // 
             this.clonePartToolStripMenuItem.Enabled = false;
             this.clonePartToolStripMenuItem.Name = "clonePartToolStripMenuItem";
-            this.clonePartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clonePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clonePartToolStripMenuItem.Text = "&Clone Part";
+            this.clonePartToolStripMenuItem.Click += new System.EventHandler(this.clonePartToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(138, 6);
             // 
             // renamePartToolStripMenuItem
             // 
             this.renamePartToolStripMenuItem.Enabled = false;
             this.renamePartToolStripMenuItem.Name = "renamePartToolStripMenuItem";
-            this.renamePartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.renamePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.renamePartToolStripMenuItem.Text = "&Rename Part";
             this.renamePartToolStripMenuItem.Click += new System.EventHandler(this.renamePartToolStripMenuItem_Click);
+            // 
+            // resizePartToolStripMenuItem
+            // 
+            this.resizePartToolStripMenuItem.Enabled = false;
+            this.resizePartToolStripMenuItem.Name = "resizePartToolStripMenuItem";
+            this.resizePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.resizePartToolStripMenuItem.Text = "Resize Part";
+            this.resizePartToolStripMenuItem.Click += new System.EventHandler(this.resizePartToolStripMenuItem_Click);
             // 
             // deletePartToolStripMenuItem
             // 
             this.deletePartToolStripMenuItem.Enabled = false;
             this.deletePartToolStripMenuItem.Name = "deletePartToolStripMenuItem";
-            this.deletePartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deletePartToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.deletePartToolStripMenuItem.Text = "&Delete Part";
+            this.deletePartToolStripMenuItem.Click += new System.EventHandler(this.deletePartToolStripMenuItem_Click);
             // 
             // BrushesTab
             // 
@@ -676,13 +687,13 @@ namespace Starstructor.GUI
             this.renameBrushToolStripMenuItem,
             this.deleteBrushToolStripMenuItem});
             this.contextMenuBrushesList.Name = "contextMenuBrushesList";
-            this.contextMenuBrushesList.Size = new System.Drawing.Size(151, 98);
+            this.contextMenuBrushesList.Size = new System.Drawing.Size(153, 120);
             // 
             // newBrushToolStripMenuItem
             // 
             this.newBrushToolStripMenuItem.Enabled = false;
             this.newBrushToolStripMenuItem.Name = "newBrushToolStripMenuItem";
-            this.newBrushToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.newBrushToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newBrushToolStripMenuItem.Text = "&New Brush";
             this.newBrushToolStripMenuItem.Click += new System.EventHandler(this.newBrushToolStripMenuItem_Click);
             // 
@@ -690,19 +701,20 @@ namespace Starstructor.GUI
             // 
             this.cloneBrushToolStripMenuItem.Enabled = false;
             this.cloneBrushToolStripMenuItem.Name = "cloneBrushToolStripMenuItem";
-            this.cloneBrushToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.cloneBrushToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cloneBrushToolStripMenuItem.Text = "&Clone Brush";
+            this.cloneBrushToolStripMenuItem.Click += new System.EventHandler(this.cloneBrushToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
             // 
             // renameBrushToolStripMenuItem
             // 
             this.renameBrushToolStripMenuItem.Enabled = false;
             this.renameBrushToolStripMenuItem.Name = "renameBrushToolStripMenuItem";
-            this.renameBrushToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.renameBrushToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.renameBrushToolStripMenuItem.Text = "&Rename Brush";
             this.renameBrushToolStripMenuItem.Click += new System.EventHandler(this.renameBrushToolStripMenuItem_Click);
             // 
@@ -710,8 +722,9 @@ namespace Starstructor.GUI
             // 
             this.deleteBrushToolStripMenuItem.Enabled = false;
             this.deleteBrushToolStripMenuItem.Name = "deleteBrushToolStripMenuItem";
-            this.deleteBrushToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.deleteBrushToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteBrushToolStripMenuItem.Text = "&Delete Brush";
+            this.deleteBrushToolStripMenuItem.Click += new System.EventHandler(this.deleteBrushToolStripMenuItem_Click);
             // 
             // RightPanelProperties
             // 
@@ -732,14 +745,6 @@ namespace Starstructor.GUI
             this.SaveScreenshotDlg.DefaultExt = "png";
             this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
             this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
-            // 
-            // resizePartToolStripMenuItem
-            // 
-            this.resizePartToolStripMenuItem.Enabled = false;
-            this.resizePartToolStripMenuItem.Name = "resizePartToolStripMenuItem";
-            this.resizePartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.resizePartToolStripMenuItem.Text = "Resize Part";
-            this.resizePartToolStripMenuItem.Click += new System.EventHandler(this.resizePartToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

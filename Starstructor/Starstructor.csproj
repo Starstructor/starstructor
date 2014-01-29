@@ -133,6 +133,12 @@
     </Compile>
     <Compile Include="Data\JsonParser.cs" />
     <Compile Include="EditorLogger.cs" />
+    <Compile Include="GUI\NewPart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NewPart.Designer.cs">
+      <DependentUpon>NewPart.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ResizePart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NewPart.resx">
+      <DependentUpon>NewPart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ResizePart.resx">
       <DependentUpon>ResizePart.cs</DependentUpon>
