@@ -36,7 +36,7 @@ namespace Starstructor.GUI
 
         private readonly int m_tabCount;
         private readonly AssetBrowser m_assetBrowser = new AssetBrowser();
-        private readonly EditorBrush m_newBrush;
+        private Type m_brushType;
         private StarboundAsset m_frontAsset;
         private StarboundAsset m_backAsset;
         private BrushImportedFunc m_callback;
@@ -64,11 +64,11 @@ namespace Starstructor.GUI
 
             if (type == typeof (StarboundDungeon))
             {
-                m_newBrush = new DungeonBrush();
+                m_brushType = typeof (DungeonBrush);
             }
             else if (type == typeof (StarboundShip))
             {
-                m_newBrush = new ShipBrush();
+                m_brushType = typeof(ShipBrush);
 
                 // Hide dungeon things
                 CheckboxConnectorGeneralTab.Visible = false;
@@ -108,14 +108,13 @@ namespace Starstructor.GUI
 
         private void BuildBrushFromUserInput()
         {
-            Type brushType = m_newBrush.GetType();
 
             // Somebody is almost inevitably going to find a way to screw things up
             // Let's preemptively catch bad things
             try
             {
-                if (brushType == typeof(DungeonBrush)) BuildDungeonBrushFromUserInput();
-                else if (brushType == typeof(ShipBrush)) BuildShipBrushFromUserInput();
+                if (m_brushType == typeof(DungeonBrush)) BuildDungeonBrushFromUserInput();
+                else if (m_brushType == typeof(ShipBrush)) BuildShipBrushFromUserInput();
             }
             catch (Exception ex)
             {
@@ -129,20 +128,28 @@ namespace Starstructor.GUI
 
         private void BuildDungeonBrushFromUserInput()
         {
-
-            DispatchBrush();
+            DungeonBrush brush = new DungeonBrush();
+            brush.Comment = TextBoxCommentGeneralTab.Text;
+            brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
+                int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
+            brush.Connector = CheckboxConnectorGeneralTab.Checked;
+            
+            DispatchBrush(brush);
         }
 
         private void BuildShipBrushFromUserInput()
         {
+            ShipBrush brush = new ShipBrush();
+            brush.Comment = TextBoxCommentGeneralTab.Text;
+            brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
+                int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
 
-
-            DispatchBrush();
+            DispatchBrush(brush);
         }
 
-        private void DispatchBrush()
+        private void DispatchBrush(EditorBrush brush)
         {
-            if (m_callback != null) m_callback.Invoke(m_newBrush);
+            if (m_callback != null) m_callback.Invoke(brush);
         }
 
         private void ButtonFinish_Click(object sender, System.EventArgs e)

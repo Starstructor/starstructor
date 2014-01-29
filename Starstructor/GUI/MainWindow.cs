@@ -1035,7 +1035,7 @@ namespace Starstructor.GUI
             // Kinda hacky way to do this but whatever, it works
             for (int attempts = 0; attempts <= 200; ++attempts)
             {
-                Color temp = Color.FromArgb(rng.Next(255), rng.Next(255), rng.Next(255), 255);
+                Color temp = Color.FromArgb(255, rng.Next(255), rng.Next(255), rng.Next(255));
 
                 if (IsUniqueColour(temp))
                 {
@@ -1059,7 +1059,23 @@ namespace Starstructor.GUI
 
         private void BrushImportedCallback(EditorBrush brush)
         {
-            
+            m_parent.ActiveFile.BlockMap.Add(brush);
+
+            Type fileType = m_parent.ActiveFile.GetType();
+
+            if (fileType == typeof (StarboundDungeon))
+            {
+                StarboundDungeon dungeon = (StarboundDungeon) m_parent.ActiveFile;
+                dungeon.Tiles.Add((DungeonBrush) brush);
+            }
+            else if (fileType == typeof (StarboundShip))
+            {
+                StarboundShip ship = (StarboundShip) m_parent.ActiveFile;
+                ship.Brushes.Add((ShipBrush) brush);
+            }
+
+            // Update the brush list
+            PopulateBrushList();
         }
 
         private void resizePartToolStripMenuItem_Click(object sender, EventArgs e)

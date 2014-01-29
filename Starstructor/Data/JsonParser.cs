@@ -63,7 +63,8 @@ namespace Starstructor.Data
         {
             try
             {
-                File.WriteAllText(path, JsonConvert.SerializeObject(obj, settings));
+                string json = JsonConvert.SerializeObject(obj, settings);
+                File.WriteAllText(path, json);
             }
             catch (Exception e)
             {
