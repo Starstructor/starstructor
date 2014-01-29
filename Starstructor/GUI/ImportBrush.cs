@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundTypes;
@@ -40,11 +41,26 @@ namespace Starstructor.GUI
         private StarboundAsset m_backAsset;
         private BrushImportedFunc m_callback;
 
-        public ImportBrush(Type type, BrushImportedFunc func = null)
+        public ImportBrush(Type type, BrushImportedFunc func = null, Color? colour = null)
         {
             InitializeComponent();
             m_callback = func;
             m_tabCount = TabControlWizard.TabCount;
+
+            if (colour != null)
+            {
+                TextBoxRedGeneralTab.Text = colour.Value.R.ToString();
+                TextBoxGreenGeneralTab.Text = colour.Value.G.ToString();
+                TextBoxBlueGeneralTab.Text = colour.Value.B.ToString();
+                TextBoxAlphaGeneralTab.Text = colour.Value.A.ToString();
+            }
+            else
+            {
+                TextBoxRedGeneralTab.Text = "0";
+                TextBoxGreenGeneralTab.Text = "0";
+                TextBoxBlueGeneralTab.Text = "0";
+                TextBoxAlphaGeneralTab.Text = "255";
+            }
 
             if (type == typeof (StarboundDungeon))
             {

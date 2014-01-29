@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -1012,8 +1013,28 @@ namespace Starstructor.GUI
 
         private void newBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImportBrush importBrush = new ImportBrush(m_parent.ActiveFile.GetType(), BrushImportedCallback);
+            Random rng = new Random();
+
+            Color? defaultColour = null;
+
+            // Kinda hacky way to do this but whatever, it works
+            for (int attempts = 0; attempts <= 200; ++attempts)
+            {
+                Color temp = Color.FromArgb(rng.Next(255), rng.Next(255), rng.Next(255), 255);
+                if (IsUniqueColour(temp)) defaultColour = temp;
+            }
+
+            ImportBrush importBrush = new ImportBrush(m_parent.ActiveFile.GetType(), BrushImportedCallback, defaultColour);
             importBrush.ShowDialog();
+        }
+
+        private bool IsUniqueColour(Color? colour)
+        {
+            // Return false if the colour is null, or if there already exists a brush with the same colour
+            return colour != null && !m_parent.BrushMap.Values.Any(brush => brush.Colour.R == colour.Value.R &&
+                                                                           brush.Colour.G == colour.Value.G &&
+                                                                           brush.Colour.B == colour.Value.B &&
+                                                                           brush.Colour.A == colour.Value.A);
         }
 
         private void BrushImportedCallback(EditorBrush brush)
