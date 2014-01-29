@@ -1021,7 +1021,12 @@ namespace Starstructor.GUI
             for (int attempts = 0; attempts <= 200; ++attempts)
             {
                 Color temp = Color.FromArgb(rng.Next(255), rng.Next(255), rng.Next(255), 255);
-                if (IsUniqueColour(temp)) defaultColour = temp;
+
+                if (IsUniqueColour(temp))
+                {
+                    defaultColour = temp;
+                    break;
+                }
             }
 
             ImportBrush importBrush = new ImportBrush(m_parent.ActiveFile.GetType(), BrushImportedCallback, defaultColour);
