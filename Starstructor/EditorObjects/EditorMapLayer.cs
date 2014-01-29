@@ -262,7 +262,7 @@ namespace Starstructor.EditorObjects
         {
             Image newMap = new Bitmap(width, height);
             Graphics gfx = Graphics.FromImage(newMap);
-            gfx.Clear(Color.Black);
+            gfx.Clear(Editor.Settings.ResizeBackgroundColour);
             gfx.DrawImage(ColourMap, 0, 0);
             gfx.Dispose();
             ColourMap.Dispose();

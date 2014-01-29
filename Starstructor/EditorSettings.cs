@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
@@ -54,6 +55,9 @@ namespace Starstructor
                 return Path.Combine(Directory.GetParent(m_assetPath).ToString(), "mods");
             }
         }
+
+        [JsonProperty("resizeBackgroundColour")] 
+        public Color ResizeBackgroundColour = Color.FromArgb(0, 0, 0, 0);
 
         [JsonProperty("graphicalDisplay")] 
         public bool GraphicalDisplay = true;
