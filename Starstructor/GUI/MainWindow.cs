@@ -33,6 +33,7 @@ using System.Windows.Forms;
 using Starstructor.EditorObjects;
 using Microsoft.Win32;
 using Starstructor.StarboundTypes;
+using Starstructor.StarboundTypes.Dungeons;
 using Starstructor.StarboundTypes.Ships;
 using Image = System.Drawing.Image;
 using TreeNode = System.Windows.Forms.TreeNode;
@@ -123,12 +124,28 @@ namespace Starstructor.GUI
             if (!String.IsNullOrWhiteSpace(args.Label))
             {
                 if (m_mapNodeMap.ContainsKey(args.Node))
+                {
+                    UpdatePartName(m_mapNodeMap[args.Node].Name, args.Label);
                     m_mapNodeMap[args.Node].Name = args.Label;
+                }
+
                 UpdatePropertiesPanel();
             }
             else
             {
                 args.CancelEdit = true;
+            }
+        }
+
+        public void UpdatePartName(string oldName, string newName)
+        {
+            StarboundDungeon dungeon = m_parent.ActiveFile as StarboundDungeon;
+
+            if (dungeon == null) return;
+
+            for (int i = 0; i < dungeon.Metadata.Anchor.Count; ++i)
+            {
+                if (dungeon.Metadata.Anchor[i] == oldName) dungeon.Metadata.Anchor[i] = newName;
             }
         }
 
@@ -138,6 +155,7 @@ namespace Starstructor.GUI
             {
                 if (m_brushNodeMap.ContainsKey(args.Node))
                     m_brushNodeMap[args.Node].Comment = args.Label;
+
                 UpdatePropertiesPanel();
             }
             else
@@ -149,11 +167,12 @@ namespace Starstructor.GUI
         public void PartTreeView_BeforeLabelEdit(Object sender, NodeLabelEditEventArgs args)
         {
             args.CancelEdit = true;
-            if ( m_mapNodeMap.ContainsKey(PartTreeView.SelectedNode) )
+
+            if (m_mapNodeMap.ContainsKey(PartTreeView.SelectedNode))
             {
-                var map = m_mapNodeMap[PartTreeView.SelectedNode];
-                if ( map is EditorMapPart )
-                    args.CancelEdit = false;
+                EditorMap map = m_mapNodeMap[PartTreeView.SelectedNode];
+
+                if (map is DungeonPart) args.CancelEdit = false;
             }
         }
 
@@ -708,9 +727,8 @@ namespace Starstructor.GUI
 
             if (!m_parent.LoadFile(fileName))
             {
-                MessageBox.Show("Unable to load!");
+                MessageBox.Show("Unable to load file! Consult the log for more information!");
                 UpdateRecentHistoryList();
-
                 return;
             }
 
@@ -963,19 +981,24 @@ namespace Starstructor.GUI
                 // Update all other applicable things with the new brush info
                 SetSelectedBrush(value);
             }
-            else if ( item.Value is EditorMapPart && e.ChangedItem.Label == "Name" )
+            else if (item.Value is EditorMapPart && e.ChangedItem.Label == "Name")
             {
-                EditorMapPart value = item.Value as EditorMapPart;
+                DungeonPart value = item.Value as DungeonPart;
 
-                // Sanitize the new comment
-                if (String.IsNullOrWhiteSpace(value.Name))
-                    value.Name = "Untitled";
+                if (value != null)
+                {
+                    // Sanitize the new comment
+                    if (String.IsNullOrWhiteSpace(value.Name))
+                        value.Name = "Untitled";
 
-                // Get the node associated with the selected brush
-                TreeNode node = m_mapNodeMap.FirstOrDefault(map => map.Value == value).Key;
+                    UpdatePartName((string) e.OldValue, value.Name);
 
-                if (node != null)
-                    node.Text = (string)e.ChangedItem.Value;
+                    // Get the node associated with the selected brush
+                    TreeNode node = m_mapNodeMap.FirstOrDefault(map => map.Value == value).Key;
+
+                    if (node != null)
+                        node.Text = (string) e.ChangedItem.Value;
+                }
             }
         }
 
