@@ -57,7 +57,7 @@ namespace Starstructor
         }
 
         [JsonProperty("resizeBackgroundColour")] 
-        public Color ResizeBackgroundColour = Color.FromArgb(0, 0, 0, 0);
+        public Color ResizeBackgroundColour = Color.FromArgb(255, 255, 0, 220);
 
         [JsonProperty("graphicalDisplay")] 
         public bool GraphicalDisplay = true;
