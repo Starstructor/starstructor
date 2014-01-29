@@ -99,7 +99,7 @@ namespace Starstructor.GUI
             try
             {
                 if (brushType == typeof(DungeonBrush)) BuildDungeonBrushFromUserInput();
-                else if (brushType == typeof(ShipBrush)) BuildShioBrushFromUserInput();
+                else if (brushType == typeof(ShipBrush)) BuildShipBrushFromUserInput();
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@ namespace Starstructor.GUI
             DispatchBrush();
         }
 
-        private void BuildShioBrushFromUserInput()
+        private void BuildShipBrushFromUserInput()
         {
 
 
