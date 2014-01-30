@@ -509,6 +509,7 @@ namespace Starstructor.GUI
         // Populate the part list
         private void PopulatePartTreeView()
         {
+            m_mapNodeMap.Clear();
             PartTreeView.BeginUpdate();
             PartTreeView.Nodes.Clear();
 
@@ -562,6 +563,41 @@ namespace Starstructor.GUI
             }
 
             PartTreeView.EndUpdate();
+        }
+
+        // Populate the brush list
+        private void PopulateBrushList()
+        {
+            m_brushNodeMap.Clear();
+
+            BrushesTreeView.BeginUpdate();
+            BrushesTreeView.Nodes.Clear();
+
+            List<TreeNode> baseNodes = new List<TreeNode>();
+            BrushesTreeView.ImageList = new ImageList();
+            BrushesTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8, 8, 255, 255, 255, 255));
+
+            foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
+            {
+                string comment = GetBrushComment(brush);
+                TreeNode parentNode = new TreeNode(comment);
+
+                if (brush.GetAssetPreview() != null)
+                {
+                    BrushesTreeView.ImageList.Images.Add(brush.GetKey(), brush.GetAssetPreview());
+                    parentNode.ImageKey = brush.GetKey();
+                    parentNode.SelectedImageKey = brush.GetKey();
+                }
+
+                baseNodes.Add(parentNode);
+
+                // Add this node to the brush -> node map
+                m_brushNodeMap[parentNode] = brush;
+
+            }
+
+            BrushesTreeView.Nodes.AddRange(baseNodes.ToArray());
+            BrushesTreeView.EndUpdate();
         }
 
         private void PartTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -621,38 +657,6 @@ namespace Starstructor.GUI
             UpdatePropertiesPanel();
         }
 
-        // Populate the brush list
-        private void PopulateBrushList()
-        {
-            BrushesTreeView.BeginUpdate();
-            BrushesTreeView.Nodes.Clear();
-
-            List<TreeNode> baseNodes = new List<TreeNode>();
-            BrushesTreeView.ImageList = new ImageList();
-            BrushesTreeView.ImageList.Images.Add("default", EditorHelpers.GetGeneratedRectangle(8,8,255,255,255,255));
-
-            foreach (EditorBrush brush in m_parent.ActiveFile.BlockMap)
-            {
-                string comment = GetBrushComment(brush);
-                TreeNode parentNode = new TreeNode(comment);
-
-                if (brush.GetAssetPreview() != null)
-                {
-                    BrushesTreeView.ImageList.Images.Add(brush.GetKey(), brush.GetAssetPreview());
-                    parentNode.ImageKey = brush.GetKey();
-                    parentNode.SelectedImageKey = brush.GetKey();
-                }
-
-                baseNodes.Add(parentNode);
-                                
-                // Add this node to the brush -> node map
-                m_brushNodeMap[parentNode] = brush;
-
-            }
-
-            BrushesTreeView.Nodes.AddRange(baseNodes.ToArray());
-            BrushesTreeView.EndUpdate();
-        }
 
         private static string GetBrushComment(EditorBrush brush)
         {
@@ -683,7 +687,10 @@ namespace Starstructor.GUI
         {
             // If no file is loaded, leave
             if (m_parent.ActiveFile == null || SelectedMap == null)
+            {
+                MainPictureBox.SetImage(null, m_gridFactor);
                 return;
+            }
 
             EditorMapPart part = GetSelectedPart();
 
@@ -1095,17 +1102,59 @@ namespace Starstructor.GUI
 
         private void deletePartToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            EditorMapPart part = m_mapNodeMap[PartTreeView.SelectedNode] as EditorMapPart;
 
-        }
+            if (part != null && PromptGenericYesNo("", "") == DialogResult.Yes)
+            {
+                m_mapNodeMap.Remove(PartTreeView.SelectedNode);
 
-        private void cloneBrushToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+                StarboundDungeon dungeon = (StarboundDungeon)m_parent.ActiveFile;
+                dungeon.ReadableParts.Remove(part);
+                dungeon.Parts.Remove((DungeonPart)part);
 
+                PopulatePartTreeView();
+                SelectedMap = null;
+                UpdateImageBox(false, false);
+            }
         }
 
         private void deleteBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            EditorBrush brush = m_brushNodeMap[BrushesTreeView.SelectedNode];
 
+            if (brush != null && PromptGenericYesNo("", "") == DialogResult.Yes)
+            {
+                m_brushNodeMap.Remove(BrushesTreeView.SelectedNode);
+                m_parent.ActiveFile.BlockMap.Remove(brush);
+                m_parent.BrushMap.Remove(brush.Colour);
+
+                Type fileType = m_parent.ActiveFile.GetType();
+
+                if (fileType == typeof (StarboundDungeon))
+                {
+                    StarboundDungeon dungeon = (StarboundDungeon) m_parent.ActiveFile;
+                    dungeon.Tiles.Remove((DungeonBrush) brush);
+                }
+                else if (fileType == typeof (StarboundShip))
+                {
+                    StarboundShip ship = (StarboundShip) m_parent.ActiveFile;
+                    ship.Brushes.Remove((ShipBrush)brush);
+                }
+
+                PopulateBrushList();
+
+                foreach (EditorMapPart part in m_parent.ActiveFile.ReadableParts)
+                {
+                    foreach (EditorMapLayer layer in part.Layers)
+                    {
+                        layer.BuildLayer();
+                    }
+
+                    part.UpdateCompositeCollisionMap();
+                }
+
+                SelectedMap = SelectedMap;
+            }
         }
 
         private void ButtonImportBrush_Click(object sender, EventArgs e)
