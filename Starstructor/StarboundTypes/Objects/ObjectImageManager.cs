@@ -98,7 +98,7 @@ namespace Starstructor.StarboundTypes.Objects
 
         public Rectangle? GetImageFrame(string frame = "default", string colour = "default", string key = "default")
         {
-            if (m_image.ImageFile == null)
+            if (m_image == null || m_image.ImageFile == null)
                 return null;
 
             if (m_frames == null)

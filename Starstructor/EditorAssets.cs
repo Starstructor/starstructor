@@ -191,6 +191,9 @@ namespace Starstructor
 
                     StarboundObject sbObject = JsonParser.ParseJson<StarboundObject>(file);
 
+                    if (sbObject == null)
+                        continue;
+
                     lock (m_objectMap)
                     {
                         m_objectMap[sbObject.ObjectName] = sbObject;
@@ -205,6 +208,9 @@ namespace Starstructor
                         continue;
 
                     StarboundMaterial sbMaterial = JsonParser.ParseJson<StarboundMaterial>(file);
+
+                    if (sbMaterial == null)
+                        continue;
 
                     lock (m_materialMap)
                     {

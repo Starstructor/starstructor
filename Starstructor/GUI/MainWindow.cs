@@ -694,6 +694,8 @@ namespace Starstructor.GUI
 
             EditorMapPart part = GetSelectedPart();
 
+            if (part == null) return;
+
             // If we're displaying the graphic map
             if (BottomBarGfxCombo.SelectedIndex == 0)
             {

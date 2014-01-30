@@ -24,6 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -54,7 +55,7 @@ namespace Starstructor.Data
             }
             catch (Exception e)
             {
-                Editor.Log.Write(e.Message);
+                Editor.Log.Write("Failed to parse file " + path + " because " + e.Message);
                 return default(T);
             }
         }
@@ -68,7 +69,7 @@ namespace Starstructor.Data
             }
             catch (Exception e)
             {
-                Editor.Log.Write(e.Message);
+                Editor.Log.Write("Failed to save file " + path + " because " + e.Message);
                 MessageBox.Show("Failed to save file " + path + ", please try again! Consult the log file for more information.");
             }
         }

@@ -82,9 +82,17 @@ namespace Starstructor.StarboundTypes
                     Editor.Log.Write("  Layer image " + fileName + " loaded");
                 }
 
+                int width = part.Width*Editor.DEFAULT_GRID_FACTOR;
+                int height = part.Height*Editor.DEFAULT_GRID_FACTOR;
+
+                if (width <= 0)
+                    width = 1;
+
+                if (height <= 0)
+                    height = 1;
+
                 // Create the graphics image
-                part.GraphicsMap = new Bitmap(part.Width*Editor.DEFAULT_GRID_FACTOR,
-                    part.Height*Editor.DEFAULT_GRID_FACTOR, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                part.GraphicsMap = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
                 
                 // Update the composite collision map, now that all layers have been loaded
                 part.UpdateCompositeCollisionMap();
