@@ -203,11 +203,11 @@ namespace Starstructor.GUI
         {
             ShipBrush brush = new ShipBrush();
             brush = (ShipBrush)BuildCommonBrush(brush);
+            brush.BackgroundBlock = true;
 
             if (CheckboxBackAssetAssetTab.Checked && m_backAsset != null)
             {
                 brush.BackgroundMat = m_backAsset.ToString();
-                brush.BackgroundBlock = true;
                 brush.BackAsset = m_backAsset;
                 brush.NeedsBackAsset = true;
                 brush.BrushTypes.Add("back");
@@ -223,15 +223,16 @@ namespace Starstructor.GUI
                     brush.Direction = GetFrontAssetDirection();
                     brush.ObjectDirection = GetFrontAssetDirectionStr();
                     brush.ObjectParameters = new ShipObjectParams();
+                    brush.ObjectParameters.Unbreakable = true;
                     brush.BrushTypes.Add("object");
                 }
                 else if (frontAssetType == typeof(StarboundMaterial))
                 {
                     brush.ForegroundMat = m_frontAsset.ToString();
+                    brush.ForegroundBlock = true;
                     brush.BrushTypes.Add("front");
                 }
 
-                brush.ForegroundBlock = true;
                 brush.FrontAsset = m_frontAsset;
                 brush.NeedsFrontAsset = true;
             }

@@ -69,6 +69,8 @@ namespace Starstructor.GUI
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.viewCollisionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newBrushToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newPartToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.assetBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileDlg = new System.Windows.Forms.OpenFileDialog();
@@ -108,8 +110,6 @@ namespace Starstructor.GUI
             this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
             this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
-            this.newBrushToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.newPartToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.VisualRgbaBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.VisualGraphicBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.MainPictureBox = new Starstructor.GUI.ImageBox();
@@ -315,6 +315,22 @@ namespace Starstructor.GUI
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // newBrushToolStripMenuItem1
+            // 
+            this.newBrushToolStripMenuItem1.Enabled = false;
+            this.newBrushToolStripMenuItem1.Name = "newBrushToolStripMenuItem1";
+            this.newBrushToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.newBrushToolStripMenuItem1.Text = "New Brush";
+            this.newBrushToolStripMenuItem1.Click += new System.EventHandler(this.newBrushToolStripMenuItem1_Click);
+            // 
+            // newPartToolStripMenuItem1
+            // 
+            this.newPartToolStripMenuItem1.Enabled = false;
+            this.newPartToolStripMenuItem1.Name = "newPartToolStripMenuItem1";
+            this.newPartToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.newPartToolStripMenuItem1.Text = "New Part";
+            this.newPartToolStripMenuItem1.Click += new System.EventHandler(this.newPartToolStripMenuItem1_Click);
             // 
             // assetBrowserToolStripMenuItem
             // 
@@ -752,22 +768,6 @@ namespace Starstructor.GUI
             this.SaveScreenshotDlg.DefaultExt = "png";
             this.SaveScreenshotDlg.Filter = "Portable Network Graphic|*.png";
             this.SaveScreenshotDlg.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveScreenshotDlg_FileOk);
-            // 
-            // newBrushToolStripMenuItem1
-            // 
-            this.newBrushToolStripMenuItem1.Enabled = false;
-            this.newBrushToolStripMenuItem1.Name = "newBrushToolStripMenuItem1";
-            this.newBrushToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
-            this.newBrushToolStripMenuItem1.Text = "New Brush";
-            this.newBrushToolStripMenuItem1.Click += new System.EventHandler(this.newBrushToolStripMenuItem1_Click);
-            // 
-            // newPartToolStripMenuItem1
-            // 
-            this.newPartToolStripMenuItem1.Enabled = false;
-            this.newPartToolStripMenuItem1.Name = "newPartToolStripMenuItem1";
-            this.newPartToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
-            this.newPartToolStripMenuItem1.Text = "New Part";
-            this.newPartToolStripMenuItem1.Click += new System.EventHandler(this.newPartToolStripMenuItem1_Click);
             // 
             // VisualRgbaBrushImageBox
             // 

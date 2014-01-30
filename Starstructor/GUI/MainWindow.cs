@@ -271,6 +271,7 @@ namespace Starstructor.GUI
 
         private void CleanUp()
         {
+            Text = m_parent.Name + " v" + m_parent.Version;
             MainPictureBox.SetImage(null, m_gridFactor);
             MainPictureBox.SetSelectedBrush(null);
             VisualGraphicBrushImageBox.Image = null;
@@ -508,6 +509,7 @@ namespace Starstructor.GUI
         // Populate the part list
         private void PopulatePartTreeView()
         {
+            PartTreeView.BeginUpdate();
             PartTreeView.Nodes.Clear();
 
             List<TreeNode> anchorNodes = new List<TreeNode>();
@@ -558,6 +560,8 @@ namespace Starstructor.GUI
                 PartTreeView.Nodes.Add(anchorsNode);
                 PartTreeView.Nodes.Add(extensionsNode);
             }
+
+            PartTreeView.EndUpdate();
         }
 
         private void PartTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -574,11 +578,13 @@ namespace Starstructor.GUI
                     allowEdit = true;
             }
 
+            Type fileType = m_parent.ActiveFile.GetType();
+
             // The context menu for editing currently selected part
-            newPartToolStripMenuItem.Enabled    = true;
-            renamePartToolStripMenuItem.Enabled = allowEdit;
+            newPartToolStripMenuItem.Enabled = fileType == typeof(StarboundDungeon);
+            renamePartToolStripMenuItem.Enabled = fileType == typeof(StarboundDungeon) && allowEdit;
             resizePartToolStripMenuItem.Enabled = allowEdit;
-            deletePartToolStripMenuItem.Enabled = allowEdit;
+            deletePartToolStripMenuItem.Enabled = fileType == typeof(StarboundDungeon) && allowEdit;
         }
 
         private void UpdatePropertiesPanel()
@@ -618,6 +624,7 @@ namespace Starstructor.GUI
         // Populate the brush list
         private void PopulateBrushList()
         {
+            BrushesTreeView.BeginUpdate();
             BrushesTreeView.Nodes.Clear();
 
             List<TreeNode> baseNodes = new List<TreeNode>();
@@ -640,9 +647,11 @@ namespace Starstructor.GUI
                                 
                 // Add this node to the brush -> node map
                 m_brushNodeMap[parentNode] = brush;
+
             }
 
             BrushesTreeView.Nodes.AddRange(baseNodes.ToArray());
+            BrushesTreeView.EndUpdate();
         }
 
         private static string GetBrushComment(EditorBrush brush)
@@ -778,8 +787,13 @@ namespace Starstructor.GUI
             saveToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
             ButtonImportBrush.Enabled = true;
-            ButtonImportPart.Enabled = true;
-            newPartToolStripMenuItem1.Enabled = true;
+
+            if (m_parent.ActiveFile is StarboundDungeon)
+            {
+                ButtonImportPart.Enabled = true;
+                newPartToolStripMenuItem1.Enabled = true;
+            }
+
             newBrushToolStripMenuItem1.Enabled = true;
             MainPictureBox.Focus();
 
