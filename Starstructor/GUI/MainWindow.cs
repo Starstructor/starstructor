@@ -1106,7 +1106,11 @@ namespace Starstructor.GUI
         {
             EditorMapPart part = m_mapNodeMap[PartTreeView.SelectedNode] as EditorMapPart;
 
-            if (part != null && PromptGenericYesNo("", "") == DialogResult.Yes)
+            if (part != null && PromptGenericYesNo("Are you sure you wish to delete the part \"" 
+                + part.Name 
+                + "\"? This action cannot be undone. "
+                + "\nNote: This will not delete the layer image files..", 
+                "Delete part confirmation") == DialogResult.Yes)
             {
                 m_mapNodeMap.Remove(PartTreeView.SelectedNode);
 
@@ -1124,7 +1128,11 @@ namespace Starstructor.GUI
         {
             EditorBrush brush = m_brushNodeMap[BrushesTreeView.SelectedNode];
 
-            if (brush != null && PromptGenericYesNo("", "") == DialogResult.Yes)
+            if (brush != null && 
+                PromptGenericYesNo("Are you sure you wish to delete the brush: \"" 
+                + brush.Comment
+                + "\"? This action cannot be undone.", 
+                "Delete brush confirmation") == DialogResult.Yes)
             {
                 m_brushNodeMap.Remove(BrushesTreeView.SelectedNode);
                 m_parent.ActiveFile.BlockMap.Remove(brush);
