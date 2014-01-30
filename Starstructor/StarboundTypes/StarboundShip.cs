@@ -102,7 +102,7 @@ namespace Starstructor.StarboundTypes
                 string foregroundName = null;
                 string backgroundName = null;
 
-                bool needsComment = brush.Comment == null;
+                bool needsComment = String.IsNullOrWhiteSpace(brush.Comment);
 
                 if (needsComment)
                     brush.Comment = "";
@@ -133,16 +133,17 @@ namespace Starstructor.StarboundTypes
                 else if (brush.Object != null)
                 {
                     if (needsComment)
+                    {
                         brush.Comment += brush.Object;
+
+                        if (!String.IsNullOrWhiteSpace(brush.ObjectDirection))
+                        {
+                            brush.Comment += " " + brush.ObjectDirection;
+                        }
+                    }
 
                     foregroundType = "object";
                     foregroundName = brush.Object;
-
-                    // Add the direction to the asset name
-                    if (!String.IsNullOrWhiteSpace(brush.ObjectDirection))
-                    {
-                        brush.Comment += " " + brush.ObjectDirection;
-                    }
 
                     // Populate the brush with the direction
                     if (brush.ObjectDirection != null)

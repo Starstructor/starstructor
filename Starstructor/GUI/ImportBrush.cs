@@ -136,10 +136,16 @@ namespace Starstructor.GUI
             if (CheckboxBackAssetAssetTab.Checked && m_backAsset != null)
             {
                 brush.Brushes.Add(new List<object> { "back", m_backAsset.ToString() });
+                brush.BrushTypes.Add("back");
+                brush.BackAsset = m_backAsset;
+                brush.NeedsBackAsset = true;
             }
             else if (CheckboxBackAssetSurfaceAssetTab.Checked)
             {
                 brush.Brushes.Add(new List<object> { "surfacebackground" });
+                brush.BrushTypes.Add("back");
+                brush.BackAsset = m_backAsset;
+                brush.NeedsBackAsset = true;
             }
 
             if (CheckboxFrontAssetAssetTab.Checked && m_frontAsset != null)
@@ -156,16 +162,39 @@ namespace Starstructor.GUI
                     else if (dir == ObjectDirection.DIRECTION_RIGHT) frontObjlist.Add(new JObject(new JProperty("direction", "right")));
 
                     brush.Brushes.Add(frontObjlist);
+                    brush.BrushTypes.Add("object");
                 }
                 else if (frontAssetType == typeof(StarboundMaterial))
                 {
                     brush.Brushes.Add(new List<object> { "front", m_frontAsset.ToString() });
+                    brush.BrushTypes.Add("front");
                 }
+
+                brush.FrontAsset = m_frontAsset;
+                brush.NeedsFrontAsset = true;
             }
             else if (CheckboxFrontAssetSurfaceAssetTab.Checked)
             {
                 brush.Brushes.Add(new List<object> { "surface"});
+                brush.BrushTypes.Add("front");
+                brush.FrontAsset = m_frontAsset;
+                brush.NeedsFrontAsset = true;
             }
+
+            if (CheckboxWorldGenSolidRulesTab.Checked)
+                brush.Rules.Add(new List<string> { "worldGenMustContainSolid" });
+
+            if (CheckboxWorldGenAirRulesTab.Checked)
+                brush.Rules.Add(new List<string> { "worldGenMustContainAir" });
+
+            if (CheckboxWorldGenSolidBackgroundRulesTab.Checked)
+                brush.Rules.Add(new List<string> { "worldGenMustContainSolidBackground" });
+
+            if (CheckboxWorldGenAirBackgroundRulesTab.Checked)
+                brush.Rules.Add(new List<string> { "worldGenMustContainAirBackground" });
+
+            if (CheckboxOverdrawingRulesTab.Checked)
+                brush.Rules.Add(new List<string> { "worldGenMustContainSolid" });
 
             return brush;
         }
@@ -174,6 +203,38 @@ namespace Starstructor.GUI
         {
             ShipBrush brush = new ShipBrush();
             brush = (ShipBrush)BuildCommonBrush(brush);
+
+            if (CheckboxBackAssetAssetTab.Checked && m_backAsset != null)
+            {
+                brush.BackgroundMat = m_backAsset.ToString();
+                brush.BackgroundBlock = true;
+                brush.BackAsset = m_backAsset;
+                brush.NeedsBackAsset = true;
+                brush.BrushTypes.Add("back");
+            }
+
+            if (CheckboxFrontAssetAssetTab.Checked && m_frontAsset != null)
+            {
+                Type frontAssetType = m_frontAsset.GetType();
+
+                if (frontAssetType == typeof(StarboundObject))
+                {
+                    brush.Object = m_frontAsset.ToString();
+                    brush.Direction = GetFrontAssetDirection();
+                    brush.ObjectDirection = GetFrontAssetDirectionStr();
+                    brush.ObjectParameters = new ShipObjectParams();
+                    brush.BrushTypes.Add("object");
+                }
+                else if (frontAssetType == typeof(StarboundMaterial))
+                {
+                    brush.ForegroundMat = m_frontAsset.ToString();
+                    brush.BrushTypes.Add("front");
+                }
+
+                brush.ForegroundBlock = true;
+                brush.FrontAsset = m_frontAsset;
+                brush.NeedsFrontAsset = true;
+            }
 
             return brush;
         }
@@ -184,7 +245,7 @@ namespace Starstructor.GUI
             brush.Comment = TextBoxCommentGeneralTab.Text;
             brush.Colour = Color.FromArgb(int.Parse(TextBoxAlphaGeneralTab.Text), int.Parse(TextBoxRedGeneralTab.Text),
                 int.Parse(TextBoxGreenGeneralTab.Text), int.Parse(TextBoxBlueGeneralTab.Text));
-            
+
             return brush;
         }
 
@@ -253,12 +314,26 @@ namespace Starstructor.GUI
 
         private void TextBoxFrontAssetNameDungeon_TextChanged(object sender, EventArgs e)
         {
-            HandleFrontAssetUpdated(EditorAssets.GetAsset(TextBoxFrontAssetNameAssetTab.Text), GetFrontAssetDirection());
+            if (TextBoxFrontAssetNameAssetTab.Text == "surface")
+            {
+                HandleFrontAssetUpdated(EditorAssets.GetMaterial(Editor.Settings.SurfaceForegroundTile));
+            }
+            else
+            {
+                HandleFrontAssetUpdated(EditorAssets.GetAsset(TextBoxFrontAssetNameAssetTab.Text), GetFrontAssetDirection());
+            }
         }
 
         private void TextBoxBackAssetNameDungeon_TextChanged(object sender, EventArgs e)
         {
-            HandleBackAssetUpdated(EditorAssets.GetMaterial(TextBoxBackAssetNameAssetTab.Text));
+            if (TextBoxBackAssetNameAssetTab.Text == "surfacebackground")
+            {
+                HandleBackAssetUpdated(EditorAssets.GetMaterial(Editor.Settings.SurfaceBackgroundTile));
+            }
+            else
+            {
+                HandleBackAssetUpdated(EditorAssets.GetMaterial(TextBoxBackAssetNameAssetTab.Text));
+            }
         }
 
         private ObjectDirection GetFrontAssetDirection()
@@ -269,6 +344,16 @@ namespace Starstructor.GUI
             if (value == "Right") return ObjectDirection.DIRECTION_RIGHT;
 
             return ObjectDirection.DIRECTION_NONE;
+        }
+
+        private string GetFrontAssetDirectionStr()
+        {
+            string value = (string)ComboboxFrontAssetDirectionAssetTab.SelectedItem;
+
+            if (value == "Left") return "left";
+            if (value == "Right") return "right";
+
+            return null;
         }
 
         private void HandleFrontAssetUpdated(StarboundAsset newAsset, ObjectDirection direction = ObjectDirection.DIRECTION_NONE)

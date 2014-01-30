@@ -104,6 +104,11 @@ namespace Starstructor
                         // Get the brush located at the provided x- and y-coordinates
                         EditorBrush brush = layer.GetBrushAt(x, y);
 
+                        if (brush.ToString().Contains("chair"))
+                        {
+                            int a = 5 + 1;
+                        }
+
                         // If the brush is null, or no front asset is needed for this brush
                         if (brush == null || !brush.NeedsFrontAsset || brush.FrontAsset == null)
                             continue;

@@ -1162,6 +1162,7 @@ namespace Starstructor.GUI
 
             // Update the brush list
             PopulateBrushList();
+
         }
 
         private void HandleNewPart(string type = null)
