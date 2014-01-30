@@ -251,6 +251,7 @@ namespace Starstructor.GUI
         private void AssetButtonSelect_Click(object sender, System.EventArgs e)
         {
             if (m_callback != null) m_callback.Invoke(GetSelectedAsset());
+            Close();
         }
 
         private void AssetButtonRefresh_Click(object sender, System.EventArgs e)

@@ -40,12 +40,10 @@ namespace Starstructor.StarboundTypes.Ships
 
         [JsonProperty("foregroundBlock"), Category("Graphic")]
         [DefaultValue(false)]
-        [ReadOnly(true)]
         public bool ForegroundBlock { get; set; }
 
         [JsonProperty("backgroundBlock"), Category("Graphic")]
         [DefaultValue(false)]
-        [ReadOnly(true)]
         public bool BackgroundBlock { get; set; }
 
         [JsonProperty("foregroundMat"), Category("Graphic")]
