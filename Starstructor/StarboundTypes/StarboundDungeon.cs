@@ -159,7 +159,11 @@ namespace Starstructor.StarboundTypes
                                     }
                                 }
                             }
-
+                            
+                            else if (type == "npc")
+                            {
+                                brush.BrushTypes.Add("npc");
+                            }
                             // if it is a liquid
                             else if (type == "lava" || type == "water" || type == "acid" ||
                                      type == "liquidtar" || type == "tentaclejuice")
@@ -240,6 +244,16 @@ namespace Starstructor.StarboundTypes
                     brush.BackAsset = asset;
                     brush.BrushTypes.Add("back");
                     brush.NeedsBackAsset = true;
+                }
+                else if (brush.BrushTypes.Contains("npc"))
+                {
+                    StarboundAsset asset = new StarboundAsset();
+                    asset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
+                        255, 255, 0, 255);
+
+                    brush.NeedsFrontAsset = true;
+                    brush.FrontAsset = asset;
+                    brush.IsSpecial = true;
                 }
             }
         }
