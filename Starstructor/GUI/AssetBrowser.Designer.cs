@@ -58,7 +58,7 @@ namespace Starstructor.GUI
             this.AssetButtonRefresh = new System.Windows.Forms.Button();
             this.AssetBrowserMainLayoutTable.SuspendLayout();
             this.AssetPreviewLayoutTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).BeginInit();
             this.AssetSearchLayoutTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -215,7 +215,7 @@ namespace Starstructor.GUI
             this.AssetBrowserMainLayoutTable.PerformLayout();
             this.AssetPreviewLayoutTable.ResumeLayout(false);
             this.AssetPreviewLayoutTable.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.AssetGraphicalPreview)).EndInit();
             this.AssetSearchLayoutTable.ResumeLayout(false);
             this.AssetSearchLayoutTable.PerformLayout();
             this.ResumeLayout(false);

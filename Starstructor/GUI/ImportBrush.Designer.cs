@@ -117,7 +117,7 @@ namespace Starstructor.GUI
             this.TableLayoutPanelColourInfoGeneralTab.SuspendLayout();
             this.TabAssets.SuspendLayout();
             this.TableLayoutPanelMainAssetTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).BeginInit();
             this.TableLayoutPanelMainBackAssetAssetTab.SuspendLayout();
             this.TableLayoutPanelBackAssetBrowseAssetTab.SuspendLayout();
             this.TableLayoutPanelBackAssetTypeAssetTab.SuspendLayout();
@@ -125,7 +125,7 @@ namespace Starstructor.GUI
             this.TableLayoutPanelFrontAssetOptionsAssetTab.SuspendLayout();
             this.TableLayoutPanelFrontAssetBrowseAssetTab.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).BeginInit();
             this.TabRules.SuspendLayout();
             this.TableLayoutPanelMainRulesTab.SuspendLayout();
             this.TableLayoutPanelBrushRulesRulesTab.SuspendLayout();
@@ -993,7 +993,7 @@ namespace Starstructor.GUI
             this.TabAssets.ResumeLayout(false);
             this.TableLayoutPanelMainAssetTab.ResumeLayout(false);
             this.TableLayoutPanelMainAssetTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.PictureBoxBackAsset)).EndInit();
             this.TableLayoutPanelMainBackAssetAssetTab.ResumeLayout(false);
             this.TableLayoutPanelMainBackAssetAssetTab.PerformLayout();
             this.TableLayoutPanelBackAssetBrowseAssetTab.ResumeLayout(false);
@@ -1008,7 +1008,7 @@ namespace Starstructor.GUI
             this.TableLayoutPanelFrontAssetBrowseAssetTab.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.PictureBoxFrontAsset)).EndInit();
             this.TabRules.ResumeLayout(false);
             this.TableLayoutPanelMainRulesTab.ResumeLayout(false);
             this.TableLayoutPanelMainRulesTab.PerformLayout();

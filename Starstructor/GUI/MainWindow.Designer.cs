@@ -117,11 +117,11 @@ namespace Starstructor.GUI
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
             this.BottomBarGfxModePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RightPanelSplit)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.RightPanelSplit)).BeginInit();
             this.RightPanelSplit.Panel1.SuspendLayout();
             this.RightPanelSplit.Panel2.SuspendLayout();
             this.RightPanelSplit.SuspendLayout();
@@ -132,8 +132,8 @@ namespace Starstructor.GUI
             this.contextMenuPartsList.SuspendLayout();
             this.BrushesTab.SuspendLayout();
             this.contextMenuBrushesList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -827,11 +827,11 @@ namespace Starstructor.GUI
             this.BottomBarGfxModePanel.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.RightPanelSplit.Panel1.ResumeLayout(false);
             this.RightPanelSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.RightPanelSplit)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.RightPanelSplit)).EndInit();
             this.RightPanelSplit.ResumeLayout(false);
             this.RightPanelTabControl.ResumeLayout(false);
             this.MainTab.ResumeLayout(false);
@@ -841,8 +841,8 @@ namespace Starstructor.GUI
             this.contextMenuPartsList.ResumeLayout(false);
             this.BrushesTab.ResumeLayout(false);
             this.contextMenuBrushesList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
