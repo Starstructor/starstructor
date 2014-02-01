@@ -379,29 +379,40 @@ namespace Starstructor.GUI
         public void SetSelectedBrush(EditorBrush brush)
         {
             m_selectedBrush = brush;
-            string colour = m_selectedBrush.Colour.ToString();
 
-            // Tidy this display up at some point
-            BottomBarBrushLabel.Text = m_selectedBrush.Comment;
-
-            if (m_selectedBrush.FrontAsset != null)
+            if (brush != null)
             {
-                BottomBarBrushLabel.Text += " front: " + m_selectedBrush.FrontAsset.ToString();
-            }
+                string colour = m_selectedBrush.Colour.ToString();
 
-            if (m_selectedBrush.BackAsset != null)
+                // Tidy this display up at some point
+                BottomBarBrushLabel.Text = m_selectedBrush.Comment;
+
+                if (m_selectedBrush.FrontAsset != null)
+                {
+                    BottomBarBrushLabel.Text += " front: " + m_selectedBrush.FrontAsset.ToString();
+                }
+
+                if (m_selectedBrush.BackAsset != null)
+                {
+                    BottomBarBrushLabel.Text += " back: " + m_selectedBrush.BackAsset.ToString();
+                }
+
+                BottomBarBrushLabel.Text += " " + colour;
+
+                // Populate the colour box
+                VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
+                    m_selectedBrush.Colour.R, m_selectedBrush.Colour.G,
+                    m_selectedBrush.Colour.B, m_selectedBrush.Colour.A);
+
+                VisualGraphicBrushImageBox.Image = m_selectedBrush.GetAssetPreview();
+            }
+            else
             {
-                BottomBarBrushLabel.Text += " back: " + m_selectedBrush.BackAsset.ToString();
+                Image white = EditorHelpers.GetGeneratedRectangle(1, 1, 255, 255, 255, 255);
+                BottomBarBrushLabel.Text = "";
+                VisualRgbaBrushImageBox.Image = white;
+                VisualGraphicBrushImageBox.Image = white;
             }
-
-            BottomBarBrushLabel.Text += " " + colour;
-
-            // Populate the colour box
-            VisualRgbaBrushImageBox.Image = EditorHelpers.GetGeneratedRectangle(1, 1,
-                m_selectedBrush.Colour.R, m_selectedBrush.Colour.G,
-                m_selectedBrush.Colour.B, m_selectedBrush.Colour.A);
-
-            VisualGraphicBrushImageBox.Image = m_selectedBrush.GetAssetPreview();
 
             MainPictureBox.SetSelectedBrush(m_selectedBrush);
             UpdatePropertiesPanel();
@@ -1175,6 +1186,7 @@ namespace Starstructor.GUI
                     part.UpdateCompositeCollisionMap();
                 }
 
+                SetSelectedBrush(null);
                 SelectedMap = SelectedMap;
             }
         }
