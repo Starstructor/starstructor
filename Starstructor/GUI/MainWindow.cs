@@ -199,10 +199,19 @@ namespace Starstructor.GUI
             // Find the asset path
             if (Editor.Settings.AssetDirPath == null)
             {
+                string path = null;
+
                 // Try to auto-find directory
-                string path = (string)Registry.GetValue(
-                    @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 211820",
-                    "InstallLocation", null);
+                try
+                {
+                    path = (string)Registry.GetValue(
+                        @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 211820",
+                        "InstallLocation", null);
+                }
+                catch (Exception ex)
+                {
+                    Editor.Log.Write("Exception caught when attempting to read from registry: " + ex.Message);
+                }
 
                 // If found
                 if (path != null)
@@ -214,8 +223,11 @@ namespace Starstructor.GUI
                 // Otherwise prompt the user
                 else
                 {
+                    Editor.Log.Write("Unable to automatically detect Starbound path.");
+
                     MessageBox.Show(
-                        "Could not find Starbound folder. Please navigate to Starbound's assets directory on the next screen.");
+                        "Could not find Starbound folder. " + 
+                        "Please navigate to Starbound's assets directory on the next screen.");
 
                     DirPopup guiPopup = new DirPopup();
                     guiPopup.ShowDialog();

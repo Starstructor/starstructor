@@ -44,6 +44,7 @@ namespace Starstructor.GUI
             }
 
             Editor.Settings.AssetDirPath = FolderTextbox.Text;
+            Editor.Log.Write("Starbound asset directory path set to " + FolderTextbox.Text);
             m_pathSet = true;
 
             Close();
