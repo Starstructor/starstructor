@@ -133,20 +133,25 @@ namespace Starstructor.StarboundTypes.Objects
 
         public void InitializeAssets(string assetDirectory)
         {
+            bool flip = FlipImages != null && FlipImages.Value;
+
             // @TODO: Don't use image copies, go deeper and make the ImageLoader cache its own results
             if (ImageName != null)
-                MainImage = new ObjectImageManager(ImageName, assetDirectory, false);
+                MainImage = new ObjectImageManager(ImageName, assetDirectory, flip);
+
             if (DualImageName != null)
-                DualImage = new ObjectImageManager(DualImageName, assetDirectory, false);
+                DualImage = new ObjectImageManager(DualImageName, assetDirectory, flip);
+
             if (LeftImageName != null)
-                LeftImage = new ObjectImageManager(LeftImageName, assetDirectory, false);
+                LeftImage = new ObjectImageManager(LeftImageName, assetDirectory, flip);
+
             if (RightImageName != null)
-                RightImage = new ObjectImageManager(RightImageName, assetDirectory, false);
+                RightImage = new ObjectImageManager(RightImageName, assetDirectory, flip);
 
             if ( ImageLayers != null && ImageLayers.Count > 0 )
             {
                 // @TODO: Layers not supported
-                MainImage = new ObjectImageManager(ImageLayers[0].ImageName, assetDirectory, false);
+                MainImage = new ObjectImageManager(ImageLayers[0].ImageName, assetDirectory, flip);
             }
 
             if ( DualImage != null )
@@ -155,11 +160,13 @@ namespace Starstructor.StarboundTypes.Objects
                 {
                     RightImage = DualImage;
                 }
+
                 if ( LeftImage == null )
                 {
                     // @TODO: Deal with this, useless copy invokes ImageLoader to load the image
-                    LeftImage = new ObjectImageManager(DualImageName, assetDirectory, true);
+                    LeftImage = new ObjectImageManager(DualImageName, assetDirectory, !flip);
                 }
+
                 if ( MainImage == null )
                 {
                     MainImage = DualImage;

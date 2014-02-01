@@ -199,8 +199,10 @@ namespace Starstructor.StarboundTypes
         {
             if ( Orientations != null )
             {
-                foreach (var orientation in Orientations)
+                foreach (ObjectOrientation orientation in Orientations)
+                {
                     orientation.InitializeAssets(Path.GetDirectoryName(FullPath));
+                }
             }
 
             // Get the inventory icon
@@ -229,36 +231,34 @@ namespace Starstructor.StarboundTypes
                 part = ((EditorMapLayer) map).Parent;
             }
 
-            // This is inherently flawed as it does not take into account the
-            // anchor position of objects. TODO Fix this at some point
+            // TODO fix collision anchors
             foreach (ObjectOrientation orientation in Orientations)
             {
                 List<string> anchors = orientation.Anchors;
 
-                // TODO implement fgAnchor
-                if (anchors == null)
-                    continue;
+                if (anchors != null)
+                {
+                    if (anchors.Contains("top") && !CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)))
+                        continue;
 
-                if (anchors.Contains("top") && !CheckCollisionMapAtOffset(part, x, y - orientation.GetHeight(1)))
-                    continue;
+                    if (anchors.Contains("left") && !CheckCollisionMapAtOffset(part, x - 1, y))
+                        continue;
 
-                if (anchors.Contains("left") && !CheckCollisionMapAtOffset(part, x - 1, y))
-                    continue;
+                    if (anchors.Contains("right") && !CheckCollisionMapAtOffset(part, x + 1, y))
+                        continue;
 
-                if (anchors.Contains("right") && !CheckCollisionMapAtOffset(part, x + 1, y))
-                    continue;
+                    if (anchors.Contains("bottom") && !CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)))
+                        continue;
+                }
 
-                if (anchors.Contains("bottom") && !CheckCollisionMapAtOffset(part, x, y + orientation.GetHeight(1)))
-                    continue;
+                if (orientation.Direction != null)
+                {
+                    if (orientation.Direction.Contains("left") && direction != ObjectDirection.DIRECTION_LEFT)
+                        continue;
 
-                if (orientation.Direction == "left" && direction != ObjectDirection.DIRECTION_LEFT)
-                    continue;
-
-                if (orientation.Direction == "right" && direction != ObjectDirection.DIRECTION_RIGHT)
-                    continue;
-
-                //if ( anchors.Contains("background") )
-                //    return orientation;
+                    if (orientation.Direction.Contains("right") && direction != ObjectDirection.DIRECTION_RIGHT)
+                        continue;
+                }
 
                 return orientation;
             }
