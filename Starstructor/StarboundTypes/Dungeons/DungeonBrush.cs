@@ -65,7 +65,7 @@ namespace Starstructor.StarboundTypes.Dungeons
         [ReadOnly(true)]
         [JsonProperty("connector-value"), Category("Connector")]
         [JsonConverter(typeof(ColorSerializer))]
-        public Color ConnnectorColour { get; set; }
+        public Color? ConnnectorColour { get; set; }
         
         // left, right, up, down, and unknown; (why is it ConnectorDirection???)
         [ReadOnly(true)]
