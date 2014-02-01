@@ -119,82 +119,98 @@ namespace Starstructor.GUI
         {
             DungeonBrush brush = new DungeonBrush();
             brush = (DungeonBrush)BuildCommonBrush(brush);
-            brush.Connector = CheckboxConnectorGeneralTab.Checked;
 
-            brush.Rules = new List<List<string>>();
-            brush.BrushRules = new List<string>();
-            brush.Brushes = new List<List<object>>();
-            brush.BrushTypes = new List<string>();
-
-            if (CheckboxClearRulesTab.Checked)
+            if (CheckboxConnectorGeneralTab.Checked)
             {
-                List<object> clearList = new List<object>();
-                clearList.Add("clear");
-                brush.Brushes.Add(clearList);
+                brush.Connector = true;
+                brush.FrontAsset = new StarboundAsset();
+                brush.FrontAsset.Image = EditorHelpers.GetGeneratedRectangle(8, 8,
+                    brush.Colour.R,
+                    brush.Colour.G,
+                    brush.Colour.B,
+                    brush.Colour.A);
+                brush.NeedsFrontAsset = true;
+                brush.IsSpecial = true;
             }
-
-            if (CheckboxBackAssetAssetTab.Checked && m_backAsset != null)
+            else
             {
-                brush.Brushes.Add(new List<object> { "back", m_backAsset.ToString() });
-                brush.BrushTypes.Add("back");
-                brush.BackAsset = m_backAsset;
-                brush.NeedsBackAsset = true;
-            }
-            else if (CheckboxBackAssetSurfaceAssetTab.Checked)
-            {
-                brush.Brushes.Add(new List<object> { "surfacebackground" });
-                brush.BrushTypes.Add("back");
-                brush.BackAsset = m_backAsset;
-                brush.NeedsBackAsset = true;
-            }
+                brush.Rules = new List<List<string>>();
+                brush.BrushRules = new List<string>();
+                brush.Brushes = new List<List<object>>();
+                brush.BrushTypes = new List<string>();
 
-            if (CheckboxFrontAssetAssetTab.Checked && m_frontAsset != null)
-            {
-                Type frontAssetType = m_frontAsset.GetType();
-
-                if (frontAssetType == typeof(StarboundObject))
+                if (CheckboxClearRulesTab.Checked)
                 {
-                    List<object> frontObjlist = new List<object> { "object", m_frontAsset.ToString() };
-
-                    ObjectDirection dir = GetFrontAssetDirection();
-
-                    if (dir == ObjectDirection.DIRECTION_LEFT) frontObjlist.Add(new JObject(new JProperty("direction", "left")));
-                    else if (dir == ObjectDirection.DIRECTION_RIGHT) frontObjlist.Add(new JObject(new JProperty("direction", "right")));
-
-                    brush.Brushes.Add(frontObjlist);
-                    brush.BrushTypes.Add("object");
+                    List<object> clearList = new List<object>();
+                    clearList.Add("clear");
+                    brush.Brushes.Add(clearList);
                 }
-                else if (frontAssetType == typeof(StarboundMaterial))
+
+                if (CheckboxBackAssetAssetTab.Checked && m_backAsset != null)
                 {
-                    brush.Brushes.Add(new List<object> { "front", m_frontAsset.ToString() });
+                    brush.Brushes.Add(new List<object> {"back", m_backAsset.ToString()});
+                    brush.BrushTypes.Add("back");
+                    brush.BackAsset = m_backAsset;
+                    brush.NeedsBackAsset = true;
+                }
+                else if (CheckboxBackAssetSurfaceAssetTab.Checked)
+                {
+                    brush.Brushes.Add(new List<object> {"surfacebackground"});
+                    brush.BrushTypes.Add("back");
+                    brush.BackAsset = m_backAsset;
+                    brush.NeedsBackAsset = true;
+                }
+
+                if (CheckboxFrontAssetAssetTab.Checked && m_frontAsset != null)
+                {
+                    Type frontAssetType = m_frontAsset.GetType();
+
+                    if (frontAssetType == typeof (StarboundObject))
+                    {
+                        List<object> frontObjlist = new List<object> {"object", m_frontAsset.ToString()};
+
+                        ObjectDirection dir = GetFrontAssetDirection();
+
+                        if (dir == ObjectDirection.DIRECTION_LEFT)
+                            frontObjlist.Add(new JObject(new JProperty("direction", "left")));
+                        else if (dir == ObjectDirection.DIRECTION_RIGHT)
+                            frontObjlist.Add(new JObject(new JProperty("direction", "right")));
+
+                        brush.Brushes.Add(frontObjlist);
+                        brush.BrushTypes.Add("object");
+                    }
+                    else if (frontAssetType == typeof (StarboundMaterial))
+                    {
+                        brush.Brushes.Add(new List<object> {"front", m_frontAsset.ToString()});
+                        brush.BrushTypes.Add("front");
+                    }
+
+                    brush.FrontAsset = m_frontAsset;
+                    brush.NeedsFrontAsset = true;
+                }
+                else if (CheckboxFrontAssetSurfaceAssetTab.Checked)
+                {
+                    brush.Brushes.Add(new List<object> {"surface"});
                     brush.BrushTypes.Add("front");
+                    brush.FrontAsset = m_frontAsset;
+                    brush.NeedsFrontAsset = true;
                 }
 
-                brush.FrontAsset = m_frontAsset;
-                brush.NeedsFrontAsset = true;
+                if (CheckboxWorldGenSolidRulesTab.Checked)
+                    brush.Rules.Add(new List<string> {"worldGenMustContainSolid"});
+
+                if (CheckboxWorldGenAirRulesTab.Checked)
+                    brush.Rules.Add(new List<string> {"worldGenMustContainAir"});
+
+                if (CheckboxWorldGenSolidBackgroundRulesTab.Checked)
+                    brush.Rules.Add(new List<string> {"worldGenMustContainSolidBackground"});
+
+                if (CheckboxWorldGenAirBackgroundRulesTab.Checked)
+                    brush.Rules.Add(new List<string> {"worldGenMustContainAirBackground"});
+
+                if (CheckboxOverdrawingRulesTab.Checked)
+                    brush.Rules.Add(new List<string> {"worldGenMustContainSolid"});
             }
-            else if (CheckboxFrontAssetSurfaceAssetTab.Checked)
-            {
-                brush.Brushes.Add(new List<object> { "surface"});
-                brush.BrushTypes.Add("front");
-                brush.FrontAsset = m_frontAsset;
-                brush.NeedsFrontAsset = true;
-            }
-
-            if (CheckboxWorldGenSolidRulesTab.Checked)
-                brush.Rules.Add(new List<string> { "worldGenMustContainSolid" });
-
-            if (CheckboxWorldGenAirRulesTab.Checked)
-                brush.Rules.Add(new List<string> { "worldGenMustContainAir" });
-
-            if (CheckboxWorldGenSolidBackgroundRulesTab.Checked)
-                brush.Rules.Add(new List<string> { "worldGenMustContainSolidBackground" });
-
-            if (CheckboxWorldGenAirBackgroundRulesTab.Checked)
-                brush.Rules.Add(new List<string> { "worldGenMustContainAirBackground" });
-
-            if (CheckboxOverdrawingRulesTab.Checked)
-                brush.Rules.Add(new List<string> { "worldGenMustContainSolid" });
 
             return brush;
         }
