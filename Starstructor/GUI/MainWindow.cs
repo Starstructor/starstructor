@@ -330,7 +330,7 @@ namespace Starstructor.GUI
         private static DialogResult PromptClosingProject()
         {
             return MessageBox.Show(
-                "Are you sure you wish to close your current opened dungeon?",
+                "Are you sure you wish to close your current project?",
                 "Exit", MessageBoxButtons.YesNo);
         }
 
