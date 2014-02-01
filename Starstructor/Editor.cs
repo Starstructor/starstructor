@@ -98,8 +98,10 @@ namespace Starstructor
                 else
                 {
                     StreamReader sr = new StreamReader(path);
-                    m_settings = JsonConvert.DeserializeObject<EditorSettings>(sr.ReadToEnd());
+                    EditorSettings loadedSettings = JsonConvert.DeserializeObject<EditorSettings>(sr.ReadToEnd());
                     sr.Close();
+
+                    if (loadedSettings != null) m_settings = loadedSettings;
                 }
 
                 return m_settings;
