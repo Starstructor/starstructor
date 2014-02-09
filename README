@@ -3,6 +3,11 @@ Starstructor
 
 See http://community.playstarbound.com/index.php?threads/starstructor-the-starbound-toolset.51473/ for more information.
 
+Starstructor-CPP
+==================
+
+If this repository is inactive, it is because attention is focused on the C++ port of Starstructor. Please consider checking it out at https://github.com/Starstructor/starstructor-cpp.
+
 
 How to contribute
 ==================
@@ -12,4 +17,5 @@ Submit a pull request with your changes. If you want access to regularly contrib
 
 IRC Information
 ==================
+
 We have an IRC channel set up on irc.freenode.net, channel ##starstructor. This channel is mainly used for coordination between contributors. If you want to speak directly with the development team, need support, or simply want to hang out, you are welcome to join us there.
