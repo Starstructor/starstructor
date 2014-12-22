@@ -58,6 +58,9 @@ namespace Starstructor.StarboundTypes.Dungeons
         [Description("The gravity within the dungeon area. Dungeon gravity")]
         public int? Gravity { get; set; }
 
+        [JsonProperty("protected")]
+        public bool IsProtected { get; set; }
+
         public override string ToString()
         {
             return "[Options]";

@@ -101,7 +101,10 @@ namespace Starstructor.StarboundTypes
         public void InitializeAssets()
         {
             if (renderTemplate != null && renderParameters != null)
+            {
                 Renderer = new MaterialRenderer(Path.GetDirectoryName(FullPath), renderTemplate, renderParameters);
+                Image = Renderer.GetPreviewImage();
+            }
         }
 
         public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR,

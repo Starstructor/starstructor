@@ -15,7 +15,7 @@ namespace Starstructor.StarboundTypes.Renderer
     {
         private RenderTemplate m_renderTemplate;
         private RenderParameters m_renderParameters;
-        private Image m_image;
+        private Bitmap m_image;
 
         /// <summary>
         /// Expected constructor.
@@ -44,12 +44,19 @@ namespace Starstructor.StarboundTypes.Renderer
                 info.textureSize.x, info.textureSize.y);
         }
 
+        public Bitmap GetPreviewImage()
+        {
+            if (m_image == null) return null;
+            Rectangle srcRect = GetImageFrame();
+            return m_image.Clone(srcRect, m_image.PixelFormat);
+        }
+
         public void Render(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR,
             bool background = false, float opacity = 1.0f)
         {
             if (m_image == null) return;
 
-            Rectangle? srcRect = GetImageFrame();
+            Rectangle srcRect = GetImageFrame();
 
             if (srcRect == null) return;
 
@@ -76,10 +83,10 @@ namespace Starstructor.StarboundTypes.Renderer
             // Fix this, scaling on colour map
             gfx.DrawImage(m_image,
                 dstRect,
-                srcRect.Value.X,
-                srcRect.Value.Y,
-                srcRect.Value.Width,
-                srcRect.Value.Height,
+                srcRect.X,
+                srcRect.Y,
+                srcRect.Width,
+                srcRect.Height,
                 GraphicsUnit.Pixel,
                 attributes);
         }
