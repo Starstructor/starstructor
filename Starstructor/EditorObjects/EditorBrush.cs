@@ -164,7 +164,7 @@ namespace Starstructor.EditorObjects
                     StarboundObject sbObject = (StarboundObject)FrontAsset;
                     //ObjectOrientation orientation = sbObject.GetDefaultOrientation();
 
-                    assetImg = sbObject.InventoryIcon.ImageFile;
+                    assetImg = sbObject.InventoryIcon;
                     //ObjectImageManager manager = orientation.GetImageManager(Direction);
                     //if ( manager != null )
                       //  assetImg = manager.GetImageFrameBitmap();
@@ -180,7 +180,7 @@ namespace Starstructor.EditorObjects
                     StarboundObject sbObject = (StarboundObject)BackAsset;
                     //ObjectOrientation orientation = sbObject.GetDefaultOrientation();
 
-                    assetImg = sbObject.InventoryIcon.ImageFile;
+                    assetImg = sbObject.InventoryIcon;
                     //ObjectImageManager manager = orientation.GetImageManager(Direction);
                     //if (manager != null)
                       //  assetImg = manager.GetImageFrameBitmap();

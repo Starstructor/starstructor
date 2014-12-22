@@ -3,6 +3,7 @@ Copyright (C) 2013-2014 Chris Stamford
 Contact: cstamford@gmail.com
 
 Source file contributers:
+ Chris Stamford     contact: cstamford@gmail.com
  Adam Heinermann    contact: aheinerm@gmail.com
 
 This program is free software; you can redistribute it and/or modify
@@ -21,19 +22,35 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 using System;
-using System.ComponentModel;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace Starstructor.StarboundTypes.Materials
+namespace Starstructor.StarboundTypes.Renderer
 {
-    [ReadOnly(true)]
-    public interface IMaterialImageManager : IDisposable
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RuleEntry
     {
-        Rectangle? GetImageFrame(int variant = 0, int colour = 0);
+        /// <summary>
+        /// Possible types: Connects, Shadows, EqualsSelf, PropertyEquals
+        /// </summary>
+        public string type { get; set; }
 
-        Bitmap GetImageFrameBitmap(int variant = 0, int colour = 0);
+        /// <summary>
+        /// If this value is true, then the condition is negated.
+        /// </summary>
+        public bool inverse { get; set; }
 
-        bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR,
-            bool background = false, float opacity = 1.0f);
+        /// <summary>
+        /// Matching property name. Only used for type = PropertyEquals.
+        /// </summary>
+        public String propertyName { get; set; }
+
+        /// <summary>
+        /// Matching property value. Only used for type = PropertyEquals.
+        /// </summary>
+        public String propertyValue { get; set; }
     }
 }

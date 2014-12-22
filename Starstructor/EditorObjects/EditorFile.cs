@@ -26,7 +26,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using Starstructor.StarboundTypes;
-using Starstructor.StarboundTypes.Materials;
+using Starstructor.StarboundTypes.Renderer;
 
 namespace Starstructor.EditorObjects
 {
@@ -108,31 +108,30 @@ namespace Starstructor.EditorObjects
                 // (low priority)
                 if (name == "lava")
                 {
-                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
-                        MaterialImageManager.FRAME_SIZE.y, 207, 16, 32, 255);
+                    image = EditorHelpers.GetGeneratedRectangle(16,
+                        24, 207, 16, 32, 255);
                 }
                 else if (name == "acid")
                 {
-                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
-                        MaterialImageManager.FRAME_SIZE.y, 107, 141, 63, 255);
+                    image = EditorHelpers.GetGeneratedRectangle(16,
+                        24, 107, 141, 63, 255);
                 }
                 else if (name == "water")
                 {
-                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
-                        MaterialImageManager.FRAME_SIZE.y, 0, 78, 111, 255);
+                    image = EditorHelpers.GetGeneratedRectangle(16,
+                        24, 0, 78, 111, 255);
                 }
                 else if (name == "liquidtar" || name == "tentaclejuice")
                 {
-                    image = EditorHelpers.GetGeneratedRectangle(MaterialImageManager.FRAME_SIZE.x,
-                        MaterialImageManager.FRAME_SIZE.y, 200, 191, 231, 255);
+                    image = EditorHelpers.GetGeneratedRectangle(16,
+                        24, 200, 191, 231, 255);
                 }
 
                 if (image != null)
                 {
-                    StarboundMaterial newAsset = new StarboundMaterial();
+                    StarboundMaterial newAsset = new StarboundMaterial(true);
                     newAsset.MaterialName = name;
                     newAsset.Image = image;
-                    newAsset.Frames = new MaterialImageManager(name + ".internal", newAsset.Image);
                     asset = newAsset;
                 }
             }

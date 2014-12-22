@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ImageManager.cs" />
     <Compile Include="Data\RectI.cs" />
     <Compile Include="Data\Vec2I.cs" />
     <Compile Include="Data\Vec2F.cs" />
@@ -98,12 +99,6 @@
     <Compile Include="EditorObjects\EditorMapPart.cs" />
     <Compile Include="EditorSettings.cs" />
     <Compile Include="EditorObjects\EditorBrush.cs" />
-    <Compile Include="GUI\DirPopup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\DirPopup.Designer.cs">
-      <DependentUpon>DirPopup.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\AssetBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,16 +151,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Renderer.cs" />
+    <Compile Include="StarboundTypes\Renderer\RenderTemplate.cs" />
     <Compile Include="StarboundTypes\Dungeons\DungeonMetadata.cs" />
     <Compile Include="StarboundTypes\Dungeons\DungeonPart.cs" />
     <Compile Include="StarboundTypes\Dungeons\DungeonBrush.cs" />
+    <Compile Include="StarboundTypes\Renderer\MaterialRenderer.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectFrameGrid.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectFrameGrouped.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectFrames.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectImageLayer.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectImageManager.cs" />
     <Compile Include="StarboundTypes\Objects\ObjectOrientation.cs" />
-    <Compile Include="Data\ImageLoader.cs" />
+    <Compile Include="StarboundTypes\Renderer\RenderParameters.cs" />
+    <Compile Include="StarboundTypes\Renderer\Rule.cs" />
+    <Compile Include="StarboundTypes\Renderer\RuleEntry.cs" />
     <Compile Include="StarboundTypes\Ships\ShipConfig.cs" />
     <Compile Include="StarboundTypes\Ships\ShipObjectParams.cs" />
     <Compile Include="StarboundTypes\Ships\ShipOverlay.cs" />
@@ -177,15 +176,10 @@
     <Compile Include="StarboundTypes\StarboundObject.cs" />
     <Compile Include="StarboundTypes\StarboundAsset.cs" />
     <Compile Include="EditorObjects\EditorMapLayer.cs" />
-    <Compile Include="StarboundTypes\Materials\IMaterialImageManager.cs" />
     <Compile Include="StarboundTypes\StarboundLiquid.cs" />
     <Compile Include="StarboundTypes\StarboundMaterial.cs" />
     <Compile Include="EditorObjects\UndoManager.cs" />
-    <Compile Include="StarboundTypes\Materials\PlatformImageManager.cs" />
-    <Compile Include="StarboundTypes\Materials\MaterialImageManager.cs" />
-    <EmbeddedResource Include="GUI\DirPopup.resx">
-      <DependentUpon>DirPopup.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="StarboundTypes\Renderer\TextureInfo.cs" />
     <EmbeddedResource Include="GUI\AssetBrowser.resx">
       <DependentUpon>AssetBrowser.cs</DependentUpon>
     </EmbeddedResource>

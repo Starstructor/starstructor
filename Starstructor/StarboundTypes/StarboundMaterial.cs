@@ -27,16 +27,17 @@ using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
 using Starstructor.Data;
-using Starstructor.StarboundTypes.Materials;
+using Starstructor.StarboundTypes.Renderer;
 
 namespace Starstructor.StarboundTypes
 {
     // AKA material
     [ReadOnly(true)]
-    public class StarboundMaterial : StarboundAsset, IDisposable
+    public class StarboundMaterial : StarboundAsset
     {
         [JsonIgnore]
-        public IMaterialImageManager Frames;
+        private MaterialRenderer Renderer;
+        //public IMaterialImageManager Frames;
 
         [JsonProperty("description"), Category("Description")]
         [DefaultValue("")]
@@ -46,24 +47,6 @@ namespace Starstructor.StarboundTypes
         [JsonProperty("shortdescription"), Category("Description")]
         [Description("A really short and meaningful description of the tile.")]
         public string ShortDescription { get; set; }
-
-        [JsonProperty("apexDescription"), Category("Description")]
-        public string ApexDescription { get; set; }
-
-        [JsonProperty("avianDescription"), Category("Description")]
-        public string AvianDescription { get; set; }
-
-        [JsonProperty("floranDescription"), Category("Description")]
-        public string FloranDescription { get; set; }
-
-        [JsonProperty("glitchDescription"), Category("Description")]
-        public string GlitchDescription { get; set; }
-
-        [JsonProperty("humanDescription"), Category("Description")]
-        public string HumanDescription { get; set; }
-
-        [JsonProperty("hylotlDescription"), Category("Description")]
-        public string HylotlDescription { get; set; }
 
         [JsonProperty("materialName", Required = Required.Always)]
         [Description("The name of the material used for rendering the tile.")]
@@ -84,68 +67,31 @@ namespace Starstructor.StarboundTypes
         [JsonProperty("particleColor")]
         [JsonConverter(typeof(ColorSerializer))]
         public Color? ParticleColor { get; set; }
-        
+
         [JsonProperty("footstepSound")]
         public string FootstepSound { get; set; }
-
-        [JsonProperty("tillableMod")]
-        [DefaultValue(65535)]
-        public uint? TillableMod { get; set; }
-
-        [JsonProperty("soil")]
-        [DefaultValue(false)]
-        public bool? Soil { get; set; }
-
-        [JsonProperty("falling")]
-        [DefaultValue(false)]
-        public bool? Falling { get; set; }
-
-        [JsonProperty("cascading")]
-        [DefaultValue(false)]
-        public bool? Cascading { get; set; }
-
-        [JsonProperty("platform"), Category("Platform")]
-        [DefaultValue(false)]
-        public bool Platform { get; set; }
-
-        // Condition: Platform=true
-        [JsonProperty("platformImage"), Category("Platform")]
-        public string PlatformImageStr { get; set; }
-
-        // Condition: Platform=true
-        [JsonProperty("platformVariants"), Category("Platform")]
-        public int? PlatformVariants { get; set; }
-
-        // Condition: Platform=true
-        [JsonProperty("stairImage"), Category("Platform")]
-        public string StairImageStr { get; set; }
-
-        // Condition: Platform=true
-        [JsonProperty("stairVariants"), Category("Platform")]
-        public int? StairVariants { get; set; }
-
-        [JsonProperty("multicolored")]
-        public bool? Multicolored { get; set; }
-
-        // Condition: Platform=false
-        [JsonProperty("transparent")]
-        public bool? Transparent { get; set; }
-
-        // Condition: Platform=false
-        [JsonProperty("frames")]
-        public string FramesString { get; set; }
-
-        // Condition: Platform=false
-        [JsonProperty("variants")]
-        public int? Variants { get; set; }
 
         [JsonProperty("health")]
         [DefaultValue(1.0)]
         public double? Health { get; set; }
 
-        //has a damageTable attribute
-        // damageTable can either link to an external file or have embedded attributes
-        // default: "/tiles/defaultDamage.config"
+        [JsonProperty("platform"), Category("Platform")]
+        [DefaultValue(false)]
+        public bool Platform { get; set; }
+
+        // Condition: Platform=false
+        [JsonProperty("transparent")]
+        public bool? Transparent { get; set; }
+
+        public RenderParameters renderParameters { get; set; }
+        public string renderTemplate { get; set; }
+
+        private bool m_isLiquid;
+
+        public StarboundMaterial(bool isLiquid = false)
+        {
+            m_isLiquid = isLiquid;
+        }
 
         public override string ToString()
         {
@@ -154,49 +100,33 @@ namespace Starstructor.StarboundTypes
 
         public void InitializeAssets()
         {
-            if (Platform)
+            if (renderTemplate != null && renderParameters != null)
+                Renderer = new MaterialRenderer(Path.GetDirectoryName(FullPath), renderTemplate, renderParameters);
+        }
+
+        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR,
+            bool background = false, float opacity = 1.0f)
+        {
+
+            //if (Transparent != null && Transparent.Value)
+            //    opacity *= 0.6f;
+            if (m_isLiquid)
             {
-                Frames = new PlatformImageManager(
-                    PlatformImageStr, 
-                    PlatformVariants ?? 1, 
-                    StairImageStr, 
-                    StairVariants ?? 1, 
-                    Path.GetDirectoryName(FullPath));
+                Rectangle dstRect = new Rectangle(
+                    x * gridFactor,
+                    y * gridFactor,
+                    gridFactor,
+                    gridFactor);
+
+                // Fix this, scaling on colour map
+                gfx.DrawImage(Image, dstRect);
             }
             else
             {
-                Frames = new MaterialImageManager(FramesString, Path.GetDirectoryName(FullPath));
+                if (Renderer != null)
+                    Renderer.Render(gfx, x, y, gridFactor, background, opacity);
             }
-
-            Image = Frames.GetImageFrameBitmap();
-        }
-
-        public bool DrawTile(Graphics gfx, int x, int y, int gridFactor = Editor.DEFAULT_GRID_FACTOR, 
-            bool background = false, float opacity = 1.0f)
-        {
-            if (Frames == null)
-            {
-                if (MaterialName != null)
-                    Editor.Log.Write("Failed to draw tile for material" + MaterialName);
-                else
-                    Editor.Log.Write("Failed to draw tile for unknown material");
-
-                return false;
-            }
-            
-            //if (Transparent != null && Transparent.Value)
-            //    opacity *= 0.6f;
-
-            return Frames.DrawTile(gfx, x, y, gridFactor, background, opacity);
-        }
-
-        public void Dispose()
-        {
-            if (Frames == null) 
-                return;
-
-            Frames.Dispose();
-            Frames = null;
+            return true;
         }
     }
 }

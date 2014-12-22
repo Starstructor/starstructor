@@ -189,7 +189,7 @@ namespace Starstructor.StarboundTypes
         public string ShortDescription { get; set; }
 
         [JsonIgnore]
-        public ImageLoader InventoryIcon { get; set; }
+        public Bitmap InventoryIcon { get; set; }
 
         [JsonProperty("inventoryIcon")]
         [DefaultValue("/interface/inventory/x.png")]
@@ -210,7 +210,7 @@ namespace Starstructor.StarboundTypes
             string inventoryPath = EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), iconStr) ??
                                    EditorHelpers.FindAsset(Path.GetDirectoryName(FullPath), "/interface/inventory/x.png");
 
-            InventoryIcon = new ImageLoader(inventoryPath);
+            InventoryIcon = ImageManager.GetImage(inventoryPath);
         }
         
         public ObjectOrientation GetDefaultOrientation()

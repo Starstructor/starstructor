@@ -106,8 +106,8 @@ namespace Starstructor.GUI
                     StarboundObject sbObject = (StarboundObject)asset;
 
                     // Use inventory icon, if it exists
-                    if (sbObject.InventoryIcon.ImageFile != null)
-                        assetImage = sbObject.InventoryIcon.ImageFile;
+                    if (sbObject.InventoryIcon != null)
+                        assetImage = sbObject.InventoryIcon;
                 }
 
                 // Otherwise, use main image

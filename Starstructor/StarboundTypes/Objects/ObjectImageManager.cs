@@ -33,7 +33,7 @@ namespace Starstructor.StarboundTypes.Objects
     [ReadOnly(true)]
     public class ObjectImageManager : IDisposable
     {
-        private ImageLoader m_image;
+        private Bitmap m_image;
         private readonly ObjectFrames m_frames;
         private readonly string m_parseName;
         private readonly bool m_flipped;
@@ -44,14 +44,6 @@ namespace Starstructor.StarboundTypes.Objects
             get
             {
                 return m_frames;
-            }
-        }
-
-        public ImageLoader Loader
-        {
-            get
-            {
-                return m_image;
             }
         }
 
@@ -78,7 +70,7 @@ namespace Starstructor.StarboundTypes.Objects
             if ( imagePath == null )
                 Editor.Log.Write("Asset " + m_fileName + " not found in active directory: " + framesDir);
 
-            m_image = imagePath != null ? new ImageLoader(imagePath) : null;
+            m_image = imagePath != null ? ImageManager.GetImage(imagePath) : null;
 
             // Get frames file
             string framePath = EditorHelpers.FindAsset(framesDir, Path.GetFileNameWithoutExtension(m_fileName) + ".frames") ??
@@ -98,11 +90,11 @@ namespace Starstructor.StarboundTypes.Objects
 
         public Rectangle? GetImageFrame(string frame = "default", string colour = "default", string key = "default")
         {
-            if (m_image == null || m_image.ImageFile == null)
+            if (m_image == null)
                 return null;
 
             if (m_frames == null)
-                return new Rectangle(0, 0, m_image.ImageFile.Width, m_image.ImageFile.Height);
+                return new Rectangle(0, 0, m_image.Width, m_image.Height);
 
             string frameKey = GetFrameKey(frame, colour, key);
             Vec2I? framePos = m_frames.GetPositionFromKey(frameKey);
@@ -121,16 +113,16 @@ namespace Starstructor.StarboundTypes.Objects
             if ( frameRect == null )
                 return null;
 
-            if (frameRect.Value.Width > m_image.ImageFile.Width || frameRect.Value.Height > m_image.ImageFile.Height)
+            if (frameRect.Value.Width > m_image.Width || frameRect.Value.Height > m_image.Height)
             {
                 Editor.Log.Write("ERROR: Frame size greater than image size for " + m_fileName + 
                     ", expected width: " + frameRect.Value.Width + " height: " + frameRect.Value.Height + 
-                    ", got width: " + m_image.ImageFile.Width + " height: " + m_image.ImageFile.Height);
+                    ", got width: " + m_image.Width + " height: " + m_image.Height);
 
                 return null;
             }
 
-            Bitmap result = m_image.ImageFile.Clone(frameRect.Value, m_image.ImageFile.PixelFormat);
+            Bitmap result = m_image.Clone(frameRect.Value, m_image.PixelFormat);
             result.RotateFlip(m_flipped ? RotateFlipType.RotateNoneFlipX : RotateFlipType.RotateNoneFlipNone);
             return result;
         }
@@ -138,7 +130,7 @@ namespace Starstructor.StarboundTypes.Objects
         public bool DrawObject(Graphics gfx, int x, int y, int originX, int originY, int sizeX, int sizeY, 
             int gridFactor = Editor.DEFAULT_GRID_FACTOR, float opacity = 1.0f)
         {
-            if (m_image == null || m_image.ImageFile == null || m_frames == null)
+            if (m_image == null || m_frames == null)
                 return false;
 
             /*Rectangle? srcRect = GetImageFrame();
