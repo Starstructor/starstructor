@@ -126,6 +126,12 @@
   <metadata name="SaveActive.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>227, 17</value>
   </metadata>
+  <metadata name="contextMenuPartsList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>607, 17</value>
+  </metadata>
+  <metadata name="contextMenuBrushesList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>776, 17</value>
+  </metadata>
   <data name="LabelMainTabWelcome.Text" xml:space="preserve">
     <value>Welcome to Starstructor!
 
@@ -135,12 +141,6 @@ Navigate through brushes using the brushes tab.
 
 Various attributes of both parts and brushes can be edited below, or by right-clicking for a context menu.</value>
   </data>
-  <metadata name="contextMenuPartsList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>607, 17</value>
-  </metadata>
-  <metadata name="contextMenuBrushesList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>776, 17</value>
-  </metadata>
   <metadata name="SaveFileDlg.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>337, 17</value>
   </metadata>
@@ -151,7 +151,7 @@ Various attributes of both parts and brushes can be edited below, or by right-cl
     <value>186, 56</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>94</value>
+    <value>52</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

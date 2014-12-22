@@ -301,7 +301,9 @@ namespace Starstructor.GUI
 
       // Disable the wizard buttons
       ButtonImportBrush.Enabled = false;
+      AddBrushButton.Enabled = false;
       ButtonImportPart.Enabled = false;
+      AddPartButton.Enabled = false;
       newPartToolStripMenuItem1.Enabled = false;
       newBrushToolStripMenuItem1.Enabled = false;
 
@@ -818,10 +820,12 @@ namespace Starstructor.GUI
       saveToolStripMenuItem.Enabled = true;
       saveAsToolStripMenuItem.Enabled = true;
       ButtonImportBrush.Enabled = true;
+      AddBrushButton.Enabled = true;
 
       if (m_parent.ActiveFile is StarboundDungeon)
       {
         ButtonImportPart.Enabled = true;
+        AddPartButton.Enabled = true;
         newPartToolStripMenuItem1.Enabled = true;
       }
 
