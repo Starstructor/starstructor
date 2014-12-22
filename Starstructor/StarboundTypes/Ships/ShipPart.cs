@@ -62,22 +62,6 @@ namespace Starstructor.StarboundTypes.Ships
 
             base.UpdateLayerImage(layers, false, false, true, true);
 
-            if (parentShip.ForegroundOverlays != null)
-            {
-                // Draw foreground overlays
-                foreach (ShipOverlay overlay in parentShip.ForegroundOverlays)
-                {
-                    double originX = overlay.Position.x*Editor.DEFAULT_GRID_FACTOR;
-                    // Translate to the bottom-left, then offset by provided value
-                    double originY = (GraphicsMap.Height - overlay.Image.Height) -
-                                    (overlay.Position.y*Editor.DEFAULT_GRID_FACTOR);
-
-                    gfx.DrawImage(overlay.Image, 
-                        (float)originX, (float)originY, 
-                        overlay.Image.Width, overlay.Image.Height);
-                }
-            }
-
             //gfx.Dispose();
         }
 

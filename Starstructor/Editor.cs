@@ -136,35 +136,25 @@ namespace Starstructor
             if (Path.GetExtension(path) == ".dungeon")
             {
                 m_activeFile = JsonParser.ParseJson<StarboundDungeon>(path);
-
-                if (m_activeFile == null) return false;
-
-                m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Parts.Count + " parts");
-                m_activeFile.ReadableParts.AddRange(((StarboundDungeon)m_activeFile).Parts);
-                
-                m_log.Write("  Parsing " + ((StarboundDungeon)m_activeFile).Tiles.Count + " brushes");
-                m_activeFile.BlockMap.AddRange(((StarboundDungeon)m_activeFile).Tiles);
             }
             else if (Path.GetExtension(path) == ".structure")
             {
                 m_activeFile = JsonParser.ParseJson<StarboundShip>(path);
-
-                if (m_activeFile == null) return false;
-
-                m_log.Write("  Parsing " + ((StarboundShip)m_activeFile).Brushes.Count + " brushes");
-                m_activeFile.BlockMap.AddRange(((StarboundShip) m_activeFile).Brushes);
             }
+            if (m_activeFile == null) return false;
 
             ActiveFile.FilePath = path;
             ActiveFile.GenerateBrushAndAssetMaps(this);
             ActiveFile.LoadParts(this);
-
+            
             m_log.Write("Completed parsing " + path);
             Settings.RecentFiles.Remove(path);
             Settings.RecentFiles.Insert(0, path);    // Insert the newest element at the beginning
 
             while (Settings.RecentFiles.Count > 10)  // Remove last elements over the max number of recent files
+            {
                 Settings.RecentFiles.RemoveAt(Settings.RecentFiles.Count - 1);
+            }
 
             return true;
         }

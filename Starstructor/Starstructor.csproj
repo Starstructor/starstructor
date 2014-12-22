@@ -170,6 +170,7 @@
     <Compile Include="StarboundTypes\Ships\ShipOverlay.cs" />
     <Compile Include="StarboundTypes\Ships\ShipPart.cs" />
     <Compile Include="StarboundTypes\Ships\ShipBrush.cs" />
+    <Compile Include="StarboundTypes\Ships\ShipUpgrades.cs" />
     <Compile Include="StarboundTypes\StarboundShip.cs" />
     <Compile Include="StarboundTypes\StarboundDungeon.cs" />
     <Compile Include="StarboundTypes\StarboundNpc.cs" />

@@ -39,5 +39,7 @@ namespace Starstructor.StarboundTypes.Ships
         // Vec2F
         [JsonProperty("position", Required = Required.Always), TypeConverter(typeof(ExpandableObjectConverter))]
         public Vec2F Position { get; set; }
+
+        public bool? fullbright { get; set; }
     }
 }

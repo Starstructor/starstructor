@@ -104,6 +104,8 @@ namespace Starstructor.StarboundTypes
 
         public override void GenerateBrushAndAssetMaps(Editor parent)
         {
+            ReadableParts.AddRange(Parts);
+            BlockMap.AddRange(Tiles);
             Dictionary<Color, EditorBrush> map = parent.BrushMap;
 
             foreach (DungeonBrush brush in BlockMap)

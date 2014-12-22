@@ -29,6 +29,7 @@ using Newtonsoft.Json;
 using Starstructor.Data;
 using Starstructor.EditorObjects;
 using Starstructor.StarboundTypes.Ships;
+using System.Collections.Generic;
 
 namespace Starstructor.StarboundTypes
 {
@@ -42,19 +43,10 @@ namespace Starstructor.StarboundTypes
         [JsonProperty("backgroundOverlays")]
         public BindingList<ShipOverlay> BackgroundOverlays { get; set; }
 
-        [Browsable(false)]
-        [JsonProperty("foregroundOverlays")]
-        public BindingList<ShipOverlay> ForegroundOverlays { get; set; }
+        [JsonIgnore]
+        public List<ShipBrush> m_brushes;
 
-        // type: Vec2I, default: [0,0]
-        [ReadOnly(true), TypeConverter(typeof(ExpandableObjectConverter))]
-        [JsonProperty("blocksPosition")]
-        public Vec2I BlocksPosition { get; set; }
-        //public List<int> BlocksPosition { get; set; }
-
-        [Browsable(false)]
-        [JsonProperty("blockKey")]
-        public BindingList<ShipBrush> Brushes { get; set; }
+        public string blockKey { get; set; }
 
         [Browsable(false)]
         [JsonProperty("blockImage")]
@@ -68,7 +60,7 @@ namespace Starstructor.StarboundTypes
 
             if (!File.Exists(path))
             {
-                Editor.Log.Write("  Part image " + PartImage + "does not exist");
+                Editor.Log.Write("  Part image " + PartImage + " does not exist");
                 return;
             }
 
@@ -95,6 +87,9 @@ namespace Starstructor.StarboundTypes
 
         public override void GenerateBrushAndAssetMaps(Editor parent)
         {
+            LoadBrushes();
+            BlockMap.AddRange(m_brushes);
+
             foreach (ShipBrush brush in BlockMap)
             {
                 string backgroundType = null;
@@ -197,24 +192,24 @@ namespace Starstructor.StarboundTypes
                 }
             }
 
-            if (ForegroundOverlays != null)
-            {
-                foreach (ShipOverlay overlay in ForegroundOverlays)
-                {
-                    Editor.Log.Write("  Loading foreground overlay " + overlay.ImageName);
-                    string path = EditorHelpers.ParsePath(Path.GetDirectoryName(FilePath), overlay.ImageName);
-
-                    if (File.Exists(path))
-                    {
-                        overlay.Image = EditorHelpers.LoadImageFromFile(path);
-                        Editor.Log.Write("  Completed loading foreground overlay " + overlay.ImageName);
-                    }
-                }
-            }
         }
 
         private void LoadSpecialBrushes(Editor parent)
         {
+        }
+
+        private void LoadBrushes()
+        {
+            string[] entries = blockKey.Split(':');
+            string blocksFile = entries[0];
+            string blockKeyValue = entries[1];
+
+            string assetPath = EditorHelpers.FindAsset(Path.GetDirectoryName(FilePath), blocksFile);
+            Dictionary<string, List<ShipBrush>> blocks = JsonParser.ParseJson<Dictionary<string, List<ShipBrush>>>(assetPath);
+            if (!blocks.TryGetValue(blockKeyValue, out m_brushes))
+            {
+                Editor.Log.Write("Unable to find \"" + blockKeyValue + "\" in ship block key file.");
+            }
         }
     }
 }

@@ -1178,7 +1178,7 @@ namespace Starstructor.GUI
         else if (fileType == typeof(StarboundShip))
         {
           StarboundShip ship = (StarboundShip)m_parent.ActiveFile;
-          ship.Brushes.Remove((ShipBrush)brush);
+          ship.m_brushes.Remove((ShipBrush)brush);
         }
 
         PopulateBrushList();
@@ -1261,7 +1261,7 @@ namespace Starstructor.GUI
       else if (fileType == typeof(StarboundShip))
       {
         StarboundShip ship = (StarboundShip)m_parent.ActiveFile;
-        ship.Brushes.Add((ShipBrush)brush);
+        ship.m_brushes.Add((ShipBrush)brush);
       }
 
       // Update the brush list

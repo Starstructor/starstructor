@@ -56,6 +56,10 @@ namespace Starstructor.StarboundTypes.Ships
         [ReadOnly(true)]
         public string BackgroundMat { get; set; }
 
+        public bool foregroundResidual { get; set; }
+        public bool backgroundResidual { get; set; }
+        public bool objectResidual { get; set; }
+
         [JsonProperty("object")]
         [DefaultValue("")]
         [ReadOnly(true)]
