@@ -92,36 +92,36 @@ namespace Starstructor.GUI
             this.LabelMainTabWelcome = new System.Windows.Forms.Label();
             this.ButtonImportBrush = new System.Windows.Forms.Button();
             this.ButtonImportPart = new System.Windows.Forms.Button();
+            this.PartsTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.PartTreeView = new System.Windows.Forms.TreeView();
             this.contextMenuPartsList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newPartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.renamePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resizePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deletePartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.PartsSearchBox = new System.Windows.Forms.TextBox();
+            this.AddPartButton = new System.Windows.Forms.Button();
             this.BrushesTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.BrushesTreeView = new System.Windows.Forms.TreeView();
             this.contextMenuBrushesList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.renameBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.AddBrushButton = new System.Windows.Forms.Button();
+            this.BrushesSearchBox = new System.Windows.Forms.TextBox();
             this.RightPanelProperties = new System.Windows.Forms.PropertyGrid();
             this.SaveFileDlg = new System.Windows.Forms.SaveFileDialog();
             this.SaveScreenshotDlg = new System.Windows.Forms.SaveFileDialog();
             this.FolderBrowseStarbound = new System.Windows.Forms.FolderBrowserDialog();
-            this.PartsTab = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.PartTreeView = new System.Windows.Forms.TreeView();
-            this.PartsSearchBox = new System.Windows.Forms.TextBox();
-            this.AddPartButton = new System.Windows.Forms.Button();
             this.VisualRgbaBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.VisualGraphicBrushImageBox = new Starstructor.GUI.NoAliasPictureBox();
             this.MainPictureBox = new Starstructor.GUI.ImageBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.BrushesTreeView = new System.Windows.Forms.TreeView();
-            this.AddBrushButton = new System.Windows.Forms.Button();
-            this.BrushesSearchBox = new System.Windows.Forms.TextBox();
             this.MainMenu.SuspendLayout();
             this.MainTableLayout.SuspendLayout();
             this.BottomBarTable.SuspendLayout();
@@ -137,16 +137,16 @@ namespace Starstructor.GUI
             this.RightPanelTabControl.SuspendLayout();
             this.MainTab.SuspendLayout();
             this.TableLayoutPanelMainTab.SuspendLayout();
-            this.contextMenuPartsList.SuspendLayout();
-            this.BrushesTab.SuspendLayout();
-            this.contextMenuBrushesList.SuspendLayout();
             this.PartsTab.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.contextMenuPartsList.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.BrushesTab.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.contextMenuBrushesList.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -623,6 +623,48 @@ namespace Starstructor.GUI
             this.ButtonImportPart.UseVisualStyleBackColor = true;
             this.ButtonImportPart.Click += new System.EventHandler(this.ButtonImportPart_Click);
             // 
+            // PartsTab
+            // 
+            this.PartsTab.Controls.Add(this.tableLayoutPanel1);
+            this.PartsTab.Location = new System.Drawing.Point(4, 22);
+            this.PartsTab.Name = "PartsTab";
+            this.PartsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PartsTab.Size = new System.Drawing.Size(230, 344);
+            this.PartsTab.TabIndex = 1;
+            this.PartsTab.Text = "Parts";
+            this.PartsTab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.PartTreeView, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(224, 338);
+            this.tableLayoutPanel1.TabIndex = 6;
+            // 
+            // PartTreeView
+            // 
+            this.PartTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PartTreeView.ContextMenuStrip = this.contextMenuPartsList;
+            this.PartTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PartTreeView.FullRowSelect = true;
+            this.PartTreeView.HideSelection = false;
+            this.PartTreeView.Indent = 12;
+            this.PartTreeView.LabelEdit = true;
+            this.PartTreeView.Location = new System.Drawing.Point(0, 35);
+            this.PartTreeView.Margin = new System.Windows.Forms.Padding(0);
+            this.PartTreeView.Name = "PartTreeView";
+            this.PartTreeView.ShowLines = false;
+            this.PartTreeView.Size = new System.Drawing.Size(224, 303);
+            this.PartTreeView.TabIndex = 6;
+            // 
             // contextMenuPartsList
             // 
             this.contextMenuPartsList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -671,6 +713,45 @@ namespace Starstructor.GUI
             this.deletePartToolStripMenuItem.Text = "&Delete Part";
             this.deletePartToolStripMenuItem.Click += new System.EventHandler(this.deletePartToolStripMenuItem_Click);
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.Controls.Add(this.PartsSearchBox, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.AddPartButton, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(218, 29);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // PartsSearchBox
+            // 
+            this.PartsSearchBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PartsSearchBox.Location = new System.Drawing.Point(3, 3);
+            this.PartsSearchBox.Name = "PartsSearchBox";
+            this.PartsSearchBox.Size = new System.Drawing.Size(167, 20);
+            this.PartsSearchBox.TabIndex = 0;
+            // 
+            // AddPartButton
+            // 
+            this.AddPartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddPartButton.AutoSize = true;
+            this.AddPartButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddPartButton.Enabled = false;
+            this.AddPartButton.Location = new System.Drawing.Point(176, 3);
+            this.AddPartButton.Name = "AddPartButton";
+            this.AddPartButton.Size = new System.Drawing.Size(39, 23);
+            this.AddPartButton.TabIndex = 1;
+            this.AddPartButton.Text = "New";
+            this.AddPartButton.UseVisualStyleBackColor = true;
+            this.AddPartButton.Click += new System.EventHandler(this.ButtonImportPart_Click);
+            // 
             // BrushesTab
             // 
             this.BrushesTab.Controls.Add(this.tableLayoutPanel3);
@@ -681,6 +762,41 @@ namespace Starstructor.GUI
             this.BrushesTab.TabIndex = 2;
             this.BrushesTab.Text = "Brushes";
             this.BrushesTab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.BrushesTreeView, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(224, 338);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // BrushesTreeView
+            // 
+            this.BrushesTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.BrushesTreeView.ContextMenuStrip = this.contextMenuBrushesList;
+            this.BrushesTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BrushesTreeView.FullRowSelect = true;
+            this.BrushesTreeView.HideSelection = false;
+            this.BrushesTreeView.Indent = 12;
+            this.BrushesTreeView.LabelEdit = true;
+            this.BrushesTreeView.Location = new System.Drawing.Point(0, 35);
+            this.BrushesTreeView.Margin = new System.Windows.Forms.Padding(0);
+            this.BrushesTreeView.Name = "BrushesTreeView";
+            this.BrushesTreeView.PathSeparator = "/";
+            this.BrushesTreeView.ShowLines = false;
+            this.BrushesTreeView.ShowNodeToolTips = true;
+            this.BrushesTreeView.ShowPlusMinus = false;
+            this.BrushesTreeView.ShowRootLines = false;
+            this.BrushesTreeView.Size = new System.Drawing.Size(224, 303);
+            this.BrushesTreeView.TabIndex = 7;
             // 
             // contextMenuBrushesList
             // 
@@ -721,6 +837,45 @@ namespace Starstructor.GUI
             this.deleteBrushToolStripMenuItem.Text = "&Delete Brush";
             this.deleteBrushToolStripMenuItem.Click += new System.EventHandler(this.deleteBrushToolStripMenuItem_Click);
             // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.Controls.Add(this.AddBrushButton, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.BrushesSearchBox, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(218, 29);
+            this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // AddBrushButton
+            // 
+            this.AddBrushButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddBrushButton.AutoSize = true;
+            this.AddBrushButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AddBrushButton.Enabled = false;
+            this.AddBrushButton.Location = new System.Drawing.Point(176, 3);
+            this.AddBrushButton.Name = "AddBrushButton";
+            this.AddBrushButton.Size = new System.Drawing.Size(39, 23);
+            this.AddBrushButton.TabIndex = 0;
+            this.AddBrushButton.Text = "New";
+            this.AddBrushButton.UseVisualStyleBackColor = true;
+            this.AddBrushButton.Click += new System.EventHandler(this.ButtonImportBrush_Click);
+            // 
+            // BrushesSearchBox
+            // 
+            this.BrushesSearchBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BrushesSearchBox.Location = new System.Drawing.Point(3, 3);
+            this.BrushesSearchBox.Name = "BrushesSearchBox";
+            this.BrushesSearchBox.Size = new System.Drawing.Size(167, 20);
+            this.BrushesSearchBox.TabIndex = 1;
+            // 
             // RightPanelProperties
             // 
             this.RightPanelProperties.BackColor = System.Drawing.SystemColors.Control;
@@ -746,87 +901,6 @@ namespace Starstructor.GUI
             this.FolderBrowseStarbound.Description = "Please navigate to Starbound\'s assets directory.";
             this.FolderBrowseStarbound.RootFolder = System.Environment.SpecialFolder.MyComputer;
             this.FolderBrowseStarbound.ShowNewFolderButton = false;
-            // 
-            // PartsTab
-            // 
-            this.PartsTab.Controls.Add(this.tableLayoutPanel1);
-            this.PartsTab.Location = new System.Drawing.Point(4, 22);
-            this.PartsTab.Name = "PartsTab";
-            this.PartsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PartsTab.Size = new System.Drawing.Size(230, 344);
-            this.PartsTab.TabIndex = 1;
-            this.PartsTab.Text = "Parts";
-            this.PartsTab.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.PartTreeView, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(224, 338);
-            this.tableLayoutPanel1.TabIndex = 6;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.Controls.Add(this.PartsSearchBox, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.AddPartButton, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(218, 29);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // PartTreeView
-            // 
-            this.PartTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PartTreeView.ContextMenuStrip = this.contextMenuPartsList;
-            this.PartTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartTreeView.FullRowSelect = true;
-            this.PartTreeView.HideSelection = false;
-            this.PartTreeView.Indent = 12;
-            this.PartTreeView.LabelEdit = true;
-            this.PartTreeView.Location = new System.Drawing.Point(0, 35);
-            this.PartTreeView.Margin = new System.Windows.Forms.Padding(0);
-            this.PartTreeView.Name = "PartTreeView";
-            this.PartTreeView.ShowLines = false;
-            this.PartTreeView.Size = new System.Drawing.Size(224, 338);
-            this.PartTreeView.TabIndex = 6;
-            // 
-            // PartsSearchBox
-            // 
-            this.PartsSearchBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartsSearchBox.Location = new System.Drawing.Point(3, 3);
-            this.PartsSearchBox.Name = "PartsSearchBox";
-            this.PartsSearchBox.Size = new System.Drawing.Size(167, 20);
-            this.PartsSearchBox.TabIndex = 0;
-            // 
-            // AddPartButton
-            // 
-            this.AddPartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddPartButton.AutoSize = true;
-            this.AddPartButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddPartButton.Enabled = false;
-            this.AddPartButton.Location = new System.Drawing.Point(176, 3);
-            this.AddPartButton.Name = "AddPartButton";
-            this.AddPartButton.Size = new System.Drawing.Size(39, 23);
-            this.AddPartButton.TabIndex = 1;
-            this.AddPartButton.Text = "New";
-            this.AddPartButton.UseVisualStyleBackColor = true;
-            this.AddPartButton.Click += new System.EventHandler(this.ButtonImportPart_Click);
             // 
             // VisualRgbaBrushImageBox
             // 
@@ -862,80 +936,6 @@ namespace Starstructor.GUI
             this.MainPictureBox.Size = new System.Drawing.Size(1024, 707);
             this.MainPictureBox.TabIndex = 3;
             // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.BrushesTreeView, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(224, 338);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.AutoSize = true;
-            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.Controls.Add(this.AddBrushButton, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.BrushesSearchBox, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(218, 29);
-            this.tableLayoutPanel4.TabIndex = 0;
-            // 
-            // BrushesTreeView
-            // 
-            this.BrushesTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.BrushesTreeView.ContextMenuStrip = this.contextMenuBrushesList;
-            this.BrushesTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrushesTreeView.FullRowSelect = true;
-            this.BrushesTreeView.HideSelection = false;
-            this.BrushesTreeView.Indent = 12;
-            this.BrushesTreeView.LabelEdit = true;
-            this.BrushesTreeView.Location = new System.Drawing.Point(0, 35);
-            this.BrushesTreeView.Margin = new System.Windows.Forms.Padding(0);
-            this.BrushesTreeView.Name = "BrushesTreeView";
-            this.BrushesTreeView.PathSeparator = "/";
-            this.BrushesTreeView.ShowLines = false;
-            this.BrushesTreeView.ShowNodeToolTips = true;
-            this.BrushesTreeView.ShowPlusMinus = false;
-            this.BrushesTreeView.ShowRootLines = false;
-            this.BrushesTreeView.Size = new System.Drawing.Size(224, 338);
-            this.BrushesTreeView.TabIndex = 7;
-            // 
-            // AddBrushButton
-            // 
-            this.AddBrushButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddBrushButton.AutoSize = true;
-            this.AddBrushButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AddBrushButton.Enabled = false;
-            this.AddBrushButton.Location = new System.Drawing.Point(176, 3);
-            this.AddBrushButton.Name = "AddBrushButton";
-            this.AddBrushButton.Size = new System.Drawing.Size(39, 23);
-            this.AddBrushButton.TabIndex = 0;
-            this.AddBrushButton.Text = "New";
-            this.AddBrushButton.UseVisualStyleBackColor = true;
-            this.AddBrushButton.Click += new System.EventHandler(this.ButtonImportBrush_Click);
-            // 
-            // BrushesSearchBox
-            // 
-            this.BrushesSearchBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrushesSearchBox.Location = new System.Drawing.Point(3, 3);
-            this.BrushesSearchBox.Name = "BrushesSearchBox";
-            this.BrushesSearchBox.Size = new System.Drawing.Size(167, 20);
-            this.BrushesSearchBox.TabIndex = 1;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -970,20 +970,20 @@ namespace Starstructor.GUI
             this.MainTab.ResumeLayout(false);
             this.TableLayoutPanelMainTab.ResumeLayout(false);
             this.TableLayoutPanelMainTab.PerformLayout();
-            this.contextMenuPartsList.ResumeLayout(false);
-            this.BrushesTab.ResumeLayout(false);
-            this.contextMenuBrushesList.ResumeLayout(false);
             this.PartsTab.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.contextMenuPartsList.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
+            this.BrushesTab.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.contextMenuBrushesList.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualRgbaBrushImageBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualGraphicBrushImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
