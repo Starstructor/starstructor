@@ -39,8 +39,8 @@ namespace Starstructor.GUI
 
         private const int MIN_WIDTH = 1;
         private const int MIN_HEIGHT = 1;
-        private const int MAX_WIDTH = 512;
-        private const int MAX_HEIGHT = 512;
+        private const int MAX_WIDTH = 4096;
+        private const int MAX_HEIGHT = 4096;
 
         public NewPart()
         {
